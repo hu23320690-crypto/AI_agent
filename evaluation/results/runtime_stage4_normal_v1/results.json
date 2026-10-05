@@ -1,0 +1,1261 @@
+[
+  {
+    "id": "K14",
+    "status": "ok",
+    "turns": [
+      {
+        "query": "木地板与瓷砖拖地时，出水量应该怎样区分？",
+        "answer": "木地板使用低档出水量，瓷砖使用中档出水量。",
+        "seconds": 47.51387150000028
+      }
+    ],
+    "contexts": [
+      {
+        "query": "木地板与瓷砖拖地时，出水量应该怎样区分？",
+        "run_id": "3082532e1fb1484e809813b0000d6887",
+        "docs": [
+          {
+            "text": "### 拖地系统专属类\n11. **水箱加水后漏水怎么处理？**\n- 检查水箱盖是否拧紧、水箱密封圈是否脱落或破损，确认出水管无堵塞，加水至刻度线内，避免过满溢出。\n12. **拖地时出水量过大或过小怎么调节？**\n- 在APP中进入【拖地设置】，一般分低、中、高三档出水量，木地板选低档，瓷砖、水泥地可选中高档。\n13. **水箱没水了机器人会自动停止吗？**",
+            "metadata": {
+              "source_version": 1,
+              "start_index": 764,
+              "chunk_index": 5,
+              "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+              "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+              "chunk_id": "183180e0a68f00ef7db433a72aedc746a0a8d565e52654ca2c64a54080f8dfb8",
+              "chunk_count": 51,
+              "source": "E:\\pycharm\\AI_agent\\data\\扫拖一体机器人100问.txt",
+              "source_key": "00d47187b26b62e7e32985134c6a843e4cf827c1c3b00fe75cf36cc6baae5b5d",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+              "chunk_sha256": "2a2369b163cef22bef2f8be4bb1574873cad1514f2a78eadb29bcd7418d4dc23"
+            }
+          },
+          {
+            "text": "## 环境适配维护（20条）\n1. 木地板环境：拖地时调至低档出水量，使用干拖模式，避免地面积水，每周对机器人轮组进行除尘，防止泥沙磨损地板。\n2. 瓷砖/大理石环境：拖地后及时清理机器人底部水渍，每月对拖布支架进行除垢，防止水垢附着。\n3. 长毛地毯环境：清扫后立即清理主刷、边刷上的地毯纤维，关闭拖地功能，防止拖布浸湿地毯导致发霉。",
+            "metadata": {
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+              "chunk_count": 53,
+              "start_index": 6175,
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "chunk_sha256": "072f1a35b91586a2a2ff4777c3dc548d19404d2811ec3d7029e4ea35859ef316",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "chunk_index": 36,
+              "chunk_id": "cf4230497131a23146d2a388c9b77b0e0a99c8f319c8675b963f1ca90e833610",
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "source_version": 1,
+              "source_id": "src_346430645ac43894f75b9be2",
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+            }
+          },
+          {
+            "text": "- 选择支持“断点续拖”的机型，加水后机器人会回到缺水位置继续拖地；也可将地图分区，分批次对不同区域进行拖扫。\n31. **木地板拖完后起翘、变形怎么办？**\n- 立即用干布吸干木地板表面水分，打开门窗通风；后续拖地时调至“干拖”或最低档出水量，避免地面积水。\n32. **瓷砖地面的缝隙污渍拖不干净怎么处理？**",
+            "metadata": {
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+              "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+              "source_version": 1,
+              "source_key": "00d47187b26b62e7e32985134c6a843e4cf827c1c3b00fe75cf36cc6baae5b5d",
+              "start_index": 2237,
+              "chunk_sha256": "75700d4524bb37e9fd8ec5d93222b407d01846f747954aebc479c6e3bc48ebe8",
+              "chunk_index": 14,
+              "chunk_id": "ededd11dbb98b97ce6100199c3a9e692b23730b787273740de7f1566f6d72a6f",
+              "chunk_count": 51,
+              "source": "E:\\pycharm\\AI_agent\\data\\扫拖一体机器人100问.txt",
+              "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc"
+            }
+          },
+          {
+            "text": "39. 驱动轮材质：橡胶材质防滑性优于塑料，带纹路设计增强抓地力，适配地毯和湿滑地面。\n\n40. 万向轮设计：可360°旋转无卡顿，带防缠绕盖，避免毛发缠绕影响转向。\n\n41. 清洁覆盖率：选购时可参考实测覆盖率≥98%，避免漏扫大片区域，优先选规划式清扫机型。\n\n42. 出水量调节：至少分3档调节，木地板用低档、瓷砖用中档、顽固污渍用高档，精准适配场景。",
+            "metadata": {
+              "source_version": 1,
+              "start_index": 1840,
+              "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+              "chunk_id": "971678f0d3a7dde2d18a7e8af80d8dba5fbc9d134ff7d7fb39e598f17554da00",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+              "source": "E:\\pycharm\\AI_agent\\data\\选购指南.txt",
+              "chunk_sha256": "a968ddbb08a1914f195f21b29cbf521748ca9cc120802c58a9422e89fcdaf39b",
+              "chunk_index": 10,
+              "source_id": "src_2db1465df193608158c1225b",
+              "chunk_count": 48,
+              "source_key": "2df33a9e1f227015d48a733f0280bf14d1f08b5528f918e09964a57e0d1a6668"
+            }
+          },
+          {
+            "text": "31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。\n\n32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。\n\n33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。\n\n34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。",
+            "metadata": {
+              "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+              "source_key": "2df33a9e1f227015d48a733f0280bf14d1f08b5528f918e09964a57e0d1a6668",
+              "chunk_sha256": "73e3e7420555d927ebd34285413cda9998332fceb7abd7ef042008e1700c62f7",
+              "chunk_count": 48,
+              "chunk_id": "8ba74b2d5219318807a3ac4d12394250138ad389a115c33b7a184aba9a0dbcca",
+              "chunk_index": 8,
+              "source_id": "src_2db1465df193608158c1225b",
+              "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "start_index": 1483,
+              "source_version": 1,
+              "source": "E:\\pycharm\\AI_agent\\data\\选购指南.txt"
+            }
+          }
+        ]
+      }
+    ],
+    "runtime": {
+      "run_id": "3082532e1fb1484e809813b0000d6887",
+      "status": "succeeded",
+      "seconds": 47.5,
+      "counts": {
+        "run": 1,
+        "retrieval": 2,
+        "embedding": 1,
+        "model": 1
+      },
+      "error_type": null,
+      "events": [
+        {
+          "event": "run_started",
+          "seconds": 0.0
+        },
+        {
+          "event": "call_queued",
+          "seconds": 0.0,
+          "kind": "run",
+          "name": "normal.rag",
+          "call_id": "c7b25c4ac3b3440084ab94439cf33fec"
+        },
+        {
+          "event": "call_started",
+          "seconds": 0.0,
+          "kind": "run",
+          "name": "normal.rag",
+          "call_id": "c7b25c4ac3b3440084ab94439cf33fec"
+        },
+        {
+          "event": "call_queued",
+          "seconds": 0.0,
+          "kind": "retrieval",
+          "name": "rag.retrieve",
+          "call_id": "8cc5693cb757462bbf7e4064e3b29258"
+        },
+        {
+          "event": "call_started",
+          "seconds": 0.0,
+          "kind": "retrieval",
+          "name": "rag.retrieve",
+          "call_id": "8cc5693cb757462bbf7e4064e3b29258"
+        },
+        {
+          "event": "knowledge_filter",
+          "seconds": 0.781,
+          "allowed_chunks": 326,
+          "blocked_sources": 0
+        },
+        {
+          "event": "call_queued",
+          "seconds": 0.781,
+          "kind": "embedding",
+          "name": "ollama.embed",
+          "call_id": "3a91396d76204c8fbce316ae54b47d21"
+        },
+        {
+          "event": "call_started",
+          "seconds": 0.781,
+          "kind": "embedding",
+          "name": "ollama.embed",
+          "call_id": "3a91396d76204c8fbce316ae54b47d21"
+        },
+        {
+          "event": "call_finished",
+          "seconds": 11.969,
+          "kind": "embedding",
+          "name": "ollama.embed",
+          "call_id": "3a91396d76204c8fbce316ae54b47d21"
+        },
+        {
+          "event": "call_finished",
+          "seconds": 12.047,
+          "kind": "retrieval",
+          "name": "rag.retrieve",
+          "call_id": "8cc5693cb757462bbf7e4064e3b29258"
+        },
+        {
+          "event": "call_queued",
+          "seconds": 12.062,
+          "kind": "model",
+          "name": "rag.model",
+          "call_id": "9e7d29082a64497186188945a627346a"
+        },
+        {
+          "event": "call_started",
+          "seconds": 12.062,
+          "kind": "model",
+          "name": "rag.model",
+          "call_id": "9e7d29082a64497186188945a627346a"
+        },
+        {
+          "event": "call_finished",
+          "seconds": 47.484,
+          "kind": "model",
+          "name": "rag.model",
+          "call_id": "9e7d29082a64497186188945a627346a"
+        },
+        {
+          "event": "call_finished",
+          "seconds": 47.5,
+          "kind": "run",
+          "name": "normal.rag",
+          "call_id": "c7b25c4ac3b3440084ab94439cf33fec"
+        },
+        {
+          "event": "call_queued",
+          "seconds": 47.5,
+          "kind": "retrieval",
+          "name": "run.commit_validation",
+          "call_id": "1705f49257e744939ffae7a1532efa1b"
+        },
+        {
+          "event": "call_started",
+          "seconds": 47.5,
+          "kind": "retrieval",
+          "name": "run.commit_validation",
+          "call_id": "1705f49257e744939ffae7a1532efa1b"
+        },
+        {
+          "event": "call_finished",
+          "seconds": 47.5,
+          "kind": "retrieval",
+          "name": "run.commit_validation",
+          "call_id": "1705f49257e744939ffae7a1532efa1b"
+        },
+        {
+          "event": "run_finished",
+          "seconds": 47.5,
+          "status": "succeeded"
+        }
+      ]
+    },
+    "model_calls": [
+      {
+        "usage": {
+          "input_tokens": 1863,
+          "output_tokens": 1850,
+          "total_tokens": 3713
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:57:25.9303111Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 35384221500,
+          "load_duration": 10874069900,
+          "prompt_eval_count": 1863,
+          "prompt_eval_duration": 628638000,
+          "eval_count": 1850,
+          "eval_duration": 23870807000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      }
+    ],
+    "tool_calls": []
+  },
+  {
+    "id": "A11",
+    "status": "ok",
+    "turns": [
+      {
+        "query": "主刷上缠了长头发，应该怎么清理？",
+        "answer": "拆卸主刷，用剪刀剪断缠绕的长头发，用毛刷清理滚刷仓",
+        "seconds": 81.80360810000002,
+        "tool_calls": [
+          {
+            "name": "rag_summarize",
+            "args": {
+              "query": "主刷上缠了长头发，应该怎么清理？"
+            },
+            "id": "91105057-a423-4085-8423-28161fd681c0",
+            "type": "tool_call"
+          }
+        ],
+        "tool_results": [
+          {
+            "name": "rag_summarize",
+            "status": "success",
+            "content": "拆卸主刷，用剪刀剪断缠绕的长头发，用毛刷清理滚刷仓"
+          }
+        ],
+        "runtime": {
+          "run_id": "6b5fdf5d92c149f0a9db2e90ec9d4fd9",
+          "status": "succeeded",
+          "seconds": 81.797,
+          "counts": {
+            "run": 1,
+            "model": 3,
+            "tool": 1,
+            "retrieval": 2,
+            "embedding": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "286efaf3c56c4049b3c2c3402515fa4f"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "286efaf3c56c4049b3c2c3402515fa4f"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "a5010bec346442f28f1502de30b7a599"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "a5010bec346442f28f1502de30b7a599"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 5.188,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "a5010bec346442f28f1502de30b7a599"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.188,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "e219aab8836c432d8fcfe0bc4d8a8fd4"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.188,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "e219aab8836c432d8fcfe0bc4d8a8fd4"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.188,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "0b9fc1efe99a427aac06a7cf82167a1e"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.188,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "0b9fc1efe99a427aac06a7cf82167a1e"
+            },
+            {
+              "event": "knowledge_filter",
+              "seconds": 5.813,
+              "allowed_chunks": 326,
+              "blocked_sources": 0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.813,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "7a2f66f67b984b879200e9a6f93514b9"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.813,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "7a2f66f67b984b879200e9a6f93514b9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 13.953,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "7a2f66f67b984b879200e9a6f93514b9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 14.016,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "0b9fc1efe99a427aac06a7cf82167a1e"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 14.016,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "7d5499dfe37e48c898aa881414a9c1d0"
+            },
+            {
+              "event": "call_started",
+              "seconds": 14.016,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "7d5499dfe37e48c898aa881414a9c1d0"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 75.781,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "7d5499dfe37e48c898aa881414a9c1d0"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 75.797,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "e219aab8836c432d8fcfe0bc4d8a8fd4"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 75.813,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5c9ca3882a8e46f2a664a5179ac00c8f"
+            },
+            {
+              "event": "call_started",
+              "seconds": 75.813,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5c9ca3882a8e46f2a664a5179ac00c8f"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 81.797,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5c9ca3882a8e46f2a664a5179ac00c8f"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 81.797,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "286efaf3c56c4049b3c2c3402515fa4f"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 81.797,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "356c5ba243f645619e0446b70d8b4cda"
+            },
+            {
+              "event": "call_started",
+              "seconds": 81.797,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "356c5ba243f645619e0446b70d8b4cda"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 81.797,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "356c5ba243f645619e0446b70d8b4cda"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 81.797,
+              "status": "succeeded"
+            }
+          ]
+        }
+      },
+      {
+        "query": "清理刚才那个部件前需要断开电源吗？",
+        "answer": "参考资料中未提供足够信息",
+        "seconds": 66.16952360000005,
+        "tool_calls": [
+          {
+            "name": "rag_summarize",
+            "args": {
+              "query": "清理主刷前需要断开电源吗？"
+            },
+            "id": "67c7f10e-6c23-4cb7-8aba-d3837a2a5ed0",
+            "type": "tool_call"
+          }
+        ],
+        "tool_results": [
+          {
+            "name": "rag_summarize",
+            "status": "success",
+            "content": "参考资料中未提供足够信息"
+          }
+        ],
+        "runtime": {
+          "run_id": "ff09a7e7601748ab8e6a752e2cc77f65",
+          "status": "succeeded",
+          "seconds": 66.156,
+          "counts": {
+            "retrieval": 3,
+            "run": 1,
+            "model": 3,
+            "tool": 1,
+            "embedding": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "retrieval",
+              "name": "agent.history_validation",
+              "call_id": "8cbb02a6872c4f91976e9cd8b9f67377"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "retrieval",
+              "name": "agent.history_validation",
+              "call_id": "8cbb02a6872c4f91976e9cd8b9f67377"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.015,
+              "kind": "retrieval",
+              "name": "agent.history_validation",
+              "call_id": "8cbb02a6872c4f91976e9cd8b9f67377"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.015,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "0055a3930854440385e09c66b967532d"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.015,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "0055a3930854440385e09c66b967532d"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.015,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ca46a9f42ed84dc595c8823d05bf4a08"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.015,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ca46a9f42ed84dc595c8823d05bf4a08"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 5.843,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ca46a9f42ed84dc595c8823d05bf4a08"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.859,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "c55acd10d35746139eb49db101b119a7"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.859,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "c55acd10d35746139eb49db101b119a7"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.859,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "40b05db813ba46b39d4cf94d6915a282"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.859,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "40b05db813ba46b39d4cf94d6915a282"
+            },
+            {
+              "event": "knowledge_filter",
+              "seconds": 5.89,
+              "allowed_chunks": 326,
+              "blocked_sources": 0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.89,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "6d65b99342f242c18807745daabe2000"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.89,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "6d65b99342f242c18807745daabe2000"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 15.703,
+              "kind": "embedding",
+              "name": "ollama.embed",
+              "call_id": "6d65b99342f242c18807745daabe2000"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 15.734,
+              "kind": "retrieval",
+              "name": "rag.retrieve",
+              "call_id": "40b05db813ba46b39d4cf94d6915a282"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 15.75,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "c1d17b1ab6b549d293c257a7f6487fbe"
+            },
+            {
+              "event": "call_started",
+              "seconds": 15.75,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "c1d17b1ab6b549d293c257a7f6487fbe"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 60.687,
+              "kind": "model",
+              "name": "rag.model",
+              "call_id": "c1d17b1ab6b549d293c257a7f6487fbe"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 60.703,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "c55acd10d35746139eb49db101b119a7"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 60.703,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ffb0dc40fc464e2c90db851bc9376dc9"
+            },
+            {
+              "event": "call_started",
+              "seconds": 60.703,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ffb0dc40fc464e2c90db851bc9376dc9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 66.125,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "ffb0dc40fc464e2c90db851bc9376dc9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 66.125,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "0055a3930854440385e09c66b967532d"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 66.125,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "9ad38fc1424c4617b7d56d27a0b05ad0"
+            },
+            {
+              "event": "call_started",
+              "seconds": 66.14,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "9ad38fc1424c4617b7d56d27a0b05ad0"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 66.156,
+              "kind": "retrieval",
+              "name": "run.commit_validation",
+              "call_id": "9ad38fc1424c4617b7d56d27a0b05ad0"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 66.156,
+              "status": "succeeded"
+            }
+          ]
+        }
+      }
+    ],
+    "contexts": [
+      {
+        "query": "主刷上缠了长头发，应该怎么清理？",
+        "run_id": "6b5fdf5d92c149f0a9db2e90ec9d4fd9",
+        "docs": [
+          {
+            "text": "35. **主刷缠绕毛发怎么清理？**\n- 拆卸主刷两端卡扣，取下主刷，用剪刀剪断缠绕的毛发，用毛刷清理滚刷仓内杂物。",
+            "metadata": {
+              "chunk_sha256": "3fd587251935e8aa2a943dda5b8bfb48e17491ec113b706699d77ed24c41b0c1",
+              "chunk_id": "ec22ab82ef5b48db244d4978502c9c4cca4bf0d6ac327cdea54cee101a2a2692",
+              "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_version": 1,
+              "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+              "chunk_index": 13,
+              "chunk_count": 41,
+              "source_key": "23b391f5f4d3694895735d2ebb9abd031672eea3ce09156bb7c80e2822b25a93",
+              "source_id": "src_1554ea0dc05ee3f6b98692d8",
+              "start_index": 2350,
+              "source": "E:\\pycharm\\AI_agent\\data\\扫地机器人100问2.txt"
+            }
+          },
+          {
+            "text": "## 扫地功能专属维护（30条）\n1. 每次清扫完成后，立即清理主刷上的毛发、线头，用剪刀剪断缠绕物，切勿强行拉扯。\n2. 每日清理边刷上的灰尘、杂物，保证边刷旋转时能正常将边角灰尘扫入吸口。\n3. 每周拆解主刷滚刷仓，用软毛刷清理仓内的灰尘、毛发，无死角残留。\n4. 主刷使用时若出现“打滑”，检查滚刷胶条是否磨损，及时清洁或更换。",
+            "metadata": {
+              "source_id": "src_346430645ac43894f75b9be2",
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "chunk_sha256": "ed38cd762a510fc9368cfe7c264a3c55d5106073b3bf1d82a3d08f61115f5072",
+              "chunk_index": 11,
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_version": 1,
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "chunk_id": "5a8cdcee4b1cb36fb3ecf549158cda6a13251978a3c8835dc20e11cbdf870f61",
+              "chunk_count": 53,
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "start_index": 2019,
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt"
+            }
+          },
+          {
+            "text": "10. 每周检查机器人吸口滚刷（无主刷机型），确保无缠绕、磨损，转动顺畅。\n11. 集尘款机器人，每日检查集尘袋安装是否到位，密封严实，避免漏灰。\n12. 机器人在长毛地毯上清扫后，立即清理主刷上的地毯纤维，防止缠绕硬化。\n13. 每月检查主刷电机的工作状态，运行时无异常发热、异响，如有及时停机。\n14. 清理主刷时，注意保护滚刷两端的轴承，避免进水、进灰导致卡顿。",
+            "metadata": {
+              "chunk_sha256": "097525f2e9dbe15bcd6b400711f442cbad1ec73b85d60134146ca943948e93d3",
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "source_id": "src_346430645ac43894f75b9be2",
+              "chunk_id": "3d615d1656ca6a00ed5c70130887ab53b9a3593452b196cb74c13f9bab404179",
+              "chunk_index": 13,
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+              "start_index": 2379,
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "chunk_count": 53,
+              "source_version": 1
+            }
+          },
+          {
+            "text": "- 检查拖布是否脏污、硬化，及时清洗或更换拖布，针对顽固污渍可手动喷洒清洁剂后让机器人重拖。\n17. **机器人清扫时会遗漏毛发怎么办？**\n- 清理主刷缠绕的毛发，更换宠物专用防缠绕主刷，将吸力调至高档，开启“毛发清理模式”。\n18. **大颗粒垃圾（如饼干渣）吸不进去怎么办？**\n- 检查滚刷仓是否堵塞，确认吸口无遮挡，将机器人调至“大吸力模式”，避免大颗粒垃圾卡入滚刷。",
+            "metadata": {
+              "source": "E:\\pycharm\\AI_agent\\data\\扫地机器人100问2.txt",
+              "source_version": 1,
+              "start_index": 1079,
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+              "chunk_sha256": "dac617ac2ad424d08fff7d8cf853012cce58b1be96dfdb6c54fce2be4ce68eaf",
+              "chunk_id": "319a99aeb0ee1201f886fb3f30c81b7c0c3fc2be1c399bab67351fdc15ed8c7d",
+              "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+              "source_key": "23b391f5f4d3694895735d2ebb9abd031672eea3ce09156bb7c80e2822b25a93",
+              "chunk_count": 41,
+              "source_id": "src_1554ea0dc05ee3f6b98692d8",
+              "chunk_index": 6
+            }
+          },
+          {
+            "text": "123. 故障现象：机器人在长毛地毯上缠绕后停机；检测：是否开启防缠绕功能，主刷是否为防缠绕款；修复：开启防缠绕功能，更换防缠绕主刷，手动清理缠绕物。\n\n124. 故障现象：拖地时出水管漏水，而非水箱；检测：出水管是否破损，接口是否松动；修复：更换出水管，拧紧接口。",
+            "metadata": {
+              "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+              "chunk_count": 100,
+              "chunk_sha256": "b8042e0fa0f84d10067d0e2fb3fd9757c8d0ae0214ca2a20d47b605882721cb2",
+              "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+              "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+              "start_index": 9297,
+              "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+              "chunk_id": "7302f2aec24aa72ecd5c1067e6bdd534f8fe3e0da2d442fc4dedeadd273e3340",
+              "source_id": "src_dd546cd9d157bede19fde020",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_version": 1,
+              "chunk_index": 61
+            }
+          }
+        ]
+      },
+      {
+        "query": "清理主刷前需要断开电源吗？",
+        "run_id": "ff09a7e7601748ab8e6a752e2cc77f65",
+        "docs": [
+          {
+            "text": "25. 机器人在有宠物的环境使用后，立即清理主刷、尘盒，避免宠物毛发结块。\n26. 每月拆解机器人的吸口组件，清理内部的细小杂物，保证吸口通畅。\n27. 集尘款机器人，更换集尘袋时，先关闭电源，避免集尘过程中漏灰。\n28. 主刷滚刷若为可拆卸设计，每周拆卸清洗一次（非防水款用干布擦拭），晾干后安装。\n29. 机器人清扫大颗粒垃圾后，立即检查吸口、滚刷仓，无残留，防止卡机。",
+            "metadata": {
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "chunk_id": "dbb3554e67b5e40b2bc27f65bc0ac1e0114838ad92ba8c21038932de3ef7eaaf",
+              "source_id": "src_346430645ac43894f75b9be2",
+              "chunk_index": 16,
+              "source_version": 1,
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+              "chunk_sha256": "4b1fa139011658225796e2eff76a064b7e226617efb5c44cf18e15e5314b08a3",
+              "chunk_count": 53,
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "start_index": 2948,
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+            }
+          },
+          {
+            "text": "10. 每周检查机器人吸口滚刷（无主刷机型），确保无缠绕、磨损，转动顺畅。\n11. 集尘款机器人，每日检查集尘袋安装是否到位，密封严实，避免漏灰。\n12. 机器人在长毛地毯上清扫后，立即清理主刷上的地毯纤维，防止缠绕硬化。\n13. 每月检查主刷电机的工作状态，运行时无异常发热、异响，如有及时停机。\n14. 清理主刷时，注意保护滚刷两端的轴承，避免进水、进灰导致卡顿。",
+            "metadata": {
+              "chunk_sha256": "097525f2e9dbe15bcd6b400711f442cbad1ec73b85d60134146ca943948e93d3",
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "source_id": "src_346430645ac43894f75b9be2",
+              "chunk_id": "3d615d1656ca6a00ed5c70130887ab53b9a3593452b196cb74c13f9bab404179",
+              "chunk_index": 13,
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+              "start_index": 2379,
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "chunk_count": 53,
+              "source_version": 1
+            }
+          },
+          {
+            "text": "7. 每日检查机身底部防跌落、沿边传感器，用干布轻擦表面，无灰尘、水渍遮挡。\n8. 清洁机器人时，全程断开电源，切勿用水直接冲洗机身（防水机型仅可擦拭，不可浸泡）。\n9. 每日清理尘盒卡扣处的杂物，保证尘盒安装到位，避免漏灰、报警。\n10. 每次使用后，将机器人放回充电座，保证随时补电，避免亏电存放。\n11. 每周检查机器人机身螺丝，若有松动及时拧紧，防止配件脱落。",
+            "metadata": {
+              "chunk_id": "46fc4fbe1a0a7b28e56f756fd22e8938719d369036c2f05a86951a9d4aad1cf2",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "source_version": 1,
+              "chunk_count": 53,
+              "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+              "chunk_index": 2,
+              "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+              "start_index": 346,
+              "chunk_sha256": "3900b550df9f124646b0ddf3cc79529ef97eb2b125167779973124e0a690b4d6",
+              "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+              "source_id": "src_346430645ac43894f75b9be2"
+            }
+          },
+          {
+            "text": "7. 故障现象：吸力明显下降；检测：尘盒、滤网、风道是否堵塞，主刷是否缠绕杂物，吸口是否被遮挡；修复：逐一清理堵塞部位，剪断主刷缠绕毛发，检查吸口无异物。\n\n8. 故障现象：主刷不旋转；检测：主刷是否被异物卡死，电机线路是否松动，主刷电机是否故障；修复：清理主刷杂物，重新安装主刷，若仍不转联系售后检测电机。",
+            "metadata": {
+              "source_version": 1,
+              "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+              "start_index": 557,
+              "source_id": "src_dd546cd9d157bede19fde020",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "chunk_count": 100,
+              "chunk_id": "337d688f92abb1c50eae5346de24d4aef0b8a898a34716841cd6fe6d1c4e5089",
+              "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+              "chunk_sha256": "c7e3ebc7dc671956330e9cb4d19b8992f508b39181703d160469e33cdfb65fcf",
+              "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+              "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+              "chunk_index": 3
+            }
+          },
+          {
+            "text": "43. 故障现象：拖布支架松动，拖地时晃动；检测：支架卡扣是否断裂，是否安装到位；修复：重新安装支架，卡扣断裂则更换支架。\n\n44. 故障现象：机器人在地毯上清扫时卡顿；检测：地毯纤维是否缠绕主刷，地毯是否过厚，机器人是否开启地毯模式；修复：清理主刷纤维，关闭地毯模式，手动清理厚地毯。",
+            "metadata": {
+              "start_index": 3363,
+              "chunk_index": 21,
+              "chunk_sha256": "3bc721c220a3963b697aafaf991631336b8b718901495285859a88aa9632b5c4",
+              "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+              "chunk_count": 100,
+              "source_version": 1,
+              "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+              "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+              "chunk_id": "d06d8cf78bdf58d0b23532f98d241012900b8b2b682a40b08033e8b9939576d5",
+              "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+              "source_id": "src_dd546cd9d157bede19fde020",
+              "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad"
+            }
+          }
+        ]
+      }
+    ],
+    "model_calls": [
+      {
+        "usage": {
+          "input_tokens": 979,
+          "output_tokens": 352,
+          "total_tokens": 1331
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:57:35.28929Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 5150772900,
+          "load_duration": 181316700,
+          "prompt_eval_count": 979,
+          "prompt_eval_duration": 335328000,
+          "eval_count": 352,
+          "eval_duration": 4299322000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1763,
+          "output_tokens": 3748,
+          "total_tokens": 5511
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:58:45.8937959Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 61729030000,
+          "load_duration": 10828650600,
+          "prompt_eval_count": 1763,
+          "prompt_eval_duration": 616211000,
+          "eval_count": 3748,
+          "eval_duration": 50272352000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1367,
+          "output_tokens": 365,
+          "total_tokens": 1732
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:58:51.8962416Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 5965542000,
+          "load_duration": 215090200,
+          "prompt_eval_count": 1367,
+          "prompt_eval_duration": 497698000,
+          "eval_count": 365,
+          "eval_duration": 4975054000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1090,
+          "output_tokens": 421,
+          "total_tokens": 1511
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:58:57.7689498Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 5823666600,
+          "load_duration": 194400800,
+          "prompt_eval_count": 1090,
+          "prompt_eval_duration": 53751000,
+          "eval_count": 421,
+          "eval_duration": 5564055000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1837,
+          "output_tokens": 2674,
+          "total_tokens": 4511
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:59:52.6112668Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 44916301000,
+          "load_duration": 8710744600,
+          "prompt_eval_count": 1837,
+          "prompt_eval_duration": 630528000,
+          "eval_count": 2674,
+          "eval_duration": 35562073000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1530,
+          "output_tokens": 340,
+          "total_tokens": 1870
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T22:59:58.0500408Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 5392959800,
+          "load_duration": 199489700,
+          "prompt_eval_count": 1530,
+          "prompt_eval_duration": 528989000,
+          "eval_count": 340,
+          "eval_duration": 4458787000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      }
+    ],
+    "tool_calls": [
+      {
+        "name": "rag_summarize",
+        "args": {
+          "query": "主刷上缠了长头发，应该怎么清理？"
+        },
+        "id": "91105057-a423-4085-8423-28161fd681c0",
+        "type": "tool_call"
+      },
+      {
+        "name": "rag_summarize",
+        "args": {
+          "query": "清理主刷前需要断开电源吗？"
+        },
+        "id": "67c7f10e-6c23-4cb7-8aba-d3837a2a5ed0",
+        "type": "tool_call"
+      }
+    ]
+  },
+  {
+    "id": "A02",
+    "status": "ok",
+    "turns": [
+      {
+        "query": "请生成我2025年8月的使用报告。",
+        "answer": "# 扫地机器人 2025-08 使用报告\n\n演示用户：1001\n\n## 使用概况\n- 65㎡公寓 | 单身 | 木地板\n\n## 清洁表现\n- 覆盖率:83%\n- 日均清扫:43㎡\n- 漏扫区域:沙发底部+床底+阳台角落\n\n## 耗材状态\n- 主刷寿命:剩余50天\n- HEPA滤网:剩余30%\n\n## 使用对比\n- 优于60%同面积用户（清洁频率持续略降）\n\n以上为本地演示记录。未提供的指标不作推算；剩余寿命与比例不转换为未经记录支持的更换日期。",
+        "seconds": 14.69294869999976,
+        "tool_calls": [
+          {
+            "name": "fetch_external_data",
+            "args": {
+              "month": "2025-08",
+              "user_id": "1001"
+            },
+            "id": "00bf577d-2653-4458-8e24-051121e8e938",
+            "type": "tool_call"
+          }
+        ],
+        "tool_results": [
+          {
+            "name": "fetch_external_data",
+            "status": "success",
+            "content": "{\"status\": \"ok\", \"user_id\": \"1001\", \"month\": \"2025-08\", \"data\": {\"特征\": \"65㎡公寓 | 单身 | 木地板\", \"效率\": \"覆盖率:83%\\\\n日均清扫:43㎡\\\\n漏扫区域:沙发底部+床底+阳台角落\", \"耗材\": \"主刷寿命:剩余50天\\\\nHEPA滤网:剩余30%\", \"对比\": \"优于60%同面积用户（清洁频率持续略降）\"}}"
+          }
+        ],
+        "runtime": {
+          "run_id": "c9d5c779e9cc4e238f6bc90425e0dbd9",
+          "status": "succeeded",
+          "seconds": 14.687,
+          "counts": {
+            "run": 1,
+            "model": 2,
+            "tool": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7e75e3ed14464131b550f1f1f173b383"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7e75e3ed14464131b550f1f1f173b383"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2005082704814d4ab4f941d298d952b3"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2005082704814d4ab4f941d298d952b3"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 5.062,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2005082704814d4ab4f941d298d952b3"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.062,
+              "kind": "tool",
+              "name": "fetch_external_data",
+              "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.062,
+              "kind": "tool",
+              "name": "fetch_external_data",
+              "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 5.062,
+              "kind": "tool",
+              "name": "fetch_external_data",
+              "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 5.062,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+            },
+            {
+              "event": "call_started",
+              "seconds": 5.062,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 14.687,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 14.687,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7e75e3ed14464131b550f1f1f173b383"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 14.687,
+              "status": "succeeded"
+            }
+          ]
+        }
+      }
+    ],
+    "contexts": [],
+    "model_calls": [
+      {
+        "usage": {
+          "input_tokens": 982,
+          "output_tokens": 374,
+          "total_tokens": 1356
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T23:00:07.6335155Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 5044979700,
+          "load_duration": 196385300,
+          "prompt_eval_count": 982,
+          "prompt_eval_duration": 157630000,
+          "eval_count": 374,
+          "eval_duration": 4683554000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      },
+      {
+        "usage": {
+          "input_tokens": 1377,
+          "output_tokens": 691,
+          "total_tokens": 2068
+        },
+        "metadata": {
+          "model": "qwen3:4b",
+          "created_at": "2026-09-30T23:00:17.2614624Z",
+          "done": true,
+          "done_reason": "stop",
+          "total_duration": 9613422800,
+          "load_duration": 196260100,
+          "prompt_eval_count": 1377,
+          "prompt_eval_duration": 456344000,
+          "eval_count": 691,
+          "eval_duration": 8888397000,
+          "logprobs": null,
+          "model_name": "qwen3:4b",
+          "model_provider": "ollama"
+        }
+      }
+    ],
+    "tool_calls": [
+      {
+        "name": "fetch_external_data",
+        "args": {
+          "month": "2025-08",
+          "user_id": "1001"
+        },
+        "id": "00bf577d-2653-4458-8e24-051121e8e938",
+        "type": "tool_call"
+      }
+    ]
+  }
+]

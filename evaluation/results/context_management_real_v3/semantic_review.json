@@ -1,0 +1,13 @@
+{
+  "reviewer": "assistant_manual_review",
+  "case_id": "L01",
+  "semantic_pass": false,
+  "answers_complete": true,
+  "summary_triggered": false,
+  "findings": [
+    "All four actual model calls completed with stop; the new reserve avoided truncation.",
+    "With BPE counting, the 24 seeded turns were below the compression threshold. This run does not validate actual summarization.",
+    "The first answer identified the main brush and the safety requirement but omitted the user's uncertainty condition.",
+    "The second tool query resolved the main-brush reference. Its five selected references did not specify power disconnection, so the insufficient-information response was grounded. This is not an affirmative power-disconnection answer."
+  ]
+}

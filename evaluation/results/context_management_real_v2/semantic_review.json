@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "reviewer": "assistant_manual_review",
+  "case_id": "L01",
+  "semantic_pass": false,
+  "summary_preserves_object_and_requirements": true,
+  "first_answer_complete_and_user_visible": false,
+  "second_answer_complete_and_grounded": false,
+  "findings": [
+    "Structured summary preserved the main brush and the user's safety and uncertainty requirements.",
+    "The installed model still generated thinking with reasoning=False. The 1024-token generation limit was reached before a final answer.",
+    "The first turn incorrectly accepted visible unfinished reasoning in this version. The next turn failed ContextBudgetExceeded after a large RAG tool result."
+  ],
+  "subsequent_changes": [
+    "Reject provider length/max_tokens termination before dispatching proposed tools or committing a turn.",
+    "Use the pinned local tokenizer for request estimates and reserve enough generation space for thinking plus the visible answer.",
+    "Rerun with a new immutable input identity; preserve this failed run."
+  ]
+}

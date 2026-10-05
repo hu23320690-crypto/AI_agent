@@ -1,0 +1,74 @@
+{
+  "started_at": "2026-10-01T07:39:10.498525+10:00",
+  "clock_date": "2026-10-01",
+  "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "dataset_sha256": "bbc5fabf42ce501372f84db17c236cbf749ddfd8dc6990b463581c8d4ed90be6",
+  "code_sha256": {
+    "agent\\react_agent.py": "b615ea77b59c2cb94407bf6a9f54ada90ccf2c518fce79f73fd8e5dfbaad2311",
+    "agent\\runtime\\__init__.py": "a188b8791553fca3be4830c3f43559f893a6f258286d0024197e87ad17cd5144",
+    "agent\\runtime\\core.py": "734bba1b17399939c92d84ec51cff55469516cc3c8803c0ec9edecbf33bfaec2",
+    "agent\\runtime\\resilience.py": "b3d4bc82b0e5fb51a618a7c93f7920076960e53ddc27be9167c996fe33712cb6",
+    "agent\\tools\\agent_tools.py": "c6aa8c06f718c99be9358ae1327dba33003dca5ec0e1d90cf2b323ceb45c2e6e",
+    "agent\\tools\\middleware.py": "e41e4ab91c3b77953d442e1a176878da0efc69aaf364fdabd1aaf1c700d7809f",
+    "agent\\tools\\policy.py": "9316790694b758e6f7da2b9a25222fc199006edefe1ac87bd428c0da2fd43ae5",
+    "app.py": "99e5a9d2bdecc138b7d8f45ce0e48d798fad64bd3c50fb03dc5fdae27958390e",
+    "config\\agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config\\chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config\\knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config\\prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config\\rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config\\resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config\\runtime.yml": "572e2d46e30304103a0ca978d7aa68ebce1abad4a2a63f1ed02d7e683bc34a79",
+    "config\\security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "model\\factory.py": "3ba172e2512fab01c76ed950a9d6931f89c2d5eca561611a3d7e4fc917ca3432",
+    "prompts\\main_prompt.txt": "b3785b10811fc6628db1fcc64a4f4323c4fb7362a1794ac39fb9865fc413c7eb",
+    "prompts\\rag_summarize.txt": "8d0c9e704a58190fc77fcdb1ed397f99413605961127e65017227f0fe7badd39",
+    "prompts\\report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag\\hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag\\rag_service.py": "ed9f0bac709535441939cff6577cfbf2c13162cbc6ed0e2777dd1b19e487518a",
+    "rag\\security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag\\vector_store.py": "be4c1dab12f8dc3451d6aabdcf252a01a506369ac157a5a32e81f27de0b08602",
+    "utils\\config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils\\file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils\\logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils\\model_output.py": "9cf8d5e253b0d92420278e820a04230142e4da9aee279070216d0caeb0169aba",
+    "utils\\path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils\\prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils\\records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils\\report_render.py": "d6d2a7a42b0e49ed33cda86f5f64df8ac0c1738edc2bd73b2b0c71c51d1d14b7"
+  },
+  "source_sha256": {
+    "data\\扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+    "data\\扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+    "data\\扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+    "data\\故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+    "data\\维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+    "data\\选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+    "data\\external\\records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "models": [
+    {
+      "name": "nomic-embed-text:latest",
+      "digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f"
+    },
+    {
+      "name": "qwen3-embedding:4b",
+      "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907"
+    },
+    {
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+    }
+  ],
+  "dependencies": {
+    "langchain": "1.3.18",
+    "langchain-core": "1.6.1",
+    "langchain-ollama": "1.1.0",
+    "langgraph": "1.2.11",
+    "chromadb": "1.5.9"
+  },
+  "timeout_seconds": 240,
+  "inference_concurrency": 1,
+  "definition": "QA评测使用固定检索快照片段并复核当前来源授权，再调用同一RAG生成链；独立Agent场景测试完整交互。人工语义评分另存。"
+}

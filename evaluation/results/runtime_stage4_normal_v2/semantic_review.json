@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-10-01",
+  "reviewer": "Codex assistant semantic review, not independent human expert",
+  "raw_results_sha256": "33692ed014ba4e2e708672663ec23b4ace3512243b1e50dc8c9b5622de9a701c",
+  "rubric_version": "normal_task_scope_v2",
+  "rubric_note": "评分按当前问题范围；K14瓷砖中/高任一受来源支持档位均可，A11断电追问不要求同时答机身冲水问题。旧评分不覆写。",
+  "cases": [
+    {
+      "id": "K14",
+      "turn": 1,
+      "content_score": 2,
+      "faithful": true,
+      "answer": "木地板拖地时应选择低档出水量，瓷砖地面应选择中档出水量。",
+      "reason": "木地板低档、瓷砖中档均符合检索与参考资料；问题询问地面档位差异，不要求枚举全部可选档位。"
+    },
+    {
+      "id": "A11",
+      "turn": 1,
+      "content_score": 2,
+      "faithful": true,
+      "answer": "拆卸主刷两端卡扣，取下主刷，用剪刀剪断缠绕的毛发，切勿强行拉扯，并用毛刷清理滚刷仓内杂物。",
+      "reason": "完整保留拆卸主刷、剪断毛发、不可强拉及清理滚刷仓，符合K08/K26。"
+    },
+    {
+      "id": "A11",
+      "turn": 2,
+      "content_score": 2,
+      "faithful": true,
+      "answer": "需要断开电源",
+      "retrieval_query": "主刷清理前需要断开电源吗？",
+      "evidence_hit": {
+        "1": false,
+        "3": false,
+        "5": true
+      },
+      "evidence_first_rank": 4,
+      "reason": "明确需要断开电源；实际第4块包含清洁机器人全程断电通用规定，未补未给出的原因。"
+    },
+    {
+      "id": "A02",
+      "turn": 1,
+      "task_success": true,
+      "exact_rendered_record_match": true,
+      "reason": "用户1001/2025-08，完整报告与冻结CSV的程序渲染逐字一致，包括83%、43㎡、剩余50天、30%。"
+    }
+  ],
+  "comparison": {
+    "before_run": "evaluation/results/runtime_stage4_normal_v1",
+    "before_followup_answer": "参考资料中未提供足够信息",
+    "cause": "断电锚点已入Top3，但模型未应用通用规则；追加通用适用范围及操作限制完整性说明，不写入具体案例答案。",
+    "historical_stage3_failure_retained": true,
+    "not_full_40_question_answer_benchmark": true
+  }
+}

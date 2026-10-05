@@ -1,0 +1,16 @@
+# Direct dependencies validated on CPython 3.12 / Windows.
+streamlit==1.64.0
+langchain==1.3.18
+langchain-core==1.6.1
+langchain-community==0.4.2
+langchain-chroma==1.1.0
+langchain-ollama==1.1.0
+langchain-text-splitters==1.1.2
+langgraph==1.2.11
+chromadb==1.5.9
+pypdf==6.16.2
+PyYAML==6.0.3
+pydantic==2.13.5
+# Used directly by the dependency resilience boundary; already in the lock.
+httpx==0.28.1
+ollama==0.6.2

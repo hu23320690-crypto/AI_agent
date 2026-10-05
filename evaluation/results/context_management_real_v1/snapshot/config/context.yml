@@ -1,0 +1,9 @@
+# Conservative UTF-8 byte estimate plus request/message/tool framing.
+# This is not an exact Qwen tokenizer bound. Edit and restart the application.
+window_tokens: 8192
+reserve_output_tokens: 1024
+safety_margin_tokens: 256
+keep_recent_turns: 2
+trigger_fraction: 0.8
+summary_max_tokens: 512
+summary_enabled: true

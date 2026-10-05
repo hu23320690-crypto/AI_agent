@@ -1,0 +1,9 @@
+{
+  "ok": true,
+  "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+  "offline": true,
+  "checked": 142,
+  "failures": [],
+  "models": [],
+  "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+}

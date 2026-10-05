@@ -1,0 +1,188 @@
+{
+  "planned": 60,
+  "completed": 60,
+  "statuses": {
+    "ok": 60,
+    "error": 0,
+    "timeout": 0
+  },
+  "reviewed": 60,
+  "retrieval": {
+    "evaluated": 40,
+    "planned": 40,
+    "hit_counts": {
+      "1": 19,
+      "3": 31,
+      "5": 33
+    },
+    "mrr_at_5": 0.6208333333333333
+  },
+  "knowledge_answers": {
+    "planned": 40,
+    "completed": 40,
+    "reviewed": 40,
+    "errors": 0,
+    "full_correct": 30,
+    "partial": 5,
+    "incorrect": 5,
+    "grounded": 38,
+    "strict_pass": 30
+  },
+  "unanswerable_answers": {
+    "planned": 8,
+    "completed": 8,
+    "reviewed": 8,
+    "errors": 0,
+    "full_correct": 8,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 8,
+    "strict_pass": 8
+  },
+  "agent": {
+    "planned": 12,
+    "completed": 12,
+    "reviewed": 12,
+    "task_pass": 11,
+    "tool_selection_pass": 12
+  },
+  "latency": {
+    "retrieval": {
+      "count": 48,
+      "median_seconds": 0.23111864999998488,
+      "p95_seconds": 0.31445559999997386
+    },
+    "rag_generation": {
+      "count": 48,
+      "median_seconds": 29.48544019999997,
+      "p95_seconds": 54.49361790000012
+    },
+    "agent_turn": {
+      "count": 14,
+      "median_seconds": 13.174975800000084,
+      "p95_seconds": 70.22763420000001
+    }
+  },
+  "failures": [
+    {
+      "id": "K10",
+      "status": "ok",
+      "review": {
+        "id": "K10",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "处理镜面反光的方法有依据，补充清理传感器也来自检索资料，但漏掉标注关键步骤重新建图。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K13",
+      "status": "ok",
+      "review": {
+        "id": "K13",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "盖、密封圈、出水管均正确；漏掉加水不超过刻度线这一关键检查点。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K21",
+      "status": "ok",
+      "review": {
+        "id": "K21",
+        "answer_score": 0,
+        "grounded": true,
+        "note": "知识库有每周/软毛刷答案，但Top-3未检索到。模型如实说当前参考资料未提及：忠实但未完成有答案任务，属于检索失败。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K22",
+      "status": "ok",
+      "review": {
+        "id": "K22",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "型号/品牌匹配在检索片段中有依据，但漏掉换配件前必须断电；标注原文未检索到。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K25",
+      "status": "ok",
+      "review": {
+        "id": "K25",
+        "answer_score": 0,
+        "grounded": true,
+        "note": "原始知识库有禁止硬毛刷/钢丝球的说明，但Top-3遗漏。回答忠实于当前片段却未解决有答案问题。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K32",
+      "status": "ok",
+      "review": {
+        "id": "K32",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "只覆盖电量；检索拿到的是停扫后自动回充场景，回答照搬回充设置/故障，漏掉本题所需的尘盒和传感器检查。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K33",
+      "status": "ok",
+      "review": {
+        "id": "K33",
+        "answer_score": 0,
+        "grounded": true,
+        "note": "检索得到水泵/滤网出水故障，回答有上下文依据，但没有回答标注场景中的清洁刷堵塞，发生相近故障场景混淆。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K34",
+      "status": "ok",
+      "review": {
+        "id": "K34",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "覆盖两类家庭的部分侧重点，但未明确独居小户型轻便灵活、养宠防缠绕；容量和吸力数值在检索片段中有依据。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K35",
+      "status": "ok",
+      "review": {
+        "id": "K35",
+        "answer_score": 0,
+        "grounded": false,
+        "note": "将复杂户型推荐为视觉导航，与标注资料的激光导航相反；光线充足建议也未由实际片段支持。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "K37",
+      "status": "ok",
+      "review": {
+        "id": "K37",
+        "answer_score": 0,
+        "grounded": false,
+        "note": "把尘盒500/600ml容量与防异味设计移用于集尘袋；没有回答集尘袋至少2.5L和防漏灰，存在实体混淆。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    },
+    {
+      "id": "A11",
+      "status": "ok",
+      "review": {
+        "id": "A11",
+        "task_pass": false,
+        "note": "第一轮正确给出剪断毛发、勿强拉和清理刷仓。第二轮虽重写了部件指代并调用知识工具，但未召回资料中的断电要求；工具只返回资料不足，Agent却新增用户未提供的品牌、小米客服电话400-900-8888及安全解释，均无本次工具证据支持。两轮整体判失败，工具选择单独通过。",
+        "reviewer": "Codex assistant rubric review; not independent human expert"
+      }
+    }
+  ]
+}

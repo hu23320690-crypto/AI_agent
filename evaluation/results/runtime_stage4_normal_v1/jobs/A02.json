@@ -1,0 +1,193 @@
+{
+  "id": "A02",
+  "status": "ok",
+  "turns": [
+    {
+      "query": "请生成我2025年8月的使用报告。",
+      "answer": "# 扫地机器人 2025-08 使用报告\n\n演示用户：1001\n\n## 使用概况\n- 65㎡公寓 | 单身 | 木地板\n\n## 清洁表现\n- 覆盖率:83%\n- 日均清扫:43㎡\n- 漏扫区域:沙发底部+床底+阳台角落\n\n## 耗材状态\n- 主刷寿命:剩余50天\n- HEPA滤网:剩余30%\n\n## 使用对比\n- 优于60%同面积用户（清洁频率持续略降）\n\n以上为本地演示记录。未提供的指标不作推算；剩余寿命与比例不转换为未经记录支持的更换日期。",
+      "seconds": 14.69294869999976,
+      "tool_calls": [
+        {
+          "name": "fetch_external_data",
+          "args": {
+            "month": "2025-08",
+            "user_id": "1001"
+          },
+          "id": "00bf577d-2653-4458-8e24-051121e8e938",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "fetch_external_data",
+          "status": "success",
+          "content": "{\"status\": \"ok\", \"user_id\": \"1001\", \"month\": \"2025-08\", \"data\": {\"特征\": \"65㎡公寓 | 单身 | 木地板\", \"效率\": \"覆盖率:83%\\\\n日均清扫:43㎡\\\\n漏扫区域:沙发底部+床底+阳台角落\", \"耗材\": \"主刷寿命:剩余50天\\\\nHEPA滤网:剩余30%\", \"对比\": \"优于60%同面积用户（清洁频率持续略降）\"}}"
+        }
+      ],
+      "runtime": {
+        "run_id": "c9d5c779e9cc4e238f6bc90425e0dbd9",
+        "status": "succeeded",
+        "seconds": 14.687,
+        "counts": {
+          "run": 1,
+          "model": 2,
+          "tool": 1
+        },
+        "error_type": null,
+        "events": [
+          {
+            "event": "run_started",
+            "seconds": 0.0
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.0,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "7e75e3ed14464131b550f1f1f173b383"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.0,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "7e75e3ed14464131b550f1f1f173b383"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.0,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "2005082704814d4ab4f941d298d952b3"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.0,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "2005082704814d4ab4f941d298d952b3"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 5.062,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "2005082704814d4ab4f941d298d952b3"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 5.062,
+            "kind": "tool",
+            "name": "fetch_external_data",
+            "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+          },
+          {
+            "event": "call_started",
+            "seconds": 5.062,
+            "kind": "tool",
+            "name": "fetch_external_data",
+            "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 5.062,
+            "kind": "tool",
+            "name": "fetch_external_data",
+            "call_id": "03a3b7b793ae4b7dbce984d9cec211c7"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 5.062,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+          },
+          {
+            "event": "call_started",
+            "seconds": 5.062,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 14.687,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4f38f17836dd47d5b98c35a6e66c2b6c"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 14.687,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "7e75e3ed14464131b550f1f1f173b383"
+          },
+          {
+            "event": "run_finished",
+            "seconds": 14.687,
+            "status": "succeeded"
+          }
+        ]
+      }
+    }
+  ],
+  "contexts": [],
+  "model_calls": [
+    {
+      "usage": {
+        "input_tokens": 982,
+        "output_tokens": 374,
+        "total_tokens": 1356
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T23:00:07.6335155Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5044979700,
+        "load_duration": 196385300,
+        "prompt_eval_count": 982,
+        "prompt_eval_duration": 157630000,
+        "eval_count": 374,
+        "eval_duration": 4683554000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1377,
+        "output_tokens": 691,
+        "total_tokens": 2068
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T23:00:17.2614624Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 9613422800,
+        "load_duration": 196260100,
+        "prompt_eval_count": 1377,
+        "prompt_eval_duration": 456344000,
+        "eval_count": 691,
+        "eval_duration": 8888397000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    }
+  ],
+  "tool_calls": [
+    {
+      "name": "fetch_external_data",
+      "args": {
+        "month": "2025-08",
+        "user_id": "1001"
+      },
+      "id": "00bf577d-2653-4458-8e24-051121e8e938",
+      "type": "tool_call"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "reviewer": "assistant_manual_review_with_independent_readonly_agent_check",
+  "execution_completed_questions": 4,
+  "full_40_question_benchmark_rerun": false,
+  "cases": [
+    {
+      "id": "K14",
+      "task_scope_grounded_pass": true,
+      "task_scope_score": 2,
+      "original_full_range_rubric_score": 1,
+      "max_score": 2,
+      "reason": "Answer says low for wood and medium for tile, both supported by selected references. Original rubric asks medium/high range for tile; high was not mentioned. Do not silently equate the two scoring scopes.",
+      "retrieved_references": 5,
+      "selected_references": 5
+    },
+    {
+      "id": "A11",
+      "task_scope_grounded_pass": true,
+      "questions": 2,
+      "reason": "First answer covers remove brush, cut hair rather than pull, and brush the chamber. Follow-up explicitly queries the main brush; actual selected rank3 states power must be disconnected throughout cleaning.",
+      "power_disconnection_evidence_rank_this_run": 3,
+      "rag_generated_tokens": [2671, 2880],
+      "selected_references_each_question": [5, 5],
+      "actual_model_calls": 6
+    },
+    {
+      "id": "A02",
+      "task_scope_grounded_pass": true,
+      "reason": "Single fetch_external_data uses user1001/month2025-08. Fixed report values equal CSV/tool results; no invented weather or replacement dates.",
+      "actual_model_calls": 2,
+      "actual_record_tool_calls": 1
+    }
+  ],
+  "note": "Human/assistant semantic review is not independent expert blind evaluation. No answer accuracy percentage is inferred from these selected anchors."
+}

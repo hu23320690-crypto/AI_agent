@@ -1,0 +1,12 @@
+# Separate collection: preserve the original unchunked index.
+collection_name: agent_chunks_qwen3_v1
+persist_directory: rag/chroma_db
+k: 5
+retrieval_mode: hybrid
+candidate_k: 20
+rrf_constant: 60
+data_path: data
+allow_knowledge_file_type: ['txt', 'pdf']
+chunk_size: 200
+chunk_overlap: 20
+separators: ["\n\n", "\n", "。", "！", "？", "，", " ", ""]

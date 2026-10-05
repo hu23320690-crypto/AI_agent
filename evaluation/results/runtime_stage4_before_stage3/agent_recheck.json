@@ -1,0 +1,637 @@
+{
+  "id": "A11",
+  "note": "收尾代码复验；保存本次实际RAG片段，不覆写前次失败。",
+  "status": "ok",
+  "turns": [
+    {
+      "query": "主刷上缠了长头发，应该怎么清理？",
+      "answer": "拆卸主刷后，用剪刀剪断缠绕的毛发，切勿强行拉扯，并用毛刷清理滚刷仓。",
+      "seconds": 72.38131180000005,
+      "tool_calls": [
+        {
+          "name": "rag_summarize",
+          "args": {
+            "query": "主刷上缠了长头发，应该怎么清理？"
+          },
+          "id": "c8a16bb1-c474-4768-9ae0-c2e52e349676",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "rag_summarize",
+          "status": "success",
+          "content": "拆卸主刷后，用剪刀剪断缠绕的毛发，切勿强行拉扯，并用毛刷清理滚刷仓。"
+        }
+      ],
+      "runtime": {
+        "run_id": "29b1b483d2954673afcad2c73eb04810",
+        "status": "succeeded",
+        "seconds": 72.375,
+        "counts": {
+          "run": 1,
+          "model": 3,
+          "tool": 1,
+          "retrieval": 2,
+          "embedding": 1
+        },
+        "error_type": null,
+        "events": [
+          {
+            "event": "run_started",
+            "seconds": 0.0
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.0,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "f5fd14fad9974738984060c2b9695581"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.0,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "f5fd14fad9974738984060c2b9695581"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.0,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "cce54f880749404ca36eb8353124aeb1"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.0,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "cce54f880749404ca36eb8353124aeb1"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 16.187,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "cce54f880749404ca36eb8353124aeb1"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 16.203,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "a20941a1911341899152537f8ddc80c7"
+          },
+          {
+            "event": "call_started",
+            "seconds": 16.203,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "a20941a1911341899152537f8ddc80c7"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 16.203,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "7c3cd83fcb7549eb8dffda4d8d1bfdaa"
+          },
+          {
+            "event": "call_started",
+            "seconds": 16.203,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "7c3cd83fcb7549eb8dffda4d8d1bfdaa"
+          },
+          {
+            "event": "knowledge_filter",
+            "seconds": 16.766,
+            "allowed_chunks": 326,
+            "blocked_sources": 0
+          },
+          {
+            "event": "call_queued",
+            "seconds": 16.766,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "ae9fda95059e4d35b4ebfe9647d34d9e"
+          },
+          {
+            "event": "call_started",
+            "seconds": 16.766,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "ae9fda95059e4d35b4ebfe9647d34d9e"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 25.141,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "ae9fda95059e4d35b4ebfe9647d34d9e"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 25.187,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "7c3cd83fcb7549eb8dffda4d8d1bfdaa"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 25.203,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "cb42fa445cf1459f89bd18dbb1b1c55b"
+          },
+          {
+            "event": "call_started",
+            "seconds": 25.203,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "cb42fa445cf1459f89bd18dbb1b1c55b"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 67.156,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "cb42fa445cf1459f89bd18dbb1b1c55b"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 67.172,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "a20941a1911341899152537f8ddc80c7"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 67.172,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4e00ae70af1341f2b8d164cdc651f5e6"
+          },
+          {
+            "event": "call_started",
+            "seconds": 67.172,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4e00ae70af1341f2b8d164cdc651f5e6"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 72.359,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "4e00ae70af1341f2b8d164cdc651f5e6"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 72.359,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "f5fd14fad9974738984060c2b9695581"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 72.359,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "4a8011a0a29b4f2c81e5a17a53f9b9d1"
+          },
+          {
+            "event": "call_started",
+            "seconds": 72.359,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "4a8011a0a29b4f2c81e5a17a53f9b9d1"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 72.375,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "4a8011a0a29b4f2c81e5a17a53f9b9d1"
+          },
+          {
+            "event": "run_finished",
+            "seconds": 72.375,
+            "status": "succeeded"
+          }
+        ]
+      }
+    },
+    {
+      "query": "清理刚才那个部件前需要断开电源吗？",
+      "answer": "未提及清理主刷前断开电源的要求。",
+      "seconds": 61.97957930000007,
+      "tool_calls": [
+        {
+          "name": "rag_summarize",
+          "args": {
+            "query": "清理主刷前需要断开电源吗？"
+          },
+          "id": "9ad56f06-f856-42ac-8692-1dbc60528a98",
+          "type": "tool_call"
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "rag_summarize",
+          "status": "success",
+          "content": "未提及清理主刷前断开电源的要求。"
+        }
+      ],
+      "runtime": {
+        "run_id": "30619ec7f3484e1db5a09eed1c5d5e15",
+        "status": "succeeded",
+        "seconds": 61.984,
+        "counts": {
+          "retrieval": 3,
+          "run": 1,
+          "model": 3,
+          "tool": 1,
+          "embedding": 1
+        },
+        "error_type": null,
+        "events": [
+          {
+            "event": "run_started",
+            "seconds": 0.0
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.0,
+            "kind": "retrieval",
+            "name": "agent.history_validation",
+            "call_id": "06eb7a035b484537b3750bf74e5a2910"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.0,
+            "kind": "retrieval",
+            "name": "agent.history_validation",
+            "call_id": "06eb7a035b484537b3750bf74e5a2910"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 0.016,
+            "kind": "retrieval",
+            "name": "agent.history_validation",
+            "call_id": "06eb7a035b484537b3750bf74e5a2910"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.016,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "c2776cdb2e174b59be2bd9ba8dd1f631"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.016,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "c2776cdb2e174b59be2bd9ba8dd1f631"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 0.016,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "76575dc86ee74b9f99d8ec7e86c68fd9"
+          },
+          {
+            "event": "call_started",
+            "seconds": 0.016,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "76575dc86ee74b9f99d8ec7e86c68fd9"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 4.609,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "76575dc86ee74b9f99d8ec7e86c68fd9"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 4.609,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "ab3f9e1cc6e34be2aca8b7bf099ba043"
+          },
+          {
+            "event": "call_started",
+            "seconds": 4.609,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "ab3f9e1cc6e34be2aca8b7bf099ba043"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 4.609,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "a90dd1e0ff744acfa1af225527422d5d"
+          },
+          {
+            "event": "call_started",
+            "seconds": 4.609,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "a90dd1e0ff744acfa1af225527422d5d"
+          },
+          {
+            "event": "knowledge_filter",
+            "seconds": 4.656,
+            "allowed_chunks": 326,
+            "blocked_sources": 0
+          },
+          {
+            "event": "call_queued",
+            "seconds": 4.656,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "2e26d5f61fcb4f5a8255a6aee1f17a4f"
+          },
+          {
+            "event": "call_started",
+            "seconds": 4.656,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "2e26d5f61fcb4f5a8255a6aee1f17a4f"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 15.234,
+            "kind": "embedding",
+            "name": "ollama.embed",
+            "call_id": "2e26d5f61fcb4f5a8255a6aee1f17a4f"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 15.266,
+            "kind": "retrieval",
+            "name": "rag.retrieve",
+            "call_id": "a90dd1e0ff744acfa1af225527422d5d"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 15.281,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "0dd2d0b9cc194b5ca9357d2554979b16"
+          },
+          {
+            "event": "call_started",
+            "seconds": 15.281,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "0dd2d0b9cc194b5ca9357d2554979b16"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 55.219,
+            "kind": "model",
+            "name": "rag.model",
+            "call_id": "0dd2d0b9cc194b5ca9357d2554979b16"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 55.234,
+            "kind": "tool",
+            "name": "rag_summarize",
+            "call_id": "ab3f9e1cc6e34be2aca8b7bf099ba043"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 55.234,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "fd1c629cf9e24e05a37ea805ce76760d"
+          },
+          {
+            "event": "call_started",
+            "seconds": 55.234,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "fd1c629cf9e24e05a37ea805ce76760d"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 61.953,
+            "kind": "model",
+            "name": "agent.model",
+            "call_id": "fd1c629cf9e24e05a37ea805ce76760d"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 61.953,
+            "kind": "run",
+            "name": "agent.turn",
+            "call_id": "c2776cdb2e174b59be2bd9ba8dd1f631"
+          },
+          {
+            "event": "call_queued",
+            "seconds": 61.953,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "312b577ce8e24d95ba5d6ea3eeb892c6"
+          },
+          {
+            "event": "call_started",
+            "seconds": 61.953,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "312b577ce8e24d95ba5d6ea3eeb892c6"
+          },
+          {
+            "event": "call_finished",
+            "seconds": 61.984,
+            "kind": "retrieval",
+            "name": "run.commit_validation",
+            "call_id": "312b577ce8e24d95ba5d6ea3eeb892c6"
+          },
+          {
+            "event": "run_finished",
+            "seconds": 61.984,
+            "status": "succeeded"
+          }
+        ]
+      }
+    }
+  ],
+  "code_sha256": {
+    "agent\\react_agent.py": "a45236144b8903283c2229ba9a31c77cabcf5d614c7681ee870281381d495ddb",
+    "agent\\runtime\\__init__.py": "a188b8791553fca3be4830c3f43559f893a6f258286d0024197e87ad17cd5144",
+    "agent\\runtime\\core.py": "734bba1b17399939c92d84ec51cff55469516cc3c8803c0ec9edecbf33bfaec2",
+    "agent\\runtime\\resilience.py": "b3d4bc82b0e5fb51a618a7c93f7920076960e53ddc27be9167c996fe33712cb6",
+    "agent\\tools\\agent_tools.py": "c6aa8c06f718c99be9358ae1327dba33003dca5ec0e1d90cf2b323ceb45c2e6e",
+    "agent\\tools\\middleware.py": "e41e4ab91c3b77953d442e1a176878da0efc69aaf364fdabd1aaf1c700d7809f",
+    "agent\\tools\\policy.py": "9316790694b758e6f7da2b9a25222fc199006edefe1ac87bd428c0da2fd43ae5",
+    "app.py": "99e5a9d2bdecc138b7d8f45ce0e48d798fad64bd3c50fb03dc5fdae27958390e",
+    "config\\agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config\\chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config\\knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config\\prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config\\rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config\\resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config\\runtime.yml": "572e2d46e30304103a0ca978d7aa68ebce1abad4a2a63f1ed02d7e683bc34a79",
+    "config\\security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "model\\factory.py": "3ba172e2512fab01c76ed950a9d6931f89c2d5eca561611a3d7e4fc917ca3432",
+    "prompts\\main_prompt.txt": "b3785b10811fc6628db1fcc64a4f4323c4fb7362a1794ac39fb9865fc413c7eb",
+    "prompts\\rag_summarize.txt": "8d0c9e704a58190fc77fcdb1ed397f99413605961127e65017227f0fe7badd39",
+    "prompts\\report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag\\hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag\\rag_service.py": "ed9f0bac709535441939cff6577cfbf2c13162cbc6ed0e2777dd1b19e487518a",
+    "rag\\security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag\\vector_store.py": "be4c1dab12f8dc3451d6aabdcf252a01a506369ac157a5a32e81f27de0b08602",
+    "utils\\config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils\\file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils\\logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils\\model_output.py": "9cf8d5e253b0d92420278e820a04230142e4da9aee279070216d0caeb0169aba",
+    "utils\\path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils\\prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils\\records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils\\report_render.py": "d6d2a7a42b0e49ed33cda86f5f64df8ac0c1738edc2bd73b2b0c71c51d1d14b7"
+  },
+  "model_calls": [
+    {
+      "usage": {
+        "input_tokens": 979,
+        "output_tokens": 333,
+        "total_tokens": 1312
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:03:05.3943195Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 16185043300,
+        "load_duration": 11860309500,
+        "prompt_eval_count": 979,
+        "prompt_eval_duration": 344674000,
+        "eval_count": 333,
+        "eval_duration": 3927860000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1763,
+        "output_tokens": 2507,
+        "total_tokens": 4270
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:03:56.3522634Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 41926643500,
+        "load_duration": 9364407300,
+        "prompt_eval_count": 1763,
+        "prompt_eval_duration": 574963000,
+        "eval_count": 2507,
+        "eval_duration": 31977509000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1355,
+        "output_tokens": 356,
+        "total_tokens": 1711
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:04:01.5623938Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 5180219700,
+        "load_duration": 170325400,
+        "prompt_eval_count": 1355,
+        "prompt_eval_duration": 441074000,
+        "eval_count": 356,
+        "eval_duration": 4336465000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1105,
+        "output_tokens": 357,
+        "total_tokens": 1462
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:04:06.178609Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 4564196100,
+        "load_duration": 170479400,
+        "prompt_eval_count": 1105,
+        "prompt_eval_duration": 64257000,
+        "eval_count": 357,
+        "eval_duration": 4319806000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1828,
+        "output_tokens": 2269,
+        "total_tokens": 4097
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:04:56.7874187Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 39899389700,
+        "load_duration": 10008746900,
+        "prompt_eval_count": 1828,
+        "prompt_eval_duration": 619083000,
+        "eval_count": 2269,
+        "eval_duration": 29260652000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    },
+    {
+      "usage": {
+        "input_tokens": 1485,
+        "output_tokens": 463,
+        "total_tokens": 1948
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T22:05:03.5221095Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 6683961500,
+        "load_duration": 189563600,
+        "prompt_eval_count": 1485,
+        "prompt_eval_duration": 498208000,
+        "eval_count": 463,
+        "eval_duration": 5772667000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    }
+  ],
+  "code_unchanged": true
+}

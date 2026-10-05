@@ -1,0 +1,23 @@
+{
+  "reviewer": "assistant_manual_review",
+  "case_id": "L01",
+  "context_management_acceptance_pass": true,
+  "scope": "64 seeded completed turns plus actual summary and two actual questions; not 64 real exchanges or a general memory accuracy score",
+  "summary_generated": true,
+  "summarized_turns": 62,
+  "summary_input_omitted_turns": 0,
+  "first_request_messages_before": 129,
+  "first_request_messages_after": 6,
+  "preserved": ["main-brush hair entanglement", "keep safety reminders", "say insufficient information rather than guess"],
+  "followup_reference_resolved": true,
+  "followup_selected_references_provide_disconnection_rule": false,
+  "followup_grounded_insufficient_information": true,
+  "all_five_model_calls_completed_with_stop": true,
+  "request_estimates_vs_actual_prompt_tokens": [[3111, 2839], [1494, 1252], [1595, 1315], [2040, 1908], [1765, 1367]],
+  "limitations": [
+    "The summary also unnecessarily retained a few preparation progress lines as results/open questions.",
+    "No omitted summary input turns is not proof that every historical fact survived compression.",
+    "The second answer is a grounded refusal, not a successful affirmative power-disconnection answer.",
+    "Manual assistant review is not independent expert or blind evaluation; five observed conservative estimates are not a universal tokenizer bound."
+  ]
+}

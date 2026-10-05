@@ -1,0 +1,5 @@
+{"id": "K02", "score": 2, "grounded": true, "reason": "三必要点完整；旧优化记录漏删除地图记1。"}
+{"id": "K14", "score": 1, "grounded": true, "reason": "保守按完整范围评分，未写瓷砖高档；旧等价答案记2，是评分口径差异，不能量化回退。"}
+{"id": "K22", "score": 2, "grounded": true, "reason": "断电和型号匹配完整。"}
+{"id": "A02", "task_pass": true, "reason": "1001/2025-08，所有字段与冻结CSV一致。"}
+{"id": "A11", "task_pass": false, "retrieval_groundedness": "unknown", "reason": "首轮步骤有依据，第二轮未答出断电；原实际召回片段未保存，不以独立重检替代。"}

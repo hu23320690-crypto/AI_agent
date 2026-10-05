@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+  "offline": false,
+  "checked": 139,
+  "failures": [],
+  "models": [
+    {
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "size_bytes": 2497293931
+    },
+    {
+      "name": "qwen3-embedding:4b",
+      "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+      "size_bytes": 2496704041
+    }
+  ],
+  "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+}

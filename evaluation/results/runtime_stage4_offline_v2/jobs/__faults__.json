@@ -1,0 +1,1744 @@
+{
+  "identity_sha256": "9bc4f1e498814cdc691df8c17a49a50b0aa72463860de149518c98c83c94d86c",
+  "rows": [
+    {
+      "id": "F01",
+      "title": "模型阻塞与迟到回答",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "model_timeout_is_terminal",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "worker_really_dispatched",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "caller_stops_before_worker_exits",
+          "passed": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "name": "one_model_dispatch_without_overlap_retry",
+          "passed": true,
+          "actual": 1,
+          "expected": 1
+        },
+        {
+          "name": "no_failed_turn_history_commit",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "no_answer_emitted",
+          "passed": true,
+          "actual": null,
+          "expected": null
+        },
+        {
+          "name": "recovered_capacity_accepts_normal_turn",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "only_control_turn_commits",
+          "passed": true,
+          "actual": 2,
+          "expected": 2
+        }
+      ],
+      "elapsed": 0.141,
+      "counts": {
+        "run": 2,
+        "model": 2
+      },
+      "trace": [
+        {
+          "phase": "blocked_model",
+          "run_id": "2558914bb84e4ca69a585821998de546",
+          "status": "timed_out",
+          "seconds": 0.125,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": "CallTimeout",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "fa0ae8dbede14885a6b1a0c507482157"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "fa0ae8dbede14885a6b1a0c507482157"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2d866d57666b4d0bad910f6d6de9e917"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2d866d57666b4d0bad910f6d6de9e917"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.125,
+              "status": "timed_out",
+              "error_type": "CallTimeout"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.125,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "fa0ae8dbede14885a6b1a0c507482157",
+              "error_type": "CallTimeout"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "3cbe389db7d44944a5463b9559ed1c2b",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "ee997296a31241128e4cb346eaacfac7"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "ee997296a31241128e4cb346eaacfac7"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5d6c0c0d61f349f288de760ab993fe65"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5d6c0c0d61f349f288de760ab993fe65"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "5d6c0c0d61f349f288de760ab993fe65"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "ee997296a31241128e4cb346eaacfac7"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F02",
+      "title": "工具阻塞与终止传播",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "tool_timeout_is_terminal",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "tool_operation_really_dispatched",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "caller_stops_before_tool_exits",
+          "passed": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "name": "no_model_paraphrase_after_timeout",
+          "passed": true,
+          "actual": 1,
+          "expected": 1
+        },
+        {
+          "name": "tool_dispatch_count",
+          "passed": true,
+          "actual": 1,
+          "expected": 1
+        },
+        {
+          "name": "no_failed_turn_history_commit",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "no_answer_emitted",
+          "passed": true,
+          "actual": null,
+          "expected": null
+        },
+        {
+          "name": "normal_turn_after_tool_release",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "only_control_turn_commits",
+          "passed": true,
+          "actual": 2,
+          "expected": 2
+        }
+      ],
+      "elapsed": 0.172,
+      "counts": {
+        "run": 2,
+        "model": 2,
+        "tool": 1
+      },
+      "trace": [
+        {
+          "phase": "blocked_tool",
+          "run_id": "b403e44dc77a4396ad04fe02cdd40ebc",
+          "status": "timed_out",
+          "seconds": 0.125,
+          "counts": {
+            "run": 1,
+            "model": 1,
+            "tool": 1
+          },
+          "error_type": "CallTimeout",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "e897d70bb87f45048854d0839b1591d1"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "e897d70bb87f45048854d0839b1591d1"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "d5496f3876a24196a814896bdf11124c"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "d5496f3876a24196a814896bdf11124c"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "d5496f3876a24196a814896bdf11124c"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "a3ea25e052a34dabb67b6a5a4d845ef7"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "tool",
+              "name": "rag_summarize",
+              "call_id": "a3ea25e052a34dabb67b6a5a4d845ef7"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.125,
+              "status": "timed_out",
+              "error_type": "CallTimeout"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "29c83121806e46538eda4461137b7c10",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7bcd36071c384fbf978b3f94d5583938"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7bcd36071c384fbf978b3f94d5583938"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2a90c30d4b48443d88a21f12689fdf57"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2a90c30d4b48443d88a21f12689fdf57"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2a90c30d4b48443d88a21f12689fdf57"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "7bcd36071c384fbf978b3f94d5583938"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F03",
+      "title": "连续瞬态失败与熔断隔离",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "first_run_stops_after_two_attempts",
+          "passed": true,
+          "actual": 2,
+          "expected": 2
+        },
+        {
+          "name": "retry_exhaustion_error",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "third_failure_trips_without_fourth_attempt",
+          "passed": true,
+          "actual": 3,
+          "expected": 3
+        },
+        {
+          "name": "breaker_rejects_retry",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "circuit_is_open",
+          "passed": true,
+          "actual": "OPEN",
+          "expected": "OPEN"
+        },
+        {
+          "name": "open_circuit_rejects_new_run",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "rejection_has_zero_dispatch_side_effects",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "rejection_consumes_no_model_attempt",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "unrelated_dependency_control_succeeds",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "failed_dependency_stays_open",
+          "passed": true,
+          "actual": "OPEN",
+          "expected": "OPEN"
+        },
+        {
+          "name": "fault_request_dispatches_remain_bounded",
+          "passed": true,
+          "actual": 3,
+          "expected": 3
+        }
+      ],
+      "elapsed": 0.0,
+      "counts": {
+        "model": 4
+      },
+      "trace": [
+        {
+          "phase": "first_failure",
+          "run_id": "b4c3f880c5bd45c0b2f7de84f14b0ccf",
+          "status": "failed",
+          "seconds": 0.5,
+          "counts": {
+            "model": 2
+          },
+          "error_type": "DependencyUnavailable",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "658f9d73aeb94771abfabc953192687e"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "658f9d73aeb94771abfabc953192687e"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "658f9d73aeb94771abfabc953192687e",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "attempt": 1,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "retry_scheduled",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "next_attempt": 2,
+              "delay_seconds": 0.5
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "88a685e89c13444d91c6e4258aeeb029"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "88a685e89c13444d91c6e4258aeeb029"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "88a685e89c13444d91c6e4258aeeb029",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.5,
+              "dependency": "harness.chat",
+              "attempt": 2,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.5,
+              "status": "failed",
+              "error_type": "DependencyUnavailable"
+            }
+          ]
+        },
+        {
+          "phase": "tripping_failure",
+          "run_id": "a6e9eacdfcd84e8fa02b8d624af877cb",
+          "status": "failed",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": "CircuitOpen",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "dc83efdcf8ac49f898011e795655bb40"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "dc83efdcf8ac49f898011e795655bb40"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "dc83efdcf8ac49f898011e795655bb40",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "circuit_transition",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "previous": "CLOSED",
+              "state": "OPEN"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "attempt": 1,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "circuit_rejected",
+              "seconds": 0.0,
+              "dependency": "harness.chat"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "failed",
+              "error_type": "CircuitOpen"
+            }
+          ]
+        },
+        {
+          "phase": "open_rejection",
+          "run_id": "803fcb4cbb9e4387a1b667da79447d49",
+          "status": "failed",
+          "seconds": 0.0,
+          "counts": {},
+          "error_type": "CircuitOpen",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "circuit_rejected",
+              "seconds": 0.0,
+              "dependency": "harness.chat"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "failed",
+              "error_type": "CircuitOpen"
+            }
+          ]
+        },
+        {
+          "phase": "healthy_dependency_control",
+          "run_id": "0596c2a12db545b697850bbcf9af2bc5",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "e2034aa784dd46ae8782e8a5d513f176"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "e2034aa784dd46ae8782e8a5d513f176"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "e2034aa784dd46ae8782e8a5d513f176"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F04",
+      "title": "半开单探测与成功恢复",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "first_run_stops_after_two_attempts",
+          "passed": true,
+          "actual": 2,
+          "expected": 2
+        },
+        {
+          "name": "retry_exhaustion_error",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "third_failure_trips_without_fourth_attempt",
+          "passed": true,
+          "actual": 3,
+          "expected": 3
+        },
+        {
+          "name": "breaker_rejects_retry",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "circuit_is_open",
+          "passed": true,
+          "actual": "OPEN",
+          "expected": "OPEN"
+        },
+        {
+          "name": "cooldown_enters_half_open",
+          "passed": true,
+          "actual": "HALF_OPEN",
+          "expected": "HALF_OPEN"
+        },
+        {
+          "name": "second_probe_is_rejected",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "only_one_probe_operation_dispatches",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "rejected_probe_consumes_no_attempt",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "probe_worker_exits",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "successful_probe_returns_result",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "successful_probe_closes_circuit",
+          "passed": true,
+          "actual": "CLOSED",
+          "expected": "CLOSED"
+        },
+        {
+          "name": "exactly_one_recovery_probe",
+          "passed": true,
+          "actual": 1,
+          "expected": 1
+        },
+        {
+          "name": "normal_request_after_recovery",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        }
+      ],
+      "elapsed": 0.0,
+      "counts": {
+        "model": 5
+      },
+      "trace": [
+        {
+          "phase": "first_failure",
+          "run_id": "5c30c10443284470967493801f2e2317",
+          "status": "failed",
+          "seconds": 0.5,
+          "counts": {
+            "model": 2
+          },
+          "error_type": "DependencyUnavailable",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c99989e2c9f54fb1a78db26d1643c63d"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c99989e2c9f54fb1a78db26d1643c63d"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c99989e2c9f54fb1a78db26d1643c63d",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "attempt": 1,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "retry_scheduled",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "next_attempt": 2,
+              "delay_seconds": 0.5
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c1e15652756b4de2b9e2651c0c977406"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c1e15652756b4de2b9e2651c0c977406"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.5,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "c1e15652756b4de2b9e2651c0c977406",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.5,
+              "dependency": "harness.chat",
+              "attempt": 2,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.5,
+              "status": "failed",
+              "error_type": "DependencyUnavailable"
+            }
+          ]
+        },
+        {
+          "phase": "tripping_failure",
+          "run_id": "a64e83a8f6be4806bed4f2ee86f5303a",
+          "status": "failed",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": "CircuitOpen",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "4748d959ed70406d9956fbe5d9a5816a"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "4748d959ed70406d9956fbe5d9a5816a"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "4748d959ed70406d9956fbe5d9a5816a",
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "circuit_transition",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "previous": "CLOSED",
+              "state": "OPEN"
+            },
+            {
+              "event": "dependency_failed",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "attempt": 1,
+              "error_type": "ConnectionError"
+            },
+            {
+              "event": "circuit_rejected",
+              "seconds": 0.0,
+              "dependency": "harness.chat"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "failed",
+              "error_type": "CircuitOpen"
+            }
+          ]
+        },
+        {
+          "phase": "concurrent_probe_rejection",
+          "run_id": "331c38f8f6aa459280e138832de8cf2e",
+          "status": "failed",
+          "seconds": 0.0,
+          "counts": {},
+          "error_type": "CircuitOpen",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "circuit_rejected",
+              "seconds": 0.0,
+              "dependency": "harness.chat"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "failed",
+              "error_type": "CircuitOpen"
+            }
+          ]
+        },
+        {
+          "phase": "successful_probe",
+          "run_id": "ee896869d9544cd288cc0538966c20fe",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "circuit_transition",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "previous": "OPEN",
+              "state": "HALF_OPEN"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "91c2f5cfeb6a479a8d45bde291fe1858"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "91c2f5cfeb6a479a8d45bde291fe1858"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "91c2f5cfeb6a479a8d45bde291fe1858"
+            },
+            {
+              "event": "circuit_transition",
+              "seconds": 0.0,
+              "dependency": "harness.chat",
+              "previous": "HALF_OPEN",
+              "state": "CLOSED"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "3e45615adf044097a9077ae8bb99771a",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "a038f883e0dd4f29bf7e1a3d805638e5"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "a038f883e0dd4f29bf7e1a3d805638e5"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.dependency",
+              "call_id": "a038f883e0dd4f29bf7e1a3d805638e5"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F05",
+      "title": "无限工具循环与调用预算",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "loop_stops_with_budget_error",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "tool_dispatch_count_is_exact_limit",
+          "passed": true,
+          "actual": 3,
+          "expected": 3
+        },
+        {
+          "name": "only_four_model_dispatches",
+          "passed": true,
+          "actual": 4,
+          "expected": 4
+        },
+        {
+          "name": "no_failed_turn_history_commit",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "no_loop_answer_emitted",
+          "passed": true,
+          "actual": null,
+          "expected": null
+        },
+        {
+          "name": "next_turn_has_fresh_budget",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "failed_loop_is_absent_from_history",
+          "passed": true,
+          "actual": 2,
+          "expected": 2
+        }
+      ],
+      "elapsed": 0.031,
+      "counts": {
+        "run": 2,
+        "model": 5,
+        "tool": 3
+      },
+      "trace": [
+        {
+          "phase": "infinite_tool_loop",
+          "run_id": "bfb199b78f264aeb89467f453abbdbb8",
+          "status": "failed",
+          "seconds": 0.016,
+          "counts": {
+            "run": 1,
+            "model": 4,
+            "tool": 3
+          },
+          "error_type": "BudgetExceeded",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "1b87bd5eae314aaea2aca16b4c576e08"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "1b87bd5eae314aaea2aca16b4c576e08"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2f434c422da24a5298777040d4466eed"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2f434c422da24a5298777040d4466eed"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "2f434c422da24a5298777040d4466eed"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "d7caa000ec344fe98355c0e1a3988de6"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "d7caa000ec344fe98355c0e1a3988de6"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "d7caa000ec344fe98355c0e1a3988de6"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "450ca88960714c01bb647b95b3f75689"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "450ca88960714c01bb647b95b3f75689"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "450ca88960714c01bb647b95b3f75689"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "5a65fd334e0c4815adc678581d17c7c1"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "5a65fd334e0c4815adc678581d17c7c1"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "5a65fd334e0c4815adc678581d17c7c1"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "e7ee0c8191f34bd78df97bbd8367cf55"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "e7ee0c8191f34bd78df97bbd8367cf55"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "e7ee0c8191f34bd78df97bbd8367cf55"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "1d182555ae52404cba99fce0c25442eb"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "1d182555ae52404cba99fce0c25442eb"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "1d182555ae52404cba99fce0c25442eb"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "39140d96f5e74c3394ec79fd86a39eae"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "39140d96f5e74c3394ec79fd86a39eae"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.016,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "39140d96f5e74c3394ec79fd86a39eae"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.016,
+              "kind": "tool",
+              "name": "get_current_month",
+              "call_id": "5c290ddebe824a63b46b6af15d156e5f"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.016,
+              "status": "failed",
+              "error_type": "BudgetExceeded"
+            },
+            {
+              "event": "call_failed",
+              "seconds": 0.016,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "1b87bd5eae314aaea2aca16b4c576e08",
+              "error_type": "BudgetExceeded"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "41060a4be3a74454af105ee769f5fd30",
+          "status": "succeeded",
+          "seconds": 0.015,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "cc53065fa0cb4e80aa81cce584818720"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "cc53065fa0cb4e80aa81cce584818720"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "912e32525674411ba7bf84534a7332c9"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "912e32525674411ba7bf84534a7332c9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "912e32525674411ba7bf84534a7332c9"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "cc53065fa0cb4e80aa81cce584818720"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.015,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F06",
+      "title": "取消后迟到结果不得提交",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "cancel_marks_active_run",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "caller_returns_before_remote_worker",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "cancelled_turn_raises_control_error",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "cancel_preserves_previous_history",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "cancel_emits_no_answer",
+          "passed": true,
+          "actual": null,
+          "expected": null
+        },
+        {
+          "name": "normal_next_turn_after_late_return",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "late_worker_does_not_commit",
+          "passed": true,
+          "actual": 3,
+          "expected": 3
+        },
+        {
+          "name": "late_answer_is_absent",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        }
+      ],
+      "elapsed": 0.031,
+      "counts": {
+        "run": 2,
+        "model": 2
+      },
+      "trace": [
+        {
+          "phase": "cancelled_turn",
+          "run_id": "b5c34395fbda46fab6b2cf119904bd64",
+          "status": "cancelled",
+          "seconds": 0.031,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": "RunCancelled",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "43a5df3e243348c7ad69e7f3eb961569"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "43a5df3e243348c7ad69e7f3eb961569"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "c44575f92f8b4307998289000aea911e"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "c44575f92f8b4307998289000aea911e"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "cancelled",
+              "error_type": "RunCancelled"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "9d5f4e1f78004201bc9bf61f50a3ec1f",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "run": 1,
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "6ccbcf3e26694d8289121268ff4f7bea"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "6ccbcf3e26694d8289121268ff4f7bea"
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "3768575054d44f0c9af48a3d25ed12fb"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "3768575054d44f0c9af48a3d25ed12fb"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "agent.model",
+              "call_id": "3768575054d44f0c9af48a3d25ed12fb"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "run",
+              "name": "agent.turn",
+              "call_id": "6ccbcf3e26694d8289121268ff4f7bea"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    },
+    {
+      "id": "F07",
+      "title": "名额占满与排队超时",
+      "status": "passed",
+      "assertions": [
+        {
+          "name": "first_wait_times_out",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "first_worker_really_occupies_gate",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "second_request_queue_times_out",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "timed_out_worker_keeps_capacity_lease",
+          "passed": true,
+          "actual": [
+            "first_dispatched"
+          ],
+          "expected": [
+            "first_dispatched"
+          ]
+        },
+        {
+          "name": "queue_rejection_reserves_no_model_budget",
+          "passed": true,
+          "actual": 0,
+          "expected": 0
+        },
+        {
+          "name": "queued_trace_has_no_start_event",
+          "passed": true,
+          "actual": false,
+          "expected": false
+        },
+        {
+          "name": "gate_is_reusable_after_actual_worker_exit",
+          "passed": true,
+          "actual": true,
+          "expected": true
+        },
+        {
+          "name": "recovered_dispatch_reserves_one_attempt",
+          "passed": true,
+          "actual": 1,
+          "expected": 1
+        }
+      ],
+      "elapsed": 0.25,
+      "counts": {
+        "model": 2
+      },
+      "trace": [
+        {
+          "phase": "capacity_holder",
+          "run_id": "e755f19690394ddebd0e6319984a4b7a",
+          "status": "timed_out",
+          "seconds": 0.125,
+          "counts": {
+            "model": 1
+          },
+          "error_type": "CallTimeout",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.capacity_holder",
+              "call_id": "78cf541d5a5c49ad9494fdc5dd2ee780"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.capacity_holder",
+              "call_id": "78cf541d5a5c49ad9494fdc5dd2ee780"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.125,
+              "status": "timed_out",
+              "error_type": "CallTimeout"
+            }
+          ]
+        },
+        {
+          "phase": "queue_timeout",
+          "run_id": "5dcd310115834b4998f4609ef7cbef70",
+          "status": "timed_out",
+          "seconds": 0.125,
+          "counts": {},
+          "error_type": "CallTimeout",
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.queued",
+              "call_id": "5e7a19e99af948d4bcf8a8034ba5f93a"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.125,
+              "status": "timed_out",
+              "error_type": "CallTimeout"
+            }
+          ]
+        },
+        {
+          "phase": "normal_control",
+          "run_id": "232bd659eb454f779c80b81343b55183",
+          "status": "succeeded",
+          "seconds": 0.0,
+          "counts": {
+            "model": 1
+          },
+          "error_type": null,
+          "events": [
+            {
+              "event": "run_started",
+              "seconds": 0.0
+            },
+            {
+              "event": "call_queued",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.capacity_recovered",
+              "call_id": "e30a0a71afbf4d84b4984dcdda150e61"
+            },
+            {
+              "event": "call_started",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.capacity_recovered",
+              "call_id": "e30a0a71afbf4d84b4984dcdda150e61"
+            },
+            {
+              "event": "call_finished",
+              "seconds": 0.0,
+              "kind": "model",
+              "name": "harness.capacity_recovered",
+              "call_id": "e30a0a71afbf4d84b4984dcdda150e61"
+            },
+            {
+              "event": "run_finished",
+              "seconds": 0.0,
+              "status": "succeeded"
+            }
+          ]
+        }
+      ],
+      "suite": "fault",
+      "mode": "offline"
+    }
+  ]
+}

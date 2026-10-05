@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "reviewer": "Codex assistant semantic review, not independent human expert",
+  "review_date": "2026-10-01",
+  "rubric_version": "normal_task_scope_v2",
+  "raw_results_sha256": "b0d2db16d3557b64b5f0a179498de0d7896d985275d1f1f0a0d2e483bf0714c5",
+  "cases": [
+    {
+      "id": "K14",
+      "turn": 1,
+      "content_score": 2,
+      "faithful": true,
+      "reason": "本题问地面档位差异；木低、瓷砖中符合来源，新评分统一按问题范围，不枚举全部瓷砖可选档位。"
+    },
+    {
+      "id": "A11",
+      "turn": 1,
+      "content_score": 1,
+      "faithful": true,
+      "reason": "拆、剪、清仓的基本动作正确，但未保留K26的不可强拉安全限制，按保守操作完整性口径部分正确。"
+    },
+    {
+      "id": "A11",
+      "turn": 2,
+      "content_score": 0,
+      "task_success": false,
+      "reason": "断电通用锚点已进入Top3，仍回答信息不足；未完成断电追问。raw运行成功不等于任务成功。"
+    },
+    {
+      "id": "A02",
+      "turn": 1,
+      "task_success": true,
+      "reason": "用户1001和2025-08，字段与冻结CSV报告一致。"
+    }
+  ]
+}

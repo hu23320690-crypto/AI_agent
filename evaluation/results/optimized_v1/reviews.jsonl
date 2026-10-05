@@ -1,0 +1,60 @@
+{"id": "A01", "task_pass": true, "note": "问候正常，无工具误用。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A02", "task_pass": true, "note": "按1001/2025-08查询，报告数值与冻结CSV一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A03", "task_pass": true, "note": "2025-1规范为2025-01，用户1002记录字段正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A04", "task_pass": true, "note": "2099-01明确无记录，没有改查已有月份。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A05", "task_pass": true, "note": "本月正确解析2026-09，明确无记录。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A06", "task_pass": true, "note": "缺少身份时先要求在页面设置用户ID。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A07", "task_pass": true, "note": "识别13月非法，没有静默改为1月执行。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A08", "task_pass": true, "note": "模型仍尝试跨用户参数1002，但后端阻止并明确要求切换会话身份；不代表模型参数始终正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A09", "task_pass": true, "note": "天气未接入，明确无法提供实时值，无编造。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A10", "task_pass": true, "note": "两轮1001报告分别使用2025-08/09记录，覆盖率83/84%、日均43/44㎡等均匹配CSV。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A11", "task_pass": true, "note": "第一轮针对缠绕头发给出剪断且勿强拉，第二轮将部件指代解析为主刷并正确回答需要断电。此题没有K08的明确拆卸请求；两轮完成，最终输出与工具返回相同，无新增品牌电话。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "A12", "task_pass": true, "note": "知识工具注入连接异常后明确服务不可用，没有编造诊断。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K01", "answer_score": 1, "grounded": true, "note": "按冻结关键点保守计分：回答拆包装和充电，缺少首次使用的建图安排。题目“启动前”与标注建图步骤存在边界歧义，本轮保留题目和尺度，后续版本应澄清。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K02", "answer_score": 1, "grounded": true, "note": "正确处理反光物和移动障碍物，但缺少重建前删除旧地图这一标注步骤。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K03", "answer_score": 2, "grounded": true, "note": "明确配套APP的定时清扫入口，满足“在哪里设置”；沿用基线的入口题评分口径。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K04", "answer_score": 2, "grounded": true, "note": "禁区、重新建图、遥控补扫完整且与上下文一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K05", "answer_score": 1, "grounded": true, "note": "磨损与沿边模式正确，传感器清理也有检索依据；遗漏边刷能否正常旋转的标注检查点。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K06", "answer_score": 2, "grounded": true, "note": "普通家庭3-6个月、养宠1-3个月，完整回答两类频率。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K07", "answer_score": 2, "grounded": true, "note": "普通家庭2-3天、宠物家庭每天，与证据一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K08", "answer_score": 1, "grounded": true, "note": "剪断毛发且勿强拉正确，但没有回答怎么拆下主刷及清理刷仓。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K09", "answer_score": 2, "grounded": true, "note": "解释静音减吸力及关闭静音切换吸力档，完整且有依据。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K10", "answer_score": 2, "grounded": true, "note": "禁区或遮光、避免反光、重新建图完整，补上了基线遗漏步骤。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K11", "answer_score": 2, "grounded": true, "note": "关闭拖地功能，满足仅吸尘的设置需求。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K12", "answer_score": 2, "grounded": true, "note": "明确分区设置分别配置吸力与出水量，沿用基线按实际问题判分。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K13", "answer_score": 1, "grounded": true, "note": "水箱盖、密封圈、出水管正确，但与基线一样没有提到加水刻度限制。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K14", "answer_score": 2, "grounded": true, "note": "木地板低档、瓷砖中档合理且有资料支持，和基线一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K15", "answer_score": 2, "grounded": true, "note": "每次使用后清洗，满足频率提问。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K16", "answer_score": 2, "grounded": true, "note": "倒水之外清洗污水仓和滤网，完整。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K17", "answer_score": 2, "grounded": true, "note": "排空、擦拭内部与密封圈、阴凉干燥存放完整；额外薄硅胶油步骤可在实际检索的维护保养片段中找到。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K18", "answer_score": 2, "grounded": true, "note": "地毯设禁拖区，自动抬布或跳过拖地，与资料一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K19", "answer_score": 2, "grounded": true, "note": "断电、不可冲水浸泡及防水机型仅可擦拭全部正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K20", "answer_score": 2, "grounded": true, "note": "每天干布擦拭机身与底座触点、防氧化，与原文一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K21", "answer_score": 2, "grounded": true, "note": "正确回答每周与软毛刷，修复了基线因漏召回而未回答的问题。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K22", "answer_score": 2, "grounded": true, "note": "断电和配件型号匹配两点完整，补上基线遗漏的断电。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K23", "answer_score": 2, "grounded": true, "note": "每周用干布擦拭充电座红外区，正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K24", "answer_score": 2, "grounded": true, "note": "明确不能仅依赖防跌落，仍需防护，满足问题。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K25", "answer_score": 2, "grounded": true, "note": "明确不可用钢丝球/硬毛刷及损伤原因，修复基线未回答。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K26", "answer_score": 2, "grounded": true, "note": "明确不能强拉，应剪断毛发，与证据一致。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K27", "answer_score": 2, "grounded": true, "note": "网络、APP版本、待机检查完整；退出APP及手动模式在实际片段中有依据，沿用基线同口径。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K28", "answer_score": 2, "grounded": true, "note": "避障传感器与防撞条覆盖所问部件，摄像头属于避障感知组件；不要求额外修复流程。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K29", "answer_score": 2, "grounded": true, "note": "尘盒、滤网、风道、主刷、吸口全部覆盖。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K30", "answer_score": 2, "grounded": true, "note": "先清理重装，仍不转联系售后检测电机，完整。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K31", "answer_score": 2, "grounded": true, "note": "反光物和移动障碍物覆盖问题限定的环境因素。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K32", "answer_score": 1, "grounded": true, "note": "仍只正确覆盖电量，混入停扫回充情境，漏掉尘盒与传感器，和基线同样部分正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K33", "answer_score": 2, "grounded": true, "note": "正确回答清洁刷，修复基线相似故障导致的部件错误。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K34", "answer_score": 2, "grounded": true, "note": "小户型轻便灵活、养宠强化吸力和防缠绕完整，基础激光导航与3D结构光补充均有检索依据。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K35", "answer_score": 2, "grounded": true, "note": "复杂户型激光导航、视觉避免强光均正确，修复基线错误推荐。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K36", "answer_score": 2, "grounded": true, "note": "60分钟与120分钟下限正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K37", "answer_score": 1, "grounded": true, "note": "仍未回答至少2.5L；无纺布和撕拉设计是实际资料支持的部分选购建议，因此部分正确。没有再把尘盒500/600ml冒充集尘袋容量。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K38", "answer_score": 2, "grounded": true, "note": "不超过7.5厘米正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K39", "answer_score": 2, "grounded": true, "note": "防缠绕主刷及硅胶条正确。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "K40", "answer_score": 2, "grounded": true, "note": "分区清扫、禁区、定时任务完整。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N01", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N02", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N03", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N04", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N05", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N06", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N07", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}
+{"id": "N08", "answer_score": 2, "grounded": true, "note": "明确当前参考资料不足，没有编造型号、实时数据、日期、链接或协议。", "reviewer": "Codex assistant rubric review; not independent human expert"}

@@ -1,0 +1,65 @@
+{
+  "started_at": "2026-09-18T12:54:59.511364+10:00",
+  "clock_date": "2026-09-18",
+  "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "dataset_sha256": "bbc5fabf42ce501372f84db17c236cbf749ddfd8dc6990b463581c8d4ed90be6",
+  "code_sha256": {
+    "agent\\react_agent.py": "cb2049845179159b20fa4c476fee44453df05b07116dd47803d3dd9b8d2e0cef",
+    "agent\\tools\\agent_tools.py": "c6aa8c06f718c99be9358ae1327dba33003dca5ec0e1d90cf2b323ceb45c2e6e",
+    "agent\\tools\\middleware.py": "75ccd9138064b580da55eef36a5019b7ee658e14c8417b622c074304337de06b",
+    "app.py": "c75c2fe778cda63048540472b0ebe0ecf35f5dd786e5030120d1e8bc6dc1fa8a",
+    "config\\agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config\\chroma.yml": "f64366518564918c96c78e699709c49025a621b8e11656f6ca2d258eee992c96",
+    "config\\prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config\\rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "model\\factory.py": "a30c069dccc036479089acb9f1cf87965c9e5e00c696f898f3155303ec1279c1",
+    "prompts\\main_prompt.txt": "b3785b10811fc6628db1fcc64a4f4323c4fb7362a1794ac39fb9865fc413c7eb",
+    "prompts\\rag_summarize.txt": "a52dc93f5d465efa07c6234ed568756b3e50ef206ac3e3e1936dc17ef6f45e2f",
+    "prompts\\report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag\\hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag\\rag_service.py": "5efa0dd4a717d34fbf3287492dc6047b7a55b1fcbcdd2cb7ef6154c04c2399f4",
+    "rag\\vector_store.py": "80df529f487bce3a29edc02017fa51d6ea196201c2e2a8bef4d2d722639593c4",
+    "utils\\config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils\\file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils\\logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils\\model_output.py": "9cf8d5e253b0d92420278e820a04230142e4da9aee279070216d0caeb0169aba",
+    "utils\\path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils\\prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils\\records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils\\report_render.py": "d6d2a7a42b0e49ed33cda86f5f64df8ac0c1738edc2bd73b2b0c71c51d1d14b7"
+  },
+  "source_sha256": {
+    "data\\扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+    "data\\扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+    "data\\扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+    "data\\故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+    "data\\维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+    "data\\选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+    "data\\external\\records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "models": [
+    {
+      "name": "nomic-embed-text:latest",
+      "digest": "0a109f422b47e3a30ba2b10eca18548e944e8a23073ee3f3e947efcf3c45e59f"
+    },
+    {
+      "name": "qwen3-embedding:4b",
+      "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907"
+    },
+    {
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+    }
+  ],
+  "dependencies": {
+    "langchain": "1.3.18",
+    "langchain-core": "1.6.1",
+    "langchain-ollama": "1.1.0",
+    "langgraph": "1.2.11",
+    "chromadb": "1.5.9"
+  },
+  "timeout_seconds": 240,
+  "inference_concurrency": 1,
+  "definition": "QA评测直接使用RAG服务的同一chain与格式化上下文；独立Agent场景测试完整交互。人工语义评分另存。"
+}

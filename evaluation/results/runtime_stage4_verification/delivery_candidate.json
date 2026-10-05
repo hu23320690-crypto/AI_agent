@@ -1,0 +1,20 @@
+{
+  "archive": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\work\\AI_agent_stage4_delivery_candidate.zip",
+  "archive_sha256": "6d8206f940da3e1480ceb0c742b35cfa2e40cf3abb8fadad6b619e2d666ada1f",
+  "files": 825,
+  "all_archive_and_extracted_hashes_match": true,
+  "extracted_project": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\work\\stage4_delivery_extract\\AI_agent",
+  "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+  "note": "Independent source extraction, using the existing locked Python environment; not a fresh dependency installation.",
+  "checks": {
+    "doctor_offline": {
+      "exit_code": 0,
+      "log": "E:\\pycharm\\AI_agent\\evaluation\\results\\runtime_stage4_verification\\delivery_doctor_offline.txt"
+    },
+    "unittest": {
+      "exit_code": 0,
+      "log": "E:\\pycharm\\AI_agent\\evaluation\\results\\runtime_stage4_verification\\delivery_unittest.txt"
+    }
+  },
+  "ok": true
+}

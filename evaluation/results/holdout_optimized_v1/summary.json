@@ -1,0 +1,67 @@
+{
+  "planned": 12,
+  "completed": 12,
+  "statuses": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0
+  },
+  "reviewed": 12,
+  "retrieval": {
+    "evaluated": 8,
+    "planned": 8,
+    "hit_counts": {
+      "1": 4,
+      "3": 7,
+      "5": 8
+    },
+    "mrr_at_5": 0.6916666666666667
+  },
+  "knowledge_answers": {
+    "planned": 8,
+    "completed": 8,
+    "reviewed": 8,
+    "errors": 0,
+    "full_correct": 8,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 8,
+    "strict_pass": 8
+  },
+  "unanswerable_answers": {
+    "planned": 4,
+    "completed": 4,
+    "reviewed": 4,
+    "errors": 0,
+    "full_correct": 4,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 4,
+    "strict_pass": 4
+  },
+  "agent": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "task_pass": 0,
+    "tool_selection_pass": 0
+  },
+  "latency": {
+    "retrieval": {
+      "count": 12,
+      "median_seconds": 0.19284814999991795,
+      "p95_seconds": 0.41715659999999843
+    },
+    "rag_generation": {
+      "count": 12,
+      "median_seconds": 24.116436950000207,
+      "p95_seconds": 32.809648800000105
+    },
+    "agent_turn": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    }
+  },
+  "failures": []
+}

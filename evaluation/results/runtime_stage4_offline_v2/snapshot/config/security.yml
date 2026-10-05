@@ -1,0 +1,21 @@
+# Administrator-controlled policy. Document authors cannot approve their files.
+max_file_bytes: 8388608
+max_text_chars: 500000
+max_chunks_per_source: 3
+max_sources: 512
+max_pdf_pages: 500
+cache_entries: 8
+cache_text_chars: 1000000
+deduplicate_chunks: true
+reject_invisible_chars: true
+# Conservative signals, not a complete prompt-injection detector.
+# A legitimate document quoting these patterns requires an explicit risk review.
+risk_rules:
+  - id: instruction_override_en
+    pattern: '(?:ignore|disregard|override)\s+(?:all\s+)?(?:previous|prior|above|system)\s+(?:instructions?|prompts?|rules?)'
+  - id: instruction_override_zh
+    pattern: '(?:忽略|无视|覆盖|绕过).{0,12}(?:之前|以上|上述|系统|安全).{0,8}(?:指令|提示词|规则|限制)'
+  - id: role_delimiter
+    pattern: '<\|(?:im_start|im_end|system|assistant|user)\|>|\[INST\]|<\/?(?:system|developer)>|(?:^|\n)\s*(?:SYSTEM|DEVELOPER)\s*:'
+  - id: cross_user_or_exfiltration
+    pattern: '(?:读取|查询|导出|上传|发送).{0,12}(?:所有用户|其他用户|其它用户|密钥|访问令牌|系统提示词)|(?:exfiltrat\w*|steal)\s+(?:secrets?|credentials?|tokens?)'

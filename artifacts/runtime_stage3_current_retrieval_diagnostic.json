@@ -1,0 +1,213 @@
+{
+  "note": "收尾版本独立重检，不是之前A11实际检索快照。",
+  "code_sha256": {
+    "agent\\react_agent.py": "a45236144b8903283c2229ba9a31c77cabcf5d614c7681ee870281381d495ddb",
+    "agent\\runtime\\__init__.py": "a188b8791553fca3be4830c3f43559f893a6f258286d0024197e87ad17cd5144",
+    "agent\\runtime\\core.py": "734bba1b17399939c92d84ec51cff55469516cc3c8803c0ec9edecbf33bfaec2",
+    "agent\\runtime\\resilience.py": "b3d4bc82b0e5fb51a618a7c93f7920076960e53ddc27be9167c996fe33712cb6",
+    "agent\\tools\\agent_tools.py": "c6aa8c06f718c99be9358ae1327dba33003dca5ec0e1d90cf2b323ceb45c2e6e",
+    "agent\\tools\\middleware.py": "e41e4ab91c3b77953d442e1a176878da0efc69aaf364fdabd1aaf1c700d7809f",
+    "agent\\tools\\policy.py": "9316790694b758e6f7da2b9a25222fc199006edefe1ac87bd428c0da2fd43ae5",
+    "app.py": "99e5a9d2bdecc138b7d8f45ce0e48d798fad64bd3c50fb03dc5fdae27958390e",
+    "config\\agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config\\chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config\\knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config\\prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config\\rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config\\resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config\\runtime.yml": "572e2d46e30304103a0ca978d7aa68ebce1abad4a2a63f1ed02d7e683bc34a79",
+    "config\\security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "model\\factory.py": "3ba172e2512fab01c76ed950a9d6931f89c2d5eca561611a3d7e4fc917ca3432",
+    "prompts\\main_prompt.txt": "b3785b10811fc6628db1fcc64a4f4323c4fb7362a1794ac39fb9865fc413c7eb",
+    "prompts\\rag_summarize.txt": "8d0c9e704a58190fc77fcdb1ed397f99413605961127e65017227f0fe7badd39",
+    "prompts\\report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag\\hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag\\rag_service.py": "ed9f0bac709535441939cff6577cfbf2c13162cbc6ed0e2777dd1b19e487518a",
+    "rag\\security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag\\vector_store.py": "be4c1dab12f8dc3451d6aabdcf252a01a506369ac157a5a32e81f27de0b08602",
+    "utils\\config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils\\file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils\\logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils\\model_output.py": "9cf8d5e253b0d92420278e820a04230142e4da9aee279070216d0caeb0169aba",
+    "utils\\path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils\\prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils\\records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils\\report_render.py": "d6d2a7a42b0e49ed33cda86f5f64df8ac0c1738edc2bd73b2b0c71c51d1d14b7"
+  },
+  "queries": {
+    "清理主刷前需要断开电源吗？": [
+      {
+        "text": "25. 机器人在有宠物的环境使用后，立即清理主刷、尘盒，避免宠物毛发结块。\n26. 每月拆解机器人的吸口组件，清理内部的细小杂物，保证吸口通畅。\n27. 集尘款机器人，更换集尘袋时，先关闭电源，避免集尘过程中漏灰。\n28. 主刷滚刷若为可拆卸设计，每周拆卸清洗一次（非防水款用干布擦拭），晾干后安装。\n29. 机器人清扫大颗粒垃圾后，立即检查吸口、滚刷仓，无残留，防止卡机。",
+        "metadata": {
+          "chunk_index": 16,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "source_version": 1,
+          "start_index": 2948,
+          "chunk_count": 53,
+          "chunk_id": "dbb3554e67b5e40b2bc27f65bc0ac1e0114838ad92ba8c21038932de3ef7eaaf",
+          "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+          "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_sha256": "4b1fa139011658225796e2eff76a064b7e226617efb5c44cf18e15e5314b08a3",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+        }
+      },
+      {
+        "text": "10. 每周检查机器人吸口滚刷（无主刷机型），确保无缠绕、磨损，转动顺畅。\n11. 集尘款机器人，每日检查集尘袋安装是否到位，密封严实，避免漏灰。\n12. 机器人在长毛地毯上清扫后，立即清理主刷上的地毯纤维，防止缠绕硬化。\n13. 每月检查主刷电机的工作状态，运行时无异常发热、异响，如有及时停机。\n14. 清理主刷时，注意保护滚刷两端的轴承，避免进水、进灰导致卡顿。",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_id": "3d615d1656ca6a00ed5c70130887ab53b9a3593452b196cb74c13f9bab404179",
+          "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+          "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+          "start_index": 2379,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "chunk_index": 13,
+          "chunk_sha256": "097525f2e9dbe15bcd6b400711f442cbad1ec73b85d60134146ca943948e93d3",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "## 扫地功能专属维护（30条）\n1. 每次清扫完成后，立即清理主刷上的毛发、线头，用剪刀剪断缠绕物，切勿强行拉扯。\n2. 每日清理边刷上的灰尘、杂物，保证边刷旋转时能正常将边角灰尘扫入吸口。\n3. 每周拆解主刷滚刷仓，用软毛刷清理仓内的灰尘、毛发，无死角残留。\n4. 主刷使用时若出现“打滑”，检查滚刷胶条是否磨损，及时清洁或更换。",
+        "metadata": {
+          "chunk_index": 11,
+          "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_346430645ac43894f75b9be2",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "start_index": 2019,
+          "chunk_sha256": "ed38cd762a510fc9368cfe7c264a3c55d5106073b3bf1d82a3d08f61115f5072",
+          "chunk_id": "5a8cdcee4b1cb36fb3ecf549158cda6a13251978a3c8835dc20e11cbdf870f61",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt"
+        }
+      },
+      {
+        "text": "7. 故障现象：吸力明显下降；检测：尘盒、滤网、风道是否堵塞，主刷是否缠绕杂物，吸口是否被遮挡；修复：逐一清理堵塞部位，剪断主刷缠绕毛发，检查吸口无异物。\n\n8. 故障现象：主刷不旋转；检测：主刷是否被异物卡死，电机线路是否松动，主刷电机是否故障；修复：清理主刷杂物，重新安装主刷，若仍不转联系售后检测电机。",
+        "metadata": {
+          "source_version": 1,
+          "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+          "chunk_id": "337d688f92abb1c50eae5346de24d4aef0b8a898a34716841cd6fe6d1c4e5089",
+          "chunk_sha256": "c7e3ebc7dc671956330e9cb4d19b8992f508b39181703d160469e33cdfb65fcf",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+          "chunk_index": 3,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_count": 100,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "start_index": 557,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      },
+      {
+        "text": "43. 故障现象：拖布支架松动，拖地时晃动；检测：支架卡扣是否断裂，是否安装到位；修复：重新安装支架，卡扣断裂则更换支架。\n\n44. 故障现象：机器人在地毯上清扫时卡顿；检测：地毯纤维是否缠绕主刷，地毯是否过厚，机器人是否开启地毯模式；修复：清理主刷纤维，关闭地毯模式，手动清理厚地毯。",
+        "metadata": {
+          "chunk_index": 21,
+          "chunk_count": 100,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "source_version": 1,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "start_index": 3363,
+          "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+          "chunk_id": "d06d8cf78bdf58d0b23532f98d241012900b8b2b682a40b08033e8b9939576d5",
+          "chunk_sha256": "3bc721c220a3963b697aafaf991631336b8b718901495285859a88aa9632b5c4"
+        }
+      }
+    ],
+    "主刷上缠了长头发，应该怎么清理？": [
+      {
+        "text": "35. **主刷缠绕毛发怎么清理？**\n- 拆卸主刷两端卡扣，取下主刷，用剪刀剪断缠绕的毛发，用毛刷清理滚刷仓内杂物。",
+        "metadata": {
+          "source": "E:\\pycharm\\AI_agent\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_key": "23b391f5f4d3694895735d2ebb9abd031672eea3ce09156bb7c80e2822b25a93",
+          "source_version": 1,
+          "chunk_count": 41,
+          "chunk_sha256": "3fd587251935e8aa2a943dda5b8bfb48e17491ec113b706699d77ed24c41b0c1",
+          "start_index": 2350,
+          "chunk_index": 13,
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_id": "ec22ab82ef5b48db244d4978502c9c4cca4bf0d6ac327cdea54cee101a2a2692"
+        }
+      },
+      {
+        "text": "## 扫地功能专属维护（30条）\n1. 每次清扫完成后，立即清理主刷上的毛发、线头，用剪刀剪断缠绕物，切勿强行拉扯。\n2. 每日清理边刷上的灰尘、杂物，保证边刷旋转时能正常将边角灰尘扫入吸口。\n3. 每周拆解主刷滚刷仓，用软毛刷清理仓内的灰尘、毛发，无死角残留。\n4. 主刷使用时若出现“打滑”，检查滚刷胶条是否磨损，及时清洁或更换。",
+        "metadata": {
+          "chunk_index": 11,
+          "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_346430645ac43894f75b9be2",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "start_index": 2019,
+          "chunk_sha256": "ed38cd762a510fc9368cfe7c264a3c55d5106073b3bf1d82a3d08f61115f5072",
+          "chunk_id": "5a8cdcee4b1cb36fb3ecf549158cda6a13251978a3c8835dc20e11cbdf870f61",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt"
+        }
+      },
+      {
+        "text": "10. 每周检查机器人吸口滚刷（无主刷机型），确保无缠绕、磨损，转动顺畅。\n11. 集尘款机器人，每日检查集尘袋安装是否到位，密封严实，避免漏灰。\n12. 机器人在长毛地毯上清扫后，立即清理主刷上的地毯纤维，防止缠绕硬化。\n13. 每月检查主刷电机的工作状态，运行时无异常发热、异响，如有及时停机。\n14. 清理主刷时，注意保护滚刷两端的轴承，避免进水、进灰导致卡顿。",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_id": "3d615d1656ca6a00ed5c70130887ab53b9a3593452b196cb74c13f9bab404179",
+          "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+          "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+          "start_index": 2379,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "chunk_index": 13,
+          "chunk_sha256": "097525f2e9dbe15bcd6b400711f442cbad1ec73b85d60134146ca943948e93d3",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "- 检查拖布是否脏污、硬化，及时清洗或更换拖布，针对顽固污渍可手动喷洒清洁剂后让机器人重拖。\n17. **机器人清扫时会遗漏毛发怎么办？**\n- 清理主刷缠绕的毛发，更换宠物专用防缠绕主刷，将吸力调至高档，开启“毛发清理模式”。\n18. **大颗粒垃圾（如饼干渣）吸不进去怎么办？**\n- 检查滚刷仓是否堵塞，确认吸口无遮挡，将机器人调至“大吸力模式”，避免大颗粒垃圾卡入滚刷。",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_index": 6,
+          "chunk_id": "319a99aeb0ee1201f886fb3f30c81b7c0c3fc2be1c399bab67351fdc15ed8c7d",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "source_key": "23b391f5f4d3694895735d2ebb9abd031672eea3ce09156bb7c80e2822b25a93",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_sha256": "dac617ac2ad424d08fff7d8cf853012cce58b1be96dfdb6c54fce2be4ce68eaf",
+          "source": "E:\\pycharm\\AI_agent\\data\\扫地机器人100问2.txt",
+          "start_index": 1079,
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41
+        }
+      },
+      {
+        "text": "123. 故障现象：机器人在长毛地毯上缠绕后停机；检测：是否开启防缠绕功能，主刷是否为防缠绕款；修复：开启防缠绕功能，更换防缠绕主刷，手动清理缠绕物。\n\n124. 故障现象：拖地时出水管漏水，而非水箱；检测：出水管是否破损，接口是否松动；修复：更换出水管，拧紧接口。",
+        "metadata": {
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_index": 61,
+          "start_index": 9297,
+          "chunk_count": 100,
+          "source": "E:\\pycharm\\AI_agent\\data\\故障排除.txt",
+          "source_key": "8cd07804d778910ecb0f8977ce2c1be8dd26b1e1c14fdeea67038ff777f6114c",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_id": "7302f2aec24aa72ecd5c1067e6bdd534f8fe3e0da2d442fc4dedeadd273e3340",
+          "source_version": 1,
+          "chunk_sha256": "b8042e0fa0f84d10067d0e2fb3fd9757c8d0ae0214ca2a20d47b605882721cb2"
+        }
+      }
+    ]
+  }
+}

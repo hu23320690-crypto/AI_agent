@@ -1,0 +1,263 @@
+{
+  "id": "K14",
+  "status": "ok",
+  "turns": [
+    {
+      "query": "木地板与瓷砖拖地时，出水量应该怎样区分？",
+      "answer": "木地板拖地时应选择低档出水量，瓷砖地面应选择中档出水量。",
+      "seconds": 43.06551790000003
+    }
+  ],
+  "contexts": [
+    {
+      "query": "木地板与瓷砖拖地时，出水量应该怎样区分？",
+      "run_id": "b5d38cc0fded435babaa4931877dc820",
+      "docs": [
+        {
+          "text": "### 拖地系统专属类\n11. **水箱加水后漏水怎么处理？**\n- 检查水箱盖是否拧紧、水箱密封圈是否脱落或破损，确认出水管无堵塞，加水至刻度线内，避免过满溢出。\n12. **拖地时出水量过大或过小怎么调节？**\n- 在APP中进入【拖地设置】，一般分低、中、高三档出水量，木地板选低档，瓷砖、水泥地可选中高档。\n13. **水箱没水了机器人会自动停止吗？**",
+          "metadata": {
+            "source_key": "00d47187b26b62e7e32985134c6a843e4cf827c1c3b00fe75cf36cc6baae5b5d",
+            "chunk_count": 51,
+            "chunk_id": "183180e0a68f00ef7db433a72aedc746a0a8d565e52654ca2c64a54080f8dfb8",
+            "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+            "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+            "chunk_sha256": "2a2369b163cef22bef2f8be4bb1574873cad1514f2a78eadb29bcd7418d4dc23",
+            "chunk_index": 5,
+            "source": "E:\\pycharm\\AI_agent\\data\\扫拖一体机器人100问.txt",
+            "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+            "start_index": 764,
+            "source_version": 1,
+            "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+          }
+        },
+        {
+          "text": "## 环境适配维护（20条）\n1. 木地板环境：拖地时调至低档出水量，使用干拖模式，避免地面积水，每周对机器人轮组进行除尘，防止泥沙磨损地板。\n2. 瓷砖/大理石环境：拖地后及时清理机器人底部水渍，每月对拖布支架进行除垢，防止水垢附着。\n3. 长毛地毯环境：清扫后立即清理主刷、边刷上的地毯纤维，关闭拖地功能，防止拖布浸湿地毯导致发霉。",
+          "metadata": {
+            "chunk_index": 36,
+            "chunk_count": 53,
+            "source_version": 1,
+            "source_id": "src_346430645ac43894f75b9be2",
+            "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+            "chunk_sha256": "072f1a35b91586a2a2ff4777c3dc548d19404d2811ec3d7029e4ea35859ef316",
+            "source": "E:\\pycharm\\AI_agent\\data\\维护保养.txt",
+            "source_key": "80a1e3076b6ddf4bc827be0b88ca1a6d0b85bacf5f30d1a72e408303bdcf5372",
+            "chunk_id": "cf4230497131a23146d2a388c9b77b0e0a99c8f319c8675b963f1ca90e833610",
+            "start_index": 6175,
+            "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+            "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+          }
+        },
+        {
+          "text": "- 选择支持“断点续拖”的机型，加水后机器人会回到缺水位置继续拖地；也可将地图分区，分批次对不同区域进行拖扫。\n31. **木地板拖完后起翘、变形怎么办？**\n- 立即用干布吸干木地板表面水分，打开门窗通风；后续拖地时调至“干拖”或最低档出水量，避免地面积水。\n32. **瓷砖地面的缝隙污渍拖不干净怎么处理？**",
+          "metadata": {
+            "source_version": 1,
+            "chunk_id": "ededd11dbb98b97ce6100199c3a9e692b23730b787273740de7f1566f6d72a6f",
+            "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+            "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+            "start_index": 2237,
+            "source_key": "00d47187b26b62e7e32985134c6a843e4cf827c1c3b00fe75cf36cc6baae5b5d",
+            "chunk_sha256": "75700d4524bb37e9fd8ec5d93222b407d01846f747954aebc479c6e3bc48ebe8",
+            "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+            "source": "E:\\pycharm\\AI_agent\\data\\扫拖一体机器人100问.txt",
+            "chunk_count": 51,
+            "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+            "chunk_index": 14
+          }
+        },
+        {
+          "text": "39. 驱动轮材质：橡胶材质防滑性优于塑料，带纹路设计增强抓地力，适配地毯和湿滑地面。\n\n40. 万向轮设计：可360°旋转无卡顿，带防缠绕盖，避免毛发缠绕影响转向。\n\n41. 清洁覆盖率：选购时可参考实测覆盖率≥98%，避免漏扫大片区域，优先选规划式清扫机型。\n\n42. 出水量调节：至少分3档调节，木地板用低档、瓷砖用中档、顽固污渍用高档，精准适配场景。",
+          "metadata": {
+            "chunk_count": 48,
+            "chunk_sha256": "a968ddbb08a1914f195f21b29cbf521748ca9cc120802c58a9422e89fcdaf39b",
+            "chunk_id": "971678f0d3a7dde2d18a7e8af80d8dba5fbc9d134ff7d7fb39e598f17554da00",
+            "chunk_index": 10,
+            "source": "E:\\pycharm\\AI_agent\\data\\选购指南.txt",
+            "source_key": "2df33a9e1f227015d48a733f0280bf14d1f08b5528f918e09964a57e0d1a6668",
+            "source_version": 1,
+            "start_index": 1840,
+            "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+            "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+            "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+            "source_id": "src_2db1465df193608158c1225b"
+          }
+        },
+        {
+          "text": "31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。\n\n32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。\n\n33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。\n\n34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。",
+          "metadata": {
+            "chunk_count": 48,
+            "source_version": 1,
+            "chunk_index": 8,
+            "chunk_id": "8ba74b2d5219318807a3ac4d12394250138ad389a115c33b7a184aba9a0dbcca",
+            "source_key": "2df33a9e1f227015d48a733f0280bf14d1f08b5528f918e09964a57e0d1a6668",
+            "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+            "source_id": "src_2db1465df193608158c1225b",
+            "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+            "source": "E:\\pycharm\\AI_agent\\data\\选购指南.txt",
+            "chunk_sha256": "73e3e7420555d927ebd34285413cda9998332fceb7abd7ef042008e1700c62f7",
+            "start_index": 1483,
+            "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726"
+          }
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "run_id": "b5d38cc0fded435babaa4931877dc820",
+    "status": "succeeded",
+    "seconds": 43.062,
+    "counts": {
+      "run": 1,
+      "retrieval": 2,
+      "embedding": 1,
+      "model": 1
+    },
+    "error_type": null,
+    "events": [
+      {
+        "event": "run_started",
+        "seconds": 0.0
+      },
+      {
+        "event": "call_queued",
+        "seconds": 0.0,
+        "kind": "run",
+        "name": "normal.rag",
+        "call_id": "f3e8276b01b040bcb90aaaf133c7f9c4"
+      },
+      {
+        "event": "call_started",
+        "seconds": 0.0,
+        "kind": "run",
+        "name": "normal.rag",
+        "call_id": "f3e8276b01b040bcb90aaaf133c7f9c4"
+      },
+      {
+        "event": "call_queued",
+        "seconds": 0.0,
+        "kind": "retrieval",
+        "name": "rag.retrieve",
+        "call_id": "0b1d60dd88d54106a939db6fed595878"
+      },
+      {
+        "event": "call_started",
+        "seconds": 0.0,
+        "kind": "retrieval",
+        "name": "rag.retrieve",
+        "call_id": "0b1d60dd88d54106a939db6fed595878"
+      },
+      {
+        "event": "knowledge_filter",
+        "seconds": 0.75,
+        "allowed_chunks": 326,
+        "blocked_sources": 0
+      },
+      {
+        "event": "call_queued",
+        "seconds": 0.75,
+        "kind": "embedding",
+        "name": "ollama.embed",
+        "call_id": "518f5d75ebc04c729be3a5f257967d15"
+      },
+      {
+        "event": "call_started",
+        "seconds": 0.75,
+        "kind": "embedding",
+        "name": "ollama.embed",
+        "call_id": "518f5d75ebc04c729be3a5f257967d15"
+      },
+      {
+        "event": "call_finished",
+        "seconds": 9.343,
+        "kind": "embedding",
+        "name": "ollama.embed",
+        "call_id": "518f5d75ebc04c729be3a5f257967d15"
+      },
+      {
+        "event": "call_finished",
+        "seconds": 9.453,
+        "kind": "retrieval",
+        "name": "rag.retrieve",
+        "call_id": "0b1d60dd88d54106a939db6fed595878"
+      },
+      {
+        "event": "call_queued",
+        "seconds": 9.468,
+        "kind": "model",
+        "name": "rag.model",
+        "call_id": "4b5db6f7a683414284f66d4fbf280ccc"
+      },
+      {
+        "event": "call_started",
+        "seconds": 9.468,
+        "kind": "model",
+        "name": "rag.model",
+        "call_id": "4b5db6f7a683414284f66d4fbf280ccc"
+      },
+      {
+        "event": "call_finished",
+        "seconds": 43.031,
+        "kind": "model",
+        "name": "rag.model",
+        "call_id": "4b5db6f7a683414284f66d4fbf280ccc"
+      },
+      {
+        "event": "call_finished",
+        "seconds": 43.047,
+        "kind": "run",
+        "name": "normal.rag",
+        "call_id": "f3e8276b01b040bcb90aaaf133c7f9c4"
+      },
+      {
+        "event": "call_queued",
+        "seconds": 43.047,
+        "kind": "retrieval",
+        "name": "run.commit_validation",
+        "call_id": "6cafa3b85ba2482a8af7575fc2d84610"
+      },
+      {
+        "event": "call_started",
+        "seconds": 43.047,
+        "kind": "retrieval",
+        "name": "run.commit_validation",
+        "call_id": "6cafa3b85ba2482a8af7575fc2d84610"
+      },
+      {
+        "event": "call_finished",
+        "seconds": 43.062,
+        "kind": "retrieval",
+        "name": "run.commit_validation",
+        "call_id": "6cafa3b85ba2482a8af7575fc2d84610"
+      },
+      {
+        "event": "run_finished",
+        "seconds": 43.062,
+        "status": "succeeded"
+      }
+    ]
+  },
+  "model_calls": [
+    {
+      "usage": {
+        "input_tokens": 2040,
+        "output_tokens": 1999,
+        "total_tokens": 4039
+      },
+      "metadata": {
+        "model": "qwen3:4b",
+        "created_at": "2026-09-30T23:22:43.0731449Z",
+        "done": true,
+        "done_reason": "stop",
+        "total_duration": 33518428600,
+        "load_duration": 7698093400,
+        "prompt_eval_count": 2040,
+        "prompt_eval_duration": 678807000,
+        "eval_count": 1999,
+        "eval_duration": 25128974000,
+        "logprobs": null,
+        "model_name": "qwen3:4b",
+        "model_provider": "ollama"
+      }
+    }
+  ],
+  "tool_calls": []
+}
