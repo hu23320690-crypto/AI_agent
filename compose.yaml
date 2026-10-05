@@ -1,0 +1,88 @@
+name: ai-agent
+
+x-agent-environment: &agent-environment
+  OLLAMA_HOST: http://ollama:11434
+  # Explicit administrator opt-in for this exact Compose service origin.
+  TOKENIZER_ALLOWED_ORIGIN: http://ollama:11434
+  PYTHONUTF8: "1"
+
+x-agent-volumes: &agent-volumes
+  # Docker populates an empty named volume from the image on first use.
+  # Keep the tokenizer manifest/cache and knowledge approval ledger together.
+  - config_state:/app/config
+  - chroma_data:/app/rag/chroma_db
+  - agent_logs:/app/logs
+
+services:
+  ollama:
+    image: ollama/ollama:0.35.1
+    environment:
+      OLLAMA_HOST: 0.0.0.0:11434
+    volumes:
+      - ollama_models:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+  # Run explicitly during first setup; no models download during API startup.
+  models:
+    profiles: ["setup"]
+    image: ollama/ollama:0.35.1
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - "ollama pull qwen3:4b && ollama pull qwen3-embedding:4b"
+    restart: "no"
+
+  bootstrap:
+    profiles: ["setup"]
+    build: .
+    image: ai-agent:local
+    environment: *agent-environment
+    volumes: *agent-volumes
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: ["/bin/sh", "-ec"]
+    command:
+      - "python -B -m model.token_count export && python -B scripts/manage.py doctor && python -B scripts/manage.py index"
+    healthcheck:
+      disable: true
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    restart: "no"
+
+  api:
+    build: .
+    image: ai-agent:local
+    environment:
+      <<: *agent-environment
+      API_KEY: ${API_KEY:?Set a random API_KEY in .env or your environment}
+      API_MAX_CONCURRENT: ${API_MAX_CONCURRENT:-2}
+      API_MAX_SESSIONS: ${API_MAX_SESSIONS:-100}
+      API_SESSION_TTL_SECONDS: ${API_SESSION_TTL_SECONDS:-1800}
+      API_REQUEST_TIMEOUT_SECONDS: ${API_REQUEST_TIMEOUT_SECONDS:-125}
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    volumes: *agent-volumes
+    depends_on:
+      ollama:
+        condition: service_healthy
+    cap_drop: ["ALL"]
+    security_opt: ["no-new-privileges:true"]
+    stop_grace_period: 135s
+    restart: unless-stopped
+
+volumes:
+  ollama_models:
+  config_state:
+  chroma_data:
+  agent_logs:

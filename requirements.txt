@@ -16,3 +16,6 @@ httpx==0.28.1
 ollama==0.6.2
 # Offline token counting with the pinned local Ollama tokenizer cache.
 tokenizers==0.23.1
+# HTTP service; uvicorn was already in the original dependency closure.
+fastapi==0.142.2
+uvicorn==0.52.4

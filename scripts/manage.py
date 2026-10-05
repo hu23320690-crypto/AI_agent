@@ -132,12 +132,15 @@ def main(argv=None):
     p.add_argument('--offline', action='store_true', help='跳过Ollama检查')
     commands.add_parser('index', help='初始化或增量更新知识库')
     commands.add_parser('test', help='运行离线回归测试')
+    commands.add_parser('pytest', help='运行全部离线回归及 API 测试')
     p = commands.add_parser('knowledge', help='知识来源管理员操作；使用 knowledge --help 查看')
     p.add_argument('arguments', nargs=argparse.REMAINDER)
     p = commands.add_parser('harness', help='离线故障/投毒评测；harness --help 查看全部选项')
     p.add_argument('arguments', nargs=argparse.REMAINDER)
     p = commands.add_parser('serve', help='启动仅本机访问的Streamlit界面')
     p.add_argument('--port', type=int, default=8501)
+    p = commands.add_parser('api', help='启动仅本机访问的 FastAPI 服务，需配置 API_KEY')
+    p.add_argument('--port', type=int, default=8000)
     p = commands.add_parser('demo', help='运行6个真实Agent案例并保存输出')
     p.add_argument('--output', help='结果目录；已有同版本案例断点续跑')
     args = parser.parse_args(argv)
@@ -147,12 +150,18 @@ def main(argv=None):
         return run_python(['-m', 'scripts.knowledge', *args.arguments])
     if args.command == 'test':
         return run_python(['-m', 'unittest', 'discover', '-s', 'tests', '-v'])
+    if args.command == 'pytest':
+        return run_python(['-m', 'pytest', '-q'])
     if args.command == 'index':
         return run_python(['-m', 'rag.vector_store']) if doctor() == 0 else 1
     if args.command == 'demo':
         return demo(args.output)
     if not 1 <= args.port <= 65535:
         parser.error('port must be between 1 and 65535')
+    if args.command == 'api':
+        return run_python(['-m', 'uvicorn', 'api.app:app', '--host', '127.0.0.1',
+                           '--port', str(args.port), '--workers', '1',
+                           '--timeout-graceful-shutdown', '130'])
     if doctor():
         return 1
     try:

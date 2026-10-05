@@ -6,6 +6,7 @@ __pycache__/
 .pytest_cache/
 .env
 .env.*
+!.env.example
 *.key
 *.pem
 *.p12
@@ -87,6 +88,10 @@ evaluation/results/*/workers/
 !/artifacts/github_publication_v1/doctor_offline.json
 !/artifacts/github_publication_v1/regression.log
 !/artifacts/github_publication_v1/checks.json
+!/artifacts/api_engineering_v1/
+!/artifacts/api_engineering_v1/checks.json
+!/artifacts/api_engineering_v1/pytest.log
+!/artifacts/api_engineering_v1/live_smoke.json
 
 
 .git-init-backup/

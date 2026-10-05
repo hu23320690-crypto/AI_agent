@@ -20,6 +20,7 @@ from functools import lru_cache
 import gzip
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 from urllib.parse import urlparse
@@ -292,10 +293,19 @@ def load_cache_identity(path=None, *, manifest_path=None):
 
 def _local_client(host, timeout):
     import httpx
-    parsed = urlparse(host)
-    if (parsed.scheme not in ('http', 'https') or parsed.hostname not in ('localhost', '127.0.0.1', '::1')
-            or parsed.username or parsed.password):
-        raise ValueError('tokenizer export/verification is restricted to local Ollama')
+    def origin(value):
+        parsed = urlparse(value)
+        if (parsed.scheme not in ('http', 'https') or not parsed.hostname
+                or parsed.username is not None or parsed.password is not None
+                or parsed.path not in ('', '/') or parsed.query or parsed.fragment):
+            raise ValueError('tokenizer endpoint must be an HTTP origin without credentials')
+        return parsed.scheme, parsed.hostname, parsed.port or (443 if parsed.scheme == 'https' else 80)
+
+    endpoint = origin(host)
+    if endpoint[1] not in ('localhost', '127.0.0.1', '::1'):
+        allowed = os.environ.get('TOKENIZER_ALLOWED_ORIGIN', '')
+        if not allowed or endpoint != origin(allowed):
+            raise ValueError('tokenizer export/verification requires a local or explicitly trusted Ollama origin')
     return httpx.Client(base_url=host, timeout=timeout, trust_env=False)
 
 
@@ -353,6 +363,7 @@ if __name__ == '__main__':
     parser.add_argument('--path', type=Path, default=None)
     parser.add_argument('--manifest', type=Path, default=None)
     args = parser.parse_args()
-    result = (export_local_cache(args.path, manifest_path=args.manifest) if args.action == 'export'
-              else {'verified': verify_local_cache(args.path, manifest_path=args.manifest)})
+    host = os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434')
+    result = (export_local_cache(args.path, manifest_path=args.manifest, host=host) if args.action == 'export'
+              else {'verified': verify_local_cache(args.path, manifest_path=args.manifest, host=host)})
     print(json.dumps(result, ensure_ascii=True))

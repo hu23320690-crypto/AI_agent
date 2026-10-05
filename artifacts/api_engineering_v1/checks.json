@@ -1,0 +1,71 @@
+{
+  "checked_at_utc": "2026-10-05T05:02:25.309582+00:00",
+  "scope": "API engineering regression and limited HTTP smoke, no new full quality benchmark",
+  "pytest": {
+    "passed": 319,
+    "skipped": 1,
+    "total": 320,
+    "subtests_passed": 188,
+    "seconds": 24.01,
+    "log_sha256": "d5a5e4d16ef105ddbcea604f9aaa56429553bee51f1d6517679dfb0b8b15844a"
+  },
+  "doctor_offline": {
+    "ok": true,
+    "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+    "offline": true,
+    "checked": 146,
+    "failures": [],
+    "models": [],
+    "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+  },
+  "live_http": {
+    "checks": 11,
+    "ok": true,
+    "readiness": {
+      "status": 200,
+      "result": {
+        "ready": true
+      }
+    },
+    "real_model_validation": "executed; inspect recorded answers for semantic quality",
+    "semantic_review": {
+      "method": "manual comparison with demo CSV and knowledge files; not independent expert review",
+      "report": {
+        "passed": true,
+        "reason": "1001 / 2025-08 / 83% / 43 square metres match CSV"
+      },
+      "knowledge": {
+        "passed": true,
+        "reason": "cut tangled hair with scissors; do not pull; brush housing matches knowledge"
+      },
+      "followup": {
+        "passed": false,
+        "reason": "returned insufficient information; applicable power-off rule exists in knowledge"
+      }
+    }
+  },
+  "container_verification": {
+    "local_docker": "not installed",
+    "github_ci": "pending"
+  },
+  "model_quality": "Historical experiments preserved; HTTP smoke does not establish a new accuracy score",
+  "documentation": {
+    "documents": 21,
+    "local_links": 109,
+    "missing": []
+  },
+  "publication": {
+    "tracked_files": 1493,
+    "credential_pattern_files": [],
+    "source_package_files": 1457,
+    "required_files": [
+      "api/app.py",
+      "Dockerfile",
+      "compose.yaml",
+      ".env.example",
+      ".github/workflows/ci.yml",
+      "docs/API.md",
+      "pytest.ini"
+    ]
+  }
+}
