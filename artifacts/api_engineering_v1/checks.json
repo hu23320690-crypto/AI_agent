@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-05T05:31:59.735192+00:00",
+  "checked_at_utc": "2026-10-05T05:39:46.809381+00:00",
   "scope": "API engineering regression and limited HTTP smoke, no new full quality benchmark",
   "pytest": {
     "passed": 320,
@@ -46,14 +46,17 @@
   },
   "container_verification": {
     "local_docker": "not installed",
-    "linux_verified_run": 37267572042,
+    "verified_run": 37268280297,
+    "verified_commit": "197cab5e99190e31b7922b325fca2826f2e7666d",
+    "windows_pytest_passed": 321,
+    "linux_pytest_passed": 321,
     "scope": "Linux pytest and non-root container liveness; no container model inference",
     "current_checks_url": "https://github.com/hu23320690-crypto/AI_agent/pull/1/checks"
   },
   "model_quality": "Historical experiments preserved; HTTP smoke does not establish a new accuracy score",
   "documentation": {
     "documents": 21,
-    "local_links": 110,
+    "local_links": 115,
     "missing": []
   },
   "publication": {

@@ -24,7 +24,13 @@
 - A12只注入工具连接异常，不关闭Ollama。
 - 指定`--output artifacts/目录`可断点续跑相同版本。已有失败也会跳过，重测请换新目录。
 - 退出码0只代表全部案例正常执行，不等于语义质量全过；人工检查事实和完整性。
-- `manage.py test`是替换模型推理的离线程序回归，不能与真实模型评测混用。
+- `manage.py pytest`运行完整离线回归与 API 测试，`test`保留原 unittest 入口；均不能与真实模型评测混用。
+
+## HTTP 服务展示
+
+按 [API 文档](API.md)生成自己的密钥，运行 `manage.py api`，在 `/docs` 创建用户 1001 的会话并提交报告问题。展示 request_id / run_id、独立会话、healthz 与 readyz 的区别，以及取消和容量错误。同步 Agent 在受限线程中执行，HTTP 控制使用 asyncio；取消不代表强杀远端模型。
+
+容器展示以 [部署说明](DEPLOYMENT.md)与 [GitHub Checks](https://github.com/hu23320690-crypto/AI_agent/pull/1/checks)为证据：Linux 镜像构建、非 root 启动与健康检查，明确容器 CI 没有运行模型。实际 HTTP 问答输出见 [本轮记录](../artifacts/api_engineering_v1/live_smoke.json)；连续追问本次拒答，保留为语义未通过，不能展示成成功案例。
 
 ## 面试中值得展开的内容
 
