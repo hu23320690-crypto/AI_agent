@@ -1,4 +1,9 @@
 import unittest
+import hashlib
+import json
+from pathlib import Path, PurePosixPath
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 from evaluation.metrics import evidence_coverage, retrieval_metrics, percentile, tool_selection
 from evaluation.run import verify_dataset
 from evaluation.report import summarize
@@ -9,6 +14,32 @@ class EvaluationTests(unittest.TestCase):
         self.assertEqual(sum(c["kind"]=="knowledge" for c in cases),40)
         self.assertEqual(sum(c["kind"]=="unanswerable" for c in cases),8)
         self.assertEqual(sum(c["kind"]=="agent" for c in cases),12)
+
+    def test_windows_manifest_paths_are_portable_and_source_hashes_remain_enforced(self):
+        # PurePosixPath exposes the original Linux failure even on Windows:
+        # a backslash remains part of a filename rather than becoming a separator.
+        with TemporaryDirectory() as folder:
+            dataset = Path(folder) / "cases.jsonl"
+            dataset.write_bytes(b'{"id":"K01","kind":"knowledge"}\n')
+            dataset_hash = hashlib.sha256(dataset.read_bytes()).hexdigest()
+            expected_source_hash = "a" * 64
+            manifest = {"case_count": 1, "dataset_sha256": dataset_hash,
+                        "files": {"data\\evidence.txt": expected_source_hash}}
+            (dataset.parent / "dataset_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+            portable_root = PurePosixPath("/frozen/project")
+            actual_source_hash = expected_source_hash
+
+            def digest_for_path(path):
+                if path == dataset:
+                    return dataset_hash
+                self.assertEqual(path, portable_root / "data/evidence.txt")
+                return actual_source_hash
+
+            with patch("evaluation.run.ROOT", portable_root), patch("evaluation.run.digest", digest_for_path):
+                self.assertEqual(verify_dataset(dataset), [{"id": "K01", "kind": "knowledge"}])
+                actual_source_hash = "b" * 64
+                with self.assertRaisesRegex(AssertionError, "Source changed"):
+                    verify_dataset(dataset)
 
     def test_evidence_split_across_chunks_can_be_covered(self):
         quote="清洁机器人时全程断开电源，切勿用水直接冲洗机身。"

@@ -1,0 +1,40 @@
+{
+  "scope": "GitHub Windows/Linux regression and Linux container liveness; no container model inference",
+  "attempts": [
+    {
+      "run_id": 37266185218,
+      "commit": "63749edaba8e3c52737513e7daaf683e28cdf90f",
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37266185218",
+      "conclusion": "failure",
+      "linux_tests": "319 passed, 1 failed, 188 subtests passed; legacy Windows manifest path failed on Linux",
+      "windows_tests": "316 passed, 4 failed, 188 subtests passed; checkout line endings changed a source hash, two governance fixtures exhausted context on a longer host path, and the symlink mock did not affect WindowsPath override",
+      "container": "Linux build and non-root launch completed; first health probe encountered a startup ConnectionResetError that escaped retry handling",
+      "resolution": "Preserve exact checkout bytes, normalize legacy manifest paths without changing hashes, isolate governance fixtures from unrelated context limits, patch the actual Path subclass, and retry startup connection errors within the existing bound"
+    },
+    {
+      "run_id": 37267572042,
+      "commit": "8a7450083e9edc3f2feec774e1e6e5b018d3bc28",
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37267572042",
+      "conclusion": "failure",
+      "linux_tests": "321 passed, 188 subtests passed",
+      "container": "success: Linux image built, API launched as UID/GID10001, liveness200 and absent-dependency readiness503",
+      "windows_tests": "320 passed, 1 failed, 188 subtests passed; only the simulated symlink target still used the unresolved TEMP alias",
+      "resolution": "Match the canonical SourceCatalog.data_root target; preserve rejection, consulted-path and empty-ledger assertions"
+    },
+    {
+      "run_id": 37268280297,
+      "commit": "197cab5e99190e31b7922b325fca2826f2e7666d",
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297",
+      "conclusion": "success",
+      "windows_tests": "321 passed, 188 subtests passed in83.07s",
+      "linux_tests": "321 passed, 188 subtests passed in10.48s",
+      "container": "success: build, non-root launch, liveness200 and absent-dependency readiness503; no model inference",
+      "jobs": {
+        "windows": 111629639501,
+        "linux": 111629639340,
+        "container": 111629639221
+      }
+    }
+  ],
+  "latest_checks_url": "https://github.com/hu23320690-crypto/AI_agent/pull/1/checks"
+}

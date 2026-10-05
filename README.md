@@ -1,17 +1,26 @@
 # 扫地机器人智能客服：RAG + Agent
 
-本地中文客服项目，提供产品知识问答、连续追问和按用户/月度查询的使用报告。实现混合检索、工具调用、共享执行预算、超时与取消、重试与熔断、来源治理、故障与安全评测，以及长对话的上下文预算和结构化摘要。
+中文客服项目，通过 Streamlit 和 FastAPI REST 服务提供产品知识问答、连续追问和按用户/月度查询的使用报告。实现混合检索、工具调用、共享执行预算、超时与取消、重试与熔断、来源治理、故障与安全评测，以及长对话的上下文预算和结构化摘要。HTTP 层用 asyncio 管理会话与请求，将同步 Agent 调用交给有上限的线程执行；提供 Docker Compose 和 Linux 运行说明。
 
-技术栈：Python 3.12、Streamlit、LangChain / LangGraph、Ollama、Chroma、字符 BM25、RRF。
+技术栈：Python 3.12、FastAPI / Uvicorn、asyncio、Streamlit、LangChain / LangGraph、Ollama、Chroma、字符 BM25、RRF、pytest、Docker Compose、Git / GitHub Actions。
 
 ## 当前完成情况
 
-文档整理截至 **2026-10-05**。最新功能验收记录为 **2026-10-01**；历史实验保留原始版本、输出和失败记录。
+文档整理截至 **2026-10-05**。本轮新增 HTTP 服务、离线 API 回归、容器配置和 Windows/Linux CI 工作流。本机未安装 Docker；Windows/Linux 各 321 项测试和非 root 镜像启动已在 [CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)通过，容器检查不包含模型下载或真实推理。当前提交的全部检查以 [PR Checks](https://github.com/hu23320690-crypto/AI_agent/pull/1/checks)为准。此前的上下文功能验收记录为 **2026-10-01**；历史实验保留原始版本、输出和失败记录。
 
-2026-10-05 发布前已在独立源码副本再次运行回归：259 项运行、258 通过、1 项权限跳过，离线 doctor 142 项通过；文档链接与待上传文件检查见[发布检查记录](artifacts/github_publication_v1/checks.json)。本次没有重新测量全部真实模型问答。
+本轮 Windows / Python 3.12 回归：**320 项通过、1 项 Windows 符号链接权限跳过**，另有 188 项 unittest 子断言通过；新增 API 测试 39 项全部通过。离线 doctor 146 项通过，`pip check` 无依赖冲突；记录见[工程化检查](artifacts/api_engineering_v1/checks.json)和[pytest 输出](artifacts/api_engineering_v1/pytest.log)。真实 HTTP 与真实模型结果单独保存在[HTTP 验收](artifacts/api_engineering_v1/live_smoke.json)，不作为完整准确率重测。
+
+本轮实际 HTTP 验收的报告、知识问答和连续追问均完成执行；人工对照资料核查，报告与主刷清理回答符合预期，连续追问却回答资料不足，保留为语义未通过。HTTP 200 表示请求执行完成，不能直接计为正确回答。
+
+首次跨平台 CI 暴露了路径分隔符、Git 行尾转换及测试环境差异；修复保持原始来源字节、SHA256 校验和生产预算。失败与修复说明见 [CI 记录](artifacts/api_engineering_v1/ci_history.json)，后续执行结果以 GitHub 对应 run 为准。
+
+2026-10-05 **API 接入前的源码发布验收**在独立副本运行回归：259 项运行、258 通过、1 项权限跳过，离线 doctor 142 项通过；文档链接与待上传文件检查见[历史发布检查记录](artifacts/github_publication_v1/checks.json)。这些计数对应当时的依赖和代码，不作为本轮 API 或 Linux 验收结果。本轮没有重新测量全部真实模型问答。
 
 | 能力 | 当前实现 |
 | --- | --- |
+| HTTP 服务 | Bearer 密钥、会话创建/提问/取消/删除、参数与请求体校验、请求 ID、healthz / readyz、OpenAPI |
+| 异步执行 | asyncio 等待与断连检测；有上限的同步任务执行、会话互斥、总并发和 TTL；超时后保留额度直至真实任务退出 |
+| 运行与交付 | 单 worker API、非 root Docker 镜像、Compose 初始化与持久卷、Linux 运维说明、Windows/Linux pytest 和容器 CI 工作流 |
 | RAG | 200 字分块、20 字重叠；向量与 BM25 各取 20 候选，RRF 融合；来源配额、查询词覆盖重排、近重复过滤，检索 Top-5 |
 | Agent | 7 个工具，多轮历史与指代追问；按会话用户和月份查询 CSV，由程序渲染事实报告 |
 | Runtime | 整轮共享 deadline 与模型/工具/embedding 调用预算；有限并发、取消、有限重试和进程内熔断 |
@@ -33,7 +42,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip check
 ~~~
 
-不需要激活环境。没有 `py` 时，用已安装的 Python 3.12 可执行文件替代。`requirements.txt` 声明 **15 项直接依赖**，`requirements-lock.txt` 固定 **121 项依赖及传递依赖**，验证范围为 Windows / Python 3.12。
+不需要激活环境。没有 `py` 时，用已安装的 Python 3.12 可执行文件替代。`requirements.txt` 声明 **17 项运行时直接依赖**，`requirements-lock.txt` 固定 **125 项依赖及传递依赖**，含开发测试用 pytest。`requirements-dev.txt` 引用同一份锁；本轮 Windows/Linux 安装与回归是否通过，应检查实际验证记录。
 
 安装并启动 [Ollama](https://docs.ollama.com/quickstart)，准备模型：
 
@@ -67,7 +76,22 @@ ollama list
 .\.venv\Scripts\python.exe -B scripts/manage.py doctor
 ~~~
 
-导出只查询本机元数据，不生成回答或下载模型。身份未验证时使用保守字节回退；计数加请求封装余量仍是预算估计，并非精确服务端总 token 数。详见[环境复现](docs/REPRODUCIBILITY.md)。
+导出默认只查询 loopback Ollama 元数据，不生成回答或下载模型。容器内由管理员显式设置 `TOKENIZER_ALLOWED_ORIGIN=http://ollama:11434`，仅允许匹配该完整 origin 的服务进行校验/导出；该配置不接受客户端输入。身份未验证时使用保守字节回退；计数加请求封装余量仍是预算估计，并非精确服务端总 token 数。详见[环境复现](docs/REPRODUCIBILITY.md)。
+
+## REST API 与容器运行
+
+在已安装依赖的项目目录生成本次服务密钥并启动 API：
+
+~~~powershell
+$env:API_KEY = (& .\.venv\Scripts\python.exe -c "import secrets; print(secrets.token_urlsafe(32))")
+.\.venv\Scripts\python.exe -B scripts/manage.py api
+~~~
+
+默认访问 `http://127.0.0.1:8000/docs`，用 Authorize 输入自己的密钥。`GET /healthz` 检查进程存活；受保护的 `GET /readyz` 检查 Ollama 模型、有效来源索引和 tokenizer 身份。首次准备模型、缓存及索引仍按上文执行；API 启动不会自动拉模型、生成或入库。端口可用 `api --port 8001` 调整。
+
+REST 入口提供 `POST /v1/sessions`、会话提问与取消，以及 `DELETE /v1/sessions/{session_id}`。API 默认最多 2 个运行任务、100 个会话、1800 秒空闲 TTL，HTTP 等待上限 125 秒；同步任务超时后仍占名额直到实际退出。密钥是演示服务的共享访问门槛，CSV 用户 ID 不代表登录身份。只支持 **一个 worker / 一个 API 实例**，重启后会话丢失。
+
+Docker 首次运行需配置私有 `.env`，依次启动 Ollama、执行模型下载和 bootstrap，最后启动 API。镜像用非 root 用户，模型、配置审批/tokenizer 与索引分别保存在持久卷，宿主默认仅绑定回环地址。接口格式、错误码与调用示例见 [API 文档](docs/API.md)；完整 Compose 命令、Linux 更新、日志和备份见 [部署说明](docs/DEPLOYMENT.md)。
 
 ## 演示与测试
 
@@ -83,10 +107,13 @@ ollama list
 
 ~~~powershell
 .\.venv\Scripts\python.exe -B scripts/manage.py test
+.\.venv\Scripts\python.exe -B scripts/manage.py pytest
 .\.venv\Scripts\python.exe -B scripts/manage.py demo
 ~~~
 
-`test` 使用真实 LangChain 图、Chroma 和 Streamlit 测试入口，替换模型推理。`demo` 运行 6 个真实 Agent 案例、7 次提问，通常需要数分钟，输出在 `artifacts/demo_时间/`。工具故障注入不会关闭 Ollama。命令成功只代表执行完成，答案仍需核对。
+`test` 保留 unittest 入口；`pytest` 是包含 API 测试的完整离线回归入口，也可直接执行 `python -B -m pytest -q`。测试使用真实 LangChain 图、Chroma 和 Streamlit 测试入口并替换模型推理；API 测试检查 HTTP、并发、取消和失败边界，不需要生成真实答案。GitHub Actions 为 Windows/Linux 配置了同一回归与离线 doctor，另在 Linux 构建镜像并做 HTTP 存活烟测；结果需查看对应提交的工作流。
+
+`demo` 运行 6 个真实 Agent 案例、7 次提问，通常需要数分钟，输出在 `artifacts/demo_时间/`。工具故障注入不会关闭 Ollama。命令成功只代表执行完成，答案仍需核对。
 
 新评测始终使用新目录，已有结果受版本保护：
 
@@ -103,6 +130,8 @@ ollama list
 ~~~mermaid
 flowchart TD
     UI[Streamlit 会话] --> Runtime[共享 deadline / 调用预算 / 并发]
+    HTTP[FastAPI REST / Bearer / 会话] --> Async[asyncio 等待 / 有上限线程 / 断连取消]
+    Async --> Runtime
     Runtime --> Agent[Agent 图 / 工具执行前校验]
     Agent <--> Memory[请求预算 / 完整轮次 / 低信任摘要]
     Agent --> RAG[知识工具]
@@ -118,6 +147,7 @@ flowchart TD
 
 | 位置 | 职责 |
 | --- | --- |
+| `api/` | HTTP 边界、会话生命周期、异步等待、执行额度和就绪检查 |
 | `app.py` | 页面、用户输入、会话与错误反馈 |
 | `agent/react_agent.py`、`agent/tools/` | Agent 图、7 个工具、状态与最终输出 |
 | `agent/runtime/` | deadline、预算、并发、重试、熔断与执行校验 |
@@ -127,6 +157,7 @@ flowchart TD
 | `rag/rag_service.py`、`rag/security.py` | 资料隔离、来源治理、证据预算与复核 |
 | `utils/records.py`、`utils/report_render.py` | CSV、月份规范化与事实渲染 |
 | `evaluation/`、`tests/` | 固定题集、实验与 Harness、回归 |
+| `Dockerfile`、`compose.yaml`、`.github/workflows/ci.yml` | Linux 镜像、初始化与持久卷、跨平台测试和容器烟测 |
 | `scripts/`、`config/`、`prompts/`、`docs/` | 管理入口、配置、提示词与说明 |
 
 知识结果在外层 Agent 图完成后被选为最终输出，减少外层添写；RAG 子模型仍可能答错。`execute_stream` 返回完成后的答案，当前没有 token 级流式生成。
@@ -174,6 +205,8 @@ flowchart TD
 | 阅读目的 | 文档 |
 | --- | --- |
 | 安装和排查 | [环境复现](docs/REPRODUCIBILITY.md) |
+| HTTP 调用、接口和错误码 | [API 文档](docs/API.md) |
+| Docker / Linux 运行与运维 | [部署说明](docs/DEPLOYMENT.md) |
 | 展示项目 | [演示指南](docs/DEMO.md) |
 | 方法、命令与结果 | [评测 README](evaluation/README.md) |
 | Runtime 设计 | [分步计划](docs/RUNTIME_HARNESS_PLAN.md)、[第四步说明](docs/RUNTIME_STAGE4.md) |

@@ -1,0 +1,105 @@
+name: Test and container smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Python 3.12 / ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: "1"
+      OLLAMA_HOST: http://127.0.0.1:11434
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+      - name: Install fixed dependencies
+        run: python -m pip install -r requirements-lock.txt
+      - name: Check dependency closure
+        run: python -m pip check
+      - name: Check files and configuration without Ollama
+        run: python -B scripts/manage.py doctor --offline
+      - name: Run offline unit and API regressions
+        run: python -B -m pytest -q
+
+  container:
+    name: Linux image and liveness smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Validate Compose and build Linux image
+        env:
+          API_KEY: ci-configuration-only-random-key-not-for-deployment
+        run: |
+          docker compose config --quiet
+          docker build --tag ai-agent:ci .
+      - name: Start non-root API without downloading models
+        run: |
+          docker run --detach --name ai-agent-ci \
+            --publish 127.0.0.1:8000:8000 \
+            --env API_KEY=ci-liveness-only-key-not-for-deployment \
+            --env OLLAMA_HOST=http://127.0.0.1:11434 \
+            ai-agent:ci
+          test "$(docker inspect --format '{{.Config.User}}' ai-agent-ci)" = '10001:10001'
+      - name: Check liveness and expected missing dependencies
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.error
+          import urllib.request
+
+          for attempt in range(30):
+              try:
+                  with urllib.request.urlopen('http://127.0.0.1:8000/healthz', timeout=3) as response:
+                      assert response.status == 200
+                      assert isinstance(json.load(response), dict)
+                  break
+              # Docker can accept then reset a TCP connection before Uvicorn binds.
+              # RemoteDisconnected/ConnectionResetError are ConnectionError subclasses.
+              except (urllib.error.URLError, TimeoutError, ConnectionError):
+                  time.sleep(1)
+          else:
+              raise SystemExit('API liveness did not become available')
+
+          request = urllib.request.Request(
+              'http://127.0.0.1:8000/readyz',
+              headers={'Authorization': 'Bearer ci-liveness-only-key-not-for-deployment'},
+          )
+          try:
+              urllib.request.urlopen(request, timeout=20)
+          except urllib.error.HTTPError as error:
+              assert error.code == 503, error.code
+          else:
+              raise SystemExit('Readiness must fail when Ollama and the index are absent')
+          PY
+      - name: Container diagnostics and cleanup
+        if: always()
+        run: |
+          docker logs ai-agent-ci || true
+          docker rm --force ai-agent-ci || true

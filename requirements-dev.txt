@@ -1,0 +1,2 @@
+# The shared lock includes pytest and its dependency closure.
+-r requirements-lock.txt

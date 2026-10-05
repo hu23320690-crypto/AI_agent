@@ -62,20 +62,28 @@ class ReactAgent:
                 return True
             return False
 
-    def execute_stream(self, query: str):
+    def execute_stream(self, query: str, *, run_context: RunContext | None = None):
         """Yield the final answer, retaining the existing API (not token streaming).
 
         Each instance owns its history. Commit only completed turns so a model
         failure cannot leave dangling tool calls in the next conversation turn.
+        A trusted caller may create the run before scheduling this generator,
+        preserving cancellation and deadlines while its worker is queued.
         """
+        if run_context is not None:
+            if not isinstance(run_context, RunContext):
+                raise TypeError("run_context must be a RunContext")
+            if run_context.limits != self.limits or run_context.executor is not self.executor:
+                raise ValueError("run_context must use this agent's limits and executor")
         if not query.strip():
             raise ValueError("请输入问题。")
         if not self._turn_lock.acquire(blocking=False):
             raise RunBusy("当前会话已有任务运行，请等待或取消后重试。")
-        run = RunContext(self.limits, self.executor)
+        run = run_context if run_context is not None else RunContext(self.limits, self.executor)
         try:
             with self._state_lock:
                 self._active_run = run
+                run.check()
                 history = list(self.messages)
                 history_checks = tuple(self._history_checks)
                 summary = self.summary
