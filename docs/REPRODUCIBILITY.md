@@ -6,7 +6,7 @@
 
 已有历史环境验证为 Windows 11 x64、CPython 3.12.2。当前 `requirements.txt` 声明 17 项运行时直接依赖，`requirements-lock.txt` 固定 125 项依赖及传递依赖，含开发用 pytest 及其依赖，不含 pip 本身。`requirements-dev.txt` 引用该锁。历史交付时的 12 项、Runtime 时的 14 项、上下文版本的 15 项直接依赖和 121 项锁定依赖分别属于当时版本。
 
-2026-10-05 API 接入前的源码发布检查运行了 259 项回归（258 通过、1 项权限跳过），离线 doctor 142 项通过，原始证据见 [发布检查](../artifacts/github_publication_v1/checks.json)。这些数字不能作为新 API 或 Linux 验收结果。CI 已配置 Windows/Linux Python 3.12 测试和 Linux 容器构建/烟测，当前待运行；以对应提交的成功记录为准。本机尚未安装 Docker，未完成容器实跑。
+2026-10-05 API 接入前的源码发布检查运行了 259 项回归（258 通过、1 项权限跳过），离线 doctor 142 项通过，原始证据见 [发布检查](../artifacts/github_publication_v1/checks.json)。这些数字不能作为新 API 或 Linux 验收结果。CI 第二次运行已通过 Linux 321 项回归和 Linux 镜像构建、非 root HTTP 启动检查；Windows 和后续提交的最新状态查看 [PR Checks](https://github.com/hu23320690-crypto/AI_agent/pull/1/checks)。本机尚未安装 Docker；CI 容器烟测没有拉取模型，不代表容器内真实问答通过。
 
 本轮本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突。新增 API 测试 39 项全通过，证据见[工程化检查](../artifacts/api_engineering_v1/checks.json)。真实 HTTP 检查单独记录，不以健康接口通过代替模型回答质量验证。
 

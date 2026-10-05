@@ -10,6 +10,17 @@
       "windows_tests": "316 passed, 4 failed, 188 subtests passed; checkout line endings changed a source hash, two governance fixtures exhausted context on a longer host path, and the symlink mock did not affect WindowsPath override",
       "container": "Linux build and non-root launch completed; first health probe encountered a startup ConnectionResetError that escaped retry handling",
       "resolution": "Preserve exact checkout bytes, normalize legacy manifest paths without changing hashes, isolate governance fixtures from unrelated context limits, patch the actual Path subclass, and retry startup connection errors within the existing bound"
+    },
+    {
+      "run_id": 37267572042,
+      "commit": "8a7450083e9edc3f2feec774e1e6e5b018d3bc28",
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37267572042",
+      "conclusion": "failure",
+      "linux_tests": "321 passed, 188 subtests passed",
+      "container": "success: Linux image built, API launched as UID/GID10001, liveness200 and absent-dependency readiness503",
+      "windows_tests": "320 passed, 1 failed, 188 subtests passed; only the simulated symlink target still used the unresolved TEMP alias",
+      "resolution": "Match the canonical SourceCatalog.data_root target; preserve rejection, consulted-path and empty-ledger assertions"
     }
-  ]
+  ],
+  "latest_checks_url": "https://github.com/hu23320690-crypto/AI_agent/pull/1/checks"
 }

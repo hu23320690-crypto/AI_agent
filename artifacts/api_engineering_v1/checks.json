@@ -1,13 +1,13 @@
 {
-  "checked_at_utc": "2026-10-05T05:13:22.656667+00:00",
+  "checked_at_utc": "2026-10-05T05:31:59.735192+00:00",
   "scope": "API engineering regression and limited HTTP smoke, no new full quality benchmark",
   "pytest": {
     "passed": 320,
     "skipped": 1,
     "total": 321,
     "subtests_passed": 188,
-    "seconds": 21.81,
-    "log_sha256": "9f9fb0bd45c3cf6682163b99537aa46d9814444f1f9ed0b26e976c335cbfec5f"
+    "seconds": 21.78,
+    "log_sha256": "144c6301cf00187bceb9de16e43d9fe593f34c37489d8c8eca2f7c52bc8978af"
   },
   "doctor_offline": {
     "ok": true,
@@ -46,12 +46,14 @@
   },
   "container_verification": {
     "local_docker": "not installed",
-    "github_ci": "pending"
+    "linux_verified_run": 37267572042,
+    "scope": "Linux pytest and non-root container liveness; no container model inference",
+    "current_checks_url": "https://github.com/hu23320690-crypto/AI_agent/pull/1/checks"
   },
   "model_quality": "Historical experiments preserved; HTTP smoke does not establish a new accuracy score",
   "documentation": {
     "documents": 21,
-    "local_links": 109,
+    "local_links": 110,
     "missing": []
   },
   "publication": {
