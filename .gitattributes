@@ -1,0 +1,3 @@
+# Reviewed sources, tokenizer resources and frozen evidence use byte SHA256.
+# Preserve their exact bytes on Windows as well as Linux checkout.
+* -text

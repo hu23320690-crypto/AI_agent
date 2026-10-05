@@ -24,11 +24,15 @@ def dump(path, value):
 def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
+def portable_relative_path(name):
+    """Read legacy Windows manifest paths on either platform, retaining hashes."""
+    return Path(name.replace('\\', '/'))
+
 def business_files():
     paths = [ROOT/"app.py"]
     for folder in ("agent","rag","utils","model","prompts","config"):
         paths.extend(p for p in (ROOT/folder).rglob("*") if p.suffix in (".py",".txt",".yml",".json") and "__pycache__" not in p.parts)
-    return {str(p.relative_to(ROOT)):digest(p) for p in sorted(paths)}
+    return {p.relative_to(ROOT).as_posix():digest(p) for p in sorted(paths)}
 
 def verify_dataset(dataset=DATASET):
     dataset = Path(dataset)
@@ -37,10 +41,10 @@ def verify_dataset(dataset=DATASET):
     assert digest(dataset) == manifest["dataset_sha256"], "Dataset changed; version and manifest must be updated"
     assert len({c["id"] for c in cases}) == len(cases) == manifest['case_count']
     for name, expected in manifest["files"].items():
-        assert digest(ROOT/name) == expected, f"Source changed: {name}"
+        assert digest(ROOT/portable_relative_path(name)) == expected, f"Source changed: {name}"
     for case in cases:
         for evidence in case.get("evidence", []):
-            lines = (ROOT/evidence["source"]).read_text(encoding="utf-8-sig").splitlines()
+            lines = (ROOT/portable_relative_path(evidence["source"])).read_text(encoding="utf-8-sig").splitlines()
             selected = "\n".join(lines[evidence["line_start"]-1:evidence["line_end"]])
             assert evidence["quote"] in selected, f"Wrong source anchor: {case['id']}"
     return cases
@@ -154,8 +158,8 @@ def main():
         (run/'cases.jsonl').write_bytes(dataset.read_bytes())
         sources=json.loads((dataset.parent/'dataset_manifest.json').read_text(encoding='utf-8'))['files']
         for name in {*code, *sources}:
-            source=ROOT/name
-            target=snapshot/name
+            source=ROOT/portable_relative_path(name)
+            target=snapshot/portable_relative_path(name)
             target.parent.mkdir(parents=True,exist_ok=True)
             target.write_bytes(source.read_bytes())
     selected=[c for c in cases if not args.ids or c["id"] in args.ids]

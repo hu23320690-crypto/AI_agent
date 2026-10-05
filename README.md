@@ -8,7 +8,7 @@
 
 文档整理截至 **2026-10-05**。本轮新增 HTTP 服务、离线 API 回归、容器配置和 Windows/Linux CI 工作流；测试结果以本轮实际记录及对应提交的 Actions 结果为准。Docker 尚未在本机安装，Linux 容器构建与运行待验证，不能据配置文件宣称已经部署。此前的上下文功能验收记录为 **2026-10-01**；历史实验保留原始版本、输出和失败记录。
 
-本轮 Windows / Python 3.12 回归：**319 项通过、1 项 Windows 符号链接权限跳过**，另有 188 项 unittest 子断言通过；新增 API 测试 39 项全部通过。离线 doctor 146 项通过，`pip check` 无依赖冲突；记录见[工程化检查](artifacts/api_engineering_v1/checks.json)和[pytest 输出](artifacts/api_engineering_v1/pytest.log)。真实 HTTP 与真实模型结果单独保存在[HTTP 验收](artifacts/api_engineering_v1/live_smoke.json)，不作为完整准确率重测。
+本轮 Windows / Python 3.12 回归：**320 项通过、1 项 Windows 符号链接权限跳过**，另有 188 项 unittest 子断言通过；新增 API 测试 39 项全部通过。离线 doctor 146 项通过，`pip check` 无依赖冲突；记录见[工程化检查](artifacts/api_engineering_v1/checks.json)和[pytest 输出](artifacts/api_engineering_v1/pytest.log)。真实 HTTP 与真实模型结果单独保存在[HTTP 验收](artifacts/api_engineering_v1/live_smoke.json)，不作为完整准确率重测。
 
 本轮实际 HTTP 验收的报告、知识问答和连续追问均完成执行；人工对照资料核查，报告与主刷清理回答符合预期，连续追问却回答资料不足，保留为语义未通过。HTTP 200 表示请求执行完成，不能直接计为正确回答。
 

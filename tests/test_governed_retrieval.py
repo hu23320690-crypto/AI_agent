@@ -266,9 +266,14 @@ class GovernedRetrievalTests(unittest.TestCase):
                                 entries["brush.txt"]["source_id"], reason="Revoke before final commit")])
         inner = ScriptedModel(responses=[answer("marker-uncommitted-answer")])
         limits = RunLimits()
-        agent = scripted_agent("1001", model=outer, limits=limits, executor=ExecutionRuntime(limits))
+        # These assertions concern source revocation. Leave room for differing
+        # host temporary path lengths in the fallback byte-based token count.
+        context_policy = scripted_context_policy(window_tokens=16384)
+        agent = scripted_agent("1001", model=outer, limits=limits, executor=ExecutionRuntime(limits),
+                               context_policy=context_policy)
         with patch("agent.tools.agent_tools.get_rag_service", return_value=rag), \
-                patch("rag.rag_service.chat_model", inner):
+                patch("rag.rag_service.chat_model", inner), \
+                patch("rag.rag_service.load_context_policy", return_value=context_policy):
             with self.assertRaises(KnowledgeAccessError):
                 list(agent.execute_stream("如何清理滚刷和保养滤网"))
         self.assertEqual(len(outer.seen), 2)
@@ -302,9 +307,11 @@ class GovernedRetrievalTests(unittest.TestCase):
         outer = ScriptedModel(responses=[call("rag_summarize", query="滚刷清理滤网保养"),
                                          answer("完成"), answer("你好")])
         inner = ScriptedModel(responses=[answer("marker-old-knowledge")])
-        agent = scripted_agent("1001", model=outer, executor=ExecutionRuntime())
+        context_policy = scripted_context_policy(window_tokens=16384)
+        agent = scripted_agent("1001", model=outer, executor=ExecutionRuntime(), context_policy=context_policy)
         with patch("agent.tools.agent_tools.get_rag_service", return_value=rag), \
-                patch("rag.rag_service.chat_model", inner):
+                patch("rag.rag_service.chat_model", inner), \
+                patch("rag.rag_service.load_context_policy", return_value=context_policy):
             list(agent.execute_stream("如何保养滚刷和滤网"))
             store.catalog.revoke(entries["brush.txt"]["source_id"], reason="Revoke old history")
             self.assertEqual(''.join(agent.execute_stream("你好")), "你好")

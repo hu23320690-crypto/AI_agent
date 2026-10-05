@@ -169,10 +169,12 @@ class SourceGovernanceTests(unittest.TestCase):
 
     def test_symlink_guard_also_works_without_host_symlink_privilege(self):
         self.source()
-        original = Path.is_symlink
+        # WindowsPath may override Path.is_symlink on newer CPython builds.
+        path_type = type(self.data)
+        original = path_type.is_symlink
         def simulated(path):
             return path == self.data / 'guide.txt' or original(path)
-        with patch.object(Path, 'is_symlink', simulated), self.assertRaises(KnowledgeAccessError):
+        with patch.object(path_type, 'is_symlink', simulated), self.assertRaises(KnowledgeAccessError):
             self.approve()
 
     def test_full_document_risk_detection_requires_explicit_reasoned_override(self):

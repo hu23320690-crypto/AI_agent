@@ -7,7 +7,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ('README.md', 'requirements.txt', 'requirements-lock.txt', 'requirements-dev.txt',
-         'pytest.ini', '.python-version', '.gitignore', 'app.py',
+         'pytest.ini', '.python-version', '.gitignore', '.gitattributes', 'app.py',
          'Dockerfile', 'compose.yaml', '.dockerignore', '.env.example')
 DIRECTORIES = ('agent', 'api', 'rag', 'model', 'utils', 'config', 'prompts', 'data', 'tests', 'scripts', 'docs', 'evaluation', '.github')
 EVIDENCE = ('artifacts/runtime_stage4_retrieval_dev/ablation.json',
@@ -26,7 +26,8 @@ EVIDENCE = ('artifacts/runtime_stage4_retrieval_dev/ablation.json',
             'artifacts/github_publication_v1/checks.json',
             'artifacts/api_engineering_v1/checks.json',
             'artifacts/api_engineering_v1/pytest.log',
-            'artifacts/api_engineering_v1/live_smoke.json')
+            'artifacts/api_engineering_v1/live_smoke.json',
+            'artifacts/api_engineering_v1/ci_history.json')
 EXCLUDED = {'__pycache__', 'chroma_db', 'logs', 'workers', '.venv', '.git'}
 
 

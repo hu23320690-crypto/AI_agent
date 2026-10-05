@@ -1,13 +1,13 @@
 {
-  "checked_at_utc": "2026-10-05T05:02:25.309582+00:00",
+  "checked_at_utc": "2026-10-05T05:13:22.656667+00:00",
   "scope": "API engineering regression and limited HTTP smoke, no new full quality benchmark",
   "pytest": {
-    "passed": 319,
+    "passed": 320,
     "skipped": 1,
-    "total": 320,
+    "total": 321,
     "subtests_passed": 188,
-    "seconds": 24.01,
-    "log_sha256": "d5a5e4d16ef105ddbcea604f9aaa56429553bee51f1d6517679dfb0b8b15844a"
+    "seconds": 21.81,
+    "log_sha256": "9f9fb0bd45c3cf6682163b99537aa46d9814444f1f9ed0b26e976c335cbfec5f"
   },
   "doctor_offline": {
     "ok": true,
@@ -55,9 +55,9 @@
     "missing": []
   },
   "publication": {
-    "tracked_files": 1493,
+    "tracked_files": 1495,
     "credential_pattern_files": [],
-    "source_package_files": 1457,
+    "source_package_files": 1459,
     "required_files": [
       "api/app.py",
       "Dockerfile",

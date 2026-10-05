@@ -8,7 +8,7 @@
 
 2026-10-05 API 接入前的源码发布检查运行了 259 项回归（258 通过、1 项权限跳过），离线 doctor 142 项通过，原始证据见 [发布检查](../artifacts/github_publication_v1/checks.json)。这些数字不能作为新 API 或 Linux 验收结果。CI 已配置 Windows/Linux Python 3.12 测试和 Linux 容器构建/烟测，当前待运行；以对应提交的成功记录为准。本机尚未安装 Docker，未完成容器实跑。
 
-本轮本机 pytest 319 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突。新增 API 测试 39 项全通过，证据见[工程化检查](../artifacts/api_engineering_v1/checks.json)。真实 HTTP 检查单独记录，不以健康接口通过代替模型回答质量验证。
+本轮本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突。新增 API 测试 39 项全通过，证据见[工程化检查](../artifacts/api_engineering_v1/checks.json)。真实 HTTP 检查单独记录，不以健康接口通过代替模型回答质量验证。
 
 ~~~powershell
 py -3.12 -m venv .venv

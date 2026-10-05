@@ -1,0 +1,15 @@
+{
+  "scope": "GitHub Windows/Linux regression and Linux container liveness; no container model inference",
+  "attempts": [
+    {
+      "run_id": 37266185218,
+      "commit": "63749edaba8e3c52737513e7daaf683e28cdf90f",
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37266185218",
+      "conclusion": "failure",
+      "linux_tests": "319 passed, 1 failed, 188 subtests passed; legacy Windows manifest path failed on Linux",
+      "windows_tests": "316 passed, 4 failed, 188 subtests passed; checkout line endings changed a source hash, two governance fixtures exhausted context on a longer host path, and the symlink mock did not affect WindowsPath override",
+      "container": "Linux build and non-root launch completed; first health probe encountered a startup ConnectionResetError that escaped retry handling",
+      "resolution": "Preserve exact checkout bytes, normalize legacy manifest paths without changing hashes, isolate governance fixtures from unrelated context limits, patch the actual Path subclass, and retry startup connection errors within the existing bound"
+    }
+  ]
+}

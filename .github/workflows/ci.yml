@@ -80,7 +80,9 @@ jobs:
                       assert response.status == 200
                       assert isinstance(json.load(response), dict)
                   break
-              except (urllib.error.URLError, TimeoutError):
+              # Docker can accept then reset a TCP connection before Uvicorn binds.
+              # RemoteDisconnected/ConnectionResetError are ConnectionError subclasses.
+              except (urllib.error.URLError, TimeoutError, ConnectionError):
                   time.sleep(1)
           else:
               raise SystemExit('API liveness did not become available')
