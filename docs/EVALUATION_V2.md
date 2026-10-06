@@ -168,7 +168,7 @@ V2K02 的油种、V2K05 的损坏风险、V2K25 的遮挡成因、V2K26 的升�
 
 ### 实现检查与后续使用
 
-2026-10-07 完整离线 pytest：**367 通过、3 个 Windows 符号链接权限场景跳过，270 个 unittest 子断言通过**；offline doctor 146 项通过，`pip check` 无冲突。见 [checks.json](../artifacts/evaluation_v2/checks.json)、[pytest.log](../artifacts/evaluation_v2/pytest.log) 和 [doctor](../artifacts/evaluation_v2/doctor_offline.json)。首次 sandbox Temp 原子替换失败，以及随后两例来源撤销测试的绝对路径预算失败，均保留私有完整诊断和 checks 中的 hash/摘要。只为这两例配置既有 scripted context policy，保留撤销异常、调用次数和重试边界断言；没有修改冻结业务预算或通过放宽业务规则改变本轮答案。Windows/Linux 和 Docker 对应提交的 CI 见 [GitHub Actions](https://github.com/hu23320690-crypto/AI_agent/actions)，本机离线通过不替代真实模型质量或容器推理验证。
+2026-10-07 完整离线 pytest：**367 通过、3 个 Windows 符号链接权限场景跳过，270 个 unittest 子断言通过**；offline doctor 146 项通过，`pip check` 无冲突。见 [checks.json](../artifacts/evaluation_v2/checks.json)、[pytest.log](../artifacts/evaluation_v2/pytest.log) 和 [doctor](../artifacts/evaluation_v2/doctor_offline.json)。首次 sandbox Temp 原子替换失败，以及随后两例来源撤销测试的绝对路径预算失败，均保留私有完整诊断和 checks 中的 hash/摘要。只为这两例配置既有 scripted context policy，保留撤销异常、调用次数和重试边界断言；没有修改冻结业务预算或通过放宽业务规则改变本轮答案。首次 PR CI 的 Linux 与 Docker 检查通过，Windows 的四个排除目录模拟链接子断言因 fixture 路径身份未经规范化而失败；测试 fixture 已先 resolve 再构造模拟路径，归档脚本与拒绝边界未变。本机完整回归再次通过，首次CI失败见 [ci_history.json](../artifacts/evaluation_v2/ci_history.json)。Windows/Linux 和 Docker 对应提交的 CI 见 [GitHub Actions](https://github.com/hu23320690-crypto/AI_agent/actions)，本机离线通过不替代真实模型质量或容器推理验证。
 
 同题范围一致性核查纠正了历史 V2A04 首轮初评：拒绝混装已满足该轮题面，主分由1改2，与当前版一致；第二轮遗漏晾干，整案仍未通过。原评分与旧seal完整保留，裁决理由、前后评分与未变raw hash见 [review_adjudication.json](../evaluation/results/holdout_v2_historical_optimized/review_adjudication.json)；没有修改题面或选择重跑答案。
 

@@ -459,7 +459,10 @@ class EvaluationSealTests(unittest.TestCase):
         original_is_symlink = Path.is_symlink
         for index, relative in enumerate(('', 'logs', 'workers', '__pycache__', 'tmp')):
             with self.subTest(relative=relative):
-                run = self.make_run('link-check-' + str(index))
+                # seal_run canonicalizes its root before walking children;
+                # resolve the mocked identity too (Windows Temp may use an
+                # 8.3 alias for the same directory).
+                run = self.make_run('link-check-' + str(index)).resolve()
                 linked = run / relative
                 if relative:
                     linked.mkdir()

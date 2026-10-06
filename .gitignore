@@ -97,6 +97,7 @@ evaluation/results/*/workers/
 !/artifacts/evaluation_v2/checks.json
 !/artifacts/evaluation_v2/pytest.log
 !/artifacts/evaluation_v2/doctor_offline.json
+!/artifacts/evaluation_v2/ci_history.json
 
 
 .git-init-backup/

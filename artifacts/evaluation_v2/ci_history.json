@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "repository": "hu23320690-crypto/AI_agent",
+  "pull_request": {
+    "number": 2,
+    "url": "https://github.com/hu23320690-crypto/AI_agent/pull/2"
+  },
+  "runs": [
+    {
+      "run_id": 37547414264,
+      "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37547414264",
+      "head_sha": "deab66a3b54aefb289b1d16ca8db6fec24ff6c14",
+      "conclusion": "failure",
+      "jobs": {
+        "linux": {
+          "conclusion": "success"
+        },
+        "docker": {
+          "conclusion": "success"
+        },
+        "windows": {
+          "conclusion": "failure",
+          "job_id": 112554612549,
+          "url": "https://github.com/hu23320690-crypto/AI_agent/actions/runs/37547414264/job/112554612549",
+          "failed_subtests": 4,
+          "failure_scope": "新 seal 测试的四个排除目录模拟符号链接子断言",
+          "reason": "测试 fixture 构造的模拟路径与 seal 自身 resolve 后的规范化路径身份不一致，导致 Windows 上的四个子断言失败。",
+          "planned_fix": "fixture 先 resolve，再构造模拟路径；保留 seal 路径规范化及相关安全断言。",
+          "applied_fix": "Normalize the test fixture with resolve() before constructing the mocked path identity; production seal code and rejection assertions unchanged."
+        }
+      },
+      "diagnostics": {
+        "complete_log_preserved_privately": true,
+        "note": "完整 CI 失败日志保存在本地私有输出；本记录保留首次失败，不覆盖为后续成功。"
+      }
+    }
+  ],
+  "final_head_verification": {
+    "status": "external_exact_head_checks",
+    "note": "This file preserves the initial failed CI attempt. For the final submitted head, use the linked PR/Actions checks; this field is a verification source, not a current status or a claim that the initial failed run passed.",
+    "pull_request_url": "https://github.com/hu23320690-crypto/AI_agent/pull/2",
+    "actions_url": "https://github.com/hu23320690-crypto/AI_agent/actions"
+  },
+  "scope_note": "此文件仅记录本轮实现验证的 CI 历史；不修改或替代既有真实评测 raw、语义评分和封存内容。"
+}

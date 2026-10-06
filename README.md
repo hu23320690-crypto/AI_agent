@@ -8,7 +8,7 @@
 
 文档整理截至 **2026-10-07**。本轮评测于 2026-10-06 开始，2026-10-07 完成记录与辅助语义复核：当前版本重跑原 60 个案例与旧 12 道保留题，另将推理前冻结的新 40 题用于历史混合检索版与当前版同题对照。新题知识严格通过为 **24/28 → 21/28**，资料不足两版 **6/6**，Agent 全轮任务两版 **0/6**；当前版有 2 个生成截断案例，保持未知并留在原计划分母。方法、失败和逐题证据见 [本轮评测](docs/EVALUATION_V2.md)，题集见 [holdout_v2](evaluation/holdout_v2/README.md)。
 
-**本轮本机离线验证**为 pytest 367 项通过、3 项 Windows 符号链接权限跳过、270 个子断言通过，耗时 43.06 秒；离线 doctor 146 项通过，`pip check` 无依赖冲突。证据见[本轮检查](artifacts/evaluation_v2/checks.json)、[pytest 输出](artifacts/evaluation_v2/pytest.log)和[离线 doctor](artifacts/evaluation_v2/doctor_offline.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
+**本轮本机离线验证**为 pytest 367 项通过、3 项 Windows 符号链接权限跳过、270 个子断言通过，耗时 42.49 秒；离线 doctor 146 项通过，`pip check` 无依赖冲突。证据见[本轮检查](artifacts/evaluation_v2/checks.json)、[pytest 输出](artifacts/evaluation_v2/pytest.log)和[离线 doctor](artifacts/evaluation_v2/doctor_offline.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 **2026-10-05 的 API 工程化检查**继续保留为历史验证：本机 320 项通过、1 项 Windows 权限跳过，188 项 unittest 子断言通过，新增 API 39 项通过；离线 doctor 146 项通过，`pip check` 无依赖冲突。Windows/Linux 各 321 项测试和非 root 镜像启动见 [历史 CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)，容器检查不含模型下载或真实推理。证据见[工程化检查](artifacts/api_engineering_v1/checks.json)、[pytest 输出](artifacts/api_engineering_v1/pytest.log)与[CI 记录](artifacts/api_engineering_v1/ci_history.json)，这些计数不作为本轮结果。
 

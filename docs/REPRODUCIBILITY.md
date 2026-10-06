@@ -10,7 +10,7 @@
 
 2026-10-05 API 工程化本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突；新增 API 测试 39 项全通过，证据见[历史工程化检查](../artifacts/api_engineering_v1/checks.json)。这些历史计数独立保留。真实 HTTP 检查另存原始输出和语义复核，不以健康接口通过代替模型回答质量验证。
 
-本轮本机离线回归为 **367 passed、3 skipped、270 subtests passed，43.06秒**，3 项跳过来自 Windows 符号链接权限（2 个 seal 子场景、1 个安全子场景）；离线 doctor 146 项通过，pip check 无依赖冲突。证据见[本轮检查](../artifacts/evaluation_v2/checks.json)、[pytest日志](../artifacts/evaluation_v2/pytest.log)及[离线doctor](../artifacts/evaluation_v2/doctor_offline.json)。之前临时目录权限和绝对路径导致的测试预算失败保留完整私有日志及checks哈希摘要；最终使用工作区临时目录，仅两个来源撤销测试采用已有16384模拟上下文预算，保留撤销/重试断言，业务配置未改。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
+本轮本机离线回归为 **367 passed、3 skipped、270 subtests passed，42.49秒**，3 项跳过来自 Windows 符号链接权限（2 个 seal 子场景、1 个安全子场景）；离线 doctor 146 项通过，pip check 无依赖冲突。证据见[本轮检查](../artifacts/evaluation_v2/checks.json)、[pytest日志](../artifacts/evaluation_v2/pytest.log)及[离线doctor](../artifacts/evaluation_v2/doctor_offline.json)。之前临时目录权限和绝对路径导致的测试预算失败保留完整私有日志及checks哈希摘要；最终使用工作区临时目录，仅两个来源撤销测试采用已有16384模拟上下文预算，保留撤销/重试断言，业务配置未改。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 ~~~powershell
 py -3.12 -m venv .venv
