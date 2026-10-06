@@ -1,0 +1,11 @@
+............................................. [ 12%]
+............................ [ 19%]
+..................................................... [ 34%]
+...........................................................................................................................s..................................... [ 77%]
+................................................. [ 91%]
+................................         [100%]
+=========================== short test summary info ===========================
+SUBSKIPPED(directory=False) [1] tests\test_evaluation_seal.py:440: Symlinks are unavailable on this host: [WinError 1314] 客户端没有所需的特权。: 'C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\outputs\\evaluation_v2_pytest_tmp\\tmpp5b_0wdt\\external\\target.json' -> 'C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\outputs\\evaluation_v2_pytest_tmp\\tmpp5b_0wdt\\link-False\\raw\\external.json'
+SUBSKIPPED(directory=False) [1] tests\test_evaluation_seal.py:440: Symlinks are unavailable on this host: [WinError 1314] 客户端没有所需的特权。: 'C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\outputs\\evaluation_v2_pytest_tmp\\tmpp5b_0wdt\\external' -> 'C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\outputs\\evaluation_v2_pytest_tmp\\tmpp5b_0wdt\\link-True\\raw\\external-dir'
+SUBSKIPPED(directory=False) [1] tests\test_knowledge_security.py:159: Creating Windows symlinks requires a host privilege.
+367 passed, 3 skipped, 270 subtests passed in 42.49s

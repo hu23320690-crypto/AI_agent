@@ -1,0 +1,411 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 20,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "mrr_at_5": 0.8345238095238096,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 24,
+    "partial": 4,
+    "incorrect": 0,
+    "grounded": 28,
+    "strict_pass": 24,
+    "strict_fail": 4,
+    "strict_pass_fraction_planned": 0.8571428571428571,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 28,
+      "all_required_hit": 27,
+      "policy_hit": 27
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 6,
+    "strict_pass": 6,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 1.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 0,
+    "task_fail": 6,
+    "unknown": 0,
+    "tool_selection_pass": 4,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 128,
+    "observed_model_requests": 22
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.24651214999994409,
+      "p95_seconds": 0.3265314000000217
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 26.929464750000193,
+      "p95_seconds": 47.30553229999987
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 24.015340800000104,
+      "p95_seconds": 64.6723423999997
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 34.05963614999996,
+      "p95_seconds": 58.236355
+    }
+  },
+  "model_usage": {
+    "observed_requests": 56,
+    "requests_by_status": {
+      "ok": 56,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 56,
+    "input_tokens": 101087,
+    "output_tokens": 92657,
+    "request_input_message_counts": {
+      "count": 56,
+      "median_messages": 1.0,
+      "p95_messages": 130
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "V2K04",
+      "status": "ok",
+      "review": {
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": null,
+        "note": "正确劝阻一次性拖布水洗复用，并说明变硬、掉毛、影响拖地效果及可能堵塞模组，这些均有实际输入扫拖一体条目支持；但题目问资料给出的理由，遗漏吸水性和清洁性按单次使用设计的原因，未完整覆盖所求理由。",
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2K04",
+        "sample_id": "S044",
+        "result_sha256": "a4f829736bea571d5008b7cc3f67bcc0b6a70e8eb131e9b5e14ab3a561687061"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K13",
+      "status": "ok",
+      "review": {
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": null,
+        "note": "执行完成，正确指出不是所有机型保证。冻结口径要求一般≤2cm及确认实际机型跨越范围；回答采用另一实际输入PDF条目的多数1.5–2cm、高端2.5cm，未明确给出所问一般≤2cm口径及先确认机型范围。题面只称扫地问答，实际输入同时含两份扫地问答的不同范围表述，存在资料范围歧义，按冻结必答点记部分正确，不视为编造。部分机型无法跨越≤2cm的表述由实际故障条目支持。",
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2K13",
+        "sample_id": "S003",
+        "result_sha256": "a57cb98fa81a82bf367e28e0e92740776da4ba0d45aab22245357c9b3dd59b44"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K24",
+      "status": "ok",
+      "review": {
+        "answer_score": 1,
+        "grounded": true,
+        "note": "清水刻度、污水是否满、清理水位传感器、重新加水/倒污水后重启均正确；但题面还要求通用清理安全条件，未回答全程断开电源。实际输入有水位异常条目，却没有通用断电锚；拒绝补猜该部分忠实于本次资料，因此内容部分分、忠实度真。",
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2K24",
+        "sample_id": "S058",
+        "result_sha256": "288fe13bd4ce75b703832797f4fed195dc009e60f049af0fcad77a52bff5be3d"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K28",
+      "status": "ok",
+      "review": {
+        "answer_score": 1,
+        "grounded": true,
+        "note": "已回答每层建图、专属扫拖参数、搬运前清理底部/传感器并校准；保持开机避免地图丢失也有实际PDF第60条支持。按冻结步骤点，未明确手动搬至对应楼层后启动及不可自动跨层，故主评分1。",
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "annotation_ambiguity": {
+          "primary_answer_score": 1,
+          "alternate_answer_score": 2,
+          "reason": "题面聚焦搬运前后地图、楼层参数与传感器准备，且用户已明确搬到二楼；宽题面口径可认为回答已满足准备要求并未声称自动跨层。主评分仍按冻结手动搬至对应层后启动的步骤点记录遗漏。"
+        },
+        "id": "V2K28",
+        "sample_id": "S059",
+        "result_sha256": "222bce4aaa9ec8b16da754bc2c91b8c144f9454b5c5f29bdb6a3d59aaf157ac4"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A01",
+      "status": "ok",
+      "review": {
+        "answer_score": null,
+        "grounded": true,
+        "task_pass": false,
+        "note": "执行完成，实际查询1006、2025-10，三项请求值2次/周、80%、1.0个/月都正确且受本轮工具输入支持，并标为演示记录。交付完整报告额外列户型、边刷寿命及效率对比，违反用户只列三项的明确范围限制，任务未通过。",
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "task_pass": false,
+            "note": "正确用户、月份及全部三值，fetch_external_data真实查表成功；内容主体准确，但交付包含明确未请求的额外字段，未满足只列限制。"
+          }
+        ],
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2A01",
+        "sample_id": "S020",
+        "result_sha256": "751d71819256067c99bfbbb69b10550db34f3ab074c03caf3da47730aeaeec17"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A02",
+      "status": "ok",
+      "review": {
+        "answer_score": null,
+        "grounded": true,
+        "task_pass": false,
+        "note": "两轮执行完成，均实际查询同一当前账号1007的正确月份，事实得到工具输入支持。最终交付为完整报告模板，首轮违反只要两项限制，第二轮虽给出95%与40㎡却遗漏相对11月增加2个百分点和2㎡；内部generated_final_content中的差值未交付，不能代替任务完成。",
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "task_pass": false,
+            "note": "fetch_external_data正确查询1007、2025-11，93%和38㎡准确且有据；交付额外户型、耗材及对比数据，违反只需要这两个数的明确请求。"
+          },
+          {
+            "turn_index": 2,
+            "answer_score": 1,
+            "grounded": true,
+            "task_pass": false,
+            "note": "正确将下一月解析为2025-12并查询1007，交付95%和40㎡均有据，但未给增加2个百分点和2㎡，还追加未请求字段。"
+          }
+        ],
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2A02",
+        "sample_id": "S014",
+        "result_sha256": "7ee72ce15bae9d7827bb511920a66a53d142a4340371be32826fd17e3b8feafe"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A03",
+      "status": "ok",
+      "review": {
+        "answer_score": 1,
+        "grounded": false,
+        "note": "两轮完成；第一轮只说手机离线仍执行，虽用户已说明定时任务安排，却漏掉题面明确要求保留的机器人已连接WiFi前提，扩大了资料中的有条件结论。第二轮说明资料不足，没有保证机器人断WiFi仍执行，但不能弥补第一轮遗漏；整案任务不通过。",
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "task_pass": false,
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 1,
+            "grounded": false,
+            "note": "实际扫拖问答第88条限定机器人已连接WiFi并已设任务。回答未保留机器人WiFi条件而直接确认仍执行，题面要求说清前提未满足，结论范围超出资料。"
+          },
+          {
+            "turn_index": 2,
+            "answer_score": 2,
+            "grounded": true,
+            "note": "面对机器人自身断WiFi是否保证执行，明确资料不足；同会话第88条仅支持机器人联网/手机离线情形，没有编造机器人断网保证。"
+          }
+        ],
+        "id": "V2A03",
+        "sample_id": "S078",
+        "result_sha256": "d0356c899ddc8bfbfa03a28b00a3d76362ab3e17bf180bafd36139fbd5bc52b2"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A04",
+      "status": "ok",
+      "review": {
+        "answer_score": null,
+        "grounded": true,
+        "task_pass": false,
+        "note": "两轮derived执行均完成并实际检索；首轮已正确拒绝混装，按题面范围主评分完整，与当前版同题一致。第二轮保持污水仓滤网并给出正确周期及破损立即更换，却遗漏晾干后使用，整案task_pass仍false。忠实度仅评用户实际收到的turns.answer，内部未交付的材质/工作原理措辞不计入交付评分。",
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "task_pass": true,
+            "note": "首轮题面只问能否混装；已拒绝混用并说明规格、功能不同与损坏风险，实际资料支持。按冻结rubric不机械要求未请求的污水过滤/专用滤网扩展，与当前版同题主评分一致。",
+            "annotation_ambiguity": {
+              "primary_answer_score": 2,
+              "alternate_answer_score": 1,
+              "reason": "主评分按题面范围；若机械要求required_points所有扩展，缺污水过滤功能和专用滤网记1。"
+            }
+          },
+          {
+            "turn_index": 2,
+            "answer_score": 1,
+            "grounded": true,
+            "task_pass": false,
+            "note": "保持污水仓滤网对象，正确回答每周清水冲洗、6个月更换和破损立即更换；实际维护资料明确有晾干后使用，交付答案遗漏该步骤。"
+          }
+        ],
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2A04",
+        "sample_id": "S004",
+        "result_sha256": "a35ca35a820abe017cc61b345e335157257aeb589513d26871e3adeb4a40e2ec",
+        "adjudication": {
+          "date": "2026-10-07",
+          "reason": "Post-review consistency audit aligned the same question scope across versions; no reference, raw answer, overall task outcome or aggregate strict counts changed."
+        }
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A05",
+      "status": "ok",
+      "review": {
+        "answer_score": null,
+        "grounded": false,
+        "task_pass": false,
+        "note": "两轮derived执行完成。实际输入保留污水仓滤网、晾干提醒、资料不足不能确认不猜的初始要求，未显示生成摘要。首轮恢复对象与晾干，但未明确不能确认/不猜；第二轮不检索即宣称维护资料未说明周期与破损规则，未完成可查有据任务。合成填充历史不计为64次真实模型交互。",
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "task_pass": false,
+            "note": "正确恢复污水仓滤网与清洗后晾干再使用，承诺如实告知、提示补充细节；但冻结明确要求资料不足时说明不能确认且不猜，该边界未明确恢复。本轮无工具符合限制。"
+          },
+          {
+            "turn_index": 2,
+            "answer_score": 0,
+            "grounded": false,
+            "task_pass": false,
+            "note": "没有rag_summarize调用或实际维护资料输入，未回答每周清水冲洗、晾干、6个月、破损立即更换。当前历史不含周期可以说明当前信息不足，但直接断言维护资料中未明确说明未经检索支持；用户要求查维护资料，不能以未查资料替代正确拒答。所列30天/6个月仅为请求补充的举例，未按编造确定周期处理。"
+          }
+        ],
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2A05",
+        "sample_id": "S013",
+        "result_sha256": "e51b179b2e9111b3db4e58d569314f9f3ae0cfb0f50fb05084624ba237219235"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A06",
+      "status": "ok",
+      "review": {
+        "answer_score": null,
+        "grounded": false,
+        "task_pass": false,
+        "note": "两轮执行完成。首轮准确恢复2025年9月及两个字段，目标和约束确实仍在实际输入；第二轮未查表便断言无记录，既无工具依据又与冻结1004的2025-09演示记录矛盾，未交付8次/月与88%，任务失败。没有将64对合成历史算为真实交互。",
+        "per_turn": [
+          {
+            "turn_index": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "task_pass": true,
+            "note": "准确恢复2025年9月、猫砂泼洒处理次数、自动回充成功率，并保持不混其他账号与无记录不补值约束；本轮不调用工具符合要求。"
+          },
+          {
+            "turn_index": 2,
+            "answer_score": 0,
+            "grounded": false,
+            "task_pass": false,
+            "note": "未调用fetch_external_data且实际输入没有查表结果，断言该用户9月无相关记录无依据；冻结当前账号1004该月有8次/月和88%的演示记录。"
+          }
+        ],
+        "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+        "id": "V2A06",
+        "sample_id": "S007",
+        "result_sha256": "1346a56046973ef55359cafcc9c2de7a31a1acf60c37f8248f14ee61a2a97e87"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

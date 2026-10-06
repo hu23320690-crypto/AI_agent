@@ -6,15 +6,13 @@
 
 ## 当前完成情况
 
-文档整理截至 **2026-10-05**。本轮新增 HTTP 服务、离线 API 回归、容器配置和 Windows/Linux CI 工作流。本机未安装 Docker；Windows/Linux 各 321 项测试和非 root 镜像启动已在 [CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)通过，容器检查不包含模型下载或真实推理。当前提交的全部检查以 [PR Checks](https://github.com/hu23320690-crypto/AI_agent/pull/1/checks)为准。此前的上下文功能验收记录为 **2026-10-01**；历史实验保留原始版本、输出和失败记录。
+文档整理截至 **2026-10-07**。本轮评测于 2026-10-06 开始，2026-10-07 完成记录与辅助语义复核：当前版本重跑原 60 个案例与旧 12 道保留题，另将推理前冻结的新 40 题用于历史混合检索版与当前版同题对照。新题知识严格通过为 **24/28 → 21/28**，资料不足两版 **6/6**，Agent 全轮任务两版 **0/6**；当前版有 2 个生成截断案例，保持未知并留在原计划分母。方法、失败和逐题证据见 [本轮评测](docs/EVALUATION_V2.md)，题集见 [holdout_v2](evaluation/holdout_v2/README.md)。
 
-本轮 Windows / Python 3.12 回归：**320 项通过、1 项 Windows 符号链接权限跳过**，另有 188 项 unittest 子断言通过；新增 API 测试 39 项全部通过。离线 doctor 146 项通过，`pip check` 无依赖冲突；记录见[工程化检查](artifacts/api_engineering_v1/checks.json)和[pytest 输出](artifacts/api_engineering_v1/pytest.log)。真实 HTTP 与真实模型结果单独保存在[HTTP 验收](artifacts/api_engineering_v1/live_smoke.json)，不作为完整准确率重测。
+**本轮本机离线验证**为 pytest 367 项通过、3 项 Windows 符号链接权限跳过、270 个子断言通过，耗时 42.49 秒；离线 doctor 146 项通过，`pip check` 无依赖冲突。证据见[本轮检查](artifacts/evaluation_v2/checks.json)、[pytest 输出](artifacts/evaluation_v2/pytest.log)和[离线 doctor](artifacts/evaluation_v2/doctor_offline.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
-本轮实际 HTTP 验收的报告、知识问答和连续追问均完成执行；人工对照资料核查，报告与主刷清理回答符合预期，连续追问却回答资料不足，保留为语义未通过。HTTP 200 表示请求执行完成，不能直接计为正确回答。
+**2026-10-05 的 API 工程化检查**继续保留为历史验证：本机 320 项通过、1 项 Windows 权限跳过，188 项 unittest 子断言通过，新增 API 39 项通过；离线 doctor 146 项通过，`pip check` 无依赖冲突。Windows/Linux 各 321 项测试和非 root 镜像启动见 [历史 CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)，容器检查不含模型下载或真实推理。证据见[工程化检查](artifacts/api_engineering_v1/checks.json)、[pytest 输出](artifacts/api_engineering_v1/pytest.log)与[CI 记录](artifacts/api_engineering_v1/ci_history.json)，这些计数不作为本轮结果。
 
-首次跨平台 CI 暴露了路径分隔符、Git 行尾转换及测试环境差异；修复保持原始来源字节、SHA256 校验和生产预算。失败与修复说明见 [CI 记录](artifacts/api_engineering_v1/ci_history.json)，后续执行结果以 GitHub 对应 run 为准。
-
-2026-10-05 **API 接入前的源码发布验收**在独立副本运行回归：259 项运行、258 通过、1 项权限跳过，离线 doctor 142 项通过；文档链接与待上传文件检查见[历史发布检查记录](artifacts/github_publication_v1/checks.json)。这些计数对应当时的依赖和代码，不作为本轮 API 或 Linux 验收结果。本轮没有重新测量全部真实模型问答。
+历史 [HTTP 验收](artifacts/api_engineering_v1/live_smoke.json)中三次模型请求均执行完成，报告与主刷清理符合预期，断电追问语义未通过。HTTP 200、工具执行完成和答案正确分别判断；旧失败与阶段记录继续保留。
 
 | 能力 | 当前实现 |
 | --- | --- |
@@ -28,9 +26,7 @@
 | 上下文管理 | 消息及工具结构预算、完整轮次裁剪、低信任结构化摘要、失败降级、截断输出拒绝提交 |
 | Harness | 冻结输入与 worker 执行；7 类故障、23 条安全/正常样本；原始输出与语义复核分别保存 |
 
-2026-10-01 回归运行 **259 项：258 通过、1 项 Windows 符号链接权限跳过**。长历史验收注入 64 轮合成已完成历史，再实际生成摘要和执行两次提问；首请求消息从 129 条降至 6 条。这不是 64 次真实模型对话，摘要不能保证零信息损失。
-
-最终配置的真实安全评测记录了 23 条，22 条执行完成、1 条生成截断未完成。获准错误事实仍被采纳，恶意工具结果仍可能污染最终输出。完整结果见[上下文验收](docs/CONTEXT_MANAGEMENT_VERIFICATION.md)，边界见[已知限制](docs/LIMITATIONS.md)。
+2026-10-01 的长历史、受控回归与安全验收保留在[上下文验收](docs/CONTEXT_MANAGEMENT_VERIFICATION.md)。合成历史不计真实模型交互；来源批准也不保证事实正确。当前边界见[已知限制](docs/LIMITATIONS.md)。
 
 ## 新环境安装
 
@@ -42,7 +38,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip check
 ~~~
 
-不需要激活环境。没有 `py` 时，用已安装的 Python 3.12 可执行文件替代。`requirements.txt` 声明 **17 项运行时直接依赖**，`requirements-lock.txt` 固定 **125 项依赖及传递依赖**，含开发测试用 pytest。`requirements-dev.txt` 引用同一份锁；本轮 Windows/Linux 安装与回归是否通过，应检查实际验证记录。
+不需要激活环境。没有 `py` 时，用已安装的 Python 3.12 可执行文件替代。`requirements.txt` 声明 **17 项运行时直接依赖**，`requirements-lock.txt` 固定 **125 项依赖及传递依赖**，含开发测试用 pytest。`requirements-dev.txt` 引用同一份锁；Windows/Linux 安装与回归结果应核对对应提交的 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查。
 
 安装并启动 [Ollama](https://docs.ollama.com/quickstart)，准备模型：
 
@@ -164,7 +160,24 @@ flowchart TD
 
 ## 效果记录与口径
 
-下表为**历史检索优化实验**，不是当前版本重新测出的整体准确率：
+本轮原 60 个案例均完整执行与复核：知识严格通过 **33/40**（7 题部分正确），模型实际输入中的标注证据覆盖 **38/40**，资料不足 **8/8**，Agent 严格任务 **10/12**；工具名称路径 **12/12**，Agent 共 14 次真实提问。A04／A05 的无记录查询功能正确（`functional=true`），程序在最终输出额外附加的 2025 年覆盖范围未包含于本次实际工具结果，因此严格实际证据口径未通过。A08 的模型越权参数被控制器成功拦截；工具名称路径合规不等于参数合规。旧 12 题本轮全部通过（8 道知识、4 道资料不足），H06 的题面只问功能名称，参考答案包含扩展解释，歧义及评分理由另存。详情见[本轮评测](docs/EVALUATION_V2.md)。
+
+新 40 题的两版记录、评分及[逐题对照](evaluation/results/holdout_v2_comparison/comparison.json)已保存，以下均使用原计划分母：
+
+| 新题指标 | 历史混合检索版 | 当前版 |
+| --- | --- | --- |
+| 知识严格通过 | 24/28（4 题部分正确） | 21/28（6 题部分正确、1 题截断未知） |
+| 资料不足严格通过 | 6/6 | 6/6 |
+| Agent 全轮任务通过 | 0/6（6 例失败） | 0/6（5 例失败、1 例截断未知） |
+| Agent 工具名称路径 | 4/6 | 4/6 |
+| 检索 Top-5 任一标注锚 / 全部必需锚 | 28/28 / 27/28 | 28/28 / 27/28 |
+| 案例记录 / 执行完成 | 40/40 / 40/40 | 40/40 / 38/40 |
+
+知识题中 21 题共同通过，2 题退步，4 题共同失败，1 题未知，没有进步题；Agent 为 5 例共同失败和 1 例未知。V2A01 的三个指定数值正确，但程序报告追加了“只列”范围之外的字段；V2A02 正确查到两个相邻月份，却未交付请求的差值；V2A04 漏掉晾干提醒。当前长历史 V2A05/V2A06 的摘要丢失部件、月份、字段或限制，后续没有完成原目标；历史版也出现未检索便拒答或未查表便断言无记录。当前 V2K22 和 V2A03 的截断不计正确拒答。这些反例保留为后续改进依据，本轮未按新题结果修改业务实现。
+
+两版使用相同新题、资料和模型 digest，保留各自业务配置；检索、提示、来源治理、请求预算和历史管理共同变化，结果不支持全面提升或单一算法因果改善。复核隐藏版本标签并打乱排列，由 Codex 助手检查冻结要求与实际输入；提示和行为仍可能透露实现特征，属于辅助语义复核，未经独立真人专家审核。
+
+下表保留**历史检索优化实验**的当时口径：
 
 | 指标 | 基线 | 改进后 |
 | --- | --- | --- |
@@ -174,7 +187,7 @@ flowchart TD
 | Agent 任务完成 | 11/12 | 12/12 |
 | 资料不足拒答 | 8/8 | 8/8 |
 
-另 12 道未参与选型的保留题在该轮通过，4 道操作题退步保留。语义评分由助手对照题目、资料和实际输出复核，未经过独立专家审核；小规模单次实验不代表生产效果。Runtime 第四步正式检索复核仍为 38/40；上下文管理后未重跑全部 40 题答案，送入模型的证据数量还受预算影响。
+历史优化轮的 12 道保留题通过，4 道操作题退步保留。历史 33/40 与本轮 33/40 来自不同版本和运行；整体版本有多项功能共同变化，不能据此归因于单一改动。2026-10-01 的上下文验收当时只做有限复验，本轮已重新执行原题。助手语义复核未经独立专家审核或真人盲评；小规模单次实验不代表生产效果。
 
 - [历史改进报告](evaluation/results/optimized_v1/comparison.md)及[逐题记录](evaluation/results/optimized_v1/audit.md)
 - [保留题记录](evaluation/results/holdout_optimized_v1/audit.md)
@@ -209,9 +222,12 @@ flowchart TD
 | Docker / Linux 运行与运维 | [部署说明](docs/DEPLOYMENT.md) |
 | 展示项目 | [演示指南](docs/DEMO.md) |
 | 方法、命令与结果 | [评测 README](evaluation/README.md) |
+| 本轮原题回归与新题同题对照 | [EVALUATION_V2](docs/EVALUATION_V2.md)、[新 40 题](evaluation/holdout_v2/README.md) |
+| 准备隔离的历史业务版本 | [prepare CLI](scripts/prepare_evaluation_variant.py)、[同题版本对照](evaluation/README.md#同题版本对照) |
+| 完成评测后的离线归档校验 | [seal CLI](scripts/seal_evaluation_run.py)、[归档说明](evaluation/README.md#证据快照与恢复约定) |
 | Runtime 设计 | [分步计划](docs/RUNTIME_HARNESS_PLAN.md)、[第四步说明](docs/RUNTIME_STAGE4.md) |
 | 上下文预算与摘要 | [上下文管理](docs/CONTEXT_MANAGEMENT.md) |
 | 当前边界 | [已知限制](docs/LIMITATIONS.md) |
 
-阶段验收和评测 snapshot 是对应版本的历史证据，保留当时计数与输出。当前使用方法以本页和评测入口为准。知识资料未核实厂商适用性；CSV 为合成数据；天气、OCR、会话持久化、生产认证和大规模并发尚未实现。
+阶段验收和评测 snapshot 是对应版本的历史证据，保留当时计数与输出。seal 是离线归档校验，不是防篡改签名，也不替代恢复推理时的实时身份保护。知识资料未核实厂商适用性；CSV 为合成数据；天气、OCR、会话持久化、生产认证和大规模并发尚未实现。
 

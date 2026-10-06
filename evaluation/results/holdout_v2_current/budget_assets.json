@@ -1,0 +1,23 @@
+{
+  "capture_phase": "post_collection",
+  "capture_date": "2026-10-07",
+  "runtime_snapshots_deduplicated": 45,
+  "budget_checks": 134,
+  "estimation_methods": {
+    "local_qwen2_bpe_plus_framing": 134
+  },
+  "tokenizer_model_digests": [
+    "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+  ],
+  "tokenizer_template_sha256": [
+    "2d54db2b9bb29ce7db54fea63a891f5859603813c555b1f88b5e0994652897f9"
+  ],
+  "observed_model_requests": 59,
+  "note": "Execution identity captured the tokenizer descriptor but its suffix whitelist omitted the gzip asset. Archive closure below was added after collection, not retrospectively asserted as a new pre-inference freeze. Actual budget traces are reported separately.",
+  "asset": {
+    "descriptor_sha256": "5c9cdb944a7148eb129448f57f9bf90fd2fa362abf0e702b4e4bc414d9e9f24b",
+    "snapshot_path": "snapshot/config/tokenizers/qwen3_4b.json.gz",
+    "sha256": "d30dc492069cafaf138fc0f671a116bc02496c445c1abab7a01919c42a7b18fc",
+    "matches_pre_pinned_descriptor": true
+  }
+}

@@ -93,6 +93,11 @@ evaluation/results/*/workers/
 !/artifacts/api_engineering_v1/pytest.log
 !/artifacts/api_engineering_v1/live_smoke.json
 !/artifacts/api_engineering_v1/ci_history.json
+!/artifacts/evaluation_v2/
+!/artifacts/evaluation_v2/checks.json
+!/artifacts/evaluation_v2/pytest.log
+!/artifacts/evaluation_v2/doctor_offline.json
+!/artifacts/evaluation_v2/ci_history.json
 
 
 .git-init-backup/

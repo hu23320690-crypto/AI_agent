@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-07",
+  "business_main_sha": "2d24de975db90d9d823e680690221f9f2375fa93",
+  "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+  "temporary_directory": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\outputs\\evaluation_v2_pytest_tmp",
+  "earlier_attempts": [
+    {
+      "log_sha256": "110d904167cc2f6b3bbceeeeea30dbd6df1547f7084b3a7f55aff2cf4338ceaa",
+      "tail": "81 failed, 321 passed, 3 skipped, 215 subtests passed in 35.05s",
+      "note": "Windows sandbox package Temp caused atomic replacement WinError 5; workspace Temp selected.",
+      "full_diagnostics": "Preserved in local private outputs; not overwritten into final successful log."
+    },
+    {
+      "log_sha256": "f070639cc906a6fd21b611a289bdaddf9e72023fe06e63031f16ed62a8593878",
+      "tail": "2 failed, 365 passed, 3 skipped, 270 subtests passed in 44.43s",
+      "note": "Two source-revocation fixtures exceeded default context budget because absolute temporary source paths grew; only these tests use existing larger scripted policy, retaining revocation/retry assertions.",
+      "full_diagnostics": "Preserved in local private outputs; not overwritten into final successful log."
+    }
+  ],
+  "note": "Offline implementation checks after serial real inference; quality scoring is separate. Business code remains frozen.",
+  "pytest": {
+    "exit_code": 0,
+    "log": "artifacts/evaluation_v2/pytest.log",
+    "tail": [
+      "...........................................................................................................................s..................................... [ 77%]",
+      "................................................. [ 91%]",
+      "................................         [100%]",
+      "=========================== short test summary info ===========================",
+      "SUBSKIPPED(directory=False) [1] tests\\test_evaluation_seal.py:440: Symlinks are unavailable on this host: [WinError 1314] 客户端没有所需的特权。: 'C:\\\\Users\\\\胡\\\\Documents\\\\Codex\\\\2026-09-17\\\\new-chat\\\\outputs\\\\evaluation_v2_pytest_tmp\\\\tmpp5b_0wdt\\\\external\\\\target.json' -> 'C:\\\\Users\\\\胡\\\\Documents\\\\Codex\\\\2026-09-17\\\\new-chat\\\\outputs\\\\evaluation_v2_pytest_tmp\\\\tmpp5b_0wdt\\\\link-False\\\\raw\\\\external.json'",
+      "SUBSKIPPED(directory=False) [1] tests\\test_evaluation_seal.py:440: Symlinks are unavailable on this host: [WinError 1314] 客户端没有所需的特权。: 'C:\\\\Users\\\\胡\\\\Documents\\\\Codex\\\\2026-09-17\\\\new-chat\\\\outputs\\\\evaluation_v2_pytest_tmp\\\\tmpp5b_0wdt\\\\external' -> 'C:\\\\Users\\\\胡\\\\Documents\\\\Codex\\\\2026-09-17\\\\new-chat\\\\outputs\\\\evaluation_v2_pytest_tmp\\\\tmpp5b_0wdt\\\\link-True\\\\raw\\\\external-dir'",
+      "SUBSKIPPED(directory=False) [1] tests\\test_knowledge_security.py:159: Creating Windows symlinks requires a host privilege.",
+      "367 passed, 3 skipped, 270 subtests passed in 42.49s"
+    ]
+  },
+  "doctor": {
+    "exit_code": 0,
+    "report": "artifacts/evaluation_v2/doctor_offline.json",
+    "stderr": ""
+  },
+  "pip_check": {
+    "exit_code": 0,
+    "output": "No broken requirements found.",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "capture_phase": "post_collection",
+  "capture_date": "2026-10-07",
+  "runtime_snapshots_deduplicated": 0,
+  "budget_checks": 0,
+  "estimation_methods": {},
+  "tokenizer_model_digests": [],
+  "tokenizer_template_sha256": [],
+  "observed_model_requests": 56,
+  "note": "Historical version has no tokenizer descriptor or Runtime budgeting; no synthetic budget traces or asset are added.",
+  "asset": null
+}
