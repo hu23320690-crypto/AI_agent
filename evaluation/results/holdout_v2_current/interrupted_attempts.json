@@ -1,0 +1,15 @@
+{
+  "interruption_date": "2026-10-06",
+  "resumed_date": "2026-10-07",
+  "committed_preserved": 7,
+  "uncommitted_attempts": [
+    {
+      "id": "V2K08",
+      "status": "running",
+      "worker_sha256": "7e3d1001477e6109eb344547c760878dc0104600e94771587937e92339858bc6",
+      "observed_model_requests": 1,
+      "note": "Uncommitted attempt retained outside publication before resuming; process stopped externally, not a completed answer."
+    }
+  ],
+  "backup_note": "Local private backup keeps full worker and diagnostic logs; incomplete attempt is disclosed and not treated as a scored answer."
+}

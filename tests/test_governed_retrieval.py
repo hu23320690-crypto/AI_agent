@@ -252,7 +252,11 @@ class GovernedRetrievalTests(unittest.TestCase):
         ])
         limits = RunLimits()
         run = RunContext(limits, ExecutionRuntime(limits))
-        with patch("rag.rag_service.chat_model", model):
+        # Exercise revocation after dispatch, independent of temporary source
+        # path lengths in the scripted model's fallback byte-based count.
+        context_policy = scripted_context_policy(window_tokens=16384)
+        with patch("rag.rag_service.chat_model", model), \
+                patch("rag.rag_service.load_context_policy", return_value=context_policy):
             with self.assertRaises(KnowledgeAccessError):
                 runtime_call("run", "test.answer", lambda: self.rag(store).answer_documents("保养", docs), run=run)
         self.assertEqual(len(model.seen), 1)
@@ -293,7 +297,11 @@ class GovernedRetrievalTests(unittest.TestCase):
                 store.catalog.revoke(entries["brush.txt"]["source_id"], reason="Revoke before retry")
                 return super()._generate(*args, **kwargs)
         model = RevokeOnFailureModel(responses=[ConnectionError("synthetic transient failure"), answer("不得重试")])
-        with patch("rag.rag_service.chat_model", model):
+        # Reach the retry/revalidation boundary with the same offline policy,
+        # rather than testing the host-dependent production input budget.
+        context_policy = scripted_context_policy(window_tokens=16384)
+        with patch("rag.rag_service.chat_model", model), \
+                patch("rag.rag_service.load_context_policy", return_value=context_policy):
             with self.assertRaises(KnowledgeAccessError):
                 runtime_call("run", "test.retry", lambda: self.rag(store).answer_documents("保养", docs), run=run)
         self.assertEqual(len(model.seen), 1)

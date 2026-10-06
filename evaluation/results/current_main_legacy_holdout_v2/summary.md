@@ -1,0 +1,150 @@
+# current_main_legacy_holdout_v2 评测汇总
+
+评分人：Codex 助手按题目与证据逐项复核，尚未经用户或领域专家复核。
+
+这不是行业基准；文档内容的真实性与厂商适用性不在本轮验证范围。
+
+## 完成情况
+
+计划 12 个案例；执行 12；复核 12。
+
+## 自动指标
+
+{
+  "statuses": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "execution_outcomes": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 8,
+    "planned": 8,
+    "hit_counts": {
+      "1": 4,
+      "3": 7,
+      "5": 8
+    },
+    "all_required_hit_counts": {
+      "1": 4,
+      "3": 7,
+      "5": 8
+    },
+    "all_required_metrics_observed": 8,
+    "policy_hit_counts": {
+      "1": 4,
+      "3": 7,
+      "5": 8
+    },
+    "mrr_at_5": 0.6916666666666667,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 8,
+    "completed": 8,
+    "reviewed": 8,
+    "errors": 0,
+    "execution_complete": 8,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 8,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 8,
+    "strict_pass": 8,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 1.0,
+    "actual_input_evidence": {
+      "observed": 8,
+      "any_hit": 8,
+      "all_required_hit": 8,
+      "policy_hit": 8
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 4,
+    "completed": 4,
+    "reviewed": 4,
+    "errors": 0,
+    "execution_complete": 4,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 4,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 4,
+    "strict_pass": 4,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 1.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "task_pass": 0,
+    "task_fail": 0,
+    "unknown": 0,
+    "tool_selection_pass": 0,
+    "planned_real_turns": 0,
+    "synthetic_seeded_turns": 0,
+    "observed_model_requests": 0
+  },
+  "latency": {
+    "retrieval": {
+      "count": 12,
+      "median_seconds": 0.3325377999999546,
+      "p95_seconds": 8.606927899999846
+    },
+    "rag_generation": {
+      "count": 12,
+      "median_seconds": 28.00167959999999,
+      "p95_seconds": 38.170323299999836
+    },
+    "agent_turn": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "case_wall_all_statuses": {
+      "count": 12,
+      "median_seconds": 32.72372435000011,
+      "p95_seconds": 42.9025257000003
+    }
+  },
+  "model_usage": {
+    "observed_requests": 12,
+    "requests_by_status": {
+      "ok": 12,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 12,
+    "input_tokens": 24457,
+    "output_tokens": 22326,
+    "request_input_message_counts": {
+      "count": 12,
+      "median_messages": 2.0,
+      "p95_messages": 2
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  }
+}
+
+## 需改进案例

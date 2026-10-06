@@ -1,0 +1,1380 @@
+{
+  "H01": {
+    "docs": [
+      {
+        "text": "32. **清洁液可以随意添加吗？**\n- 建议使用机器人专用清洁液，不可添加酒精、消毒液、洗洁精等腐蚀性液体，避免损坏水箱和地面。\n33. **滚刷仓内有异味怎么去除？**\n- 拆卸滚刷和滚刷仓，用清水清洗后晾干，喷洒少量宠物专用除味剂，定期清理避免发霉。\n34. **电池长时间不用如何存放？**\n- 将电池充至50%-70%，拆卸后放在阴凉干燥处，每1-2个月补电一次，避免电池亏电损坏。",
+        "metadata": {
+          "chunk_count": 41,
+          "start_index": 2152,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_id": "bb97f776259959e1143dc067009930dc484c4bb646500d022e5b9150e68c7c81",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_index": 12,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "chunk_sha256": "0c8d209d63b83b31bd80a808f2f52d273f61ba18c7dd8a0857683c253654b3ad",
+          "source_version": 1,
+          "source_id": "src_1554ea0dc05ee3f6b98692d8"
+        }
+      },
+      {
+        "text": "21. 吸口滚刷（无主刷机型）：与主刷更换周期一致，3-6个月更换，宠物家庭1-3个月更换。\n22. 水箱出水阀：出现漏水、开合卡顿无法修复时，更换原装出水阀配件。\n23. 防撞条：出现开裂、脱落、回弹异常时，更换原装防撞条，不可用普通胶条替代。\n24. 清洁液：开封后3个月内用完，密封存放于阴凉干燥处，避免阳光直射。",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "chunk_sha256": "4489457880513633546798044bb65118b2b03cb3a1aef975487e0587350186d9",
+          "source_id": "src_346430645ac43894f75b9be2",
+          "start_index": 5752,
+          "chunk_index": 33,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source_version": 1,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_id": "82e86c777cea376ab1e4e55dc0c1db531362c18855a57912d25718d4853d1ef0"
+        }
+      },
+      {
+        "text": "## 长期存放维护（20条）\n1. 存放前，将机器人完全充满电（电量至80%-90%），避免亏电存放导致电池损坏。\n2. 存放前，全面清理机器人机身、尘盒、滤网、主刷、边刷、拖布等所有配件，无灰尘、污渍残留。\n3. 扫拖一体机器人存放前，排空水箱、污水仓内的所有水分，用干布擦拭干净，晾干后再存放。",
+        "metadata": {
+          "chunk_count": 53,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "chunk_sha256": "845b758ac372d65ea33991c80ad3b2dd650b954c2668aaa89d5d13169b85e1d1",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_index": 43,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source_version": 1,
+          "start_index": 7210,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_id": "a272e5a457d326d5658dcc607fd2da932228b2e1afbb436169f74477f6d64498"
+        }
+      },
+      {
+        "text": "- 拖布清洗后用干布吸干水分，放在室内通风处，或用吹风机冷风档吹干，避免在密闭、潮湿环境下存放。\n69. **有婴儿的家庭拖地需要注意什么？**\n- 仅用清水拖地，避免添加清洁液导致残留；拖地后用干布再擦拭一次，确保地面无积水、无清洁剂残留，待地面完全干燥后再让婴儿活动。\n70. **复式楼层如何使用扫拖一体机器人？**",
+        "metadata": {
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_sha256": "5c426d82e56cf443cd7315d212cff98f97bd0a00ecb3774e750d5f7db56e3c6d",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_id": "dbdcc16d14c0cd3666b8114ed0fb59deebeae09f17e67465fceabdd2e8150557",
+          "start_index": 5203,
+          "source_version": 1,
+          "chunk_index": 33,
+          "chunk_count": 51,
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      },
+      {
+        "text": "86. 清洁液容量：清洁液盒容量≥100ml，可使用1-2周，避免频繁添加。\n\n87. 机身指示灯：不同颜色指示灯区分工作、充电、故障状态，直观了解机身情况。\n\n88. 防倾倒设计：机身重心偏低，避免在斜坡或不平整地面倾倒，保护机身和家具。\n\n89. 软件稳定性：APP无频繁卡顿、闪退，连接稳定性≥95%，避免控制失效。",
+        "metadata": {
+          "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_2db1465df193608158c1225b",
+          "chunk_count": 48,
+          "chunk_id": "e777b8fecca02f14db1c2cb7aeab6d6ea9abf0cc577367b38ae13f643d77502b",
+          "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "chunk_sha256": "6c356f42939897f0a9646e788dfc359d4c34743b5a73ff0a797807f6435c1754",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\选购指南.txt",
+          "source_version": 1,
+          "source_key": "925d9fb72ab512341a1535e75713bbcfa536ffd2ef6f82a828a913d0bfa9c09f",
+          "start_index": 3957,
+          "chunk_index": 22
+        }
+      }
+    ],
+    "seconds": 8.606927899999846,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          0.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 0.5,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H02": {
+    "docs": [
+      {
+        "text": "- 避免机器人长时间亏电，每次使用后及时回充，定期进行满充满放校准电池，使用1-2年后续航严重衰减可更换电池。\n27. **集尘袋需要多久更换一次？**\n- 自动集尘款机器人，普通家庭1-2个月更换一次集尘袋，宠物家庭半个月至1个月更换。\n28. **滤网堵塞会有什么症状？如何清理？**\n- 滤网堵塞会导致吸力下降、机器人异响，拆卸滤网后用软毛刷轻刷灰尘，清水冲洗后晾干装回。",
+        "metadata": {
+          "chunk_id": "83eb1c3b302f614296e347c178d030d1b9e33f37fcb3dabae35860897a09bb21",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "start_index": 1769,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41,
+          "chunk_index": 10,
+          "chunk_sha256": "9e3e8a5bab23236bb460427527e034a534023354d892704d83c7cecb69ec5d9c",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "16. 拖地模组清洁刷（扫拖一体）：与拖布同步更换，出现磨损、掉毛立即更换。\n17. 风道滤网：每3-6个月清理一次，1-2年更换一次，堵塞严重时提前更换。\n18. 边刷卡扣：出现断裂、松动无法固定边刷时，立即更换同款原装卡扣。\n19. 拖布支架：卡扣断裂、变形或转轴卡顿无法修复时，更换原装支架。\n20. 集尘座滤网（集尘款）：每月清理，每6个月更换一次，破损或堵塞严重时提前更换。",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "start_index": 5559,
+          "chunk_count": 53,
+          "chunk_index": 32,
+          "chunk_sha256": "6624186141465c349acaf04edf40cccbb1e24104dc19399483de7f8e88530908",
+          "chunk_id": "404beae27f58d814a80b4e2666c65fc1c3412263b787e4f9907dfe867ddf4b6b",
+          "source_version": 1,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt"
+        }
+      },
+      {
+        "text": "29. **尘盒应该多久清理一次？**\n- 每次使用后清理最佳，至少每 2-3 次清扫清理一次。\n30. **HEPA 滤网需要更换吗？**\n- 建议每 3-6 个月更换，水洗会降低过滤效果。\n31. **边刷需要更换吗？**\n- 每 6-12 个月检查磨损情况，变形严重时需要更换。\n32. **如何清理传感器？**\n- 用干燥软布擦拭激光雷达窗口、悬崖传感器等。",
+        "metadata": {
+          "start_index": 179,
+          "chunk_count": 33,
+          "chunk_sha256": "a61e2e735fd3992b3d545c90af2f921a6a68c770b268b58fe14054f005748e6d",
+          "source_version": 1,
+          "chunk_id": "810da402f700bbcc88f7b14da941c7c577ee1b63d58bd6efbf358b77c87050b8",
+          "source_id": "src_ea834ced62e0e702ccc60811",
+          "page": 2,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_index": 10,
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf"
+        }
+      },
+      {
+        "text": "- 滤网可每月用清水冲洗，阴凉处晾干后使用，不可暴晒，使用3-6个月后建议更换新滤网。\n24. **尘盒多久清理一次？**\n- 普通家庭2-3天清理一次，宠物家庭或大户型建议每天清理，避免尘盒满溢影响吸尘效果。\n25. **拖布如何清洗和更换？**\n- 拖布可水洗反复使用，出现脏污、发硬及时清洗，使用1-2个月后更换新拖布，保证拖地效果。\n26. **电池续航越来越短怎么处理？**",
+        "metadata": {
+          "start_index": 1576,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "chunk_sha256": "0ed390bc09c09504d21b643128a7db31d57d566b74b6009b536a578c08464845",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_count": 41,
+          "chunk_id": "916a5224f7463ecf3e7f7f3ca6e8bc1614de0fb352f77fc43b9f6e0550da3af2",
+          "chunk_index": 9,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "5. 每周清理机器人风道，用软毛刷从尘盒出风口向吸口方向清扫，保证风道通畅。\n6. 集尘款机器人，每日检查集尘通道，无毛发、杂物堵塞，确保集尘顺畅。\n7. 每次清理尘盒后，用干布擦拭尘盒内部，避免灰尘结块，不可用水浸泡（防水尘盒除外）。\n8. 尘盒滤网需与尘盒配套安装，不可缺失，防止灰尘进入电机导致损坏。\n9. 扫地时若吸力下降，优先检查尘盒、滤网、风道是否堵塞，逐一清理后重试。",
+        "metadata": {
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "chunk_index": 12,
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "source_id": "src_346430645ac43894f75b9be2",
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 2187,
+          "chunk_id": "ad9a106eb45b8845ac0c7f35fba05ce5c4725eed2a6708d332229164634ad5ac",
+          "chunk_sha256": "013f048a8c7ce3e03f0b524cc16670229e198e025468a8181967cfa42d67beb9"
+        }
+      }
+    ],
+    "seconds": 0.3475028999996539,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          0.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 0.5,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H03": {
+    "docs": [
+      {
+        "text": "25. 润滑油：使用机器人专用润滑油，不可用机油、黄油等替代，防止粘灰、损坏配件。\n26. 拖布粘扣：粘扣粘性下降无法固定拖布时，更换粘扣配件，或直接更换拖布支架。\n27. 机器人脚垫：磨损严重导致机身晃动时，更换脚垫，保证机身工作平稳。\n28. 电源线（充电座）：出现破损、老化、发热时，立即更换原装电源线，不可用非原装线替代。",
+        "metadata": {
+          "chunk_index": 34,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "start_index": 5913,
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "chunk_id": "7435c768e92a3175fede972d0dcd14b89d16ed07dd9cd6babe5013b5fb98d573",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_sha256": "a2164c0a68d2c0e7ba7ec89ae1a9d53e7b839c3424a5e2f56a11b3128768d68d",
+          "source_id": "src_346430645ac43894f75b9be2"
+        }
+      },
+      {
+        "text": "48. **机器人拖地时机身晃动、偏移怎么处理？**\n- 检查拖布是否安装平整，驱动轮是否有杂物卡顿，地面是否有积水导致打滑，清理后将机器人放在平整地面重启。\n49. **自动抬升拖布功能失效怎么办？**\n- 在APP中确认该功能已开启，检查拖布抬升电机是否有卡顿，清理电机周围杂物，重启机器人后仍失效联系售后。\n50. **“清洁液浓度过高”报警怎么处理？**",
+        "metadata": {
+          "start_index": 3644,
+          "chunk_count": 51,
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_sha256": "e30c3245ec828e2732562b54c73bade950e769286d3cf6b5ca007f5bcc51f775",
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1,
+          "chunk_index": 23,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_id": "d09b0cc09b7044c45e3a75aa94b2cbbee64195721ec7d5971dd1984f13d30007"
+        }
+      },
+      {
+        "text": "29. **万向轮卡顿、异响怎么解决？**\n- 用镊子清理万向轮缠绕的毛发、线头，滴少量润滑油在转轴处，避免卡顿影响移动。\n30. **驱动轮打滑、不转怎么处理？**\n- 清理驱动轮缝隙的杂物和毛发，检查轮胎是否磨损，磨损严重及时更换，避免机器人无法移动。\n31. **水箱漏水怎么办？**\n- 检查水箱盖是否拧紧，出水管是否堵塞，调小出水量，拖地时避免机器人剧烈晃动，更换破损水箱。",
+        "metadata": {
+          "chunk_sha256": "6e59bb90128ce184c921bef9eb4f9125129378766f9cc436fc9e270487b04d87",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "start_index": 1959,
+          "chunk_count": 41,
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_index": 11,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_id": "9d98887834cb92566ac2232fbf754d52b61f9787eba8e4c8a997234401d424b5",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "- 当APP推送污水仓满溢提醒时，及时倾倒污水，清洗污水仓和过滤网，避免污水回流污染清洁系统。\n22. **清洁仓加水后不出水清洗拖布怎么处理？**\n- 检查清洁仓进水管是否堵塞，确认洗拖布水泵是否正常工作，清理后重启机器人，仍故障联系售后。\n23. **拖布支架松动怎么固定？**\n- 检查支架卡扣是否断裂，若卡扣完好，将支架对准机身卡槽用力按压至“咔哒”声，确认无松动后再使用。",
+        "metadata": {
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "start_index": 1542,
+          "chunk_index": 10,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "source_version": 1,
+          "chunk_count": 51,
+          "chunk_id": "8d27673ad00cb9f234c6079089123803076989b256cf014d852619133e2a76ae",
+          "chunk_sha256": "933b5114e20ebbedb13de9ca8bf89ea7cd1ee63d4df9ed025df884c6deeaaaa5",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      },
+      {
+        "text": "57. 故障现象：自动洗拖布后拖布仍脏污；检测：清洁仓是否有清洁液，清洁刷是否磨损，洗拖布次数是否不足；修复：添加清洁液，更换清洁刷，增加洗拖布次数。\n\n58. 故障现象：机器人机身振动剧烈，运行不稳；检测：轮组是否磨损不均，主刷是否失衡，机身螺丝是否松动；修复：更换轮组，调整主刷平衡，拧紧机身螺丝。",
+        "metadata": {
+          "chunk_sha256": "9972e4a817c0e48e40e3e46d1de093ce1be23d3bef81e40dd5cf2bb27f57ab99",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_version": 1,
+          "chunk_index": 28,
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_count": 100,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_id": "195c1a9c4feace12c77312f3056627634a2de28afc49e906457402293cea6f7a",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "start_index": 4404
+        }
+      }
+    ],
+    "seconds": 0.3119325000002391,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          1.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 1.0,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H04": {
+    "docs": [
+      {
+        "text": "4. 拆卸所有可拆卸配件（如拖布、拖布支架、集尘袋、滤网），清洗晾干后单独存放，避免与机身贴合滋生细菌。\n5. 存放前，对机器人电池仓、充电触点、传感器进行一次全面擦拭，保证无灰尘、水渍。\n6. 存放时，将机器人放在**阴凉、干燥、通风**的环境，避免高温、低温、潮湿、阳光直射。\n7. 存放温度控制在5℃-35℃，相对湿度≤60%，远离易燃、易爆、腐蚀性物品。",
+        "metadata": {
+          "start_index": 7360,
+          "chunk_index": 44,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "chunk_count": 53,
+          "chunk_id": "987ef0102a01af964b57085ff6800754e8847a24f3ef3b5d0cc45afe4745d458",
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_id": "src_346430645ac43894f75b9be2",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1,
+          "chunk_sha256": "fa9d9babe556f1b7a9edcfb187c3e4a80319e9cb2fe7d13dd739d7a4de6acf5c"
+        }
+      },
+      {
+        "text": "8. 存放时，机器人与充电座断开连接，不可长期插电充电，防止电池过充损坏。\n9. 配件单独存放于密封袋中，放入干燥剂，防止受潮、发霉、老化。\n10. 水箱密封圈存放前，涂一层薄硅胶油，放在密封袋中，防止老化开裂。\n11. 长期存放（＞1个月），每1-2个月给机器人补电一次，将电量充至80%-90%，避免电池亏电。\n12. 存放时，机器人机身保持平放，不可倒置、侧放，防止内部零件移位、电池漏液。",
+        "metadata": {
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_sha256": "358b6ee00daadac575a66b9c400ad8245275089f983523fb555a6751e8684d40",
+          "chunk_index": 45,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "chunk_id": "be09e9502b22db8033df5404493fc60e331b7dafd2042ea934f01ad7db646ef1",
+          "source_version": 1,
+          "start_index": 7542,
+          "source_id": "src_346430645ac43894f75b9be2"
+        }
+      },
+      {
+        "text": "27. 机器人不可长时间在阳光直射处工作/存放，防止外壳褪色、传感器感光异常。\n28. 每月检查机器人主刷、边刷卡扣，确认无断裂、松动，保证配件安装牢固。\n29. 日常移动机器人时，轻拿轻放，切勿拖拽、摔落，防止内部零件移位。\n30. 每周检查机器人尘盒出风口，确保无堵塞，保证吸力正常。\n31. 机器人工作时，若遇到大颗粒垃圾（如石子、瓶盖），及时手动清理，避免卡死机件。",
+        "metadata": {
+          "chunk_id": "b43605c0b1d874d220ad9ec6fea401bb86afc02673691b306149ff636631174a",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_version": 1,
+          "chunk_index": 6,
+          "source_id": "src_346430645ac43894f75b9be2",
+          "chunk_count": 53,
+          "start_index": 1115,
+          "chunk_sha256": "8af561127aa9c8c7cc213171d446a162c1f5218cf90e953eb0301c37d09906aa",
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+        }
+      },
+      {
+        "text": "24. **拖地时机器人在同一区域反复停留怎么解决？**\n- 检查该区域地面是否有顽固污渍，机器人会自动识别并重点清洁；若为误判，可在APP中设置“禁拖区域”，或手动遥控离开。\n25. **水箱长期不用如何保养？**\n- 将水箱内剩余清水排空，用干布擦拭水箱内部和密封圈，放在阴凉干燥处存放，避免密封圈老化。",
+        "metadata": {
+          "chunk_index": 11,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "start_index": 1734,
+          "source_version": 1,
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "chunk_count": 51,
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "chunk_sha256": "5cddb56cbdb00c486807e6981fb693e9530f009e18cbf743d4edda45a741bf41",
+          "chunk_id": "709238a0603e57019b2a98ba9aae3c4609d7a6a42fefc3eb40241113c9ba2453",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc"
+        }
+      },
+      {
+        "text": "12. **最大越障高度是多少？**\n- 多数机型 1.5-2cm，高端机型可达 2.5cm。",
+        "metadata": {
+          "chunk_count": 33,
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "source_id": "src_ea834ced62e0e702ccc60811",
+          "chunk_sha256": "05c3f1247f516ea435f109da180ae8cf0869fa8cdbb3054c7d70ea087067188e",
+          "chunk_id": "d4821f0cbc9b4af925f6c6fb3f52acb81c600d9ef132e065129d070579f776ad",
+          "start_index": 750,
+          "page": 0,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf",
+          "source_version": 1,
+          "chunk_index": 4,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8"
+        }
+      }
+    ],
+    "seconds": 0.33976309999980003,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          1.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 1.0,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H05": {
+    "docs": [
+      {
+        "text": "125. 多账号共享：APP支持多账号共享控制，家人可同时操作，权限可设置。\n\n126. 清扫路径可视化：APP实时显示清扫路径，便于查看漏扫区域，手动补充清扫。\n\n127. 电机散热效率：长时间工作（≥2小时）电机温度≤60℃，避免过热保护影响清洁。\n\n128. 驱动轮寿命：驱动轮使用寿命≥1000小时，磨损后可单独更换，无需更换整机。",
+        "metadata": {
+          "chunk_count": 48,
+          "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "chunk_sha256": "c564e6bb8acabbae7d1d7879b3b674d796e70fd6a50aab1b1f0a340f008da068",
+          "chunk_index": 31,
+          "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "chunk_id": "6be260224b43ea7346e0bc10f62841cb0e096e84910b8ed174f9704139c00e57",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 5547,
+          "source_key": "925d9fb72ab512341a1535e75713bbcfa536ffd2ef6f82a828a913d0bfa9c09f",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\选购指南.txt",
+          "source_id": "src_2db1465df193608158c1225b"
+        }
+      },
+      {
+        "text": "- 关闭APP后台进程，更新APP至最新版本，清理手机内存，若仍闪退，卸载重装APP。\n94. **如何绑定多个手机控制同一台机器人？**\n- 在主手机APP中进入【设备共享】，邀请其他手机登录同一账号，或通过手机号分享设备，接受后即可共同控制。\n95. **机器人清扫面积与标注不符怎么处理？**\n- 确认地图建图完整，清理环境障碍物，在APP中重新标定清扫区域，检查机器人是否有漏扫、重复清扫。",
+        "metadata": {
+          "chunk_count": 41,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_index": 37,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "start_index": 6479,
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_id": "95cae790c1c9c4763bb1d3bfddf2fee74242934de19c191f4a1068377623cbe7",
+          "chunk_sha256": "c5ca32868b99b073a530b4f99ac8c24d16304aff91c3b2e9a6ce12cbd6a2d95f",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5"
+        }
+      },
+      {
+        "text": "20. **为什么有些机型拖地时会抬起滚刷？**\n- 防止干湿混合污染，保持拖地时地面干燥。\n## 三、智能交互类\n### APP 控制\n21. **APP 通常提供哪些高级功能？**\n- 多地图管理、清洁记录、耗材提醒、语音控制等。\n22. **如何设置定时清扫？**\n- 在 APP 中选择时间、区域和清洁模式，保存为自动化任务。\n23. **禁区设置有多少种类型？**",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf",
+          "chunk_sha256": "5a169c39160a15bf52b0020a0ac386b3ecf1bcbcf51ce7f78aee62dba2739870",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "page": 1,
+          "start_index": 368,
+          "chunk_id": "493aafd233e8b57ff2207dc5a68ed68182c72f8e14186d6f2233f6fa3b5f71d7",
+          "source_version": 1,
+          "chunk_index": 7,
+          "source_id": "src_ea834ced62e0e702ccc60811",
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "chunk_count": 33,
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8"
+        }
+      },
+      {
+        "text": "### 软件与功能设置类\n81. **APP中拖扫地图如何保存和删除？**\n- 建图完成后机器人会自动保存地图，在APP【地图管理】中可手动保存多幅地图；删除地图时选择对应地图，点击“删除”即可，删除后可重新建图。\n82. **如何共享扫拖设置给家人？**\n- 在APP中进入【设备共享】，通过手机号或二维码邀请家人加入，家人可查看和使用已设置的扫拖参数，也可自行微调。",
+        "metadata": {
+          "source_version": 1,
+          "chunk_sha256": "c9f2fa2714b82d9bccd876e5c060a0e80747b3bbf132751aba8ad8c5b9a881d4",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "start_index": 6232,
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_count": 51,
+          "chunk_index": 40,
+          "chunk_id": "91843a7804296e4bd807958abbffdbb8e063bbbd4cbac53d307c61fbc69f583e"
+        }
+      },
+      {
+        "text": "3. 故障现象：机器人无法连接WiFi；检测：确认手机与机器人连同一2.4G网络，WiFi密码是否正确，机器人WiFi模块是否被遮挡；修复：重启路由器和机器人，重新输入WiFi密码，擦拭WiFi模块区域灰尘。\n\n4. 故障现象：APP无法控制机器人；检测：网络连接是否正常，APP是否为最新版本，机器人是否处于待机状态；修复：切换网络，更新APP，重启机器人后重新绑定设备。",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_id": "6ef25c15780a8ba0b6f740e19c71f0e2925c7189e23c43782fd717b75d709ba8",
+          "source_version": 1,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_index": 1,
+          "chunk_count": 100,
+          "chunk_sha256": "58b2f3b8867089869122e4f7167371036438231e7092c7e257df9cba1a568ced",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "start_index": 198
+        }
+      }
+    ],
+    "seconds": 0.330934999999954,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          1.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 1.0,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H06": {
+    "docs": [
+      {
+        "text": "### 清洁效果类\n11. **清扫后地面还有灰尘、碎屑怎么办？**\n- 检查主刷、边刷是否磨损或缠绕毛发，清理尘盒和滤网，将吸力调至最高档，增大清扫频次。\n12. **漏扫某个区域怎么解决？**\n- 检查是否设置了禁区，尝试重新建图或手动遥控补扫。\n13. **边角位置清扫不干净怎么办？**\n- 检查边刷是否正常旋转、有无磨损，将机器人调至“沿边清扫”模式，手动辅助清理边角死角。",
+        "metadata": {
+          "chunk_count": 41,
+          "chunk_sha256": "fa047117faf9a9ddd3c959137ee72b7be96d724225a1acd4c2b6fc951f50be92",
+          "chunk_index": 4,
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 719,
+          "source_version": 1,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "chunk_id": "db0a53ace6e892d436acee50984677b5cae6f98225334536ae61df96f190c5d7",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt"
+        }
+      },
+      {
+        "text": "20. **为什么有些机型拖地时会抬起滚刷？**\n- 防止干湿混合污染，保持拖地时地面干燥。\n## 三、智能交互类\n### APP 控制\n21. **APP 通常提供哪些高级功能？**\n- 多地图管理、清洁记录、耗材提醒、语音控制等。\n22. **如何设置定时清扫？**\n- 在 APP 中选择时间、区域和清洁模式，保存为自动化任务。\n23. **禁区设置有多少种类型？**",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf",
+          "chunk_sha256": "5a169c39160a15bf52b0020a0ac386b3ecf1bcbcf51ce7f78aee62dba2739870",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "page": 1,
+          "start_index": 368,
+          "chunk_id": "493aafd233e8b57ff2207dc5a68ed68182c72f8e14186d6f2233f6fa3b5f71d7",
+          "source_version": 1,
+          "chunk_index": 7,
+          "source_id": "src_ea834ced62e0e702ccc60811",
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "chunk_count": 33,
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8"
+        }
+      },
+      {
+        "text": "- 检查水箱是否安装到位、是否有水，拖布是否安装好，在APP中确认未关闭拖地功能，重启机器人。\n59. **沿边清扫模式下机器人偏离墙边怎么办？**\n- 擦拭机身沿边传感器，检查边刷是否磨损，将机器人放在平整地面，重启沿边清扫模式。\n60. **定点清扫功能不精准怎么处理？**\n- 确认地图建图完整，在APP中重新标定定点清扫位置，清理该区域障碍物，让机器人重新定位。",
+        "metadata": {
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "start_index": 3941,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41,
+          "chunk_id": "c69b1430ca341c5c899cc907fcc0e65bf617831544ae40bdca28daf920143af1",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_index": 23,
+          "chunk_sha256": "ccca466da8a7abe5970f47da4567a45cc3af99de174bfb2376ca9c5e940eb260"
+        }
+      },
+      {
+        "text": "9. **手动遥控机器人无反应怎么办？**\n- 确认手机和机器人连接正常，退出APP重新进入，检查机器人是否处于“自动清扫”模式，切换为“手动模式”。\n10. **清扫完成后机器人不自动回充？**\n- 检查APP是否关闭“自动回充”功能，确认地图中充电座位置未被修改，清理机器人回充传感器灰尘。",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "chunk_sha256": "88cfbb210a0c52c2115298fccc4eb974b94116283b77ec8a1ca165eccae9da37",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_count": 41,
+          "chunk_id": "0f222d28e06a657228b2867a86ea2f2fd9d1ccc182c961fa97d593cf3de65c31",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "start_index": 570,
+          "chunk_index": 3
+        }
+      },
+      {
+        "text": "125. 多账号共享：APP支持多账号共享控制，家人可同时操作，权限可设置。\n\n126. 清扫路径可视化：APP实时显示清扫路径，便于查看漏扫区域，手动补充清扫。\n\n127. 电机散热效率：长时间工作（≥2小时）电机温度≤60℃，避免过热保护影响清洁。\n\n128. 驱动轮寿命：驱动轮使用寿命≥1000小时，磨损后可单独更换，无需更换整机。",
+        "metadata": {
+          "chunk_count": 48,
+          "file_hash": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "chunk_sha256": "c564e6bb8acabbae7d1d7879b3b674d796e70fd6a50aab1b1f0a340f008da068",
+          "chunk_index": 31,
+          "source_sha256": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+          "chunk_id": "6be260224b43ea7346e0bc10f62841cb0e096e84910b8ed174f9704139c00e57",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 5547,
+          "source_key": "925d9fb72ab512341a1535e75713bbcfa536ffd2ef6f82a828a913d0bfa9c09f",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\选购指南.txt",
+          "source_id": "src_2db1465df193608158c1225b"
+        }
+      }
+    ],
+    "seconds": 0.315565300000344,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": false,
+        "3": false,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          0.0
+        ],
+        "3": [
+          0.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": false,
+        "3": false,
+        "5": true
+      },
+      "policy_hit": {
+        "1": false,
+        "3": false,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 0.2,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H07": {
+    "docs": [
+      {
+        "text": "121. 故障现象：机器人工作时电量显示跳变（如从80%降至20%）；检测：电池是否老化，电量检测模块是否故障；修复：更换电池，联系售后校准检测模块。\n\n122. 故障现象：APP无法添加新的清扫任务；检测：任务是否重复，机器人是否在线，APP是否有缓存；修复：删除重复任务，确保机器人在线，清理APP缓存。",
+        "metadata": {
+          "start_index": 9141,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_version": 1,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_sha256": "086544e6272a53682b51025a01c069ab9d76519a5adf110611897bb5df03b7d2",
+          "chunk_index": 60,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_id": "8bf26f55c32d8b0d306fab75a9634436e66d688f02a02b083ac5bebf3b89e8c8",
+          "chunk_count": 100
+        }
+      },
+      {
+        "text": "196. 故障现象：机器人工作时突然停止清扫，自动回充；检测：是否电量不足，是否设置清扫完成自动回充，是否有故障；修复：充满电，调整回充设置，排查故障提示。\n\n197. 故障现象：主刷滚刷仓密封不严，漏灰到机身底部；检测：密封件是否老化、脱落，滚刷仓是否变形；修复：更换密封件，联系售后校正滚刷仓。",
+        "metadata": {
+          "chunk_id": "0a8ee086beb6dd765870f56f007c90d53c0c80c90f696988020009fa2dde424f",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_count": 100,
+          "chunk_index": 97,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_sha256": "e05b63f756aab0a85e724c53af834ed9eb469847c98d0546cf0e1b0eb9409d2c",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "start_index": 14689,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad"
+        }
+      },
+      {
+        "text": "- 擦拭机器人底部回充传感器，清理充电座红外感应区，保证无遮挡，重新尝试回充。\n45. **“滚刷故障”报警如何处理？**\n- 拆卸滚刷，清理缠绕的毛发和杂物，检查滚刷电机是否卡顿，重新安装滚刷后重启。\n46. **机器人开机后直接报警关机怎么解决？**\n- 检查机身是否有短路、异响，立即断开电源，联系售后检测电机和电路，切勿自行拆解。\n47. **“WiFi模块故障”报警怎么办？**",
+        "metadata": {
+          "chunk_index": 17,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "chunk_sha256": "aa1c2424ef18f3c102e03e4f26287d7d9f6017bd30f0bbc9d2b5498e59235453",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "start_index": 2954,
+          "chunk_count": 41,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "chunk_id": "f2aabe4726d54aff64719171bef6754f35c1092127fb25d167c18e42b935391b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "190. 故障现象：机器人充电时指示灯正常，但电池充不满；检测：电池是否老化，充电适配器是否功率不足，是否有过充保护；修复：更换电池，使用原装适配器，校准电池。\n\n191. 故障现象：主刷清扫时将灰尘弹起，而非吸入；检测：吸力是否过低，主刷旋转方向是否错误，吸口是否堵塞；修复：调大吸力，检查主刷安装方向，清理吸口。",
+        "metadata": {
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_version": 1,
+          "chunk_id": "f4fe4db4ea8680fabe211cbcec077d5cc31819e4c00ffb24df5943d475465bef",
+          "chunk_sha256": "543f58284fa069f1455822f0412ac2cfdcf2d530c5a036bee7a7cc96e444dbf6",
+          "start_index": 14224,
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "chunk_count": 100,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_index": 94,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      },
+      {
+        "text": "6. **机器人清扫时频繁暂停是什么原因？**\n- 检查尘盒、滤网是否堵塞，电量是否不足，机身传感器是否被灰尘遮挡，清洁后重试。\n7. **如何设置定时清扫？**\n- 打开配套APP，进入【清扫设置】-【定时清扫】，选择清扫时间、区域和频次，保存后机器人将自动执行。\n8. **机器人开机后直接回充怎么处理？**\n- 检查剩余电量，若电量低于20%会优先回充；电量充足则重启设备，重置清扫模式。",
+        "metadata": {
+          "start_index": 372,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_index": 2,
+          "chunk_sha256": "37dc79dadbd057e19ab2eb62efdf03cb72308520790f899256e85c168cdacf71",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_version": 1,
+          "chunk_id": "b67911db3ba590c4219f9bb659ae3061644b04875eb0ad934d5d32b3072e9deb",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41
+        }
+      }
+    ],
+    "seconds": 0.3382891000001109,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          1.0
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": true,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 1.0,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H08": {
+    "docs": [
+      {
+        "text": "15. 故障现象：拖地时水箱漏水；检测：水箱盖是否拧紧，密封圈是否老化、脱落，出水管是否堵塞；修复：拧紧水箱盖，更换老化密封圈，疏通出水管。\n\n16. 故障现象：拖地不出水；检测：水箱是否有水，出水量是否调至最低，出水管是否堵塞；修复：加注清水，调高出水量，用牙签轻轻疏通出水管。",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1,
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "start_index": 1199,
+          "chunk_id": "88cd85e34d54fa1d564cc70adb126310815a7fe93df69f582e3816b49147e7d6",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_count": 100,
+          "chunk_index": 7,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_sha256": "6c2f3a161c7f6e3a0fefe3eaa617162a1b71bc142e63df3977645d1964340d3c"
+        }
+      },
+      {
+        "text": "107. 故障现象：机器人无法执行定点清扫，定位不准；检测：地图是否完整，定点位置是否设置准确，传感器是否正常；修复：重新建图，调整定点位置，擦拭传感器。\n\n108. 故障现象：拖地时水箱水位下降过快，与清扫面积不符；检测：是否有漏水，出水量是否调至高档；修复：检查水箱漏水点，调小出水量。",
+        "metadata": {
+          "start_index": 8110,
+          "chunk_id": "4b92b88a20d7498836bed3a1a7da11c3506eaed157f27a89f65e9b5ecd44b7b1",
+          "chunk_sha256": "9c64e2298b8fc9aa59cc1ebf78dfd35ae2b73f2eddd3cc390ee7af7a8a869410",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_index": 53,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_count": 100,
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "source_id": "src_dd546cd9d157bede19fde020"
+        }
+      },
+      {
+        "text": "123. 故障现象：机器人在长毛地毯上缠绕后停机；检测：是否开启防缠绕功能，主刷是否为防缠绕款；修复：开启防缠绕功能，更换防缠绕主刷，手动清理缠绕物。\n\n124. 故障现象：拖地时出水管漏水，而非水箱；检测：出水管是否破损，接口是否松动；修复：更换出水管，拧紧接口。",
+        "metadata": {
+          "chunk_sha256": "b8042e0fa0f84d10067d0e2fb3fd9757c8d0ae0214ca2a20d47b605882721cb2",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_index": 61,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_count": 100,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 9297,
+          "source_version": 1,
+          "chunk_id": "7302f2aec24aa72ecd5c1067e6bdd534f8fe3e0da2d442fc4dedeadd273e3340",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1"
+        }
+      },
+      {
+        "text": "### 拖地系统专属类\n11. **水箱加水后漏水怎么处理？**\n- 检查水箱盖是否拧紧、水箱密封圈是否脱落或破损，确认出水管无堵塞，加水至刻度线内，避免过满溢出。\n12. **拖地时出水量过大或过小怎么调节？**\n- 在APP中进入【拖地设置】，一般分低、中、高三档出水量，木地板选低档，瓷砖、水泥地可选中高档。\n13. **水箱没水了机器人会自动停止吗？**",
+        "metadata": {
+          "chunk_index": 5,
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "chunk_count": 51,
+          "start_index": 764,
+          "source_version": 1,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "chunk_id": "183180e0a68f00ef7db433a72aedc746a0a8d565e52654ca2c64a54080f8dfb8",
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_sha256": "2a2369b163cef22bef2f8be4bb1574873cad1514f2a78eadb29bcd7418d4dc23"
+        }
+      },
+      {
+        "text": "- 检查剩余电量，电量不足会优先回充；电量充足则检查拖地模组是否卡顿，传感器是否被遮挡，清理后重试。\n46. **“拖布支架未安装”报警怎么解决？**\n- 确认拖布支架是否完全卡入机身卡槽，支架卡扣是否损坏，损坏后更换新支架，重新安装后重启机器人。\n47. **水箱出水管堵塞怎么疏通？**\n- 用牙签或细铁丝轻轻疏通出水管口，避免用力过猛损坏水管；再用清水冲洗水箱内部，确保出水顺畅。",
+        "metadata": {
+          "source_version": 1,
+          "start_index": 3450,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "chunk_count": 51,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_sha256": "24b5c09f9c0077a8c716006e550161cd38776c0cc4663dec3b10d81ae0383d63",
+          "chunk_id": "79e2e958610a426b94371fbd0d93a5bc8b8dfafbd5d2697f94d7130c3ac781e6",
+          "chunk_index": 22,
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc"
+        }
+      }
+    ],
+    "seconds": 0.3335644999997385,
+    "metrics": {
+      "evidence_coverage": {
+        "1": 0.16363636363636364,
+        "3": 1.0,
+        "5": 1.0
+      },
+      "hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "required_evidence_coverage": {
+        "1": [
+          0.16363636363636364
+        ],
+        "3": [
+          1.0
+        ],
+        "5": [
+          1.0
+        ]
+      },
+      "all_required_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "policy_hit": {
+        "1": false,
+        "3": true,
+        "5": true
+      },
+      "evidence_policy": "any",
+      "reciprocal_rank_at_5": 0.3333333333333333,
+      "definition": "命中=标注来源内的证据字符覆盖>=60%；来源精确匹配；非穷尽语义相关性标注。"
+    }
+  },
+  "H09": {
+    "docs": [
+      {
+        "text": "68. **拖布有哪些类型？**\n- 一次性、可水洗、抗菌材质等多种选择。\n69. **尘盒可以水洗吗？**\n- 可以，但必须完全晾干后再使用。\n### 配件选购\n70. **有必要购买备用电池吗？**\n- 一般不需要，原装电池可使用 2-3 年。\n71. **第三方耗材能用吗？**\n- 可以但可能影响性能，建议购买原厂耗材。\n72. **清洁工具怎么选？**",
+        "metadata": {
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1,
+          "chunk_id": "358b1e2caba6cf90d7636c27919ba20270fe2ba964bfaadfb10243ea4e770dcc",
+          "start_index": 175,
+          "chunk_count": 33,
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf",
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "chunk_index": 22,
+          "chunk_sha256": "2f60da686e2ae0e542f23d8a32c8aad5e3fd90b09852148f3e11d624cd536587",
+          "page": 5,
+          "source_id": "src_ea834ced62e0e702ccc60811"
+        }
+      },
+      {
+        "text": "- 需要，更换主板后机器人的系统和设置会被清空，需重新连接WiFi、建图、设置扫拖参数和定时任务。\n95. **如何查询扫拖一体机器人的原装配件型号？**\n- 查看产品说明书、机身底部的型号标签，或在品牌官方旗舰店、APP商城中输入机器人型号，即可匹配对应的原装配件。\n96. **第三方拖布可以用在原装扫拖一体机器人上吗？**",
+        "metadata": {
+          "chunk_id": "163e701d0d3ad1ffbe6fcf002aed56f6ef9ac3e25ad5219da3cbe412d1a3d93b",
+          "chunk_index": 47,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "source_version": 1,
+          "chunk_sha256": "22f307efd6c389ff9c9b8371e0c82f12bf388a496190d87cc7e60be2e966ed2d",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_count": 51,
+          "start_index": 7389
+        }
+      },
+      {
+        "text": "8. 存放时，机器人与充电座断开连接，不可长期插电充电，防止电池过充损坏。\n9. 配件单独存放于密封袋中，放入干燥剂，防止受潮、发霉、老化。\n10. 水箱密封圈存放前，涂一层薄硅胶油，放在密封袋中，防止老化开裂。\n11. 长期存放（＞1个月），每1-2个月给机器人补电一次，将电量充至80%-90%，避免电池亏电。\n12. 存放时，机器人机身保持平放，不可倒置、侧放，防止内部零件移位、电池漏液。",
+        "metadata": {
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_sha256": "358b6ee00daadac575a66b9c400ad8245275089f983523fb555a6751e8684d40",
+          "chunk_index": 45,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "chunk_id": "be09e9502b22db8033df5404493fc60e331b7dafd2042ea934f01ad7db646ef1",
+          "source_version": 1,
+          "start_index": 7542,
+          "source_id": "src_346430645ac43894f75b9be2"
+        }
+      },
+      {
+        "text": "86. **机器人过保后出现故障怎么办？**\n- 联系品牌官方售后，付费维修，或选择第三方专业维修机构，切勿自行拆解机器人。\n87. **如何查询机器人的保修期限？**\n- 查看机器人产品说明书、购买发票，或在APP中进入【设备信息】查看保修时间，一般整机保修1-2年，电池保修6个月。\n88. **更换WiFi名称、密码后机器人无法连接怎么办？**",
+        "metadata": {
+          "chunk_sha256": "c939aca86c2f07688ae2ce1e63fe3e915aced26310142d862ac201cce9068d08",
+          "start_index": 5937,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "source_version": 1,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_id": "1bb94f70ef3156ae8732935c09269422ef9832e543d2392eedd2760b1aefb4f4",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_index": 34,
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5"
+        }
+      },
+      {
+        "text": "- 检查机身、拖地模组是否有磕碰损坏，清理尘盒、滤网、拖布和传感器，重新建图并校准扫拖参数，测试各项功能是否正常。\n99. **扫拖一体机器人可以寄回厂家做深度保养吗？**\n- 可以，品牌官方一般支持寄回深度保养服务，包括整机清洁、耗材更换、功能校准等，具体费用和流程可咨询官方客服。\n100. **如何判断扫拖一体机器人是否需要更换新机？**",
+        "metadata": {
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "chunk_id": "e4c55670f97c5a6451a852e20b8d32587d63e738d9f311fa0e4a8288639e330c",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_count": 51,
+          "chunk_sha256": "08ce4e63052dfac0aa4d0e8839871cbfc66234b2121d41830f83a05370d65f20",
+          "source_version": 1,
+          "chunk_index": 49,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "start_index": 7728
+        }
+      }
+    ],
+    "seconds": 0.3315111000001707,
+    "metrics": null
+  },
+  "H10": {
+    "docs": [
+      {
+        "text": "- 避免机器人长时间亏电，每次使用后及时回充，定期进行满充满放校准电池，使用1-2年后续航严重衰减可更换电池。\n27. **集尘袋需要多久更换一次？**\n- 自动集尘款机器人，普通家庭1-2个月更换一次集尘袋，宠物家庭半个月至1个月更换。\n28. **滤网堵塞会有什么症状？如何清理？**\n- 滤网堵塞会导致吸力下降、机器人异响，拆卸滤网后用软毛刷轻刷灰尘，清水冲洗后晾干装回。",
+        "metadata": {
+          "chunk_id": "83eb1c3b302f614296e347c178d030d1b9e33f37fcb3dabae35860897a09bb21",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "start_index": 1769,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41,
+          "chunk_index": 10,
+          "chunk_sha256": "9e3e8a5bab23236bb460427527e034a534023354d892704d83c7cecb69ec5d9c",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1
+        }
+      },
+      {
+        "text": "6. **机器人清扫时频繁暂停是什么原因？**\n- 检查尘盒、滤网是否堵塞，电量是否不足，机身传感器是否被灰尘遮挡，清洁后重试。\n7. **如何设置定时清扫？**\n- 打开配套APP，进入【清扫设置】-【定时清扫】，选择清扫时间、区域和频次，保存后机器人将自动执行。\n8. **机器人开机后直接回充怎么处理？**\n- 检查剩余电量，若电量低于20%会优先回充；电量充足则重启设备，重置清扫模式。",
+        "metadata": {
+          "start_index": 372,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_index": 2,
+          "chunk_sha256": "37dc79dadbd057e19ab2eb62efdf03cb72308520790f899256e85c168cdacf71",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_version": 1,
+          "chunk_id": "b67911db3ba590c4219f9bb659ae3061644b04875eb0ad934d5d32b3072e9deb",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41
+        }
+      },
+      {
+        "text": "### 语音交互\n26. **支持哪些语音助手？**\n- 常见的有小爱同学、天猫精灵、Google Assistant 等。\n27. **语音控制能实现哪些操作？**\n- 开始/暂停清扫、返回充电、切换模式等基础功能。\n28. **如何添加自定义语音指令？**\n- 部分机型支持在 APP 中设置指令触发特定动作。\n## 四、维护与保养类\n### 日常维护\n29. **尘盒应该多久清理一次？**",
+        "metadata": {
+          "chunk_count": 33,
+          "file_hash": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "page": 2,
+          "source_version": 1,
+          "start_index": 0,
+          "chunk_index": 9,
+          "source_id": "src_ea834ced62e0e702ccc60811",
+          "source_key": "f9705b6de4af8a1ece6c5e0342b1ab4a60d94fd800a80fa1cc6dc97dc0a95f1e",
+          "source_sha256": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+          "chunk_id": "4ca1b461357d3b2496d9ff4bbac5c18d77f851826fbdfce9c9065eadf5a9aab1",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问.pdf",
+          "chunk_sha256": "4292be70f8ad50abe33a5871de605669235b0419f458050237682cbcb4eb877e"
+        }
+      },
+      {
+        "text": "- 清理充电座周围障碍物，保证充电座前方3米、左右1米无遮挡，将机器人放回充电座附近重启回充。\n4. **APP无法连接机器人怎么办？**\n- 确认手机和机器人连接同一2.4GWiFi（暂不支持5G），重启机器人和路由器，重新在APP添加设备。\n5. **建图不完整、地图错乱怎么解决？**\n- 清理环境中反光物（如镜面、抛光地砖）和移动障碍物，删除旧地图，让机器人重新建图。",
+        "metadata": {
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_id": "645f76dcd9d94b2dcc2d9e9e51b5d1482f40de1129f65275094efbfeb287207b",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_count": 41,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "chunk_sha256": "d0a2409811646689e56147f10d8cbdb1f291cf521a72f0d21165fea0a92f70b8",
+          "source_version": 1,
+          "start_index": 183,
+          "chunk_index": 1,
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b"
+        }
+      },
+      {
+        "text": "17. 重新使用前，将机器人开机空转1-2分钟，检查有无异响、卡顿，测试各项功能是否正常。\n18. 重新使用前，连接充电座充电30分钟，激活电池，校准电量显示。\n19. 重新使用前，删除旧地图，让机器人重新建图，校准扫拖、避障、回充功能。\n20. 若机器人存放于车库、储物间等阴暗环境，存放前对机器人进行一次消毒，存放时放入防虫、防鼠配件。",
+        "metadata": {
+          "source_id": "src_346430645ac43894f75b9be2",
+          "chunk_sha256": "fa98669f26b4fb00c774ee128a6b977059769c979a0fdc89b64effd8990489bc",
+          "start_index": 7901,
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_id": "7ec7e57b95309019cc83a025ccda5812fd52ae964690fb2d91ba8d6f06d63146",
+          "source_version": 1,
+          "chunk_index": 47,
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_count": 53,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      }
+    ],
+    "seconds": 0.3217821999996886,
+    "metrics": null
+  },
+  "H11": {
+    "docs": [
+      {
+        "text": "86. **机器人过保后出现故障怎么办？**\n- 联系品牌官方售后，付费维修，或选择第三方专业维修机构，切勿自行拆解机器人。\n87. **如何查询机器人的保修期限？**\n- 查看机器人产品说明书、购买发票，或在APP中进入【设备信息】查看保修时间，一般整机保修1-2年，电池保修6个月。\n88. **更换WiFi名称、密码后机器人无法连接怎么办？**",
+        "metadata": {
+          "chunk_sha256": "c939aca86c2f07688ae2ce1e63fe3e915aced26310142d862ac201cce9068d08",
+          "start_index": 5937,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "source_version": 1,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_id": "1bb94f70ef3156ae8732935c09269422ef9832e543d2392eedd2760b1aefb4f4",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_index": 34,
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_count": 41,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5"
+        }
+      },
+      {
+        "text": "9. **手动遥控机器人无反应怎么办？**\n- 确认手机和机器人连接正常，退出APP重新进入，检查机器人是否处于“自动清扫”模式，切换为“手动模式”。\n10. **清扫完成后机器人不自动回充？**\n- 检查APP是否关闭“自动回充”功能，确认地图中充电座位置未被修改，清理机器人回充传感器灰尘。",
+        "metadata": {
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "chunk_sha256": "88cfbb210a0c52c2115298fccc4eb974b94116283b77ec8a1ca165eccae9da37",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_count": 41,
+          "chunk_id": "0f222d28e06a657228b2867a86ea2f2fd9d1ccc182c961fa97d593cf3de65c31",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "start_index": 570,
+          "chunk_index": 3
+        }
+      },
+      {
+        "text": "196. 故障现象：机器人工作时突然停止清扫，自动回充；检测：是否电量不足，是否设置清扫完成自动回充，是否有故障；修复：充满电，调整回充设置，排查故障提示。\n\n197. 故障现象：主刷滚刷仓密封不严，漏灰到机身底部；检测：密封件是否老化、脱落，滚刷仓是否变形；修复：更换密封件，联系售后校正滚刷仓。",
+        "metadata": {
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "chunk_sha256": "e05b63f756aab0a85e724c53af834ed9eb469847c98d0546cf0e1b0eb9409d2c",
+          "chunk_index": 97,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "start_index": 14689,
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "chunk_id": "0a8ee086beb6dd765870f56f007c90d53c0c80c90f696988020009fa2dde424f",
+          "chunk_count": 100,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad"
+        }
+      },
+      {
+        "text": "115. 故障现象：自动洗拖布后清洁仓有残留毛发；检测：清洁刷是否清理干净，清洁仓底部是否有杂物；修复：彻底清理清洁刷，冲洗清洁仓底部。\n\n116. 故障现象：机器人工作时受遥控器（其他设备）干扰，动作异常；检测：是否有同频率干扰源，机器人是否关闭红外接收；修复：避开干扰源，关闭不必要的红外接收功能。",
+        "metadata": {
+          "start_index": 8711,
+          "chunk_count": 100,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_index": 57,
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source_version": 1,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "chunk_sha256": "753557b30f624f531b4880766df5909d8530f2ce4f9da9e51d7417a9570670f5",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "chunk_id": "218714a0d1b78fabde99a3b320eccc4762b527172ddbf918f6b763aecda56d5b"
+        }
+      },
+      {
+        "text": "9. 避免自行拆解机器人内部零件（如电机、主板、电池），故障后联系官方售后维修。\n10. 每月对机器人进行一次全面的功能测试，包括扫拖、避障、回充、定点清扫等，及时发现潜在故障。\n11. 耗材到期及时更换，避免老化、磨损的耗材导致机器人工作异常，损坏其他配件。\n12. 机器人连接WiFi时，仅使用2.4G网络，避免5G网络导致的连接不稳定、功能异常。",
+        "metadata": {
+          "source_id": "src_346430645ac43894f75b9be2",
+          "chunk_count": 53,
+          "file_hash": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "source_key": "818203a6544b5e438f35ffd80e7a4ced6e709b5579e184f7f7bc19799b93ea19",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\维护保养.txt",
+          "chunk_index": 50,
+          "source_sha256": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+          "chunk_id": "c19ea7f9d5b7c564d83372397b27702ecdbaef4598d269950f09a38c2bdd949c",
+          "start_index": 8409,
+          "chunk_sha256": "320dc26f1c485825e9c66b1023faf912d1ad19e4ea0bcc74de08d1367f1ad845",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_version": 1
+        }
+      }
+    ],
+    "seconds": 0.33484920000000784,
+    "metrics": null
+  },
+  "H12": {
+    "docs": [
+      {
+        "text": "171. 故障现象：机器人工作时受蓝牙设备干扰，动作异常；检测：是否有近距离蓝牙设备，机器人是否关闭蓝牙干扰防护；修复：远离蓝牙设备，开启干扰防护功能。\n\n172. 故障现象：拖地时拖布吸收过多水分，地面干燥缓慢；检测：出水量是否过大，拖布是否为吸水性过强款；修复：调小出水量，更换薄款拖布。",
+        "metadata": {
+          "source_version": 1,
+          "start_index": 12849,
+          "chunk_sha256": "848edabc1d667e1e07879be906ed5563687cb6f44f07880d9549a506833b210e",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "chunk_count": 100,
+          "chunk_index": 85,
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "chunk_id": "1ef39dc5db4a5bfa4a86052dcbeac44f67effb1eab648ff3c1286ff37144615a"
+        }
+      },
+      {
+        "text": "- 关闭APP后台进程，更新APP至最新版本，清理手机内存，若仍闪退，卸载重装APP。\n94. **如何绑定多个手机控制同一台机器人？**\n- 在主手机APP中进入【设备共享】，邀请其他手机登录同一账号，或通过手机号分享设备，接受后即可共同控制。\n95. **机器人清扫面积与标注不符怎么处理？**\n- 确认地图建图完整，清理环境障碍物，在APP中重新标定清扫区域，检查机器人是否有漏扫、重复清扫。",
+        "metadata": {
+          "chunk_count": 41,
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_index": 37,
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "start_index": 6479,
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "chunk_id": "95cae790c1c9c4763bb1d3bfddf2fee74242934de19c191f4a1068377623cbe7",
+          "chunk_sha256": "c5ca32868b99b073a530b4f99ac8c24d16304aff91c3b2e9a6ce12cbd6a2d95f",
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5"
+        }
+      },
+      {
+        "text": "- 需要，更换主板后机器人的系统和设置会被清空，需重新连接WiFi、建图、设置扫拖参数和定时任务。\n95. **如何查询扫拖一体机器人的原装配件型号？**\n- 查看产品说明书、机身底部的型号标签，或在品牌官方旗舰店、APP商城中输入机器人型号，即可匹配对应的原装配件。\n96. **第三方拖布可以用在原装扫拖一体机器人上吗？**",
+        "metadata": {
+          "chunk_id": "163e701d0d3ad1ffbe6fcf002aed56f6ef9ac3e25ad5219da3cbe412d1a3d93b",
+          "chunk_index": 47,
+          "file_hash": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "source_id": "src_e2f4e0ef89a0e60cd674c66c",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫拖一体机器人100问.txt",
+          "source_version": 1,
+          "chunk_sha256": "22f307efd6c389ff9c9b8371e0c82f12bf388a496190d87cc7e60be2e966ed2d",
+          "source_key": "3647dd2413eecd006532a7d296c0cbaefe4098853d4f6873eb99124219edbb7d",
+          "source_sha256": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+          "chunk_count": 51,
+          "start_index": 7389
+        }
+      },
+      {
+        "text": "- 在APP登录页面点击“忘记密码”，输入绑定的手机号，获取验证码后重置密码。\n84. **更换手机后如何重新连接机器人？**\n- 在旧手机APP中解绑机器人，在新手机上下载同款APP，登录账号，重新添加设备并连接WiFi。\n85. **搬家后机器人如何重新使用？**\n- 删除旧地图，清理新家环境障碍物，重新建图，设置新的清扫区域和禁区，检查耗材是否需要更换。",
+        "metadata": {
+          "file_hash": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "source_version": 1,
+          "start_index": 5755,
+          "chunk_index": 33,
+          "chunk_count": 41,
+          "source_key": "2be956f6cc086896fdeff71ba981f5430c5980bb194dd5c4600cc79130d925b5",
+          "source_sha256": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+          "chunk_id": "b32e6f5ce3afa65b095ca8261cba2842c04abe52fba62a6f51e9068c80ad6aa0",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\扫地机器人100问2.txt",
+          "chunk_sha256": "9da52a4e504e2cfd77e76af0557728a2a2548fa90d205e8d8e30af23820873bc",
+          "source_id": "src_1554ea0dc05ee3f6b98692d8",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11"
+        }
+      },
+      {
+        "text": "186. 故障现象：拖地时出水量正常，但地面仍干燥，无拖地效果；检测：拖布是否未湿润，拖布是否堵塞出水管；修复：湿润拖布，清理拖布堵塞物。\n\n187. 故障现象：APP账号被盗，机器人被他人控制；检测：账号是否泄露，是否开启双重认证；修复：修改密码，开启双重认证，解绑陌生设备。",
+        "metadata": {
+          "source_sha256": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "pipeline": "9bf1c1d4610a942cb414f84746ed077f6bdc5b0747c8ff507aa3a2067c834a11",
+          "chunk_id": "4685ed3f4198522c366992e1756fad521ee090d23db44f9575ee200c51a6dbd7",
+          "start_index": 13944,
+          "source_id": "src_dd546cd9d157bede19fde020",
+          "file_hash": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+          "source": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\data\\故障排除.txt",
+          "chunk_count": 100,
+          "source_version": 1,
+          "chunk_sha256": "1b8267e35a3114ab9391b6bd5d7fbc4bfe25caa3cd5847c62d12b649a6ed0cd7",
+          "source_key": "01966b42246db53bb0123f5f84449a7b5d284cb472b62c0bd31dfbe6dabc43b1",
+          "chunk_index": 92
+        }
+      }
+    ],
+    "seconds": 0.3120766000001822,
+    "metrics": null
+  }
+}

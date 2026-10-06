@@ -1,0 +1,20 @@
+{
+  "version": "holdout-1.0",
+  "case_count": 12,
+  "counts": {
+    "knowledge": 8,
+    "unanswerable": 4
+  },
+  "scope": "项目内资料一致性与任务完成评测，不验证文档自身的厂商真实性。",
+  "construction": "第三步在检索方案选择及混合检索运行前冻结；不参与参数选择。助手构造，非真人专家标注。",
+  "files": {
+    "data\\扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+    "data\\扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+    "data\\扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+    "data\\故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+    "data\\维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+    "data\\选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+    "data\\external\\records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "dataset_sha256": "e565d0e1879345b561412cd5757dfd4708ce3895e46dc44154baf694074b8163"
+}

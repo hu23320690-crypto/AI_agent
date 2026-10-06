@@ -1,14 +1,16 @@
 # 环境复现与排查
 
-本页为截至 2026-10-05 的运行说明，包括新加入的 FastAPI、pytest 和容器入口。阶段安装/交付记录是对应历史版本的验证，见 [DELIVERY_VERIFICATION.md](DELIVERY_VERIFICATION.md)；上下文功能验收见 [CONTEXT_MANAGEMENT_VERIFICATION.md](CONTEXT_MANAGEMENT_VERIFICATION.md)。API 调用见 [API.md](API.md)，Docker/Linux 操作见 [DEPLOYMENT.md](DEPLOYMENT.md)。
+本页为截至 **2026-10-07** 的运行说明，包括 FastAPI、pytest、容器、同题版本准备和离线归档入口。本轮于 2026-10-06 开始，2026-10-07 完成原 60 例、旧 12 题和新 40 题两版的记录与辅助语义复核；新题当前版有 2 个截断案例，仍为未知，方法与结果见 [EVALUATION_V2.md](EVALUATION_V2.md)。阶段安装/交付记录属于对应历史版本，见 [DELIVERY_VERIFICATION.md](DELIVERY_VERIFICATION.md)；2026-10-01 上下文验收见 [CONTEXT_MANAGEMENT_VERIFICATION.md](CONTEXT_MANAGEMENT_VERIFICATION.md)。API 调用见 [API.md](API.md)，Docker/Linux 操作见 [DEPLOYMENT.md](DEPLOYMENT.md)。
 
 ## 固定环境与模型
 
 已有历史环境验证为 Windows 11 x64、CPython 3.12.2。当前 `requirements.txt` 声明 17 项运行时直接依赖，`requirements-lock.txt` 固定 125 项依赖及传递依赖，含开发用 pytest 及其依赖，不含 pip 本身。`requirements-dev.txt` 引用该锁。历史交付时的 12 项、Runtime 时的 14 项、上下文版本的 15 项直接依赖和 121 项锁定依赖分别属于当时版本。
 
-2026-10-05 API 接入前的源码发布检查运行了 259 项回归（258 通过、1 项权限跳过），离线 doctor 142 项通过，原始证据见 [发布检查](../artifacts/github_publication_v1/checks.json)。这些数字不能作为新 API 或 Linux 验收结果。CI 第三次运行已通过 Windows/Linux 各 321 项回归和 Linux 镜像构建、非 root HTTP 启动检查；后续提交的最新状态查看 [PR Checks](https://github.com/hu23320690-crypto/AI_agent/pull/1/checks)。本机尚未安装 Docker；CI 容器烟测没有拉取模型，不代表容器内真实问答通过。
+2026-10-05 API 接入前的源码发布检查运行了 259 项回归（258 通过、1 项权限跳过），离线 doctor 142 项通过，原始证据见 [历史发布检查](../artifacts/github_publication_v1/checks.json)。这些数字不能作为 API 或 Linux 验收结果。同日 API 工程化的 [历史 CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)通过 Windows/Linux 各 321 项回归和 Linux 镜像构建、非 root HTTP 启动检查。本机尚未安装 Docker；历史 CI 容器烟测没有拉取模型，不代表容器内真实问答通过。
 
-本轮本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突。新增 API 测试 39 项全通过，证据见[工程化检查](../artifacts/api_engineering_v1/checks.json)。真实 HTTP 检查单独记录，不以健康接口通过代替模型回答质量验证。
+2026-10-05 API 工程化本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突；新增 API 测试 39 项全通过，证据见[历史工程化检查](../artifacts/api_engineering_v1/checks.json)。这些历史计数独立保留。真实 HTTP 检查另存原始输出和语义复核，不以健康接口通过代替模型回答质量验证。
+
+本轮本机离线回归为 **367 passed、3 skipped、270 subtests passed，43.06秒**，3 项跳过来自 Windows 符号链接权限（2 个 seal 子场景、1 个安全子场景）；离线 doctor 146 项通过，pip check 无依赖冲突。证据见[本轮检查](../artifacts/evaluation_v2/checks.json)、[pytest日志](../artifacts/evaluation_v2/pytest.log)及[离线doctor](../artifacts/evaluation_v2/doctor_offline.json)。之前临时目录权限和绝对路径导致的测试预算失败保留完整私有日志及checks哈希摘要；最终使用工作区临时目录，仅两个来源撤销测试采用已有16384模拟上下文预算，保留撤销/重试断言，业务配置未改。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 ~~~powershell
 py -3.12 -m venv .venv
@@ -86,7 +88,7 @@ asyncio 负责 HTTP 等待、断连检测及会话生命周期；同步 Agent �
 | API 存活但 readiness 503 | 核对模型、tokenizer 身份与授权来源索引，完成 export / doctor / index；容器中执行 bootstrap |
 | API 返回 409 / 429 | 409 常见于同会话已有运行；429 表示运行或会话容量已满。停止等待不保证后台同步任务已经退出 |
 | 容器重启后配置或会话表现不同 | 配置与索引来自 named volume，升级需显式迁移；对话会话未持久化，重启后需重新创建 |
-| 恢复旧评测被拒绝 | 保留旧 manifest 和记录，当前代码用新的 --run；不删除校验信息绕过保护 |
+| 恢复旧评测被拒绝 | 保留旧 manifest 和记录，当前代码用新的 --run；不删除校验信息绕过保护，seal验证也不能替代恢复推理的实时身份校验 |
 
 ## 复测与归档
 
@@ -97,6 +99,27 @@ asyncio 负责 HTTP 等待、断连检测及会话生命周期；同步 Agent �
 ~~~
 
 report 汇总已有 reviews，不会自动获得语义分数。按固定题目对照实际证据复核，超时、错误和未知样本保留。其他故障、安全、长历史命令及执行快照区别见 [评测入口](../evaluation/README.md)。
+
+新 40 题为 28 道知识题、6 道资料不足题和 6 个 Agent 场景，每版计划 45 次真实用户提问；2 个长历史场景各注入 64 对合成已完成历史，不能计为 128 轮真实模型交互。题集及评分说明见 [holdout_v2](../evaluation/holdout_v2/README.md)。整体版本多项功能共同变化，历史原题成绩不能代替新题同题对照。
+
+两版各保存40份案例记录；历史版40例执行完成，当前版38例完成、V2K22与V2A03第二轮截断未知。按原计划分母，知识严格通过历史24/28、当前21/28，资料不足两版6/6，Agent全轮任务两版0/6（历史6失败、当前5失败和1未知），工具名称路径均4/6；见[历史汇总](../evaluation/results/holdout_v2_historical_optimized/summary.json)、[当前汇总](../evaluation/results/holdout_v2_current/summary.json)和[配对记录](../evaluation/results/holdout_v2_comparison/comparison.json)。检索Top5任一锚均28/28、全部必需锚均27/28，与回答和任务分层报告。
+
+复现时核对最终交付与实际模型输入：报告模板可能覆盖内部生成的差值、追加“只列”之外字段；长历史摘要可能丢失部件、月份、字段和不足不猜限制，即使摘要调用成功也未完成原目标。截断、未知和未评分保留原计划分母，不只计算成功子集。新题知识配对无进步、2题退步，不支持全面提升；本轮未据新题输出修改业务实现。版本标签隐藏和乱序辅助复核仍可能从提示及行为识别实现特征，属于助手语义评分，未经独立真人专家审核。
+
+需要原样历史 `optimized_v1` 业务版本时，由 [prepare_evaluation_variant.py](../scripts/prepare_evaluation_variant.py) 校验冻结 hash 后准备隔离目录，配合当前评测观察代码，不移植当前 Runtime/上下文功能。目标必须不存在；索引、模型、环境和日志不复制，模型也不下载。该命令不执行推理，须在新目录独立安装依赖、校验模型并建立索引后再运行；具体方法见 [同题版本对照](../evaluation/README.md#同题版本对照)。
+
+~~~powershell
+.\.venv\Scripts\python.exe -B scripts/prepare_evaluation_variant.py --target ../my_historical_variant_v1 --dataset evaluation/holdout_v2/cases.jsonl
+~~~
+
+完成原始记录、逐题复核、报告与导出后，再用 [seal_evaluation_run.py](../scripts/seal_evaluation_run.py) 离线校验并生成归档清单；已有 seal 只校验，不覆盖。`--verify` 要求既有 `seal.json`。
+
+~~~powershell
+.\.venv\Scripts\python.exe -B scripts/seal_evaluation_run.py --run evaluation/results/my_current_experiment
+.\.venv\Scripts\python.exe -B scripts/seal_evaluation_run.py --run evaluation/results/my_current_experiment --verify
+~~~
+
+seal 不导入推理代码或启动模型；它检测归档相对 SHA256 清单的变化，不是防篡改签名，也不替代恢复推理时对当前代码、模型、资料、依赖及运行参数的实时身份保护。归档完整不代表答案正确，详见 [证据、快照与恢复约定](../evaluation/README.md#证据快照与恢复约定)。
 
 GitHub 保留历史评测 snapshot、原始提交结果和精选 artifacts；普通运行日志及 worker 临时文件排除，历史验收所需的回归日志作为精选证据保留。打包命令见主 README，ZIP 内 `DELIVERY_MANIFEST.json` 提供逐文件 SHA256。旧实验和失败不能覆写成新成绩。
 

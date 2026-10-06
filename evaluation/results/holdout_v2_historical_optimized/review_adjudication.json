@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-07",
+  "revision": "semantic_scope_consistency_1",
+  "initial_reviews_sha256": "5615d858b11326fbc156b77771c2b7901c63cd67be4f91d3aabb0bb0424d463a",
+  "revised_reviews_sha256": "2cf30d7d50d0a749a631735ed10f5401ef9c698cb90991e08623dc11fec37cf7",
+  "initial_seal": {
+    "files": {
+      "audit.md": "ce88d91be2eb9cf6f891848eb7a9b26f7bb3e49e37b45c36444f50b46c4c6dc7",
+      "budget_assets.json": "2a82a45b16e78fbe9a1fbd6ac954b2ddc578269469a29d52e8da3b734a19a84a",
+      "cases.jsonl": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9",
+      "index_check.json": "ca290accd6ebe72d84ac0d33f594bd785aa052cba0e0777b055af7685d5d01eb",
+      "manifest.json": "f9d24fed47526cb6978291ad8344e32a1eee69d520d06e09b65852a8b4d77157",
+      "results.jsonl": "273fbfac8c0b2ae72bee86eb53a0583c7a2f4690fb6854b65e5f179f3755c342",
+      "retrieval.json": "1b9badd8f6ed328b52067b428b96df2e99f36c3d14b49375c5290c8230c51d8a",
+      "review_provenance.json": "0c7811083292a3e756ca7fc032fc1af20db5831ddaeb866645bf17829f8d3672",
+      "reviews.jsonl": "5615d858b11326fbc156b77771c2b7901c63cd67be4f91d3aabb0bb0424d463a",
+      "snapshot/agent/react_agent.py": "cb2049845179159b20fa4c476fee44453df05b07116dd47803d3dd9b8d2e0cef",
+      "snapshot/agent/tools/agent_tools.py": "c6aa8c06f718c99be9358ae1327dba33003dca5ec0e1d90cf2b323ceb45c2e6e",
+      "snapshot/agent/tools/middleware.py": "75ccd9138064b580da55eef36a5019b7ee658e14c8417b622c074304337de06b",
+      "snapshot/app.py": "c75c2fe778cda63048540472b0ebe0ecf35f5dd786e5030120d1e8bc6dc1fa8a",
+      "snapshot/config/agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+      "snapshot/config/chroma.yml": "f64366518564918c96c78e699709c49025a621b8e11656f6ca2d258eee992c96",
+      "snapshot/config/prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+      "snapshot/config/rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+      "snapshot/data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb",
+      "snapshot/data/扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+      "snapshot/data/扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+      "snapshot/data/扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+      "snapshot/data/故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+      "snapshot/data/维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+      "snapshot/data/选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+      "snapshot/dataset_manifest.json": "224b5c3e6905a6a9dbb7912b5ff89ad879a620887c0801cfcebc787ada70e2ad",
+      "snapshot/evaluation/metrics.py": "4ac67693acfbd6d059273f9f847a1211f0312edae3bf9b5fd2d6d9312b447fb6",
+      "snapshot/evaluation/observe.py": "0584983d6e54ac9253b8566f761e2bed9ce1026d6b35127b0c406884868ae432",
+      "snapshot/evaluation/run.py": "66f1d88f2ac3a583f29fb2eab3120214e5adeb01649b00cf97ff8c4f3035b28f",
+      "snapshot/model/factory.py": "a30c069dccc036479089acb9f1cf87965c9e5e00c696f898f3155303ec1279c1",
+      "snapshot/prompts/main_prompt.txt": "b3785b10811fc6628db1fcc64a4f4323c4fb7362a1794ac39fb9865fc413c7eb",
+      "snapshot/prompts/rag_summarize.txt": "a52dc93f5d465efa07c6234ed568756b3e50ef206ac3e3e1936dc17ef6f45e2f",
+      "snapshot/prompts/report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+      "snapshot/rag/hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+      "snapshot/rag/rag_service.py": "5efa0dd4a717d34fbf3287492dc6047b7a55b1fcbcdd2cb7ef6154c04c2399f4",
+      "snapshot/rag/vector_store.py": "80df529f487bce3a29edc02017fa51d6ea196201c2e2a8bef4d2d722639593c4",
+      "snapshot/utils/config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+      "snapshot/utils/file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+      "snapshot/utils/logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+      "snapshot/utils/model_output.py": "9cf8d5e253b0d92420278e820a04230142e4da9aee279070216d0caeb0169aba",
+      "snapshot/utils/path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+      "snapshot/utils/prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+      "snapshot/utils/records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+      "snapshot/utils/report_render.py": "d6d2a7a42b0e49ed33cda86f5f64df8ac0c1738edc2bd73b2b0c71c51d1d14b7",
+      "snapshot/variant_identity.json": "a2b389bdae282a66b73ef87ba8d4a4a01b191a6c2612b413c5d54c730b78cde8",
+      "summary.json": "0d6aae36bb05d53e68b5104a5d86370403006288f1331e1232e384ad440747a4",
+      "summary.md": "aaf1e08d14d3b521c984120e8f1111b2661d08605d169c877942503f3624ba19"
+    },
+    "hash_algorithm": "sha256",
+    "integrity_note": "Offline SHA256 inventory detects archive changes against this seal; it is not a cryptographic signature and does not replace live inference resume identity validation.",
+    "planned_cases": 40,
+    "raw_records": 40,
+    "review_records": 40,
+    "seal_version": 1
+  },
+  "initial_seal_sha256": "59db09104f8304c810faf8dceafd583856a78c3e7bf52efe4a23782ddc31e874",
+  "case_id": "V2A04",
+  "initial_review": {
+    "answer_score": null,
+    "grounded": true,
+    "task_pass": false,
+    "note": "两轮derived执行均完成并实际检索。交付答案正确区分扫地滤网与污水仓滤网，但首轮未给出冻结要求的污水过滤功能与需专用滤网，第二轮遗漏晾干后使用；故全轮任务未通过。忠实度按turns.answer及下一轮历史确认的交付文本评判，未交付的内部材质/工作原理措辞不计入交付忠实度。",
+    "per_turn": [
+      {
+        "turn_index": 1,
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": false,
+        "note": "拒绝混用并说明规格、功能不同及损坏风险，均有本轮实际检索资料依据；遗漏冻结必答的拖地滤网主要过滤污水与需专用滤网。"
+      },
+      {
+        "turn_index": 2,
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": false,
+        "note": "保持污水仓滤网对象，正确回答每周清水冲洗、6个月更换和破损立即更换；实际维护资料明确有晾干后使用，交付答案遗漏该步骤。"
+      }
+    ],
+    "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+    "id": "V2A04",
+    "sample_id": "S004",
+    "result_sha256": "a35ca35a820abe017cc61b345e335157257aeb589513d26871e3adeb4a40e2ec"
+  },
+  "revised_review": {
+    "answer_score": null,
+    "grounded": true,
+    "task_pass": false,
+    "note": "两轮derived执行均完成并实际检索；首轮已正确拒绝混装，按题面范围主评分完整，与当前版同题一致。第二轮保持污水仓滤网并给出正确周期及破损立即更换，却遗漏晾干后使用，整案task_pass仍false。忠实度仅评用户实际收到的turns.answer，内部未交付的材质/工作原理措辞不计入交付评分。",
+    "per_turn": [
+      {
+        "turn_index": 1,
+        "answer_score": 2,
+        "grounded": true,
+        "task_pass": true,
+        "note": "首轮题面只问能否混装；已拒绝混用并说明规格、功能不同与损坏风险，实际资料支持。按冻结rubric不机械要求未请求的污水过滤/专用滤网扩展，与当前版同题主评分一致。",
+        "annotation_ambiguity": {
+          "primary_answer_score": 2,
+          "alternate_answer_score": 1,
+          "reason": "主评分按题面范围；若机械要求required_points所有扩展，缺污水过滤功能和专用滤网记1。"
+        }
+      },
+      {
+        "turn_index": 2,
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": false,
+        "note": "保持污水仓滤网对象，正确回答每周清水冲洗、6个月更换和破损立即更换；实际维护资料明确有晾干后使用，交付答案遗漏该步骤。"
+      }
+    ],
+    "method": "Codex assistant semantic review against frozen question, references and actual model input; not independent expert review",
+    "id": "V2A04",
+    "sample_id": "S004",
+    "result_sha256": "a35ca35a820abe017cc61b345e335157257aeb589513d26871e3adeb4a40e2ec",
+    "adjudication": {
+      "date": "2026-10-07",
+      "reason": "Post-review consistency audit aligned the same question scope across versions; no reference, raw answer, overall task outcome or aggregate strict counts changed."
+    }
+  },
+  "raw_results_sha256_unchanged": "273fbfac8c0b2ae72bee86eb53a0583c7a2f4690fb6854b65e5f179f3755c342",
+  "frozen_manifest_sha256_unchanged": "f9d24fed47526cb6978291ad8344e32a1eee69d520d06e09b65852a8b4d77157",
+  "archive_note": "Initial sealed archive preserved intact in local private outputs. New publication archive reuses identical frozen manifest/raw and records semantic adjudication separately."
+}

@@ -1,0 +1,80 @@
+{
+  "method": "Label-hidden, randomized Codex team auxiliary semantic review; prompts may reveal behavior. No independent human/domain-expert blind evaluation.",
+  "packet_minimization": "Only exact seeded user/assistant filler template strings for turns 2..64 omitted from top-level review messages; goals, constraints, summaries, actual user turns and tools retained, full messages archived with inventory hashes. Experiment absolute prefixes hidden. Raw result hashes restored from private key after grading.",
+  "samples": 40,
+  "rules_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+  "holdout_scoring_sha256": "6b561f23072fc105c778d1f2ce574149cd0c95dc080dabc460acc6e283cc2882",
+  "blind_manifest_sha256": "a5f078c79e6ce7d5bd549eeccfe3e10cad15ebf79a72c23d12e517d40519487a",
+  "packet_provenance": [
+    {
+      "packet": "paired_001.json",
+      "packet_sha256": "f6ce87e70264f413a9581a9dc4a2dd7bc58571b187b630f6ccbb490732e0c06f",
+      "review_file": "paired_001_reviews.json",
+      "review_sha256": "72205f8f53a87144fe75309a0c6a1f0181839fb7b2a72680cd010a8ee697c9ab",
+      "samples": 8
+    },
+    {
+      "packet": "paired_002.json",
+      "packet_sha256": "63409506cf9de8677ce9f13b8bb5954b23f8fce4c4177b02d1bb41b2a5483325",
+      "review_file": "paired_002_reviews.json",
+      "review_sha256": "3c35136a28f0848715a9caf45cf749bb19cb6237f157858f2e8072d3ccd3a8ab",
+      "samples": 8
+    },
+    {
+      "packet": "paired_003.json",
+      "packet_sha256": "0f9766aaac6164b4358cf1a58438ed9e5071ce3982fdf1a371b9441463bd71d2",
+      "review_file": "paired_003_reviews.json",
+      "review_sha256": "2a2e115a21435f72d28b7b157c90e98960ea3cc3b5aa4d867aebe7bfcc74a881",
+      "samples": 8
+    },
+    {
+      "packet": "paired_004.json",
+      "packet_sha256": "d03b7f1c15ceb39e7a7e07a4440acafeac349cd5cf83546ff103a17a932da48b",
+      "review_file": "paired_004_reviews.json",
+      "review_sha256": "637499ff99641632334f20425364d1ed725a0d88f3a8fc7a1745209c9e933cef",
+      "samples": 8
+    },
+    {
+      "packet": "paired_005.json",
+      "packet_sha256": "bf30144615f4bf0b227ed516bbcf055a925c86bd23fc94352bb3b541271f9cd8",
+      "review_file": "paired_005_reviews.json",
+      "review_sha256": "3069c01ae4967c415a43e9ad44672a047472641ac1fc8dc0fc1597b503d52834",
+      "samples": 8
+    },
+    {
+      "packet": "paired_006.json",
+      "packet_sha256": "1b89071cd457fcab455bf2d17f1736bf3a68e1466d81dbfb9d1e00e149ec6372",
+      "review_file": "paired_006_reviews.json",
+      "review_sha256": "105d8d4a0496a60a236333133dc81bf723ac2a6376225be2679b3025375f0845",
+      "samples": 8
+    },
+    {
+      "packet": "paired_007.json",
+      "packet_sha256": "0901cafa6e02f6f7b68bd53d779b735077cde8ad27faad2927ae3b32a38848b7",
+      "review_file": "paired_007_reviews.json",
+      "review_sha256": "66c47852792e514ae3d4d60d9606615b0e38ed6b2e1f55ba06bec86dff87ec2b",
+      "samples": 8
+    },
+    {
+      "packet": "paired_008.json",
+      "packet_sha256": "830046d8945d369bfec37df500bb1282c7520ae89592dee9ffa0b5dc1da0167c",
+      "review_file": "paired_008_reviews.json",
+      "review_sha256": "60c7f6035ab91fde7b32746b24bb0f21345454e3cfcce9599a305204b995cf70",
+      "samples": 8
+    },
+    {
+      "packet": "paired_009.json",
+      "packet_sha256": "7c1347ad45de43ff401668d73af79d2573d37f3567d27deeba9ed6ae7501b34e",
+      "review_file": "paired_009_reviews.json",
+      "review_sha256": "b384d115308f225a9502a8f3132cd48dbd7fc50bb08fbc0cf512616b193eb7a7",
+      "samples": 8
+    },
+    {
+      "packet": "paired_010.json",
+      "packet_sha256": "2854fdf080e7f19a790d2d19114d15418c54094ddf17f0ac8e6cc2633a6a2503",
+      "review_file": "paired_010_reviews.json",
+      "review_sha256": "aa5fa4de92fe60d57bda045c6e31d14de7e9918e4b22d741296598345f7ed51e",
+      "samples": 8
+    }
+  ]
+}
