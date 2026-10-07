@@ -1,0 +1,13 @@
+# Pinned local tokenizer when available; UTF-8 fallback for unknown models.
+# Request/template framing remains an estimate. Edit and restart the application.
+window_tokens: 8192
+reserve_output_tokens: 4096
+safety_margin_tokens: 256
+keep_recent_turns: 2
+trigger_fraction: 0.8
+summary_max_tokens: 512
+summary_enabled: true
+# Thinking and visible answers share this reserve; truncated output is rejected.
+reasoning_enabled: true
+# Grounded extraction reserves output for the answer rather than extended thinking.
+rag_reasoning_enabled: false

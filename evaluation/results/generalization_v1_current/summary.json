@@ -1,0 +1,566 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 21,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 18,
+      "3": 26,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 18,
+      "3": 26,
+      "5": 27
+    },
+    "mrr_at_5": 0.8601190476190477,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 21,
+    "partial": 7,
+    "incorrect": 0,
+    "grounded": 24,
+    "strict_pass": 18,
+    "strict_fail": 10,
+    "strict_pass_fraction_planned": 0.6428571428571429,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 27,
+      "all_required_hit": 26,
+      "policy_hit": 26
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 5,
+    "strict_pass": 5,
+    "strict_fail": 1,
+    "strict_pass_fraction_planned": 0.8333333333333334,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 1,
+    "task_fail": 5,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 64,
+    "observed_model_requests": 26
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.32880295000177284,
+      "p95_seconds": 0.46441910000066855
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 2.7026124999993044,
+      "p95_seconds": 4.143685499999265
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 21.708139700000174,
+      "p95_seconds": 71.19272879999698
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 7.575371750001068,
+      "p95_seconds": 69.9251946000004
+    }
+  },
+  "model_usage": {
+    "observed_requests": 59,
+    "requests_by_status": {
+      "ok": 59,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 59,
+    "input_tokens": 106480,
+    "output_tokens": 19877,
+    "request_input_message_counts": {
+      "count": 59,
+      "median_messages": 2,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "G1K01",
+      "status": "ok",
+      "review": {
+        "id": "G1K01",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "题目所求3000Pa/4000Pa下限及可调吸力适配不同地面完整正确。但新增“吸力过强导致地面扬尘”的具体因果说法不在实际模型输入资料中：实际输入只写细粉尘需密封尘盒/高效过滤以避免二次扬尘，不能据此归因于吸力过强。不是遗漏金标，而是额外事实缺依据。",
+        "result_sha256": "a90b2dc42fcf29f0e53d4ef4fc8689fab63a1030fb92e5408c9de8be1f9850de",
+        "reviewer": "Codex 独立复核；非本题构造者",
+        "evidence_basis": "逐项核对 model_requests[*].rag_contexts[*].docs 的实际模型输入；rag_answers仅用于服务路径核对，未计为模型输入。",
+        "note": "题目所求3000Pa/4000Pa下限及可调吸力适配不同地面完整正确。但新增“吸力过强导致地面扬尘”的具体因果说法不在实际模型输入资料中：实际输入只写细粉尘需密封尘盒/高效过滤以避免二次扬尘，不能据此归因于吸力过强。不是遗漏金标，而是额外事实缺依据。",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K03",
+      "status": "ok",
+      "review": {
+        "id": "G1K03",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "150转/分钟门槛及清洁更彻底正确，热风可避免潮湿发霉也有依据；但没有答出题目热风优先原因中避免“异味”的要点。额外50℃、2小时、50dB并非幻觉：实际模型输入选购指南109/110条明确提供这些数值及作用，因此忠实度为真，但所求原因未完整。",
+        "result_sha256": "6d1f602e235458bbd1636514dc649321a61c3690198d90b4cb51a51b3d48f9e0",
+        "reviewer": "Codex 独立复核；非本题构造者",
+        "evidence_basis": "逐项核对 model_requests[*].rag_contexts[*].docs 的实际模型输入；rag_answers仅用于服务路径核对，未计为模型输入。",
+        "note": "150转/分钟门槛及清洁更彻底正确，热风可避免潮湿发霉也有依据；但没有答出题目热风优先原因中避免“异味”的要点。额外50℃、2小时、50dB并非幻觉：实际模型输入选购指南109/110条明确提供这些数值及作用，因此忠实度为真，但所求原因未完整。",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K07",
+      "status": "ok",
+      "review": {
+        "id": "G1K07",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "核心一般2-3月、多尘1月、刷毛小于1cm/变形/断裂及时更换均正确且有维护条目支持。但附注说其他参考资料未提供边刷其他周期或状态信息，与实际输入PDF中的“边刷寿命约6-12个月，视使用频率而定”相冲突；资料还给边刷磨损导致边角清扫不彻底的状态信息。虽然题目限定耗材条目、无需展开其他规则，主动否认本轮其他资料内容仍是不忠实。",
+        "result_sha256": "052ca34bed9def40d4213e862197aca7a15c697ab95b0e4cca3dd4254a2687a9",
+        "reviewer": "Codex 独立复核；非本题构造者",
+        "evidence_basis": "逐项核对 model_requests[*].rag_contexts[*].docs 的实际模型输入；rag_answers仅用于服务路径核对，未计为模型输入。",
+        "note": "核心一般2-3月、多尘1月、刷毛小于1cm/变形/断裂及时更换均正确且有维护条目支持。但附注说其他参考资料未提供边刷其他周期或状态信息，与实际输入PDF中的“边刷寿命约6-12个月，视使用频率而定”相冲突；资料还给边刷磨损导致边角清扫不彻底的状态信息。虽然题目限定耗材条目、无需展开其他规则，主动否认本轮其他资料内容仍是不忠实。",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K11",
+      "status": "ok",
+      "review": {
+        "id": "G1K11",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "10cm处停拖只扫及缓冲区处理主体正确，但未回答冻结金标准指定的另一办法“开启拖布抬升”，而给出禁拖区。禁拖区并非无依据：本轮实际输入同一问答29条确实提供它用于地毯不拖且仅保留扫地。因此按冻结gold记内容部分正确、忠实真，同时注明题面未限定只复述36条，对其他有效替代存在标注歧义；未据输出修改金标。",
+        "result_sha256": "49c7db2099a0d6d5272303091008a22a384da4c2036efe87f62ef295ad92e305",
+        "reviewer": "Codex 独立复核；非本题构造者",
+        "evidence_basis": "逐项核对 model_requests[*].rag_contexts[*].docs 的实际模型输入；rag_answers仅用于服务路径核对，未计为模型输入。",
+        "note": "10cm处停拖只扫及缓冲区处理主体正确，但未回答冻结金标准指定的另一办法“开启拖布抬升”，而给出禁拖区。禁拖区并非无依据：本轮实际输入同一问答29条确实提供它用于地毯不拖且仅保留扫地。因此按冻结gold记内容部分正确、忠实真，同时注明题面未限定只复述36条，对其他有效替代存在标注歧义；未据输出修改金标。",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K12",
+      "status": "ok",
+      "review": {
+        "id": "G1K12",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "部分机型支持、中档出水、专用瓷砖清洁液、多次拖扫四个所问条件与安排正确；“当支持时配合”按正在采用该功能理解，不因没有逐字说开启扣分。但末句把清洁液类型与出水档位/次数并列称需在APP分区参数中设置；本轮分区设置证据仅支持吸力、出水量、清洁次数，没有APP能设置清洁液类型的依据，属于新增参数能力归属不忠实。",
+        "result_sha256": "4e4b5e12e3c07b39000c26ce36a18f2a610796192d6ff80c2ff5164257d16450",
+        "reviewer": "Codex 独立复核；非本题构造者",
+        "evidence_basis": "逐项核对 model_requests[*].rag_contexts[*].docs 的实际模型输入；rag_answers仅用于服务路径核对，未计为模型输入。",
+        "note": "部分机型支持、中档出水、专用瓷砖清洁液、多次拖扫四个所问条件与安排正确；“当支持时配合”按正在采用该功能理解，不因没有逐字说开启扣分。但末句把清洁液类型与出水档位/次数并列称需在APP分区参数中设置；本轮分区设置证据仅支持吸力、出水量、清洁次数，没有APP能设置清洁液类型的依据，属于新增参数能力归属不忠实。",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K16",
+      "status": "ok",
+      "review": {
+        "id": "G1K16",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "正确检查/清理底部防跌落传感器、排除遮挡、平整地面校准测试与损坏后售后更换；但未说明题面所求校准步骤中的重启设备，内容部分完整。实际入模扫地第51问明确重启校准、故障第20条明确平地测试及损坏分流；其余交付事实均有本次依据。",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "result_sha256": "b4ddf008b62f4b938259b6997a935f2120c4a242d9e3badfd6a9c3af50070830",
+        "execution_status": "ok",
+        "evidence_route": {
+          "generation": "actual model_requests.rag_contexts",
+          "model_requests": 1,
+          "model_context_documents": 5,
+          "service_direct_citation": false,
+          "note": "rag_answers records service input docs; generation occurred and no direct extraction/policy event, so service docs are not treated as additional model input."
+        },
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K17",
+      "status": "ok",
+      "review": {
+        "id": "G1K17",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "仅列出尘盒到位与感应传感器灰尘两项检查，没有回答题面明确请求的处理动作：重新安装并扣紧，以及擦拭/清理感应传感器。故障第27条和扫地第37问都实际入模且完整提供这两项修复，属于有据动作遗漏；已回答的检查事实忠实。",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "result_sha256": "681c9a781a4228260698a59dfb1285740595ac355c47102f5668b6a055ce4c51",
+        "execution_status": "ok",
+        "evidence_route": {
+          "generation": "actual model_requests.rag_contexts",
+          "model_requests": 1,
+          "model_context_documents": 5,
+          "service_direct_citation": false,
+          "note": "rag_answers records service input docs; generation occurred and no direct extraction/policy event, so service docs are not treated as additional model input."
+        },
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K21",
+      "status": "ok",
+      "review": {
+        "id": "G1K21",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "已说明清理集尘通道与确认机座连接正常，但遗漏题面所求且实际扫地第56问明确提供的集尘仓关闭条件。额外检查集尘电机吸力不足受本次入模故障第68条支持，不按编造处理；内容不能因新增电机检查而补足仓门遗漏。",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "result_sha256": "6dc2e3216a435cfcf7754a78514a2cfa4cf7c169756159dccf59f4915a09850e",
+        "execution_status": "ok",
+        "evidence_route": {
+          "generation": "actual model_requests.rag_contexts",
+          "model_requests": 1,
+          "model_context_documents": 5,
+          "service_direct_citation": false,
+          "note": "rag_answers records service input docs; generation occurred and no direct extraction/policy event, so service docs are not treated as additional model input."
+        },
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K22",
+      "status": "ok",
+      "review": {
+        "id": "G1K22",
+        "answer_score": 1,
+        "grounded": false,
+        "note": "回答滤网堵塞检查/清洗及出风口毛发杂物清理，但首步把机器人风道维护第5条的“从尘盒出风口向吸口方向清扫”写成集尘座出风口的处理方法，混淆机身风道与基站对象，内容部分正确。实际入模故障第106条与维护第17条只支持清理集尘座出风口；维护第5条、尘盒不可浸泡及配套滤网规则属于另一个部件/路径。资料字面均出现不代表此对象关联成立，忠实度不通过。",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "result_sha256": "d2ca458085e739b854182ab2dc589851c405b8b512441216148b9a5f44874a5d",
+        "execution_status": "ok",
+        "evidence_route": {
+          "generation": "actual model_requests.rag_contexts",
+          "model_requests": 1,
+          "model_context_documents": 5,
+          "service_direct_citation": false,
+          "note": "rag_answers records service input docs; generation occurred and no direct extraction/policy event, so service docs are not treated as additional model input."
+        },
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K27",
+      "status": "ok",
+      "review": {
+        "id": "G1K27",
+        "answer_score": 1,
+        "grounded": true,
+        "note": "正确回答低温保护/结冰检查、室温静置30分钟、解冻后重新充电及充电环境≥5℃，但恢复步骤未明确最后开机，冻结所求“解冻后充电开机”操作链少一步，主评分部分完整。实际入模故障第173条、维护第19条和扫地第96问支持全部已交付事实及5℃以上补充；不把未写出的开机按字符串自动补入。",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "result_sha256": "00b8848f15ab84b88127d9e9c30071886a7ce3ba92cf152d6ca6156e10453d8f",
+        "execution_status": "ok",
+        "evidence_route": {
+          "generation": "actual model_requests.rag_contexts",
+          "model_requests": 1,
+          "model_context_documents": 5,
+          "service_direct_citation": false,
+          "note": "rag_answers records service input docs; generation occurred and no direct extraction/policy event, so service docs are not treated as additional model input."
+        },
+        "annotation_ambiguity": {
+          "primary_answer_score": 1,
+          "alternate_answer_score": 2,
+          "reason": "若按“恢复启动步骤”标题与解冻后充电的语境接受最终开机为隐含动作，可另记2；主评分按冻结操作链要求显式覆盖充电后开机。没有实际输入/忠实度争议。"
+        },
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1N05",
+      "status": "ok",
+      "review": {
+        "id": "G1N05",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "正确拒绝预测剩余连续小时数且不编造小时数，3-6个月常规周期也有本次输入依据；但新增“HEPA滤网受潮后可能立即导致失效”的即时因果无依据。本次输入仅有水洗可能降低过滤效果、常规维护和整机潮湿停机，不能迁移成HEPA受潮立即失效。所问拒答内容完整，额外具体因果使忠实度不通过。",
+        "result_sha256": "a12b6324bbe4d2c419a9244711471827b6a226c5b6a2917dd1d16a15392e547a",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "note": "正确拒绝预测剩余连续小时数且不编造小时数，3-6个月常规周期也有本次输入依据；但新增“HEPA滤网受潮后可能立即导致失效”的即时因果无依据。本次输入仅有水洗可能降低过滤效果、常规维护和整机潮湿停机，不能迁移成HEPA受潮立即失效。所问拒答内容完整，额外具体因果使忠实度不通过。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A02",
+      "status": "ok",
+      "review": {
+        "id": "G1A02",
+        "content": 0,
+        "answer_score": 0,
+        "grounded": false,
+        "reason": "两轮fetch_external_data均正确且返回有效记录，工具选择通过但任务失败。第1轮最终错误把有效的滤网剩余45天标为未提供；第2轮最终声称未查询到2025-05，既未交付目标2025-04两指标/差值，也与本轮4月成功查询及历史5月成功查询矛盾。原始模型生成与程序最终交付不同，评分以用户收到的最终answer为准。",
+        "result_sha256": "02184bfaf80dfa2a47cf4e64528153635d0155faad6d880254e4207556315715",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "content": 1,
+            "answer_score": 1,
+            "grounded": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "实查1009/2025-05且工具有91%和剩余45天，最终只保留91%，错误写滤网剩余寿命未提供。模型原始生成45天正确，最终渲染疑似字段别名未归一。"
+          },
+          {
+            "turn": 2,
+            "content": 0,
+            "answer_score": 0,
+            "grounded": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "工具实查正确的1009/2025-04且有90%/50天，历史5月91%/45天有效。最终却只称未查询到要求的2025-05，未回答4月数据和相对5月的减少1个百分点/增加5天。疑似把比较基准月份解析为目标月份；本轮不修复。"
+          }
+        ],
+        "tool_selection_pass": true,
+        "note": "两轮fetch_external_data均正确且返回有效记录，工具选择通过但任务失败。第1轮最终错误把有效的滤网剩余45天标为未提供；第2轮最终声称未查询到2025-05，既未交付目标2025-04两指标/差值，也与本轮4月成功查询及历史5月成功查询矛盾。原始模型生成与程序最终交付不同，评分以用户收到的最终answer为准。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A03",
+      "status": "ok",
+      "review": {
+        "id": "G1A03",
+        "content": 0,
+        "answer_score": 0,
+        "grounded": false,
+        "task_pass": false,
+        "reason": "工具正确完成1008/2025-12有记录及2026-01跨年无记录查询，但最终交付两轮均不完整或错误。第1轮漏掉有据的主刷55天；第2轮错误把未找到月份标为2025-12，与上一轮有效记录矛盾，没有正确交付2026-01缺记录。没有伪造1月指标，但仍不满足全轮任务。模型原始生成正确的月份和55天，问题线索位于最终程序解析/渲染。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "content": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "实查1008/2025-12返回98%和主刷55天，最终只给避障98%，遗漏明确请求的主刷剩余寿命；已输出的98%及用户/月有依据。"
+          },
+          {
+            "turn": 2,
+            "content": 0,
+            "answer_score": 0,
+            "grounded": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "实际参数正确跨年到2026-01，工具返回not_found；最终却称2025-12未查询到，既错目标月又与有效历史12月记录矛盾。模型原始生成2026-01无记录正确，最终出口改写错误。"
+          }
+        ],
+        "tool_selection_pass": true,
+        "result_sha256": "9ecc4682b94aa27ef79224b1954cb6f80633d06c39ab481807fc15f914be125f",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "note": "工具正确完成1008/2025-12有记录及2026-01跨年无记录查询，但最终交付两轮均不完整或错误。第1轮漏掉有据的主刷55天；第2轮错误把未找到月份标为2025-12，与上一轮有效记录矛盾，没有正确交付2026-01缺记录。没有伪造1月指标，但仍不满足全轮任务。模型原始生成正确的月份和55天，问题线索位于最终程序解析/渲染。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A04",
+      "status": "ok",
+      "review": {
+        "id": "G1A04",
+        "content": 0,
+        "answer_score": 0,
+        "grounded": false,
+        "task_pass": false,
+        "reason": "第1轮未按指定维护电池专项回答，误用FAQ的1-2年条件，遗漏2-3年、原续航50%以下、充不进电/鼓包及原装电池要求，并增编清洁面积50%门槛和更换前校准必要条件。第2轮最终数值30%/70%有据，但仅列表、遗漏不同指标不能直接证明续航门槛的明确子问。工具选择与查表参数正确不能替代交付。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "content": 0,
+            "answer_score": 0,
+            "grounded": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "调用rag_summarize符合工具要求，但实际输入未含维护140行。最终用1-2年取代指定2-3年，并把低温/亏电升级为提前更换条件、虚构清洁面积减少50%门槛及更换前必须校准。FAQ虽有1-2年后严重衰减可换，不支持这些改写。"
+          },
+          {
+            "turn": 2,
+            "content": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "本轮fetch_external_data(1005,2025-11)有效，最终只给电池衰减30%和手动操作70%，未扩展设备诊断，已输出数值有据；但没有回答月记录能否证明实际续航低于原续航50%的明确问题。原始模型报告中的说明未交付，不能计用户收到。"
+          }
+        ],
+        "tool_selection_pass": true,
+        "result_sha256": "12be6f54e5dd1db16fc6da3e8bb192cb047808c3d6b62e90daa96aa097a5b82b",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "note": "第1轮未按指定维护电池专项回答，误用FAQ的1-2年条件，遗漏2-3年、原续航50%以下、充不进电/鼓包及原装电池要求，并增编清洁面积50%门槛和更换前校准必要条件。第2轮最终数值30%/70%有据，但仅列表、遗漏不同指标不能直接证明续航门槛的明确子问。工具选择与查表参数正确不能替代交付。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A05",
+      "status": "ok",
+      "review": {
+        "id": "G1A05",
+        "content": 0,
+        "answer_score": 0,
+        "grounded": true,
+        "task_pass": false,
+        "reason": "64对合成消息后第1真实轮正确回忆基站清洁仓清洁刷及动作/章节/不足约束，task_references保留原始目标和否定限定；不是简单摘要丢目标。第2轮最终列举滤网、尘盒、拖布、主刷、边刷维护，未回答清洁仓刷的分章节每日/每周清理、每月冲洗及3-6个月更换，属答非所问。列出的各显式部件周期和磨损立即更换均有本次输入依据，忠实度可真但内容0，不能据此计任务通过。实际RAG模型输入第4块有维护136清洁刷条目，93每日条目未入；模型未应用已有136条。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "content": 2,
+            "answer_score": 2,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "首个真实回忆轮明确自动洗拖布基站清洁仓刷，且完整说明清理/水洗/更换分开、章节差异不合并、资料不足不猜不借其他部件。准确具体对象已区分底部模组刷，无须逐字复述否定句。实际低信任Human memory含原始目标、否定及三约束，未调用工具。"
+          },
+          {
+            "turn": 2,
+            "content": 0,
+            "answer_score": 0,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "rag_summarize工具query明确基站清洁仓刷，但RAG实际query/生成用户任务只剩“那它...”且没有目标补充；实际输入仍含维护136每周清毛发/月水洗/3-6月换/磨损变形立即换，93每日条目未入。最终只列其他显式命名部件的维护，不回答要求的清洁刷动作与章节差异。滤网/月洗/3-6月换、尘盒2-3天或宠物每日、拖布1-2月、边刷与主刷周期及立即更换均受本次输入支持，故内容失败但未因答非所问直接判不忠实。模型生成的“清洁刷（主刷）”等错误未进入最终answer，不将未交付文本作为最终新增事实。"
+          }
+        ],
+        "tool_selection_pass": true,
+        "result_sha256": "f82afc10feb755f30b1f37223ccab58a25d4e48bec9608b6de3de7275af555d8",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "seeded_pairs": 64,
+        "real_turns_reviewed": 2,
+        "note": "64对合成消息后第1真实轮正确回忆基站清洁仓清洁刷及动作/章节/不足约束，task_references保留原始目标和否定限定；不是简单摘要丢目标。第2轮最终列举滤网、尘盒、拖布、主刷、边刷维护，未回答清洁仓刷的分章节每日/每周清理、每月冲洗及3-6个月更换，属答非所问。列出的各显式部件周期和磨损立即更换均有本次输入依据，忠实度可真但内容0，不能据此计任务通过。实际RAG模型输入第4块有维护136清洁刷条目，93每日条目未入；模型未应用已有136条。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A06",
+      "status": "ok",
+      "review": {
+        "id": "G1A06",
+        "content": 1,
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": false,
+        "reason": "首轮检查鼓包漏液、配件松动老化、空转1-2分钟及异响卡顿/功能测试正确，未将流程说成用户已检测通过。次轮正确保留不可因空转假设跳过、充电30分钟及删旧图重建，但遗漏明确请求的电池激活/电量显示校准与扫拖、避障、回充功能校准范围，按冻结要点只能部分正确，故全轮任务失败。最终未编造建图时长或设备已通过检测。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "content": 2,
+            "answer_score": 2,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "有效RAG输入含维护197/199，最终完整交付电池鼓包漏液、配件松动老化、空转1-2分钟、异响卡顿及基础功能测试。扫拖/避障/回充功能范围也在本次维护201条，额外阴暗存放提前消毒防虫鼠条件来自202条；未宣称用户已完成检测。"
+          },
+          {
+            "turn": 2,
+            "content": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "本次输入完整含维护199/200/201。最终正确说不能因无异响假设免流程、充电30分钟、删旧图重建，但未说明激活电池和校准电量显示，亦未说明地图后校准扫拖、避障、回充。通称“充电校准/旧地图处理”不能代替题目要求的操作范围。没有编造建图时长或将假设升级为用户已通过检测，已有输出事实有据。"
+          }
+        ],
+        "tool_selection_pass": true,
+        "result_sha256": "2323fa3a5146e4b6d5886775300f7ee76abe6abd56e2b62303a83e1b64c47397",
+        "review_method": "Codex助手团队按冻结金标与实际输入复核；主助手检查并对争议项说明裁定，非独立真人或受测模型自评。",
+        "real_turns_reviewed": 2,
+        "note": "首轮检查鼓包漏液、配件松动老化、空转1-2分钟及异响卡顿/功能测试正确，未将流程说成用户已检测通过。次轮正确保留不可因空转假设跳过、充电30分钟及删旧图重建，但遗漏明确请求的电池激活/电量显示校准与扫拖、避障、回充功能校准范围，按冻结要点只能部分正确，故全轮任务失败。最终未编造建图时长或设备已通过检测。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

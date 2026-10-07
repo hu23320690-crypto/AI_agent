@@ -1,0 +1,102 @@
+{
+  "identity_version": 2,
+  "code_sha256": {
+    "agent/context_budget.py": "7a4275c45fccd64cded5668d7ac34886c1fc303a6a1d41f34768e0644d0ce3da",
+    "agent/context_memory.py": "d9e83b3f8ff3973fce1608362ba76c6d1b74ee02583d892a3c44c02f683f1d4e",
+    "agent/react_agent.py": "acb36a58ac7bcead365baa2310fbc6afff3492ff74f749336b9639b472314944",
+    "agent/runtime/__init__.py": "0aaa05727cf32e53c755b99aa3a041a5b664417b7e95c6de2dc43043a9aa6c0b",
+    "agent/runtime/core.py": "1d607e6dada8bd501a5e2fe58a33e40cefcce4ae73a28d3b3b0c81c5fa7b97f8",
+    "agent/runtime/resilience.py": "9077ec98b81bdc302b7239f49d36348188cb88cc855d7c84c0f107ef7229d39a",
+    "agent/tools/agent_tools.py": "0e76577b2db19741203961c11027babafc1e97377db6205c59d85d2929d29dd4",
+    "agent/tools/middleware.py": "2bc27595ed71bbf8bcf9c787b5b7c221f30e84e49344bf2d466f90ca2ca98870",
+    "agent/tools/policy.py": "9316790694b758e6f7da2b9a25222fc199006edefe1ac87bd428c0da2fd43ae5",
+    "app.py": "99e5a9d2bdecc138b7d8f45ce0e48d798fad64bd3c50fb03dc5fdae27958390e",
+    "config/agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config/chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config/context.yml": "d47801f0b784c6e2760619258b1ebf767e6b33d0f38c3682d81590736139900b",
+    "config/context_tokenizer.json": "5c9cdb944a7148eb129448f57f9bf90fd2fa362abf0e702b4e4bc414d9e9f24b",
+    "config/knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config/prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config/rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config/resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config/runtime.yml": "1d817f14949b2f66d9e42990ca693a35f5e4f2b78fc3a0f2d3c0bb2756119068",
+    "config/security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "model/factory.py": "388c9ac998fc02329d99e997a696d98fe602821b9b60c69c3b7aaf5be9eae723",
+    "model/token_count.py": "b28678128bd345ed8e3b5fc5f6f13802140c72d3f95b3fadbfb5f537a2db1548",
+    "prompts/main_prompt.txt": "b6ac895cf967d7cb857e9d0f351e55602a6efa2c66e6dccd8ec6a5336825d496",
+    "prompts/rag_summarize.txt": "90196c0eda56664f8e99b7509c930153d570c8b0c2760d950f83adef39771ca9",
+    "prompts/report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag/answer_policy.py": "2d163fd362c780470ac189abb9f1c8f9788258afb6e8133181ae8e5ee7efc182",
+    "rag/hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag/maintenance_answer.py": "9585c0ba0ad64285dfed97e11883fcc8e712666061b7e5eb13e16ed9e63349ca",
+    "rag/qa_answer.py": "bfa24f93d340e6a3fb32872e56d297cdda4f5daed531d340c77a3579a94622d4",
+    "rag/query_context.py": "b234c72481a4a5fff1fc7489a1f3566911e72934b8a0d2581f18e262a72e9766",
+    "rag/rag_service.py": "9285f5d89e19ddeeba01a21350e0cd50fffbd957f8b34e6c5f51116b65430956",
+    "rag/relevance.py": "55e95e83793e8bd01fc057d626161c50513ff3e04632d9cd342ef2ba7af565f0",
+    "rag/security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag/vector_store.py": "d5a4edc4dbd83bc5a1db44a72c24c961b48083cb9b2351b84a4e43329d1ac30e",
+    "utils/config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils/file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils/logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils/model_output.py": "2acaa914049e9eebb52b40206ea25ee8cd0d79ca4397f6e4940a52e504cd4e9d",
+    "utils/path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils/prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils/records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils/report_intent.py": "90bd53e02ef8ec97a7648619161d2c73aca4a7ebe9e740bbf1487a04b117aa57",
+    "utils/report_render.py": "12802bf72a1af41f61243965c7f3bde9d9ee8b14c076ade9d1d431f8c0712e61"
+  },
+  "evaluation_sha256": {
+    "evaluation/run.py": "8a41a17350e91a01e27418ae6bdc1f9d6f19abcf7e38cd483c9c01b39b7581c4",
+    "evaluation/observe.py": "6804588a88b83c691c2ac26c3dca8eae3596f3fac8e9cc057654075205bc0788",
+    "evaluation/metrics.py": "4ac67693acfbd6d059273f9f847a1211f0312edae3bf9b5fd2d6d9312b447fb6"
+  },
+  "dataset_sha256": "7308f8f52bbf3320b450848687a104baeabcfeb358f02b393bf13d202966a619",
+  "dataset_manifest_sha256": "a1558da0bea6c0fc2d12bcfc116754777a4b1ed930940b5048fabb239846e4a3",
+  "source_sha256": {
+    "data/扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+    "data/扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+    "data/扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+    "data/故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+    "data/维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+    "data/选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+    "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "model_identity": {
+    "chat": {
+      "configured_name": "qwen3:4b",
+      "name": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+    },
+    "embedding": {
+      "configured_name": "qwen3-embedding:4b",
+      "name": "qwen3-embedding:4b",
+      "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907"
+    }
+  },
+  "ollama_host": "http://127.0.0.1:11434",
+  "model_configuration": {
+    "chat_model_name": "qwen3:4b",
+    "embedding_model_name": "qwen3-embedding:4b",
+    "reasoning": true,
+    "num_ctx": 8192,
+    "request_timeout": 120
+  },
+  "temperature": 0,
+  "sampling_note": "Production factory source is hashed; each actual model request records its parameters.",
+  "dependencies": {
+    "langchain": "1.3.18",
+    "langchain-core": "1.6.1",
+    "langchain-ollama": "1.1.0",
+    "langgraph": "1.2.11",
+    "chromadb": "1.5.9"
+  },
+  "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "timeout_seconds": 300,
+  "inference_concurrency": 1,
+  "variant_identity": null,
+  "variant_identity_sha256": null,
+  "started_at": "2026-10-07T15:57:14.051267+11:00",
+  "clock_date": "2026-10-07",
+  "definition": "QA uses this version's production rag_summarize with replayed retrieval; each version retains its authorization/budget/runtime behavior. Agent runs full interactions. Synthetic history is separate from actual model requests. Semantic reviews remain independent."
+}
