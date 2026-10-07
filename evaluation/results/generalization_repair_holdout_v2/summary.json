@@ -1,0 +1,378 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 20,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "mrr_at_5": 0.8345238095238096,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 25,
+    "partial": 3,
+    "incorrect": 0,
+    "grounded": 21,
+    "strict_pass": 18,
+    "strict_fail": 10,
+    "strict_pass_fraction_planned": 0.6428571428571429,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 26,
+      "all_required_hit": 25,
+      "policy_hit": 25
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 5,
+    "strict_pass": 5,
+    "strict_fail": 1,
+    "strict_pass_fraction_planned": 0.8333333333333334,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 5,
+    "task_fail": 1,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 128,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.33233124999605934,
+      "p95_seconds": 0.4395330000043032
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 2.797681250001915,
+      "p95_seconds": 4.206863999999769
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 18.25489329999982,
+      "p95_seconds": 34.278325100000075
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 7.668314099999407,
+      "p95_seconds": 52.18635809999978
+    }
+  },
+  "model_usage": {
+    "observed_requests": 56,
+    "requests_by_status": {
+      "ok": 56,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 56,
+    "input_tokens": 102397,
+    "output_tokens": 13609,
+    "request_input_message_counts": {
+      "count": 56,
+      "median_messages": 2.0,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "V2K05",
+      "status": "ok",
+      "review": {
+        "id": "V2K05",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "不能混用、规格功能不同、拖地系统专门过滤污水与混用损坏设备的核心正确。但新增拖地滤网耐水抗污、结构更细密拦截泥沙，以及混用导致堵塞/清洁效率下降，实际模型输入没有这些结构材质和后果关系。HEPA过滤0.3μm和海绵滤网有PDF依据，不因这些有据扩展扣分；未支持扩展仍使忠实度失败。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "result_sha256": "df9133e124956e7442eeb209f70ae90efdc95780c39f4efef81d1b38eeefdd0b",
+        "reviewer": "Codex 助手语义复核（非盲；未调用受测或自评模型）",
+        "evidence_basis": "逐项检查实际model_requests[0].rag_contexts：扫拖60条、PDF尘盒过滤9条及其余输入。",
+        "note": "不能混用、规格功能不同、拖地系统专门过滤污水与混用损坏设备的核心正确。但新增拖地滤网耐水抗污、结构更细密拦截泥沙，以及混用导致堵塞/清洁效率下降，实际模型输入没有这些结构材质和后果关系。HEPA过滤0.3μm和海绵滤网有PDF依据，不因这些有据扩展扣分；未支持扩展仍使忠实度失败。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K06",
+      "status": "ok",
+      "review": {
+        "id": "V2K06",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "说明薄地毯可能无法识别、需确认开启地毯增压，但遗漏先确认机型支持该功能的必要限制。驱动轮打滑、杂物、防滑贴额外检查有本轮故障35条及扫地14条支持，答案标明跨地毯故障检测来源，故内容不完整而忠实度通过。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "result_sha256": "ff58a8e2d20002c4cf935fc881d02ef7051a0d4388cf57102be76988e082fc4f",
+        "reviewer": "Codex 助手语义复核（非盲；未调用受测或自评模型）",
+        "evidence_basis": "实际模型输入model_requests[0].rag_contexts：扫地增压问答、故障35条及扫地14条。",
+        "note": "说明薄地毯可能无法识别、需确认开启地毯增压，但遗漏先确认机型支持该功能的必要限制。驱动轮打滑、杂物、防滑贴额外检查有本轮故障35条及扫地14条支持，答案标明跨地毯故障检测来源，故内容不完整而忠实度通过。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K07",
+      "status": "ok",
+      "review": {
+        "id": "V2K07",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "手机离线可执行已设置任务、机器人连接WiFi和任务设置前提完整正确；水箱充足/尘盒空的扩展在本轮长出差扫拖73条有依据。但额外假设依赖手机的实时参数、APP动态吸力/水量断网后可能无法更新这一具体行为，不在本轮任何实际输入中，不能从手机离线定时执行条目推导。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "result_sha256": "d23676f518898f51027d92ed694c995325b13b0934c563952b8ed8ecd19a9e98",
+        "reviewer": "Codex 助手语义复核（非盲；未调用受测或自评模型）",
+        "evidence_basis": "实际模型输入model_requests[0].rag_contexts：扫拖88条、73条及其余输入，没有动态实时参数更新限制。",
+        "note": "手机离线可执行已设置任务、机器人连接WiFi和任务设置前提完整正确；水箱充足/尘盒空的扩展在本轮长出差扫拖73条有依据。但额外假设依赖手机的实时参数、APP动态吸力/水量断网后可能无法更新这一具体行为，不在本轮任何实际输入中，不能从手机离线定时执行条目推导。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K13",
+      "status": "ok",
+      "review": {
+        "id": "V2K13",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "不同机型差异、不能保证所有机型、需查看对应机型官方参数均正确。本次也明确举例部分机型门槛≤2cm；主结论仍采用PDF多数1.5-2cm/高端2.5cm，≤2cm仅作为部分机型举例，没有把TXT一般≤2cm作为所求常见上限，按冻结金标记1分。实际输入同时支持PDF数值与TXT一般≤2cm，忠实度通过。题面只说扫地问答、未指明TXT/PDF，广义正确与固定gold口径有争议，单独保留原有来源别名歧义；本次已补核对实际机型，不因该项遗漏扣分，不据输出回改金标。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "result_sha256": "f5b1ad8cb136f3798e8f059049c7112087d01d04ffa47159b2bd75f91a6b2aa4",
+        "reviewer": "Codex 助手语义复核（非盲；未调用受测或自评模型）",
+        "evidence_basis": "实际模型输入model_requests[0].rag_contexts：PDF越障12条、扫地TXT门槛61条、选购12条及跨门槛相关段。",
+        "note": "不同机型差异、不能保证所有机型、需查看对应机型官方参数均正确。本次也明确举例部分机型门槛≤2cm；主结论仍采用PDF多数1.5-2cm/高端2.5cm，≤2cm仅作为部分机型举例，没有把TXT一般≤2cm作为所求常见上限，按冻结金标记1分。实际输入同时支持PDF数值与TXT一般≤2cm，忠实度通过。题面只说扫地问答、未指明TXT/PDF，广义正确与固定gold口径有争议，单独保留原有来源别名歧义；本次已补核对实际机型，不因该项遗漏扣分，不据输出回改金标。 根代理已独立核对最终回答、实际资料及原口径说明并确认本判定。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K15",
+      "status": "ok",
+      "review": {
+        "id": "V2K15",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "浮球防污水回流、易拆洗便于清除残留避免异味两个所求点答齐。额外把浮球作用扩大为保证水位稳定及防过高溢出，实际指南23仅支持防回流；指南132的防溢出属于水位显示和及时倾倒，不支持浮球的该作用。拆洗防堵塞、延长设备整体使用寿命也无本次依据，故忠实度不通过。",
+        "evidence_route": "生成路径：选购指南.txt start_index=1114（23）、5719（132）实际进入模型。目标锚覆盖[1.0]；浮球防溢出与拆洗延长整机寿命扩展无据。",
+        "result_sha256": "23973ca3bcb09b13dd1dde9cc211a7c42f44761081d8d33cfd22d3bf097ca899",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K17",
+      "status": "ok",
+      "review": {
+        "id": "V2K17",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "仅支持机型、APP绘制路径、重点区域精准扫拖三个必答点完整，未泛化成全部机型。但把APP‘自定义清扫—先扫后拖’及吸力/出水量设置称为自定义路线的具体设置方法，将不同功能的问答2错套到问答87，虽两条均实际入模仍缺该路线方法的依据，忠实度不通过。",
+        "evidence_route": "生成路径：扫拖一体机器人100问.txt start_index=6736（87）支持路线；start_index=0（2）支持另一种先扫后拖流程，不能混作路线入口。目标锚覆盖[1.0]。",
+        "result_sha256": "1fc5a6849e66de5bb10a97cde751220b921a1affd0ffb9b836c4de5e4cd35956",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K21",
+      "status": "ok",
+      "review": {
+        "id": "V2K21",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "存放断开充电座、不长期插电、每1—2个月补电至80%—90%三个必答点完整。额外断言‘月度补电周期与电池类型相关’并引用维护资料，但实际输入无电池类型决定补电周期的条件；‘长期存放需密封’也把仅配件密封袋规则泛化。拆卸电池存放前50%—70%条目确在本次输入，但不为上述新关系背书。",
+        "evidence_route": "生成路径：维护保养.txt start_index=7542（长期存放8—12）、扫地机器人100问2.txt start_index=2152（34）实际进入模型；目标锚覆盖[1.0,1.0]。电池类型影响周期的新关系无据。",
+        "result_sha256": "ea42da9b6340f2659b3681df1d8291c6f39fcdb03e2677095a33aa39677faabf",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K24",
+      "status": "ok",
+      "review": {
+        "id": "V2K24",
+        "content": 1,
+        "answer_score": 1,
+        "grounded": true,
+        "note": "水位异常的清水刻度、污水已满、水位传感器清理、加水倒污水后重启完整正确。但清理机器人前的通用安全子问未答全程断电，改答安装拖布前干净无硬化、避免二次污染；后者事实本身来自实际维护9且保留‘安装拖布前’条件，因此属于有据但答非所问的安全子问，内容部分正确，忠实度仍真。断电锚本次未进入模型。",
+        "evidence_route": "生成路径：扫拖一体机器人100问.txt start_index=3289（44）及维护保养.txt start_index=3530（9）实际进入模型。标注锚覆盖[1.0,0.0]，无程序引用补齐维护通用8。",
+        "result_sha256": "7f9e94eff8c1f526370a2d3009db1d2e2603e32dc1e45011deda1fef5fbaf6dc",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K26",
+      "status": "ok",
+      "review": {
+        "id": "V2K26",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "所问网络和供电要求已完整回答：升级前连接WiFi、升级中保持开机与网络连接、不可关机断电。题面已假定APP开始升级，未请求具体点击入口，不因未复述‘立即升级’而扣内容分。忠实度不通过：追加‘否则可能导致设备损坏’，实际升级条目只写不可断电，另一固件升级失败条目仅给恢复办法，没有断电导致硬件损坏的具体机制或后果依据。",
+        "evidence_route": "生成路径：扫地机器人100问2.txt start_index=5556（81）及扫地机器人100问.pdf start_index=554（38）进入模型。目标锚覆盖[1.0]；新增设备损坏后果无据。",
+        "result_sha256": "a2301eb5a0b540d6a8e828346a8e69a984c05d235cd8d3b53808b8faaa8104cb",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K28",
+      "status": "ok",
+      "review": {
+        "id": "V2K28",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "每层单独建图、专属扫拖参数、搬运前清理底部相关部位和传感器并校准、手动搬到二楼后启动均交付，未假定自动跨层。但额外要求地图必须标注楼层分界线、APP设置水压/拖布类型及手动确认参数加载，实际多楼层条目没有这些设置、属性或检查条件。将轮组列作传感器、要求APP切换二楼地图也超出本次所给多楼层说明（另一资料反而写传感器自动识别楼层）。具体扩展缺依据，忠实度不通过。",
+        "evidence_route": "生成路径：扫拖一体机器人100问.txt start_index=5365（70）、维护保养.txt start_index=6812（环境14）、扫地机器人100问.pdf start_index=536（25）等进入模型。实际锚覆盖[1.0,1.0]，没有上述楼层边界/水压/拖布类型/参数加载或APP手动切换方法。",
+        "result_sha256": "4e4e82957baabf2472d46b693c7cfab21f4cf33713f98f77ea278403c2132064",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；助手团队非盲评，尚未经真人领域专家独立审核，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2N04",
+      "status": "ok",
+      "review": {
+        "id": "V2N04",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "核心拒答没有编造1004特定日期的单次起止时间或逐分钟噪音，实际通用入模资料确无此明细；但末句“需要查看项目演示CSV文件才能获取相关数据”错误暗示CSV可提供所求明细，而冻结CSV仅为月度汇总，无法反推，故内容2但新增事实忠实度不通过。",
+        "result_sha256": "9400b6046bef0cb1acf174dcce22fa60d50cb1367c6619016da862ab8e55ad97",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结SEMANTIC_REVIEW_V2、题面、必答点、实际模型输入、获准程序资料和本轮工具输出逐项复核；非盲评，有实现者参与，非独立真人或领域专家审核。程序引用不计为实际LLM输入。",
+        "note": "核心拒答没有编造1004特定日期的单次起止时间或逐分钟噪音，实际通用入模资料确无此明细；但末句“需要查看项目演示CSV文件才能获取相关数据”错误暗示CSV可提供所求明细，而冻结CSV仅为月度汇总，无法反推，故内容2但新增事实忠实度不通过。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2A06",
+      "status": "ok",
+      "review": {
+        "id": "V2A06",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "首轮实际历史摘要保留1004/2025-09与两字段并正确回顾；次轮也成功实查正确用户月份，猫砂8次/月正确，但最终把“两个字段”的“两个”黏进自动回充成功率字段名，输出“自动回充成功率两个：未提供”，遗漏工具明确给出的88%并产生与请求字段证据相冲突的缺值反馈。因此工具选择通过不能算全轮语义通过。",
+        "result_sha256": "d8a4f242f5ee6b2830a46f9600e531963e2a4981adbfd9d3c99623fbdbbbc556",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结SEMANTIC_REVIEW_V2、题面、必答点、实际模型输入、获准程序资料和本轮工具输出逐项复核；非盲评，有实现者参与，非独立真人或领域专家审核。程序引用不计为实际LLM输入。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "reason": "历史月份和猫砂/自动回充两字段完整回顾，无其他用户数据或无关工具。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": false,
+            "reason": "实查记录含自动回充成功率88%，但最终错误未提供且缺88%；猫砂8次/月、用户1004和月份正确，故部分正确但忠实度失败。"
+          }
+        ],
+        "task_pass": false,
+        "evidence_route": "explicit seeded history plus this-turn policy-checked record; deterministic field selector delivery defect",
+        "note": "首轮实际历史摘要保留1004/2025-09与两字段并正确回顾；次轮也成功实查正确用户月份，猫砂8次/月正确，但最终把“两个字段”的“两个”黏进自动回充成功率字段名，输出“自动回充成功率两个：未提供”，遗漏工具明确给出的88%并产生与请求字段证据相冲突的缺值反馈。因此工具选择通过不能算全轮语义通过。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

@@ -35,6 +35,7 @@ evaluation/results/*/workers/
 /evaluation/results/agent_task_repair_delivery_v1/
 /evaluation/results/agent_task_repair_delivery_v2/
 /evaluation/results/agent_task_repair_delivery_v3/
+/evaluation/results/generalization_repair_v1/
 
 # Publish only the evidence referenced by active/historical documentation.
 /artifacts/**
@@ -115,6 +116,17 @@ evaluation/results/*/workers/
 !/artifacts/agent_task_repair_v1/checks.json
 !/artifacts/agent_task_repair_v1/pytest_complete.log
 !/artifacts/agent_task_repair_v1/doctor_offline.json
+!/artifacts/generalization_repair_v1/
+!/artifacts/generalization_repair_v1/checks.json
+!/artifacts/generalization_repair_v1/pytest.log
+!/artifacts/generalization_repair_v1/doctor_offline.json
+!/artifacts/generalization_repair_v1/comparisons/
+!/artifacts/generalization_repair_v1/comparisons/generalization/
+!/artifacts/generalization_repair_v1/comparisons/generalization/comparison.json
+!/artifacts/generalization_repair_v1/comparisons/generalization/comparison.md
+!/artifacts/generalization_repair_v1/comparisons/holdout/
+!/artifacts/generalization_repair_v1/comparisons/holdout/comparison.json
+!/artifacts/generalization_repair_v1/comparisons/holdout/comparison.md
 
 
 .git-init-backup/

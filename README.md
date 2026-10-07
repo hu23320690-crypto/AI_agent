@@ -6,9 +6,11 @@
 
 ## 当前完成情况
 
-最新代码说明截至 **2026-10-07**。已修复指定报告字段、跨月差值、长历史目标向检索的传递、维护条件遗漏与生成截断；加入保守的来源引用和厂家参数边界。同一40题回归为知识严格通过 **23/28**、资料不足 **5/6**、Agent全轮任务 **6/6**，40/40执行完成。方法、未通过案例和原始证据见[Agent任务修复](docs/AGENT_TASK_REPAIR.md)。holdout_v2已经用于修复，当前结果属于已见题回归。随后冻结独立新40题并首次测试：知识严格通过 **18/28**、资料不足 **5/6**、Agent全轮 **1/6**，40/40执行完成；报告字段/月选择和组合任务仍有失败，见[新题泛化评测](docs/GENERALIZATION_EVALUATION.md)。不同题集不能按分数差说明提升，判分尚需独立人工审核。
+最终文档与后测整理截至 **2026-10-08**。针对新题暴露的问题完善字段别名、目标/基准月份、报告与知识组合交付、同量门槛判断和来源条目选择；修复报告数量后缀，并恢复已测 RAG 提示。最终 v3 generalization_v1 已见回归：**知识严格 20/28、资料不足 6/6、Agent 全轮 4/6**；holdout_v2 已见回归：**知识严格 22/28、资料不足 6/6、Agent 全轮 6/6**。候选 v2 的退步与失败已封存并保留，不能用单元测试或正确工具调用代替最终答案。知识是否改善应按同题完整结果判断，详见[本次修复与同题对照](docs/AGENT_GENERALIZATION_REPAIR.md)。
 
-最新本机检查：pytest **505项通过、3项Windows符号链接权限跳过、290个子断言通过**，耗时48.26秒；离线doctor146通过、pip check无冲突，见[本次检查](artifacts/agent_task_repair_v1/checks.json)与[测试日志](artifacts/agent_task_repair_v1/pytest_complete.log)。本次CI另见对应PR/Actions，本机验证不能替代Linux或容器验证。
+独立新题首次测试仍保留 **18/28、5/6、1/6**，见[首次泛化评测](docs/GENERALIZATION_EVALUATION.md)。两个题集现均已用于修复，当前分数属于已见题回归；不同题集间分差不能解释为提升，标注和判分尚需独立人工审核。
+
+最新本机检查：pytest **669项通过、3项Windows符号链接权限跳过、291个子断言通过**，耗时51.03秒；离线doctor146通过、pip check无冲突，见[本次检查](artifacts/generalization_repair_v1/checks.json)与[测试日志](artifacts/generalization_repair_v1/pytest.log)。对应提交CI另见PR/Actions。
 
 以下保留**修复前冻结评测**及历史工程化记录，数字不作为最新版本成绩：
 

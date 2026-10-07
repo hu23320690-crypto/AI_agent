@@ -1,0 +1,422 @@
+{
+  "frozen_at_utc": "2026-10-07T04:57:06.164123+00:00",
+  "old_dataset_hashes": {
+    "evaluation/cases.jsonl": "bbc5fabf42ce501372f84db17c236cbf749ddfd8dc6990b463581c8d4ed90be6",
+    "evaluation/holdout_v1/cases.jsonl": "e565d0e1879345b561412cd5757dfd4708ce3895e46dc44154baf694074b8163",
+    "evaluation/holdout_v2/cases.jsonl": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9"
+  },
+  "additional_read_only_screening": [
+    "evaluation/security_cases_v1.json",
+    "evaluation/context_recheck.py",
+    "evaluation/normal_recheck.py"
+  ],
+  "method": "助手逐题阅读旧题与源资料后审核事实和任务组合；字符相似度仅辅助排查，不是语义独立性的证明。",
+  "scope": "题目在此受测业务版本的开发与修复后构造；未用本集项目模型输出选题或改金标准。模型预训练是否接触原资料未知。",
+  "questions": [
+    {
+      "id": "G1K01",
+      "query": "按选购指南，普通家用与地毯场景的吸力建议下限分别是多少？为什么还应关注吸力能否调节？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K06",
+      "closest_old_query": "按资料，普通家庭和养宠家庭分别多久更换主刷？",
+      "character_similarity": 0.2812,
+      "novelty_note": "原60、holdout_v1/v2未测选购吸力3000/4000Pa的场景配对与可调条件。security_cases_v1测的是合成TestVac-S7固定7200Pa抗污染事实，不是本题的选购阈值；不把它宣称为从未出现过吸力主题。"
+    },
+    {
+      "id": "G1K02",
+      "query": "按选购指南，大户型的清水箱和污水箱容量建议下限各是多少？小户型可以考虑多大容量，目的是什么？请分开两个箱体。",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K37",
+      "closest_old_query": "希望少换集尘袋，资料建议至少多大容量，还要关注什么设计？",
+      "character_similarity": 0.2927,
+      "novelty_note": "旧题测水箱漏水、闲置与缺水，没有测清/污水箱的选购容量配对。security_cases_v1的F02是合成机型固定300mL容量，数值300mL曾出现；这里新增污水250ml、小户型200ml和按户型/箱体区分的条件组合。"
+    },
+    {
+      "id": "G1K03",
+      "query": "按选购指南，挑选自动洗拖布款时，为什么优先热风烘干？资料还给了怎样的清洗转速门槛及作用？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K11",
+      "closest_old_query": "按选购资料，有刷与无刷电机相比，推荐哪种、为什么？资料提到的寿命门槛是多少？",
+      "character_similarity": 0.3659,
+      "novelty_note": "旧题已涉及洗拖布失效和拖布清洗，没有测试选购热风烘干及150转/分钟转速门槛；新增选购维度，不复述污水仓维护。"
+    },
+    {
+      "id": "G1K04",
+      "query": "有小孩的家庭按选购指南应关注童锁的什么作用，以及哪些操作入口应能设置童锁？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K38",
+      "closest_old_query": "按选购资料，沙发底只有8厘米时应该关注什么机身高度？",
+      "character_similarity": 0.2857,
+      "novelty_note": "原60、两代holdout、security及context/normal固定目标未覆盖童锁用途与机身/APP双入口条件。"
+    },
+    {
+      "id": "G1K05",
+      "query": "请只回答选购指南的尘盒容量建议，别改成集尘袋容量：一般机型与宠物家庭各建议至少多少毫升？密封尘盒还有什么作用？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K07",
+      "closest_old_query": "尘盒要多长时间倒一次？普通家庭与宠物家庭有什么区别？",
+      "character_similarity": 0.2963,
+      "novelty_note": "旧K37已经测试集尘袋≥2.5L，K07测试尘盒倾倒频率；本题新增尘盒500/600ml容量和密封防异味，并显式区分尘盒与集尘袋，不把同主题算完全陌生。"
+    },
+    {
+      "id": "G1K06",
+      "query": "按维护保养的集尘袋专项条目，普通家庭与多尘或宠物家庭计划多久换袋？如果尚未到周期但集尘量已达80%，还应该等吗？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K03",
+      "closest_old_query": "水箱密封圈计划多久更换？如果还没到周期就已经开裂，能继续等吗？",
+      "character_similarity": 0.3678,
+      "novelty_note": "旧题覆盖集尘袋容量，但没有测环境对应更换周期或80%装填阈值优先于计划周期的条件；新增耗材状态与时间组合。"
+    },
+    {
+      "id": "G1K07",
+      "query": "按维护保养的边刷耗材条目，一般环境和多尘环境的更换周期分别是什么？哪些刷毛状态出现后应立即更换、不等周期？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K20",
+      "closest_old_query": "按维护保养资料，水箱的每周除垢流程是什么？请包括稀释比例、浸泡时间和后续处理。",
+      "character_similarity": 0.2609,
+      "novelty_note": "旧K05测试边刷是否旋转/磨损与沿边模式，未测<1cm阈值、2-3月与多尘1月的耗材规则。新增具体阈值及环境/状态条件，不复述旧故障排查。"
+    },
+    {
+      "id": "G1K08",
+      "query": "按耗材专项维护中的“尘盒滤网（初效）”条目，表面清灰、水洗、洗后使用和更换分别怎么安排？请勿套用HEPA滤网周期。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K19",
+      "closest_old_query": "按维护保养中的HEPA滤网条目，请列出日常清理、定期水洗、晾干和更换安排，并说明水洗时的限制。",
+      "character_similarity": 0.25,
+      "novelty_note": "V2K19已测试HEPA滤网，V2A04/A05测试污水仓滤网；本题是不同部件初效尘盒滤网及其独立每日/月/6月安排。晾干这一通用动作曾测过，但本部件周期配对未测。"
+    },
+    {
+      "id": "G1K09",
+      "query": "按选购指南，机身外壳、拖布支架和密封圈分别优先选什么材质？外壳和支架这样选分别是为了什么？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K11",
+      "closest_old_query": "按选购资料，有刷与无刷电机相比，推荐哪种、为什么？资料提到的寿命门槛是多少？",
+      "character_similarity": 0.241,
+      "novelty_note": "旧题测试驱动轮橡胶/塑料和密封圈周期，但未测试外壳、拖布支架、密封圈三部件材质配对；与拟新增长历史清洁刷任务无事实共用。"
+    },
+    {
+      "id": "G1K10",
+      "query": "大户型拖地途中水箱缺水，按扫拖问答可以用哪两种办法安排后续拖地？具备断点续拖的机型加水后会从哪里继续？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K24",
+      "closest_old_query": "自动洗拖布机型报“清洁仓水位异常”，按扫拖问答先检查什么、再如何处理？清理机器人前还需遵守哪条通用安全要求？",
+      "character_similarity": 0.2095,
+      "novelty_note": "旧K36涉及低电量断点续扫，V2K18涉及缺水暂停拖地/保留扫地，K12涉及分区参数。这里新增缺水后断点续拖的位置与分区分批替代办法；相邻事实曾出现，属于新条件与动作组合。"
+    },
+    {
+      "id": "G1K11",
+      "query": "按扫拖问答，若采用APP“缓冲区”办法避免拖扫弄湿地毯边缘，该区域应怎样设置？机器人到离地毯多远处会怎样切换功能？资料还给了哪种替代功能？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K08",
+      "closest_old_query": "按扫拖问答，正常系统升级是否会清空扫拖设置？若升级后设置异常，资料建议怎么处理？",
+      "character_similarity": 0.2385,
+      "novelty_note": "旧K18已测地毯禁拖区和抬升/只扫不拖；本题新增边缘缓冲区与10cm空间阈值。抬升和只扫不拖为已见事实，按新增空间条件组合标注，非完全新主题。"
+    },
+    {
+      "id": "G1K12",
+      "query": "按扫拖问答，瓷砖缝隙污渍拖不净时，高频振动功能是否所有机型都支持？支持时出水档位、清洁液类型和拖扫次数怎么安排？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K17",
+      "closest_old_query": "自定义扫拖路线是不是每台机型都有？支持时资料说怎样设、适合什么用途？",
+      "character_similarity": 0.3111,
+      "novelty_note": "旧K14测木地板/瓷砖通用出水档位，但未测瓷砖缝的高频振动机型限制、专用瓷砖清洁液与多次拖扫。中档水量属于相邻已见事实，新点是功能条件和清洁组合。"
+    },
+    {
+      "id": "G1K13",
+      "query": "扫拖机器人报警“清洁液浓度过高”，按扫拖问答从处理旧液到恢复运行应按什么顺序操作？本题不要求猜厂家唯一兑水比例。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K24",
+      "closest_old_query": "自动洗拖布机型报“清洁仓水位异常”，按扫拖问答先检查什么、再如何处理？清理机器人前还需遵守哪条通用安全要求？",
+      "character_similarity": 0.3273,
+      "novelty_note": "V2N03问未知第三方产品的唯一比例，H01问开封存放；没有测试浓度过高报警的排空/多次冲洗/重新配比/重启闭环。这里不新增任何厂家比例，避免把通用建议当具体产品标准。"
+    },
+    {
+      "id": "G1K14",
+      "query": "按扫地问答，“滋滋声”“咔咔声”“嗡嗡声”分别多对应什么原因？资料对这些线索的处理方向是什么，能当成已确认诊断吗？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K13",
+      "closest_old_query": "扫地问答给出的常见门槛跨越高度范围是多少？这个数值能当成所有机型的保证吗？",
+      "character_similarity": 0.2553,
+      "novelty_note": "旧K30/K08/A11和context_recheck测试主刷卡死或缠发处理，但未测试三种声音与原因的配对，更未将声音线索与非唯一诊断边界合并提问。清理/售后是已见通用动作，声音配对及限定为新事实组合。"
+    },
+    {
+      "id": "G1K15",
+      "query": "拖地系统的传感器受潮、表面有水渍，按资料应该怎样清洁和安排使用环境？能用湿布或酒精擦吗？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A04",
+      "closest_old_query": "如果刚才说的拖地系统滤网是污水仓滤网，按维护资料多久清洗和更换？破了还要等周期吗？",
+      "character_similarity": 0.3294,
+      "novelty_note": "新故障与禁忌组合：传感器受潮后的环境恢复，以及明确禁止湿布、酒精。V2K25、V2K28和K28已有传感器擦拭，K25已有一般清洁工具限制；不能把干布擦拭本身称为未测事实。资料一直在知识库中，本题仅相对于既有题目评分要点新增，不声称模型从未见过原文。"
+    },
+    {
+      "id": "G1K16",
+      "query": "机器人防跌落功能异常，按资料应检查和清理哪里，之后在什么地面做校准、测试？如果确认传感器损坏怎么办？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K28",
+      "closest_old_query": "把扫拖机器人从一楼搬到二楼前后，按资料应怎样准备地图、楼层参数以及传感器？请不要假定它能自动跨楼层移动。",
+      "character_similarity": 0.2745,
+      "novelty_note": "新对象操作链：防跌落传感器的平地校准、测试及损坏分流。K24已考有防跌落功能仍需楼梯防护，K28/V2K28已有其他传感器清理；本题不把防坠落或擦拭概念称为完全未见。资料仍是既有知识库资料。"
+    },
+    {
+      "id": "G1K17",
+      "query": "尘盒已经装上，但机器人仍报警“尘盒未安装”。按故障排除资料，需要分别检查和处理哪两处？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K23",
+      "closest_old_query": "机身发热严重又有异味，按故障排除资料，应立即做什么，随后检查哪些风险并如何处理？",
+      "character_similarity": 0.3373,
+      "novelty_note": "新故障对象：尘盒安装后的感应误报及扣紧步骤。V2K25已考水箱装着却未检测到，K07已有尘盒倾倒；结构相似但部件及来源步骤不同，应称新对象迁移题而非所有处理动作全新。资料仍在原知识库内。"
+    },
+    {
+      "id": "G1K18",
+      "query": "APP里设了禁区，机器人还是会进入。按扫地问答，应怎样重新设置并保存，还要检查哪个可能临时放开禁区的选项？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K27",
+      "closest_old_query": "手机APP连上了却控制不了机器人，有哪些检查步骤？",
+      "character_similarity": 0.2821,
+      "novelty_note": "新故障程序与开关：禁区边界重设、保存后识图及禁区临时取消。K01、K18、K40已涉及设置禁区或APP功能，K04已涉及漏扫区域排查，故禁区概念不是新事实；本题新增失效恢复的明确步骤。原资料不属于未见语料。"
+    },
+    {
+      "id": "G1K19",
+      "query": "机器人提示内存不足，无法建图；准备清理旧地图时，APP又无法删除。按故障排除资料，建图失败和删除失败各应检查、处理什么？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K23",
+      "closest_old_query": "机身发热严重又有异味，按故障排除资料，应立即做什么，随后检查哪些风险并如何处理？",
+      "character_similarity": 0.32,
+      "novelty_note": "新连锁故障组合：容量不足无法建图，再遇旧地图无法删除。K02、K31以及V2K28已有重新建图或楼层地图，删除旧图这一动作有重叠；新增的是缓存、锁定、APP卡顿与在线状态的分层排查。不能称整条建图流程完全未见，源资料原本可检索。"
+    },
+    {
+      "id": "G1K20",
+      "query": "定点清扫的位置总不精准。按扫地问答，地图、APP里的点位和目标区域环境分别该怎么处理，最后让机器人做什么？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K30",
+      "closest_old_query": "主刷完全不转了，先怎么处理，仍不转怎么办？",
+      "character_similarity": 0.2432,
+      "novelty_note": "新功能故障步骤：定点清扫的APP重新标定和重新定位。K02/K31已有地图与环境障碍处理，K40已有APP功能；本题仅点位恢复程序为新评分要点，地图和清障是旧事实的新组合。源资料一直在知识库中。"
+    },
+    {
+      "id": "G1K21",
+      "query": "自动集尘功能不工作，按扫地问答，除了集尘袋之外，还需要检查或清理哪些位置、确认哪种连接状态？",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "K13",
+      "closest_old_query": "刚加完水水箱就漏了，应检查哪些位置？",
+      "character_similarity": 0.25,
+      "novelty_note": "新运行条件组合：自动集尘不启动时的仓门、通道与机座连接检查。K37及V2A01涉及集尘袋容量或消耗，已有维护主题但未把上述启动条件作为答案要点。本题是新故障程序，不能声称相关部件或可检索原文完全未见。"
+    },
+    {
+      "id": "G1K22",
+      "query": "集尘座出风口堵塞、集尘效率下降。按故障排除资料，出风口和滤网分别检查什么、怎样处理？",
+      "closest_old_dataset": "evaluation/holdout_v1/cases.jsonl",
+      "closest_old_id": "H07",
+      "closest_old_query": "工作时电量从80%突然跳到20%，按故障资料应检查什么、如何处理？",
+      "character_similarity": 0.3467,
+      "novelty_note": "新对象故障：集尘座出风口与其滤网导致的集尘效率下降。K29和H02已有机器人吸力/风道滤网堵塞处理，V2K19已有HEPA维护；堵塞清理是旧主题，但基站出风口定位及两处排查组合是新题，不应声称完全未见。仍使用原知识库。"
+    },
+    {
+      "id": "G1K23",
+      "query": "我在清扫时通过APP发送回充指令，但机器人没有反应。按故障排除资料，先如何处理当前清扫，还要确认哪些网络、充电座条件？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K23",
+      "closest_old_query": "机身发热严重又有异味，按故障排除资料，应立即做什么，随后检查哪些风险并如何处理？",
+      "character_similarity": 0.303,
+      "novelty_note": "新回充触发程序：APP回充无响应时暂停当前清扫及网络、基站状态检查。K23已考充电座红外维护，K27已有APP控制故障，H10是回充实时数据拒答；本题新增工作状态和回充条件的组合，网络或充电座概念并非未见。资料仍在原知识库中。"
+    },
+    {
+      "id": "G1K24",
+      "query": "自动洗拖布机型的清洁仓水泵不工作、不出水，按故障排除资料应排查哪三项，分别怎样处理？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K22",
+      "closest_old_query": "拖地后出现明显水痕，按故障资料要检查哪三项、分别怎么调或处理？",
+      "character_similarity": 0.4932,
+      "novelty_note": "新故障部位与处理：清洁仓水泵堵塞、线路松动与水泵故障的三分支。K33已有自动洗拖布失效的水量、污水和清洁刷排查，V2K24已有水位传感器故障；新增泵与线路步骤，自动洗拖布主题本身有覆盖，不能称全新场景或原文未见。"
+    },
+    {
+      "id": "G1K25",
+      "query": "水箱出水管堵塞了，按扫拖问答可以用什么轻轻疏通，操作时应避免什么，疏通后还需做哪一步？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K15",
+      "closest_old_query": "污水箱带浮球感应有什么作用？选购时为什么还要看是否容易拆洗？",
+      "character_similarity": 0.274,
+      "novelty_note": "新操作方法与限制：出水管堵塞时的工具、力度限制及水箱冲洗顺序。H08已有出水管漏水、V2K20已有水箱除垢，水管/水箱已被问过；堵塞疏通与破损漏水是不同故障，本题只新增这些程序要点，不声称部件或原文未见。"
+    },
+    {
+      "id": "G1K26",
+      "query": "自动洗拖布机型的污水仓里有污水，却无法倾倒。按故障排除资料应检查哪两处，分别如何处理？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K23",
+      "closest_old_query": "机身发热严重又有异味，按故障排除资料，应立即做什么，随后检查哪些风险并如何处理？",
+      "character_similarity": 0.4578,
+      "novelty_note": "新污水排出故障：仓卡扣与排水口两处处理。K16、V2K24以及V2A04/V2A05已有污水仓倾倒、滤网维护或晾干，因此污水仓主题有明显覆盖；本题新增的是无法倾倒时的卡扣及排水口分流，不把整类维护称为未见。资料仍在既有知识库中。"
+    },
+    {
+      "id": "G1K27",
+      "query": "按故障排除和维护资料，机器人在低于5℃的环境无法开机，应检查什么、怎样恢复启动？冬季充电环境温度至少是多少？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K11",
+      "closest_old_query": "按选购资料，有刷与无刷电机相比，推荐哪种、为什么？资料提到的寿命门槛是多少？",
+      "character_similarity": 0.2826,
+      "novelty_note": "新故障与维护组合：低于5℃无法开机的检查、室温30分钟恢复程序及充电最低温度。H04已有长期存放5℃—35℃，V2K21已有补电周期；数值5℃和电池主题有旧覆盖，但存放温度不能替代工作/充电限制。本题是新用途组合，非全新语料。"
+    },
+    {
+      "id": "G1K28",
+      "query": "机器人识别不了中文WiFi名称，按故障排除资料需要检查哪些名称或兼容性因素，建议怎样改名、恢复连接？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K23",
+      "closest_old_query": "机身发热严重又有异味，按故障排除资料，应立即做什么，随后检查哪些风险并如何处理？",
+      "character_similarity": 0.3111,
+      "novelty_note": "新兼容性故障与操作：中文SSID支持、特殊字符、英文/数字改名重连。K27、V2K07、V2A03已有网络控制或断网条件，WiFi主题有旧覆盖，但名称兼容与重命名程序为新评分要点。不能声称WiFi知识或原文完全未见。"
+    },
+    {
+      "id": "G1N01",
+      "query": "我没有提供自来水检测数据。仅凭现有项目资料，请给出我家今天加进水箱的水硬度准确是多少mg/L（以CaCO3计），不要给地区平均值。",
+      "closest_old_dataset": "evaluation/holdout_v1/cases.jsonl",
+      "closest_old_id": "H10",
+      "closest_old_query": "请给出我家设备今天最后一次回充的准确时间。",
+      "character_similarity": 0.2558,
+      "novelty_note": "新不足类别：环境理化实测，不是未知型号或清洁液比例换名字。"
+    },
+    {
+      "id": "G1N02",
+      "query": "机器人曾经进水，但我没提供任何电气检测结果。请准确报出它此刻的绝缘电阻是多少MΩ，并确认电路是否已经安全恢复。",
+      "closest_old_dataset": "evaluation/holdout_v1/cases.jsonl",
+      "closest_old_id": "H04",
+      "closest_old_query": "长期存放机器人时，资料给出的温度和相对湿度范围是多少？",
+      "character_similarity": 0.2195,
+      "novelty_note": "新不足类别：物理故障状态和测量认证，不能由通用处理建议作个体诊断。"
+    },
+    {
+      "id": "G1N03",
+      "query": "只依据演示CSV，请给出用户1009在2025年全年实际清理的宠物毛发总重量，单位克。不能把月度清理率当重量。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2N04",
+      "closest_old_query": "仅依据项目演示CSV，用户1004在2025年9月18日那一次清扫的开始时间、结束时间和逐分钟噪音曲线是什么？",
+      "character_similarity": 0.3818,
+      "novelty_note": "新不足类别：汇总所需原始量缺失；不是仅查不到某年月记录。"
+    },
+    {
+      "id": "G1N04",
+      "query": "仅看演示CSV，用户1008从2025年6月到11月避障成功率的提升中，精确有多少个百分点来自新算法，多少来自家具移动？请给出分项因果贡献。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2N04",
+      "closest_old_query": "仅依据项目演示CSV，用户1004在2025年9月18日那一次清扫的开始时间、结束时间和逐分钟噪音曲线是什么？",
+      "character_similarity": 0.352,
+      "novelty_note": "新不足类别：观测数据无法识别分项因果贡献。"
+    },
+    {
+      "id": "G1N05",
+      "query": "我没上传受潮程度、滤网照片或检测结果。假设一片HEPA滤网昨晚受潮过，请准确预测它现在还能连续用多少小时才失效。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2N02",
+      "closest_old_query": "我没有上传设备状态截图，请准确报出我现在这片HEPA滤网还剩多少天寿命、多少百分比。",
+      "character_similarity": 0.3265,
+      "novelty_note": "新不足类别：环境损伤后的个体寿命预测；区别于旧题直接索要APP剩余天数/百分比。"
+    },
+    {
+      "id": "G1N06",
+      "query": "只根据现有机器人知识库，能确认我现有设备支持Home Assistant完全离线本地控制吗？若支持，请给出其真实实体ID、服务名和本地控制端口。我的设备型号和集成配置尚未提供。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2N06",
+      "closest_old_query": "只看现有选购资料，能保证我家这台机器人实测PM2.5去除率精确是多少吗？请给出实验测量值。",
+      "character_similarity": 0.2105,
+      "novelty_note": "新不足类别：特定生态集成兼容性与实例配置；并非改写未知型号的私有蓝牙协议。"
+    },
+    {
+      "id": "G1A01",
+      "query": "请查我2025年3月记录，只回答手动操作占比和耗电量。没有记录的指标请明确说未提供，不要换成其他指标。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A01",
+      "closest_old_query": "请查询我2025年10月记录，只列跨楼层失败频次、玩具避障率和集尘袋每月消耗。",
+      "character_similarity": 0.3556,
+      "novelty_note": "用户1005、2025-03及手动操作占比+耗电量组合此前未作为Agent任务；混合已知/未知字段是任务组合泛化。查表和缺信息机制已见，不称为完全新能力。"
+    },
+    {
+      "id": "G1A02",
+      "query": "请查我2025年5月，只列宠物毛发清理率和滤网剩余寿命。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A01",
+      "closest_old_query": "请查询我2025年10月记录，只列跨楼层失败频次、玩具避障率和集尘袋每月消耗。",
+      "character_similarity": 0.4478,
+      "novelty_note": "查表、相对月份、差值机制已见；新增1009在4/5月的字段组合、向前取月、比较方向及百分数/天数混合，属于任务组合泛化。"
+    },
+    {
+      "id": "G1A02",
+      "query": "那前一个月这两项是多少？与刚才的5月相比各变了多少？请保留单位。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A02",
+      "closest_old_query": "那下一月这两个数各是多少？与刚才相比分别增加了多少？",
+      "character_similarity": 0.6207,
+      "novelty_note": "查表、相对月份、差值机制已见；新增1009在4/5月的字段组合、向前取月、比较方向及百分数/天数混合，属于任务组合泛化。"
+    },
+    {
+      "id": "G1A03",
+      "query": "查询我2025年12月的避障成功率和主刷剩余寿命，只给这两项。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A02",
+      "closest_old_query": "请查我2025年11月的覆盖率和日均清扫面积，只需要这两个数。",
+      "character_similarity": 0.5484,
+      "novelty_note": "已有缺记录、相对月份机制；此处新增1008+两字段、从12月跨年及禁止缓存/相邻月替代的组合，不能把换数字称完全新能力。"
+    },
+    {
+      "id": "G1A03",
+      "query": "继续下一月，仍按这两项查询。如果没有这个月的记录，就说未找到，别拿12月或其他月份的数字充当本月。",
+      "closest_old_dataset": "evaluation/cases.jsonl",
+      "closest_old_id": "A05",
+      "closest_old_query": "请查询我本月的使用记录。",
+      "character_similarity": 0.2295,
+      "novelty_note": "已有缺记录、相对月份机制；此处新增1008+两字段、从12月跨年及禁止缓存/相邻月替代的组合，不能把换数字称完全新能力。"
+    },
+    {
+      "id": "G1A04",
+      "query": "请按维护保养中的电池专项条目，说明通常更换周期，以及哪些异常需要提前更换。注意把续航门槛说清楚。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K19",
+      "closest_old_query": "按维护保养中的HEPA滤网条目，请列出日常清理、定期水洗、晾干和更换安排，并说明水洗时的限制。",
+      "character_similarity": 0.2737,
+      "novelty_note": "电池条目和CSV是已有资料；知识门槛+双字段查询+指标不可直接互换的混合任务此前未见，新增的是任务组合与证据边界，不是新领域或新工具。"
+    },
+    {
+      "id": "G1A04",
+      "query": "再查我2025年11月，只列电池衰减和手动操作占比；这些月记录能否直接证明我已经达到了刚才的续航更换门槛？不要把不同指标当成同一个量。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A02",
+      "closest_old_query": "请查我2025年11月的覆盖率和日均清扫面积，只需要这两个数。",
+      "character_similarity": 0.3061,
+      "novelty_note": "电池条目和CSV是已有资料；知识门槛+双字段查询+指标不可直接互换的混合任务此前未见，新增的是任务组合与证据边界，不是新领域或新工具。"
+    },
+    {
+      "id": "G1A05",
+      "query": "请回顾：我们最初选的是哪个具体清洁刷？关于动作、不同章节频率以及资料不足，我有哪些要求？",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A05",
+      "closest_old_query": "请回顾一下，这次我要维护的具体部件是什么？我要求你保留什么提醒，以及遇到资料不足时怎么办？",
+      "character_similarity": 0.3371,
+      "novelty_note": "长历史机制已见。新增目标为基站清洁仓清洁刷，新增动作分类、部件排除以及不同章节冲突不强行统一的组合要求，不把换部件等同于全新记忆机制。"
+    },
+    {
+      "id": "G1A05",
+      "query": "那它按维护资料该如何清理、多久水洗和更换，磨损变形时怎么办？请遵守刚才回顾的要求。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A05",
+      "closest_old_query": "那它按维护资料应多久清洗和更换？破损时要等到规定月份再换吗？",
+      "character_similarity": 0.4507,
+      "novelty_note": "长历史机制已见。新增目标为基站清洁仓清洁刷，新增动作分类、部件排除以及不同章节冲突不强行统一的组合要求，不把换部件等同于全新记忆机制。"
+    },
+    {
+      "id": "G1A06",
+      "query": "机器人长期存放后准备重新使用。按长期存放维护资料，先检查哪些异常？随后开机空转多久，观察和测试什么？这只是流程咨询，我还没测试过机器。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2K01",
+      "closest_old_query": "按维护资料，万向轮、驱动轮的转轴多久润滑一次？每次多少滴，为什么不能多滴？",
+      "character_similarity": 0.25,
+      "novelty_note": "长期存放时的温湿度、补电旧题已见；重新启用检查/空转/电量地图校准及局部结果不能免流程的多轮组合未在旧题中出现。"
+    },
+    {
+      "id": "G1A06",
+      "query": "假设刚才的空转没有异响，是否就能因此跳过充电校准和旧地图处理？请分别写资料要求的操作与时长（若有），不要声称我的机器已通过检测。",
+      "closest_old_dataset": "evaluation/holdout_v2/cases.jsonl",
+      "closest_old_id": "V2A06",
+      "closest_old_query": "现在就按刚才的要求查询，只回答那两项。",
+      "character_similarity": 0.1687,
+      "novelty_note": "长期存放时的温湿度、补电旧题已见；重新启用检查/空转/电量地图校准及局部结果不能免流程的多轮组合未在旧题中出现。"
+    }
+  ]
+}

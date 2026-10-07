@@ -44,10 +44,10 @@ def test_newest_literal_user_target_replaces_an_old_target():
     assert '新的风机' in retrieval and '旧滤芯' not in retrieval
 
 
-def test_complete_tool_query_does_not_get_an_unrelated_old_goal():
+def test_model_rewrite_cannot_override_a_known_user_goal():
     context = build_query_context('它多久清洗？', task_references=['对象是旧滤芯，说明维护。'])
     retrieval = contextualize_query('主刷多久清洗？', query_context=context)
-    assert '主刷' in retrieval and '旧滤芯' not in retrieval
+    assert '旧滤芯' in retrieval and '主刷' not in retrieval
 
 
 def test_shortened_subject_can_be_refined_by_a_quoted_specific_target():
@@ -63,6 +63,52 @@ def test_goal_recall_question_does_not_replace_original_target():
         '请回顾一下，这次我要维护的具体部件是什么？我要求保留什么提醒？'])
     assert context['user_references'] == [goal]
     assert goal in contextualize_query(question, question=question, query_context=context)
+
+
+@pytest.mark.parametrize('question', [
+    '那它按维护资料该如何清理、多久水洗和更换？',
+    '它根据维护保养资料应怎么清洁？',
+    '那它要如何维护？请遵守刚才回顾的要求。',
+])
+def test_pronoun_with_source_and_modal_keeps_the_declared_component(question):
+    goal = '我这次要维护的是净化器进风仓内的预过滤棉，不是出风口的活性炭滤芯。'
+    recall = '请回顾：我们最初选的是哪个具体滤材？关于动作、不同章节频率以及资料不足，我有哪些要求？'
+    context = build_query_context(question, task_references=[goal], user_history=[
+        '第 63 轮准备进度：整理工具。', '第 64 轮准备进度：整理便签。', recall])
+    assert context['user_references'] == [goal]
+    retrieval = contextualize_query(question, question=question, query_context=context)
+    assert goal in retrieval
+    assert '预过滤棉' in retrieval
+    assert '第 63 轮' not in retrieval and '哪个具体滤材' not in retrieval
+
+
+def test_declared_task_then_real_object_switch_still_replaces_the_old_goal():
+    old_goal = '我这次要维护的是净化器进风仓内的预过滤棉。'
+    new_goal = '我准备清理的是加湿器底座的水位传感器。'
+    context = build_query_context('它该怎么处理？', task_references=[old_goal],
+                                  user_history=[new_goal])
+    retrieval = contextualize_query('它该怎么处理？', query_context=context)
+    assert new_goal in retrieval and old_goal not in retrieval
+
+
+def test_complete_tool_rewrite_after_recall_is_not_discarded_as_a_pronoun_subject():
+    question = '那它按操作资料该如何检查？'
+    context = build_query_context(question, task_references=['对象是加湿器底座的水位传感器。'])
+    retrieval = contextualize_query('加湿器底座的水位传感器如何检查？',
+                                    question=question, query_context=context)
+    assert retrieval.startswith(question)
+    assert '加湿器底座的水位传感器' in retrieval
+
+
+def test_conflicting_model_rewrite_never_replaces_a_specific_user_component():
+    question = '那它按维护资料该如何清理？'
+    context = build_query_context(question, task_references=[
+        '我这次要维护的是净化器进风仓内的预过滤棉，不是出风口的活性炭滤芯。'])
+    retrieval = contextualize_query('净化器出风口活性炭滤芯如何清理？',
+                                    question=question, query_context=context)
+    assert '历史用户原文' in retrieval
+    assert '我这次要维护的是净化器进风仓内的预过滤棉' in retrieval
+    assert '模型补全' not in retrieval
 
 
 @pytest.mark.parametrize('number_spacing', ['第63轮', '第 63轮', '第63 轮', '第 63 轮', '第\t63\t轮'])
@@ -150,3 +196,27 @@ def test_real_agent_tool_receives_program_owned_user_quotes_without_public_schem
     assert '不能拿我当知识事实' not in json.dumps(args.kwargs['query_context'], ensure_ascii=False)
     assert '模型提到了其他部件' not in json.dumps(args.kwargs['query_context'], ensure_ascii=False)
     assert set(rag_summerize.tool_call_schema.model_json_schema()['properties']) == {'query'}
+
+
+def test_agent_after_recall_passes_original_goal_even_when_tool_rewrites_a_different_object():
+    from dataclasses import replace
+    goal = '我这次要维护的是净化器进风仓内的预过滤棉，不是出风口活性炭滤芯。'
+    question = '那它按维护资料该如何清理？请遵守刚才回顾的要求。'
+    model = ScriptedModel(responses=[
+        call('rag_summarize', query='出风口活性炭滤芯如何清理？'), answer('模型任意改写')])
+    agent = ReactAgent('1001', model=model,
+                       context_policy=replace(scripted_context_policy(), summary_enabled=False))
+    agent.summary = {'topic': '', 'user_requests': [], 'reported_results': [],
+                     'open_questions': [], 'task_references': [goal]}
+    agent.messages = [HumanMessage(content='第 63 轮准备进度：整理便签。'), answer('已记录'),
+                      HumanMessage(content='第 64 轮准备进度：整理工具。'), answer('已记录'),
+                      HumanMessage(content='请回顾：最初选的是哪个具体滤材？关于动作和频率我有哪些要求？'),
+                      answer('未授权作为知识事实的摘要改写')]
+    def retrieve(query, *, question, query_context):
+        return contextualize_query(query, question=question, query_context=query_context)
+    with patch('agent.tools.agent_tools.get_rag_service') as service:
+        service.return_value.rag_summarize.side_effect = retrieve
+        result = ''.join(agent.execute_stream(question))
+    assert result.startswith(question)
+    assert goal in result and '模型补全' not in result
+    assert '第 63 轮' not in result and '哪个具体滤材' not in result

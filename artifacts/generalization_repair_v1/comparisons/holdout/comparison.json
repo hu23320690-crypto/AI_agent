@@ -1,0 +1,1031 @@
+{
+  "before_run": "agent_task_repair_delivery_v4",
+  "after_run": "generalization_repair_holdout_v3",
+  "dataset_sha256": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9",
+  "before_manifest_sha256": "a070171493c77ca4b9a032cfc7aa86d26e702389c122821da5606be4c70dff02",
+  "after_manifest_sha256": "785f567aef22e90e13ad0d25f960d4c8a8acc020518a40e14b6bfc600af84e9d",
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  },
+  "groups": {
+    "knowledge": {
+      "planned": 28,
+      "improved": 1,
+      "regressed": 2,
+      "stable_pass": 21,
+      "stable_fail": 4,
+      "unknown": 0
+    },
+    "unanswerable": {
+      "planned": 6,
+      "improved": 1,
+      "regressed": 0,
+      "stable_pass": 5,
+      "stable_fail": 0,
+      "unknown": 0
+    },
+    "agent": {
+      "planned": 6,
+      "improved": 0,
+      "regressed": 0,
+      "stable_pass": 6,
+      "stable_fail": 0,
+      "unknown": 0
+    }
+  },
+  "before": {
+    "planned": 40,
+    "completed": 40,
+    "statuses": {
+      "ok": 40,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 0
+    },
+    "reviewed": 40,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 40,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 0
+    },
+    "retrieval": {
+      "evaluated": 28,
+      "planned": 28,
+      "hit_counts": {
+        "1": 20,
+        "3": 27,
+        "5": 28
+      },
+      "all_required_hit_counts": {
+        "1": 17,
+        "3": 25,
+        "5": 27
+      },
+      "all_required_metrics_observed": 28,
+      "policy_hit_counts": {
+        "1": 17,
+        "3": 25,
+        "5": 27
+      },
+      "mrr_at_5": 0.8345238095238096,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 28,
+      "reviewed": 28,
+      "errors": 0,
+      "execution_complete": 28,
+      "not_run": 0,
+      "unknown": 0,
+      "full_correct": 24,
+      "partial": 4,
+      "incorrect": 0,
+      "grounded": 24,
+      "strict_pass": 23,
+      "strict_fail": 5,
+      "strict_pass_fraction_planned": 0.8214285714285714,
+      "actual_input_evidence": {
+        "observed": 28,
+        "any_hit": 27,
+        "all_required_hit": 26,
+        "policy_hit": 26
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "errors": 0,
+      "execution_complete": 6,
+      "not_run": 0,
+      "unknown": 0,
+      "full_correct": 6,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 5,
+      "strict_pass": 5,
+      "strict_fail": 1,
+      "strict_pass_fraction_planned": 0.8333333333333334,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "task_pass": 6,
+      "task_fail": 0,
+      "unknown": 0,
+      "tool_selection_pass": 6,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 128,
+      "observed_model_requests": 25
+    },
+    "latency": {
+      "retrieval": {
+        "count": 34,
+        "median_seconds": 0.34134719999929075,
+        "p95_seconds": 0.4809209999984887
+      },
+      "rag_generation": {
+        "count": 34,
+        "median_seconds": 2.5494070000022475,
+        "p95_seconds": 3.811440900000889
+      },
+      "agent_turn": {
+        "count": 11,
+        "median_seconds": 18.320437599999423,
+        "p95_seconds": 36.341715899998235
+      },
+      "case_wall_all_statuses": {
+        "count": 40,
+        "median_seconds": 7.312249349999547,
+        "p95_seconds": 53.90383169999768
+      }
+    },
+    "model_usage": {
+      "observed_requests": 57,
+      "requests_by_status": {
+        "ok": 57,
+        "error": 0,
+        "running": 0
+      },
+      "usage_records": 57,
+      "input_tokens": 107397,
+      "output_tokens": 13409,
+      "request_input_message_counts": {
+        "count": 57,
+        "median_messages": 2,
+        "p95_messages": 9
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "V2K01",
+        "status": "ok",
+        "review": {
+          "id": "V2K01",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "剂量及不可多滴主体正确，但把每月改为固定每30天，并把粘灰与卡顿关联为具体因果；本次资料未提供固定30天口径，严格频次与忠实度不通过。",
+          "result_sha256": "8d2ec1b9a8c1833c98e8376e6d0c7e0460b74ae41408f58814634d318b902fe8",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K05",
+        "status": "ok",
+        "review": {
+          "id": "V2K05",
+          "answer_score": 2,
+          "grounded": false,
+          "reason": "不可混用、规格功能不同、污水专用与损坏风险完整，但新增扫地滤网过滤毛发等固体颗粒的具体说明没有本次输入直接依据；其他主刷清理事实不能替代滤网事实。",
+          "result_sha256": "b3d66e6c07cd1dc93debfff320b4d6c319e44a0986ea715d46749999c5e368b9",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K13",
+        "status": "ok",
+        "review": {
+          "id": "V2K13",
+          "answer_score": 1,
+          "grounded": true,
+          "reason": "实际输入同时有两份扫地问答：一般≤2cm与多数1.5-2cm/高端2.5cm。输出选择后一口径且保留机型限制，但没有交付冻结必答的一般≤2cm；保留题面来源名称歧义，不改金标准。",
+          "result_sha256": "fb7c21a474fd374fdb804337c5b403064f56f98a74c97a35d887eae1e8a4cb96",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K17",
+        "status": "ok",
+        "review": {
+          "id": "V2K17",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "功能仅支持机型、APP绘路径与精准清扫主体正确，但把另一条先扫后拖模式设置当作自定义路线具体操作；实际来源未支持这种功能关联。",
+          "result_sha256": "9552ab0467af9b5dd18fef0be87f07099f3355c92b94c84cd35a99f1b7128b79",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K24",
+        "status": "ok",
+        "review": {
+          "id": "V2K24",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "清水刻度、污水、清理水位传感器、加水倒污水重启正确，但仅说操作前断电，未覆盖冻结必答全程断电；本次实际输入也未包含通用断电资料，不能以库内其他位置有据替代。",
+          "result_sha256": "947aa2a223e09ca73cc251205304f311039f2cd389a7c510ddef92fcb352c922",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2N01",
+        "status": "ok",
+        "review": {
+          "id": "V2N01",
+          "answer_score": 2,
+          "grounded": false,
+          "reason": "正确拒绝提供未给出的厂商扭矩与螺丝规格，没有编造所求数值；但附加引用故障第4条未出现在本次实际输入，主刷电机故障说明也没有本次依据，严格忠实度不通过。",
+          "result_sha256": "5d9327240ed4446d681280bb3a1ef42075cc4cd88717e98c8a3ce5a001f20fa0",
+          "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      }
+    ]
+  },
+  "after": {
+    "planned": 40,
+    "completed": 40,
+    "statuses": {
+      "ok": 40,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 0
+    },
+    "reviewed": 40,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 40,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 0
+    },
+    "retrieval": {
+      "evaluated": 28,
+      "planned": 28,
+      "hit_counts": {
+        "1": 20,
+        "3": 27,
+        "5": 28
+      },
+      "all_required_hit_counts": {
+        "1": 17,
+        "3": 25,
+        "5": 27
+      },
+      "all_required_metrics_observed": 28,
+      "policy_hit_counts": {
+        "1": 17,
+        "3": 25,
+        "5": 27
+      },
+      "mrr_at_5": 0.8345238095238096,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 28,
+      "reviewed": 28,
+      "errors": 0,
+      "execution_complete": 28,
+      "not_run": 0,
+      "unknown": 0,
+      "full_correct": 23,
+      "partial": 5,
+      "incorrect": 0,
+      "grounded": 23,
+      "strict_pass": 22,
+      "strict_fail": 6,
+      "strict_pass_fraction_planned": 0.7857142857142857,
+      "actual_input_evidence": {
+        "observed": 28,
+        "any_hit": 26,
+        "all_required_hit": 25,
+        "policy_hit": 25
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "errors": 0,
+      "execution_complete": 6,
+      "not_run": 0,
+      "unknown": 0,
+      "full_correct": 6,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 6,
+      "strict_pass": 6,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 1.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "task_pass": 6,
+      "task_fail": 0,
+      "unknown": 0,
+      "tool_selection_pass": 6,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 128,
+      "observed_model_requests": 25
+    },
+    "latency": {
+      "retrieval": {
+        "count": 34,
+        "median_seconds": 0.33992109999996956,
+        "p95_seconds": 0.46274469999980283
+      },
+      "rag_generation": {
+        "count": 34,
+        "median_seconds": 2.606233500000144,
+        "p95_seconds": 6.213645000000042
+      },
+      "agent_turn": {
+        "count": 11,
+        "median_seconds": 19.33706159999997,
+        "p95_seconds": 28.36991820000003
+      },
+      "case_wall_all_statuses": {
+        "count": 40,
+        "median_seconds": 7.517487650000021,
+        "p95_seconds": 43.45455650000008
+      }
+    },
+    "model_usage": {
+      "observed_requests": 56,
+      "requests_by_status": {
+        "ok": 56,
+        "error": 0,
+        "running": 0
+      },
+      "usage_records": 56,
+      "input_tokens": 102284,
+      "output_tokens": 14633,
+      "request_input_message_counts": {
+        "count": 56,
+        "median_messages": 2.0,
+        "p95_messages": 9
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "V2K05",
+        "status": "ok",
+        "review": {
+          "id": "V2K05",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "不能混用、功能与规格不同、拖地滤网过滤污水、可能损坏设备几个主体要点正确，但未明确需要专用滤网，将资料的专用滤网要求替换为专用清洗液。另新增拖地滤网结构更密实、孔径更小、需专用清洗液，本次全部实际模型资料均未提供这些规格差异或清洁剂要求，属于无据具体扩展。",
+          "evidence_basis": "实际模型输入扫拖问答60条只说明规格/功能不同、过滤污水及专用滤网；其余输入也没有更密实/更小孔径/专用清洗液。",
+          "result_sha256": "5b499f37de1b46ef3043f0221a050db1ddc7394d199266ad3bc8b601f4b3d982",
+          "reviewer": "Codex 助手团队语义复核（非盲；非真人领域专家；逐题阅读最终v3输出，未调用评分模型）",
+          "note": "不能混用、功能与规格不同、拖地滤网过滤污水、可能损坏设备几个主体要点正确，但未明确需要专用滤网，将资料的专用滤网要求替换为专用清洗液。另新增拖地滤网结构更密实、孔径更小、需专用清洗液，本次全部实际模型资料均未提供这些规格差异或清洁剂要求，属于无据具体扩展。",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K06",
+        "status": "ok",
+        "review": {
+          "id": "V2K06",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "薄地毯可能无法识别和检查功能是否开启已回答，但遗漏确认具体机型支持及APP已开启这一所求前提。把另一故障条目“无法跨越地毯”的过厚和驱动轮打滑检查关联到“地毯增压无反应”，这些事实虽出现在本次输入，却没有资料支持该故障条件关联，不能因关键词存在就判忠实。",
+          "evidence_basis": "实际模型输入扫地问答53条给增压支持/APP/过薄要求，故障排除35条的过厚与轮打滑原本针对无法跨越地毯；按对象和故障条件分别核对。",
+          "result_sha256": "08e892a43c9d79d3044f5825730144974bd9168ecfa5c26168ff7f377d328e5e",
+          "reviewer": "Codex 助手团队语义复核（非盲；非真人领域专家；逐题阅读最终v3输出，未调用评分模型）",
+          "note": "薄地毯可能无法识别和检查功能是否开启已回答，但遗漏确认具体机型支持及APP已开启这一所求前提。把另一故障条目“无法跨越地毯”的过厚和驱动轮打滑检查关联到“地毯增压无反应”，这些事实虽出现在本次输入，却没有资料支持该故障条件关联，不能因关键词存在就判忠实。",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K13",
+        "status": "ok",
+        "review": {
+          "id": "V2K13",
+          "answer_score": 1,
+          "grounded": true,
+          "reason": "回答PDF多数机型1.5-2cm、高端2.5cm并保留不同机型能力差异及按实际机型适配，均有真实输入依据。答案也出现了“门槛高度≤2cm需选越障≥2cm机型”，不能说完全没有≤2cm；但该句是选购条件，未明确冻结TXT所问的一般跨越范围≤2cm。按既定原标注口径记部分并保留宽泛扫地问答题面、PDF范围与TXT一般值之间的歧义，不按输出修改金标。",
+          "evidence_basis": "实际模型输入同时有PDF最大越障1.5-2cm/高端2.5cm、TXT一般≤2cm和选购门槛≤2cm选≥2cm机型；所有新增数字均有依据。",
+          "result_sha256": "8292b88433a2eacfcbe8d2ee596e4c2cd0c72c1315d48b1e5969399ae0ae9f2f",
+          "reviewer": "Codex 助手团队语义复核（非盲；非真人领域专家；逐题阅读最终v3输出，未调用评分模型）",
+          "note": "回答PDF多数机型1.5-2cm、高端2.5cm并保留不同机型能力差异及按实际机型适配，均有真实输入依据。答案也出现了“门槛高度≤2cm需选越障≥2cm机型”，不能说完全没有≤2cm；但该句是选购条件，未明确冻结TXT所问的一般跨越范围≤2cm。按既定原标注口径记部分并保留宽泛扫地问答题面、PDF范围与TXT一般值之间的歧义，不按输出修改金标。",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K17",
+        "status": "ok",
+        "review": {
+          "id": "V2K17",
+          "answer_score": 2,
+          "grounded": false,
+          "reason": "主体完整保留并非每台支持、支持机型APP绘制路径及重点区域精准扫拖，来自本次实际输入扫拖问答87。但新增的具体设置方法将另一个问答2的先扫后拖流程与路线绘制混为一项功能，并新增宠物/儿童区域用途；本次输入未提供这种等同及场景依据，忠实度不通过。",
+          "result_sha256": "a35d70eda689acc29fc8bf8d45bbdbaf83fd236e07e1845003053c1dd243b37b",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。",
+          "note": "主体完整保留并非每台支持、支持机型APP绘制路径及重点区域精准扫拖，来自本次实际输入扫拖问答87。但新增的具体设置方法将另一个问答2的先扫后拖流程与路线绘制混为一项功能，并新增宠物/儿童区域用途；本次输入未提供这种等同及场景依据，忠实度不通过。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K24",
+        "status": "ok",
+        "review": {
+          "id": "V2K24",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "水位异常的清水刻度/污水满检查、清水位传感器、加水倒污水后重启完整，但遗漏明确所求清理时全程断电。实际输入没有断电规则；新增“清理机器人前需确保拖布干净无硬化物”来自安装拖布前的卫生条件，移成清理整机前的通用安全要求，操作和范围不一致。",
+          "result_sha256": "d93c1696ac7674a4f6b872c379966f6fe3deb3d687fc9827d3a3047e2f076f5c",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。",
+          "note": "水位异常的清水刻度/污水满检查、清水位传感器、加水倒污水后重启完整，但遗漏明确所求清理时全程断电。实际输入没有断电规则；新增“清理机器人前需确保拖布干净无硬化物”来自安装拖布前的卫生条件，移成清理整机前的通用安全要求，操作和范围不一致。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2K28",
+        "status": "ok",
+        "review": {
+          "id": "V2K28",
+          "answer_score": 1,
+          "grounded": false,
+          "reason": "每层建图、各层专属参数与使用前清底部/传感器校准正确，保留搬运语境而未声称自动跨层，但漏搬至对应楼层后启动清扫。实际输入维护多楼层14、扫拖问答70和PDF60支持这些主步骤；新增APP手动切换地图及搬运时无积水泥沙避免影响传感器未获本次直接支持：PDF25只说明保存不同地图、传感器自动识别楼层，维护阳台13只讨论轮组泥沙。",
+          "result_sha256": "da468437a2d19d93da2d36069a9c9168f7e9f1e1f40d1f29164fe06ed3c039fc",
+          "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。",
+          "note": "每层建图、各层专属参数与使用前清底部/传感器校准正确，保留搬运语境而未声称自动跨层，但漏搬至对应楼层后启动清扫。实际输入维护多楼层14、扫拖问答70和PDF60支持这些主步骤；新增APP手动切换地图及搬运时无积水泥沙避免影响传感器未获本次直接支持：PDF25只说明保存不同地图、传感器自动识别楼层，维护阳台13只讨论轮组泥沙。"
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      }
+    ]
+  },
+  "transitions": [
+    {
+      "id": "V2K01",
+      "kind": "knowledge",
+      "before": "fail",
+      "after": "pass",
+      "transition": "improved",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "8d2ec1b9a8c1833c98e8376e6d0c7e0460b74ae41408f58814634d318b902fe8",
+      "after_result_sha256": "35dbd02a489041fe0b51577b935ee5a0f140c6fb46f58b8602d3965f611e5765"
+    },
+    {
+      "id": "V2K02",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "f75486bbc944c71862e2db755bb0c4261963ad5cb728442935bd63f078455653",
+      "after_result_sha256": "a055adc70fb584a82266d82f2eb7976874c59205bc3839a9e4a890142c82c442"
+    },
+    {
+      "id": "V2K03",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "b97d506f75d3da0e68aa31c9c92a5204bf2c8962d58f1bdd6bee429567627e28",
+      "after_result_sha256": "ddfad81fdcf7b196b7b31ef90165eeacc47b5b2f6d48c16efaae90c66d1c6d0a"
+    },
+    {
+      "id": "V2K04",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "76b8daa43f1eae2811b856a7eef982e275b24d9a00150c4ccc908b1bb23b0f2a",
+      "after_result_sha256": "949fb17119b732924ad0b8b129c7ccdeac08261ca0e9a522d49ac3432d0937ea"
+    },
+    {
+      "id": "V2K05",
+      "kind": "knowledge",
+      "before": "fail",
+      "after": "fail",
+      "transition": "stable_fail",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "b3d66e6c07cd1dc93debfff320b4d6c319e44a0986ea715d46749999c5e368b9",
+      "after_result_sha256": "5b499f37de1b46ef3043f0221a050db1ddc7394d199266ad3bc8b601f4b3d982"
+    },
+    {
+      "id": "V2K06",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "bfbc98b84a1f52eb3edab2f618a17bb00bd282214335a635dd652f252c7d70c8",
+      "after_result_sha256": "08e892a43c9d79d3044f5825730144974bd9168ecfa5c26168ff7f377d328e5e"
+    },
+    {
+      "id": "V2K07",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "d944e65b0baba525ab86842a3867a270c529b520c8f5266876dfda2f449d4c04",
+      "after_result_sha256": "7acc3f14c06f2fa62e8319c74cf9f55445367aaefba538435ec84d63b4fdf316"
+    },
+    {
+      "id": "V2K08",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "b21cbfe2e7514843667a082967c21a9ea4cfd2e9800961126aa2e892a9cabdab",
+      "after_result_sha256": "82bb65b010460994d10e3ee379ef810bd7bbf95967626a4bf85dd54673b3bec1"
+    },
+    {
+      "id": "V2K09",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "abbfae46918809da5e9d6c5b547cafacfd1af7f2708073bda48ade87cd891362",
+      "after_result_sha256": "dfa02220e6dcb09fe7fc7115cf5ca22a8eb37b5e87dc4aa36d1463098c169432"
+    },
+    {
+      "id": "V2K10",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "6aa224bc16da6077ba37f879e60f17f6008df63044013814c35735082aea7179",
+      "after_result_sha256": "3a00ce997ebb4ac34a1011882f7c4c46b6dbaf9fa26dd00111730e8e1d8b4ad0"
+    },
+    {
+      "id": "V2K11",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "3412ecde1b65a3766db1827718c6030a6b04b52fe9480693a816782f7febc5da",
+      "after_result_sha256": "c32b3f1b0780bc3bb98c985540d29c7c2417db6732e6d4d49556cdceca6e69f1"
+    },
+    {
+      "id": "V2K12",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "4b451df781b0e45b0a833bba2877c3d9fa5af0bdf3d426938c042c7920b78c06",
+      "after_result_sha256": "a414ffde22cce36b72fd76336b005b8a8afd00117fede03fcb6f2e7d26a1c428"
+    },
+    {
+      "id": "V2K13",
+      "kind": "knowledge",
+      "before": "fail",
+      "after": "fail",
+      "transition": "stable_fail",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "fb7c21a474fd374fdb804337c5b403064f56f98a74c97a35d887eae1e8a4cb96",
+      "after_result_sha256": "8292b88433a2eacfcbe8d2ee596e4c2cd0c72c1315d48b1e5969399ae0ae9f2f"
+    },
+    {
+      "id": "V2K14",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "bcb4c629adf7c42d3c3d4d887922be19188a1bf181506b256d8bc8802c79d2e0",
+      "after_result_sha256": "bb7ccf38d0b381e80696f45aaf14ce5acfc3ef82eeef96322e19da9d1eff529d"
+    },
+    {
+      "id": "V2K15",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "2254d8b6d69ddfea597afdfa8c2d9569488b4adac699a03506829faf99c924e8",
+      "after_result_sha256": "ff0574e346caf783054fab85629b492cf786823b88ed22cbc262644557ebaa69"
+    },
+    {
+      "id": "V2K16",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "cc59f0f0046ce1e73e1dbdb05d203daea0d146d2ab08e0f8fa00487607173a4f",
+      "after_result_sha256": "c0b9fb8bdf524913876991c5fac820f6e8495286583c99ea8441bacb6c96e37b"
+    },
+    {
+      "id": "V2K17",
+      "kind": "knowledge",
+      "before": "fail",
+      "after": "fail",
+      "transition": "stable_fail",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "9552ab0467af9b5dd18fef0be87f07099f3355c92b94c84cd35a99f1b7128b79",
+      "after_result_sha256": "a35d70eda689acc29fc8bf8d45bbdbaf83fd236e07e1845003053c1dd243b37b"
+    },
+    {
+      "id": "V2K18",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "76589eb0e73b10320d56da75890894466432ecc95153a1c313864af42fa57ffa",
+      "after_result_sha256": "a95c212c2a280477d88e37af3555350c635bb511b7bf2d1e17f315212a506c3a"
+    },
+    {
+      "id": "V2K19",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "d7fb0a812249fbad667de1a0fe24ac3fcb613917968c595b2e04f61f91aae0c5",
+      "after_result_sha256": "8a68536feada86962b8c34de94cf584188783d317330b3de99bd64f55dd41582"
+    },
+    {
+      "id": "V2K20",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "1701089a4bf3980921c1566fc816b34365faeabe4557e3e57858ebd859016ddf",
+      "after_result_sha256": "4e33fee35ae39e0208faf454860cc1cf8e8df087611a2965bdc4ed268ee92f31"
+    },
+    {
+      "id": "V2K21",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "6f6b16e5a7900106824667ceeab6f783510a52a30895412946b242ce7e2537f3",
+      "after_result_sha256": "dd1a1a30fc259fa7ec530ef633e1b35bb9c5eb0613531d2ea770fbdb239528f0"
+    },
+    {
+      "id": "V2K22",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "dfb208b2e60e0ca9719f88355c5e33dce001ed570b86bfd4b35a31290c1539e2",
+      "after_result_sha256": "c775ef85d209b8ea78ae651f0d9ea1c3d9cbc25edf89574d74e3480b9aec5102"
+    },
+    {
+      "id": "V2K23",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "bd3e92a1f35098a2da150a7c73bbe3a90e53871ddb2db78d1baea0f24b3f3666",
+      "after_result_sha256": "62d47de61ed74e136973fc0c085484ae485557df3baf96f3848bacb85a946300"
+    },
+    {
+      "id": "V2K24",
+      "kind": "knowledge",
+      "before": "fail",
+      "after": "fail",
+      "transition": "stable_fail",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "947aa2a223e09ca73cc251205304f311039f2cd389a7c510ddef92fcb352c922",
+      "after_result_sha256": "d93c1696ac7674a4f6b872c379966f6fe3deb3d687fc9827d3a3047e2f076f5c"
+    },
+    {
+      "id": "V2K25",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "c2edb67d8bc9683d162abf942431bc22e9e17578067977530a47924a57fd7444",
+      "after_result_sha256": "8c3d4e6a4a083ab9f7cf04602d0dd81473543c44fe211c16fb10ae4be718bbd4"
+    },
+    {
+      "id": "V2K26",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "7274a0cf9cbe50d26778009fd9756117c59298ccd40a4881807d738276c06834",
+      "after_result_sha256": "168e84e596f3daa43a4662425ef9051dc429a12b2ac5626c00aebc7b33dd1c63"
+    },
+    {
+      "id": "V2K27",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "406a76068e87d7631bf6683eb93c52fe2d53c1956da33ff0a2af9e9757ee5864",
+      "after_result_sha256": "09bc6c1e82a998c2469b09fa699581440fb12c8475e06585e75e7154299ca45e"
+    },
+    {
+      "id": "V2K28",
+      "kind": "knowledge",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "cac48b7ce4aca20edb3ea306445a4ea5f3a7444b7c5816cad7bde5564bad0620",
+      "after_result_sha256": "da468437a2d19d93da2d36069a9c9168f7e9f1e1f40d1f29164fe06ed3c039fc"
+    },
+    {
+      "id": "V2N01",
+      "kind": "unanswerable",
+      "before": "fail",
+      "after": "pass",
+      "transition": "improved",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "5d9327240ed4446d681280bb3a1ef42075cc4cd88717e98c8a3ce5a001f20fa0",
+      "after_result_sha256": "54d96b0f031664bd297084723bab566c9441b2681348d5d8e07dfb671442a322"
+    },
+    {
+      "id": "V2N02",
+      "kind": "unanswerable",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "377afd8b2cf9633ccd873e16c5ad9129252b671c4916d76e105056d10d813406",
+      "after_result_sha256": "252bff67890aa20505507284f12277c868f958caf370956a2be88fcff4e3bc28"
+    },
+    {
+      "id": "V2N03",
+      "kind": "unanswerable",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "dfcf4567aed33135c522365b98e76fa2c43d6132ad2693368dec0c04cae826be",
+      "after_result_sha256": "35390a2a129c210c2f69b51dc0bda20f4ea24da5d2733d5f6f279f9e041e2b00"
+    },
+    {
+      "id": "V2N04",
+      "kind": "unanswerable",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "1b654c3b00dcf7adf308ec4740150242b8dc1d77c8169c3b5f9c668276095eaf",
+      "after_result_sha256": "7b84e1335f7e1321c70c1e6a9be25fb1c7ebbd60e6ec629649602e74930005d1"
+    },
+    {
+      "id": "V2N05",
+      "kind": "unanswerable",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "55eb657ab4cda1762af00dba42ece708ff7761a1b3622546c0ff4eb5f61049c1",
+      "after_result_sha256": "2a5401ae51c69a8df63de9d2414cf99b3df47ec645645cd3d56188d5858f2b11"
+    },
+    {
+      "id": "V2N06",
+      "kind": "unanswerable",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "f704cce0fa67f4f60a8941419db6e0547b6983e2cb94c577a9d1c75166617daf",
+      "after_result_sha256": "7d8ba1aedb58530ba604b231aecb5b6af93e049c8e7b7bf295934f7dfa36e41f"
+    },
+    {
+      "id": "V2A01",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "2e468c904b99c3ff6a6bfc7c7b699a4e56b26012d918dc869eb18c1cc99d9e65",
+      "after_result_sha256": "b43d7060460f8a95945a8fb0c343576ea6805e5c7b0e081c886f4b3a145634b7"
+    },
+    {
+      "id": "V2A02",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "95a7b6f336beacffbb7c094cf1719380026a53c87f50b8dc4797544f7ed7c028",
+      "after_result_sha256": "99fe24a44db240937b1005bf29f25bc401c75bc98922669eda2ccedbda460e99"
+    },
+    {
+      "id": "V2A03",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "f24140b7a35b9cb8e7b56befbbfdbcb359f8f23f65b185ce009594c96dcd2446",
+      "after_result_sha256": "eb2af5452eeaf2a714a54c0bd552d85d6b9d5119179a0238d8999cc54f7e9867"
+    },
+    {
+      "id": "V2A04",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "8f98223a59205720a63bac9b8ffb6a786db93d5e8217f1f53a99d237d75bf1ef",
+      "after_result_sha256": "445f87f2d5a401fd618a33ca061ed2278217118292a13cabb71083a1161175cf"
+    },
+    {
+      "id": "V2A05",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "70b9648f5514b32664ec12bccce763bf2f03183da9057b8193b1bbba4f3f1f83",
+      "after_result_sha256": "2e517b8176067649b4834e46e47d7757e60e4fe175f0ad49351e841a8f93e5f9"
+    },
+    {
+      "id": "V2A06",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "5eb530fd4ac7ae3cfc08d75d5c9d65e91ac7f229a0bb534656f15aef3e54f87b",
+      "after_result_sha256": "912a0c503cbb941a669e412d17fae844062c786793880e79dd8a489779f2c85d"
+    }
+  ],
+  "latency_note": "Sequential local runs; successful QA/turn latency and all-status wall time are separate. No statistical significance or isolated algorithm attribution is claimed.",
+  "blinding_note": "Only labels/order are hidden. Request prompts may reveal version behavior; this is assistant-assisted auxiliary review, not independent human blind evaluation."
+}

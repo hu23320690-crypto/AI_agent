@@ -142,7 +142,8 @@ class ReportIntentTests(unittest.TestCase):
                  ('31㎡', '31㎡', '不变：0㎡'),
                  ('1.3个/月', '1.1个/月', '减少0.2个/月'),
                  ('3次/周', '3次/月', '记录单位不同'),
-                 ('剩余45天', '剩余40天', '不是单一可比数值')]
+                 ('剩余45天', '剩余40天', '减少5天'),
+                 ('预计剩余45天', '剩余40天', '不是单一可比数值')]
         for before, after, expected in cases:
             with self.subTest(before=before, after=after):
                 old = record('2032-10', efficiency='指标甲:' + before)

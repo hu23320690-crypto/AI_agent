@@ -1,0 +1,447 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 21,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 18,
+      "3": 26,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 18,
+      "3": 26,
+      "5": 27
+    },
+    "mrr_at_5": 0.8601190476190477,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 24,
+    "partial": 4,
+    "incorrect": 0,
+    "grounded": 19,
+    "strict_pass": 17,
+    "strict_fail": 11,
+    "strict_pass_fraction_planned": 0.6071428571428571,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 25,
+      "all_required_hit": 23,
+      "policy_hit": 23
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 5,
+    "strict_pass": 5,
+    "strict_fail": 1,
+    "strict_pass_fraction_planned": 0.8333333333333334,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 4,
+    "task_fail": 2,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 64,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.3296735500007344,
+      "p95_seconds": 0.46707359999709297
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 2.659785549996741,
+      "p95_seconds": 4.176642600003106
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 20.987947699999495,
+      "p95_seconds": 50.021825299998454
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 7.649956050001492,
+      "p95_seconds": 66.10105150000163
+    }
+  },
+  "model_usage": {
+    "observed_requests": 55,
+    "requests_by_status": {
+      "ok": 55,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 55,
+    "input_tokens": 88890,
+    "output_tokens": 17894,
+    "request_input_message_counts": {
+      "count": 55,
+      "median_messages": 2,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "G1K01",
+      "status": "ok",
+      "review": {
+        "id": "G1K01",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "普通家用3000Pa、地毯4000Pa下限及可调吸力适配不同地面完整正确。新增“及污渍程度”与避免污渍差异导致效果不佳的吸力调节适用关系，未由本轮实际输入证明：选购2条只支持不同地面适配，42条按顽固污渍调高档说的是出水量，不能移作吸力能力说明。内容完整，但扩展条件关联缺依据。",
+        "result_sha256": "ce32d3c7c4d2073bdf56d8f3897ac8d03b373f11341956a9b8a5b19e28e628b7",
+        "reviewer": "Codex 助手语义复核（非盲；非题目作者；未调用自评模型）",
+        "evidence_basis": "实际模型输入：model_requests[0].rag_contexts。rag_answers仅核对服务结果，不当作更多模型输入。",
+        "note": "普通家用3000Pa、地毯4000Pa下限及可调吸力适配不同地面完整正确。新增“及污渍程度”与避免污渍差异导致效果不佳的吸力调节适用关系，未由本轮实际输入证明：选购2条只支持不同地面适配，42条按顽固污渍调高档说的是出水量，不能移作吸力能力说明。内容完整，但扩展条件关联缺依据。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K09",
+      "status": "ok",
+      "review": {
+        "id": "G1K09",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "外壳ABS耐磨、拖布支架不锈钢防锈、密封圈食品级硅胶三个材质和题面所求两用途均正确。但额外解释食品级硅胶可避免化学腐蚀及保证清洁卫生，实际输入选购21条只给该材质名，其余模型输入也没有该材料用途/因果；新增具体功效无依据。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "result_sha256": "dde1cf87d150cdd1274b45583134ace3489dc0e9c45f250b8f6d75ad24c23d3f",
+        "reviewer": "Codex 助手语义复核（非盲；非题目作者；未调用自评模型）",
+        "evidence_basis": "逐项检查实际model_requests[0].rag_contexts；没有把库内其他资料或一般材料常识当本轮依据。",
+        "note": "外壳ABS耐磨、拖布支架不锈钢防锈、密封圈食品级硅胶三个材质和题面所求两用途均正确。但额外解释食品级硅胶可避免化学腐蚀及保证清洁卫生，实际输入选购21条只给该材质名，其余模型输入也没有该材料用途/因果；新增具体功效无依据。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K11",
+      "status": "ok",
+      "review": {
+        "id": "G1K11",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "10cm处停拖、只扫及抬升替代功能均答出，禁拖区扩展亦由本轮输入支持。关键配置却被写成应将缓冲区设为离地毯10cm的区域，原文要求把地毯边缘设为缓冲区、10cm是机器人停拖的距离；不能从动作阈值推出APP区域边界参数，因此配置答法不准确且依据不忠实。原冻结gold对其他有效替代办法有标注歧义仍保留，但本答案已明确含抬升，该歧义不构成本次扣分原因。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "result_sha256": "83565fb6d43746c4b4030bf61720667a160d4226df41ef9d31dfdbfa78faf772",
+        "reviewer": "Codex 助手语义复核（非盲；非题目作者；未调用自评模型）",
+        "evidence_basis": "实际模型输入model_requests[0].rag_contexts：扫拖36条边缘缓冲区/10cm动作阈值、29条禁拖区、9条抬升条件。",
+        "note": "10cm处停拖、只扫及抬升替代功能均答出，禁拖区扩展亦由本轮输入支持。关键配置却被写成应将缓冲区设为离地毯10cm的区域，原文要求把地毯边缘设为缓冲区、10cm是机器人停拖的距离；不能从动作阈值推出APP区域边界参数，因此配置答法不准确且依据不忠实。原冻结gold对其他有效替代办法有标注歧义仍保留，但本答案已明确含抬升，该歧义不构成本次扣分原因。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K12",
+      "status": "ok",
+      "review": {
+        "id": "G1K12",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "部分机型支持、中档出水、专用瓷砖清洁液、多次拖扫所求条件完整，支持时配合按使用该功能理解，不因未逐字说开启扣分。但把多次拖扫具体化为3-5次，两处新增确定次数均没有实际输入依据；本轮只有多次及可设置次数，没有3-5的建议。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "result_sha256": "cfe858715e928688580ff82dbaa3d4c39bede00270289d998c2d12c599ff03db",
+        "reviewer": "Codex 助手语义复核（非盲；非题目作者；未调用自评模型）",
+        "evidence_basis": "实际模型输入model_requests[0].rag_contexts：扫拖32条仅写多次；分区参数条目未给3-5次数。",
+        "note": "部分机型支持、中档出水、专用瓷砖清洁液、多次拖扫所求条件完整，支持时配合按使用该功能理解，不因未逐字说开启扣分。但把多次拖扫具体化为3-5次，两处新增确定次数均没有实际输入依据；本轮只有多次及可设置次数，没有3-5的建议。 根代理已独立核对完整实际输入证据并确认该判定；未据失败修改代码、金标或重跑。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K15",
+      "status": "ok",
+      "review": {
+        "id": "G1K15",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "干软布/无尘布轻擦、禁止湿布和酒精、移到通风干燥处均已交付，内容覆盖冻结必答点。忠实度不通过：model_requests[0].rag_contexts 的5份实际资料含扫拖问答61及维护13—16，却没有故障179的‘移至干燥环境使用’；回答将阳台通风安排推广为受潮传感器的恢复环境，缺少本次具体来源依据。镜面家具、低矮家具的每周传感器维护本身有实际资料，但不能替代缺失的受潮恢复条目。",
+        "evidence_route": "生成路径，实际模型资料：扫拖一体机器人100问.txt start_index=4626（61）、维护保养.txt start_index=6812（13—16）；标注锚覆盖[1.0,0.0]。无程序直接引用补齐故障179。",
+        "result_sha256": "3d8a98fc121b88c128050fe9bc0b996f1c367318cd29f3aa3c2989abe78ffafc",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K16",
+      "status": "ok",
+      "review": {
+        "id": "G1K16",
+        "content": 1,
+        "answer_score": 1,
+        "grounded": true,
+        "note": "检查并清理底部防跌落传感器、排除灰尘遮挡、平整地面校准和测试、损坏联系售后更换均正确，但遗漏题面所求恢复步骤中的‘重启设备’。两份锚完整进入模型，属生成遗漏，不能以笼统校准等价为重启。已输出具体事实均有据。",
+        "evidence_route": "生成路径：扫地机器人100问2.txt start_index=3411（51）明确重启校准；故障排除.txt start_index=1492（20）支持平地测试、损坏售后。实际锚覆盖[1.0,1.0]。",
+        "result_sha256": "aeb1f8c39ad6bfe2187fa701e7ad8146206fc3350ac149504fce51297475510f",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K17",
+      "status": "ok",
+      "review": {
+        "id": "G1K17",
+        "content": 1,
+        "answer_score": 1,
+        "grounded": true,
+        "note": "答出尘盒是否安装到位和感应传感器是否有灰尘两项检查，但将检查项作为‘检查和处理’的全部回答，遗漏重新安装并扣紧尘盒、擦拭感应传感器两个对应处理步骤。故障27完整进入模型，属有证据情况下的步骤遗漏；现有检查事实有据。",
+        "evidence_route": "生成路径：故障排除.txt start_index=2105（27）完整包含检测与修复；实际锚覆盖[1.0]。",
+        "result_sha256": "940fff99960371a24bef4d8a6848aeeb750c7ab3334d3dd2dabd42dc577f4564",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K18",
+      "status": "ok",
+      "review": {
+        "id": "G1K18",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "禁区边界调整、保存后重新识图、关闭‘禁区临时取消’完整正确。额外要求‘需确保机器人支持地毯增压功能’却将相邻地毯增压条目的条件错误应用到禁区恢复；‘避免因地图不完整导致禁区识别错误’也是把分区清扫条目推广为该故障因果。相邻原文出现这些词不等于为禁区提供该条件，因此忠实度不通过。",
+        "evidence_route": "生成路径：扫地机器人100问2.txt start_index=3587 同时含地毯增压53尾段、分区清扫54、禁区55；故障排除.txt start_index=1803（23）支持禁区处理。目标锚覆盖[1.0]，但跨对象扩展无据。",
+        "result_sha256": "62419ed46c55e94de30675c3ecc435582f25de29353162591c0ed10095ae57ad",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K24",
+      "status": "ok",
+      "review": {
+        "id": "G1K24",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "水泵堵塞并疏通、线路松动检查、水泵故障联系售后更换三分支覆盖冻结必答点。忠实度不通过：额外给出‘紧固线路’，实际故障155只有‘检查线路’，其他实际资料为拖布电机安装/线路售后排查或清洁仓滤网，不提供自行紧固此水泵线路的方法。不能将推测修复动作视为原文依据。",
+        "evidence_route": "生成路径：故障排除.txt start_index=11682（155）、12726（170）、1341（17—18）；目标锚覆盖[1.0]，无实际‘紧固线路’依据。",
+        "result_sha256": "c7ffefcfaee291a01d86d34cead89d4193f2357f75b64191e667bca37e4c8baf",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K27",
+      "status": "ok",
+      "review": {
+        "id": "G1K27",
+        "content": 1,
+        "answer_score": 1,
+        "grounded": false,
+        "note": "低温保护、机身结冰检查，室温静置30分钟及解冻后充电开机正确，但另一子问将充电最低温度错误答成10℃，冻结维护19要求≥5℃。实际模型资料只有故障173而无维护19，且编造‘低温保护机制要求电池温度≥10℃才能安全充电’的依据。主要启动恢复子问正确，充电温度子问错误，内容为部分正确；忠实度不通过。",
+        "evidence_route": "生成路径：仅故障排除.txt start_index=12997（173—174）进入模型；实际标注锚覆盖[1.0,0.0]。无程序直接引用补齐维护19，10℃及安全机制均无据。",
+        "result_sha256": "b7c94f7fd92ee0c9c76daed42df4757ed8c0abf4dc7649173e3c2d7361fe8d17",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K28",
+      "status": "ok",
+      "review": {
+        "id": "G1K28",
+        "content": 2,
+        "answer_score": 2,
+        "grounded": false,
+        "note": "特殊字符、机器人中文WiFi支持、改为英文或数字、重新连接四个必答点完整。额外断言‘部分老旧路由器不兼容中文WiFi’并要求检查路由器的中文SSID支持，实际资料只谈机器人的名称兼容，没有路由器年代与兼容性事实。重启路由器/机器人和重输密码本身在实际故障3中有据，不能用它为前一具体无据断言背书。",
+        "evidence_route": "生成路径：故障排除.txt start_index=11834（158）、198（3）、2881（37—38）实际进入模型。目标锚覆盖[1.0]；路由器中文名称/老旧兼容断言无据。",
+        "result_sha256": "2052d4a1dbe8a30cb6b3535470a87fac03eb213d4c2e8a29d720f104b430f401",
+        "execution_status": "ok",
+        "method": "Codex助手团队按冻结题目/金标、实际模型入模资料与生产校验引用逐项语义复核；非真人独立盲评，未调用受测模型自评。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1N06",
+      "status": "ok",
+      "review": {
+        "id": "G1N06",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "完整拒答具体设备的Home Assistant完全离线支持和实体ID/服务名/端口，手机离线定时工作的限定受本次扫拖88输入支持。但又断言其集成‘需设备厂商提供特定协议和API’；实际5块输入没有Home Assistant集成条件，也不能据通用智能联动证明厂商提供接口是必要条件。核心拒答内容2，新增必要条件无本次依据。",
+        "result_sha256": "efc2682646de0a25b4606ea117e1f289c3542d3cd2348b0bd744ecfda5d17f26",
+        "execution_status": "ok",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "note": "完整拒答具体设备的Home Assistant完全离线支持和实体ID/服务名/端口，手机离线定时工作的限定受本次扫拖88输入支持。但又断言其集成‘需设备厂商提供特定协议和API’；实际5块输入没有Home Assistant集成条件，也不能据通用智能联动证明厂商提供接口是必要条件。核心拒答内容2，新增必要条件无本次依据。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A05",
+      "status": "ok",
+      "review": {
+        "id": "G1A05",
+        "answer_score": 0,
+        "grounded": false,
+        "task_pass": false,
+        "reason": "首轮真实回忆完整保留具体清洁仓刷、三个动作及按章节分频率要求；第二轮虽仍称同一目标，却把水箱柠檬酸浸泡和主刷胶条检查迁移到清洁仓刷，并错误称无固定更换周期，未交付耗材专项每月清水冲洗/3-6个月更换及分章节频率。完整执行与摘要保留不等于维护任务通过。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "task_pass": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "完整回忆自动洗拖布基站清洁仓内的清洁刷，区分去毛发杂物、水洗、更换，要求不同章节分别说明及资料不足不猜、不借其他部件补值。具体对象足以排除机器人底部模组刷，不机械要求重复否定原句；实际历史用户目标与约束支持。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 0,
+            "grounded": false,
+            "task_pass": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "实际成功rag_summarize查询保留对象和约束，但最终把维护第5条水箱每周1:50柠檬酸浸泡10分钟套给清洁仓刷，把主刷滚刷胶条规则也套给它，新增每日清水冲洗；又称无固定更换周期。实际入模3块没有耗材专项136行，只有每日挑毛发杂物这一点符合目标，且漏每周清毛发/每月水洗/3-6个月更换与分章节呈现。多个关键操作错误，内容0、忠实度假；工具成功和正确工具参数不能代替任务通过。"
+          }
+        ],
+        "result_sha256": "c6b47cbdd665eb12570640f0617451ca9c9222d97f8c4c50d5047f03278703fc",
+        "execution_status": "ok",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "turn_execution_outcomes": [
+          "ok",
+          "ok"
+        ],
+        "note": "首轮真实回忆完整保留具体清洁仓刷、三个动作及按章节分频率要求；第二轮虽仍称同一目标，却把水箱柠檬酸浸泡和主刷胶条检查迁移到清洁仓刷，并错误称无固定更换周期，未交付耗材专项每月清水冲洗/3-6个月更换及分章节频率。完整执行与摘要保留不等于维护任务通过。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A06",
+      "status": "ok",
+      "review": {
+        "id": "G1A06",
+        "answer_score": 1,
+        "grounded": false,
+        "task_pass": false,
+        "reason": "首轮检查电池/配件与空转1-2分钟的流程完整，第二轮正确拒绝因空转假设免除充电和地图处理，并给充电30分钟、删旧图重建，但遗漏激活电池、校准电量显示及扫拖/避障/回充目的，且编造通常5-10分钟建图时长。全部实际轮次执行完整，第二轮仍不通过。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "task_pass": true,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "成功当轮RAG输入含长期存放197/199行，最终完整给电池鼓包/漏液、配件松动/老化、开机空转1-2分钟、异响/卡顿和各功能测试；未声称用户已测正常。附加阴暗环境存放前消毒及存放时防虫防鼠的一般条件也在本次输入中，不当作设备已检测事实。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": false,
+            "task_pass": false,
+            "tool_selection_pass": true,
+            "tool_parameter_pass": true,
+            "reason": "成功当轮RAG输入直接含200/201行，完整要求激活电池、校准电量显示及扫拖/避障/回充校准；最终仅给充电座30分钟与删旧图重建，漏具体目的，内容部分完整。新增‘通常需5-10分钟’建图时长在本次5块资料、工具结果和有效历史中均无支持；用户只是设定空转无异响，回答没有把它当已检测事实，但遗漏和无据时长已使该轮失败。"
+          }
+        ],
+        "result_sha256": "c2bb5fe69f63e7778f4685a62d5dfe1807198c1b096e7b076c2acd7f0f91fa6e",
+        "execution_status": "ok",
+        "method": "Codex assistant semantic review against frozen question, references, actual model input and validated production citation paths; not independent expert review",
+        "turn_execution_outcomes": [
+          "ok",
+          "ok"
+        ],
+        "note": "首轮检查电池/配件与空转1-2分钟的流程完整，第二轮正确拒绝因空转假设免除充电和地图处理，并给充电30分钟、删旧图重建，但遗漏激活电池、校准电量显示及扫拖/避障/回充目的，且编造通常5-10分钟建图时长。全部实际轮次执行完整，第二轮仍不通过。",
+        "review_method": "Codex助手团队按冻结题目、实际输入与最终输出复核；主助手核对，非盲评、非独立真人专家评测。此集已用于修复，属于已见题回归。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}
