@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-07",
+  "base_commit": "1cd157a82bf68d987f841de6a1e0a1321b5dd023",
+  "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+  "pytest": {
+    "passed": 505,
+    "skipped": 3,
+    "subtests_passed": 290,
+    "seconds": 48.26,
+    "skip_reason": "Windows符号链接权限：2个seal子场景与1个安全子场景。"
+  },
+  "doctor_offline": {
+    "ok": true,
+    "python": "E:\\pycharm\\AI_agent\\.venv\\Scripts\\python.exe",
+    "offline": true,
+    "checked": 146,
+    "failures": [],
+    "models": [],
+    "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+  },
+  "pip_check": {
+    "ok": true,
+    "output": "No broken requirements found."
+  },
+  "evaluation": {
+    "run": "evaluation/results/agent_task_repair_delivery_v4",
+    "planned": 40,
+    "executed": 40,
+    "reviewed": 40,
+    "statuses": {
+      "ok": 40,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 0
+    },
+    "knowledge_strict_pass": 23,
+    "knowledge_planned": 28,
+    "unanswerable_strict_pass": 5,
+    "unanswerable_planned": 6,
+    "agent_strict_task_pass": 6,
+    "agent_planned": 6,
+    "agent_real_turns": 11,
+    "synthetic_seed_pairs": 128,
+    "agent_tool_selection_pass": 6,
+    "unknown": 0,
+    "review_method": "主助手按冻结题面及实际输入/工具记录复核；非盲评，非独立真人或领域专家审核。",
+    "scope": "已见题修复回归；不是独立新题或泛化证明。",
+    "model_identity_matches_before": true,
+    "model_configuration_matches_before": true,
+    "business_code_matches_frozen_snapshot": true,
+    "external_case_timeout_seconds": 300,
+    "previous_external_case_timeout_seconds": 240,
+    "all_current_cases_below_previous_wall_limit": true,
+    "seal_files": 65
+  },
+  "original_project_sync": {
+    "target": "E:\\pycharm\\AI_agent",
+    "verified_content_files": 114,
+    "backup": "artifacts/agent_task_repair_v1/original_before_sync",
+    "evaluation_seal_verified_at_target": true,
+    "note": "此计数不包括本checks文件；checks随后复制并校验。未复制虚拟环境、索引、.git或私有运行配置。"
+  },
+  "evidence_sha256": {
+    "artifacts/agent_task_repair_v1/pytest_complete.log": "29c77da3524e3d618b10e0a1ccf107fac9ba78290b171dceb21e152ceb46ca08",
+    "artifacts/agent_task_repair_v1/doctor_offline.json": "7ec2ba761ccc98ee1520b5ad4bbc3a56a6ba2658bfcbc6c38dc79f749f33df56",
+    "evaluation/results/agent_task_repair_delivery_v4/manifest.json": "a070171493c77ca4b9a032cfc7aa86d26e702389c122821da5606be4c70dff02",
+    "evaluation/results/agent_task_repair_delivery_v4/results.jsonl": "0702c91abd5df8b3d8c23fc32a1309917b7f389c72b00ae0c4889be04d9d3035",
+    "evaluation/results/agent_task_repair_delivery_v4/reviews.jsonl": "fd533800229f1ef32b7ee6f3a9b6d541c2a7bda46979a8012f2f18068aeb6d4e",
+    "evaluation/results/agent_task_repair_delivery_v4/seal.json": "26c0633e5a3c301f913ff7d4cba2ae8bfe718e22abfccef8a46d96791217ba7f"
+  },
+  "ci": {
+    "status": "not_recorded_here",
+    "note": "本机检查不替代对应修复提交的Windows/Linux与容器CI；查看PR检查。"
+  }
+}

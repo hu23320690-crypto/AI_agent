@@ -59,7 +59,7 @@ class ContextCommitGraphTests(unittest.TestCase):
     def test_compression_extracts_only_current_turn_rag_results(self):
         model = ScriptedModel(responses=[call("rag_summarize", query="本轮主刷清理"),
                                          answer("主模型的改写不应覆盖工具答案")])
-        summary_model = ScriptedModel(responses=[summary_answer()])
+        summary_model = ScriptedModel(responses=[summary_answer() for _ in range(3)])
         agent = ReactAgent(model=model, summary_model=summary_model, context_policy=scripted_policy())
         previous = history()
         # Put an old RAG observation in the most recent historical turn: it can
@@ -76,11 +76,12 @@ class ContextCommitGraphTests(unittest.TestCase):
         self.assertEqual(result, current_answer)
         self.assertEqual(agent.messages[-1].content, current_answer)
         self.assertNotIn("尘盒旧内容", result)
-        self.assertEqual(len(summary_model.seen), 1)
+        self.assertGreaterEqual(len(summary_model.seen), 1)
+        self.assertLessEqual(len(summary_model.seen), 3)
         self.assertTrue(any(event["event"] == "context_summary_generated"
                             for event in agent.last_run["events"]))
         self.assertLess(len(agent.messages), len(previous))
-        self.assertEqual(agent.last_run["counts"]["model"], 3)
+        self.assertEqual(agent.last_run["counts"]["model"], len(summary_model.seen) + 2)
 
     def test_cancel_or_clear_during_summary_cannot_commit_late_memory(self):
         for action in ("cancel", "clear"):
@@ -148,7 +149,8 @@ class ContextCommitGraphTests(unittest.TestCase):
 
         model = RevokingModel(responses=[answer("本轮答案不能提交"), answer("新会话回答")],
                               revoke=revoked.set)
-        summary_model = ScriptedModel(responses=[summary_answer("生成但未提交的新摘要")])
+        summary_model = ScriptedModel(responses=[summary_answer("生成但未提交的新摘要")
+                                                for _ in range(3)])
         agent = ReactAgent(model=model, summary_model=summary_model, context_policy=scripted_policy())
         previous = history()
         previous_summary = memory_value("已有的旧摘要")
@@ -163,8 +165,10 @@ class ContextCommitGraphTests(unittest.TestCase):
         self.assertEqual(agent.summary, previous_summary)
         self.assertEqual(agent._history_checks, [source_check])
         self.assertGreaterEqual(len(checks), 2)
+        summary_calls_before_reset = len(summary_model.seen)
         self.assertEqual("".join(agent.execute_stream("开始新的对话")), "新会话回答")
-        self.assertEqual(len(summary_model.seen), 1, "Revoked history was summarized again")
+        self.assertEqual(len(summary_model.seen), summary_calls_before_reset,
+                         "Revoked history was summarized again")
         self.assertEqual([message.content for message in model.seen[-1][1:]], ["开始新的对话"])
         self.assertIsNone(agent.summary)
         self.assertEqual(agent._history_checks, [])

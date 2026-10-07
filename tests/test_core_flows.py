@@ -74,7 +74,10 @@ class AgentFlowTests(unittest.TestCase):
             call("fill_context_for_report"), answer("2025-08 使用报告"),
             answer("你好"),
         ])
-        agent = scripted_agent("1001", model=model)
+        # This fixture checks report prompt transitions. Compression has its
+        # own graph tests; fake providers count UTF-8 bytes rather than tokens.
+        agent = scripted_agent("1001", model=model,
+                               context_policy=scripted_context_policy(window_tokens=16384))
         list(agent.execute_stream("生成 2025 年 8 月报告"))
         data = json.loads(tool_results(agent, "fetch_external_data")[0].content)
         self.assertEqual(data["status"], "ok")

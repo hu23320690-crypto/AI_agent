@@ -1,5 +1,7 @@
 # 环境复现与排查
 
+2026-10-08 最终文档与后测整理：pytest 669 passed、3 skipped、291 subtests passed，51.03 秒，doctor146通过、pip check无冲突。两套固定40题的同题回归及失败见[本次修复](AGENT_GENERALIZATION_REPAIR.md)，对应代码身份见[检查清单](../artifacts/generalization_repair_v1/checks.json)。以下367/505等数字和旧评测分别属于历史版本。
+
 本页为截至 **2026-10-07** 的运行说明，包括 FastAPI、pytest、容器、同题版本准备和离线归档入口。本轮于 2026-10-06 开始，2026-10-07 完成原 60 例、旧 12 题和新 40 题两版的记录与辅助语义复核；新题当前版有 2 个截断案例，仍为未知，方法与结果见 [EVALUATION_V2.md](EVALUATION_V2.md)。阶段安装/交付记录属于对应历史版本，见 [DELIVERY_VERIFICATION.md](DELIVERY_VERIFICATION.md)；2026-10-01 上下文验收见 [CONTEXT_MANAGEMENT_VERIFICATION.md](CONTEXT_MANAGEMENT_VERIFICATION.md)。API 调用见 [API.md](API.md)，Docker/Linux 操作见 [DEPLOYMENT.md](DEPLOYMENT.md)。
 
 ## 固定环境与模型
@@ -10,7 +12,7 @@
 
 2026-10-05 API 工程化本机 pytest 320 项通过、1 项权限跳过，188 项 unittest 子断言通过；离线 doctor 146 项通过，pip check 无依赖冲突；新增 API 测试 39 项全通过，证据见[历史工程化检查](../artifacts/api_engineering_v1/checks.json)。这些历史计数独立保留。真实 HTTP 检查另存原始输出和语义复核，不以健康接口通过代替模型回答质量验证。
 
-本轮本机离线回归为 **367 passed、3 skipped、270 subtests passed，42.49秒**，3 项跳过来自 Windows 符号链接权限（2 个 seal 子场景、1 个安全子场景）；离线 doctor 146 项通过，pip check 无依赖冲突。证据见[本轮检查](../artifacts/evaluation_v2/checks.json)、[pytest日志](../artifacts/evaluation_v2/pytest.log)及[离线doctor](../artifacts/evaluation_v2/doctor_offline.json)。之前临时目录权限和绝对路径导致的测试预算失败保留完整私有日志及checks哈希摘要；最终使用工作区临时目录，仅两个来源撤销测试采用已有16384模拟上下文预算，保留撤销/重试断言，业务配置未改。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
+修复前评测本机离线回归为 **367 passed、3 skipped、270 subtests passed，42.49秒**，3 项跳过来自 Windows 符号链接权限（2 个 seal 子场景、1 个安全子场景）；离线 doctor 146 项通过，pip check 无依赖冲突。证据见[本轮检查](../artifacts/evaluation_v2/checks.json)、[pytest日志](../artifacts/evaluation_v2/pytest.log)及[离线doctor](../artifacts/evaluation_v2/doctor_offline.json)。之前临时目录权限和绝对路径导致的测试预算失败保留完整私有日志及checks哈希摘要；最终使用工作区临时目录，仅两个来源撤销测试采用已有16384模拟上下文预算，保留撤销/重试断言，业务配置未改。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 ~~~powershell
 py -3.12 -m venv .venv

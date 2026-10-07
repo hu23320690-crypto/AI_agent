@@ -6,9 +6,17 @@
 
 ## 当前完成情况
 
-文档整理截至 **2026-10-07**。本轮评测于 2026-10-06 开始，2026-10-07 完成记录与辅助语义复核：当前版本重跑原 60 个案例与旧 12 道保留题，另将推理前冻结的新 40 题用于历史混合检索版与当前版同题对照。新题知识严格通过为 **24/28 → 21/28**，资料不足两版 **6/6**，Agent 全轮任务两版 **0/6**；当前版有 2 个生成截断案例，保持未知并留在原计划分母。方法、失败和逐题证据见 [本轮评测](docs/EVALUATION_V2.md)，题集见 [holdout_v2](evaluation/holdout_v2/README.md)。
+最终文档与后测整理截至 **2026-10-08**。针对新题暴露的问题完善字段别名、目标/基准月份、报告与知识组合交付、同量门槛判断和来源条目选择；修复报告数量后缀，并恢复已测 RAG 提示。最终 v3 generalization_v1 已见回归：**知识严格 20/28、资料不足 6/6、Agent 全轮 4/6**；holdout_v2 已见回归：**知识严格 22/28、资料不足 6/6、Agent 全轮 6/6**。候选 v2 的退步与失败已封存并保留，不能用单元测试或正确工具调用代替最终答案。知识是否改善应按同题完整结果判断，详见[本次修复与同题对照](docs/AGENT_GENERALIZATION_REPAIR.md)。
 
-**本轮本机离线验证**为 pytest 367 项通过、3 项 Windows 符号链接权限跳过、270 个子断言通过，耗时 42.49 秒；离线 doctor 146 项通过，`pip check` 无依赖冲突。证据见[本轮检查](artifacts/evaluation_v2/checks.json)、[pytest 输出](artifacts/evaluation_v2/pytest.log)和[离线 doctor](artifacts/evaluation_v2/doctor_offline.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
+独立新题首次测试仍保留 **18/28、5/6、1/6**，见[首次泛化评测](docs/GENERALIZATION_EVALUATION.md)。两个题集现均已用于修复，当前分数属于已见题回归；不同题集间分差不能解释为提升，标注和判分尚需独立人工审核。
+
+最新本机检查：pytest **669项通过、3项Windows符号链接权限跳过、291个子断言通过**，耗时51.03秒；离线doctor146通过、pip check无冲突，见[本次检查](artifacts/generalization_repair_v1/checks.json)与[测试日志](artifacts/generalization_repair_v1/pytest.log)。对应提交CI另见PR/Actions。
+
+以下保留**修复前冻结评测**及历史工程化记录，数字不作为最新版本成绩：
+
+文档整理截至 **2026-10-07**。修复前评测评测于 2026-10-06 开始，2026-10-07 完成记录与辅助语义复核：当时版本重跑原 60 个案例与旧 12 道保留题，另将推理前冻结的新 40 题用于历史混合检索版与当时版同题对照。新题知识严格通过为 **24/28 → 21/28**，资料不足两版 **6/6**，Agent 全轮任务两版 **0/6**；当时版有 2 个生成截断案例，保持未知并留在原计划分母。方法、失败和逐题证据见 [修复前评测评测](docs/EVALUATION_V2.md)，题集见 [holdout_v2](evaluation/holdout_v2/README.md)。
+
+**修复前评测本机离线验证**为 pytest 367 项通过、3 项 Windows 符号链接权限跳过、270 个子断言通过，耗时 42.49 秒；离线 doctor 146 项通过，`pip check` 无依赖冲突。证据见[修复前评测检查](artifacts/evaluation_v2/checks.json)、[pytest 输出](artifacts/evaluation_v2/pytest.log)和[离线 doctor](artifacts/evaluation_v2/doctor_offline.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 **2026-10-05 的 API 工程化检查**继续保留为历史验证：本机 320 项通过、1 项 Windows 权限跳过，188 项 unittest 子断言通过，新增 API 39 项通过；离线 doctor 146 项通过，`pip check` 无依赖冲突。Windows/Linux 各 321 项测试和非 root 镜像启动见 [历史 CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297)，容器检查不含模型下载或真实推理。证据见[工程化检查](artifacts/api_engineering_v1/checks.json)、[pytest 输出](artifacts/api_engineering_v1/pytest.log)与[CI 记录](artifacts/api_engineering_v1/ci_history.json)，这些计数不作为本轮结果。
 
@@ -20,7 +28,7 @@
 | 异步执行 | asyncio 等待与断连检测；有上限的同步任务执行、会话互斥、总并发和 TTL；超时后保留额度直至真实任务退出 |
 | 运行与交付 | 单 worker API、非 root Docker 镜像、Compose 初始化与持久卷、Linux 运维说明、Windows/Linux pytest 和容器 CI 工作流 |
 | RAG | 200 字分块、20 字重叠；向量与 BM25 各取 20 候选，RRF 融合；来源配额、查询词覆盖重排、近重复过滤，检索 Top-5 |
-| Agent | 7 个工具，多轮历史与指代追问；按会话用户和月份查询 CSV，由程序渲染事实报告 |
+| Agent | 7 个工具；保留有界任务引用与报告选择状态；指定字段和跨月差值由当前授权CSV查询渲染 |
 | Runtime | 整轮共享 deadline 与模型/工具/embedding 调用预算；有限并发、取消、有限重试和进程内熔断 |
 | 来源治理 | 新增/变化资料隔离、文件摘要审核、撤销与同步；检索、生成后和提交前复核来源 |
 | 上下文管理 | 消息及工具结构预算、完整轮次裁剪、低信任结构化摘要、失败降级、截断输出拒绝提交 |

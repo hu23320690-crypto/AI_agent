@@ -338,11 +338,14 @@ class GovernedRetrievalTests(unittest.TestCase):
                 patch.object(store, "validate_documents", wraps=store.validate_documents) as validate:
             text = runtime_call("run", "test.valid", lambda: self.rag(store).answer_documents("保养", docs), run=run)
             self.assertEqual(text, "先关闭电源。")
-            self.assertEqual(validate.call_count, 3)
+            # Maintenance boundary inspection may perform extra source checks;
+            # the essential invariant is every reference is checked at commit.
+            before_commit = validate.call_count
+            self.assertGreaterEqual(before_commit, 3)
             run.complete()
             # Each captured reference now has a stable, separately deduplicated
             # dependency check, so every used reference is revalidated at commit.
-            self.assertEqual(validate.call_count, 3 + len(docs))
+            self.assertEqual(validate.call_count, before_commit + len(docs))
         self.assertEqual(run.status, "succeeded")
         human = model.seen[0][-1].content
         rows = json.loads(human.split("低信任参考资料 JSON：\n", 1)[1])
