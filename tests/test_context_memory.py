@@ -9,7 +9,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, Tool
 
 from agent.context_budget import ContextPolicy, ContextBudgetExceeded, estimate_request
 from agent.context_memory import (
-    TurnMemoryPlan, InvalidConversationMemory, parse_summary, split_complete_turns,
+    TurnMemoryPlan, InvalidConversationMemory, parse_summary, split_complete_turns, validate_summary,
 )
 from agent.runtime import (
     RunContext, RunLimits, ExecutionRuntime, RunCancelled, CallTimeout, BudgetExceeded,
@@ -103,7 +103,7 @@ class ContextMemoryTests(unittest.TestCase):
         plan = self.plan(previous, model=model)
         request = Request([*previous, *current])
         view = plan.prepare_request(request)
-        self.assertEqual(len(model.seen), 1)
+        self.assertEqual(len(model.seen), 2)
         self.assertIsInstance(view.messages[0], HumanMessage)
         self.assertEqual(view.messages[0].name, 'conversation_memory')
         reference = json.loads(view.messages[0].content)
@@ -114,7 +114,7 @@ class ContextMemoryTests(unittest.TestCase):
         self.assertEqual(plan.retained_history, previous[-4:])
         self.assertEqual(request.messages, [*previous, *current], 'graph request was mutated')
         self.assertEqual(plan.stats['summary_status'], 'generated')
-        self.assertEqual(plan.run.counts['model'], 1)
+        self.assertEqual(plan.run.counts['model'], 2)
         self.assertFalse(model.options[0]['reasoning'])
         self.assertEqual(model.options[0]['num_predict'], 512)
         self.assertFalse(model.options[0]['format']['additionalProperties'])
@@ -127,9 +127,14 @@ class ContextMemoryTests(unittest.TestCase):
         plan.prepare_request(Request([*previous, HumanMessage(content='继续')]))
         payload = json.loads(model.seen[0][-1].content)
         self.assertEqual(payload['previous_memory'], original_summary)
-        self.assertGreater(plan.stats['summary_input_omitted_turns'], 0)
+        self.assertEqual(plan.stats['summary_input_omitted_turns'], 0)
         self.assertEqual(plan.stats['lost_turns'], plan.stats['summary_input_omitted_turns'])
-        for turn in payload['completed_turns']:
+        seen_turns = [turn for messages in model.seen
+                      for turn in json.loads(messages[-1].content)['completed_turns']]
+        self.assertEqual([turn[0]['content'] for turn in seen_turns],
+                         [message.content for message in previous[:-4:2]])
+        self.assertEqual(json.loads(model.seen[1][-1].content)['previous_memory'], memory_value())
+        for turn in seen_turns:
             self.assertEqual(len(turn), 2)
             self.assertEqual(turn[0]['role'], 'human')
             self.assertEqual(turn[1]['role'], 'ai')
@@ -160,7 +165,7 @@ class ContextMemoryTests(unittest.TestCase):
             with self.subTest(messages=messages), self.assertRaises(InvalidConversationMemory):
                 split_complete_turns(messages)
 
-    def test_current_tool_chain_is_never_cut_and_summary_runs_at_most_once(self):
+    def test_current_tool_chain_is_never_cut_and_summary_chunks_are_not_repeated(self):
         previous = history()
         current = [HumanMessage(content='follow up'), AIMessage(content='', tool_calls=[
             {'name': 'one', 'args': {'q': 'a'}, 'id': 'c'}]),
@@ -169,10 +174,12 @@ class ContextMemoryTests(unittest.TestCase):
         plan = self.plan(previous, model=model)
         request = Request([*previous, *current])
         first = plan.prepare_request(request)
+        attempts = len(model.seen)
         second = plan.prepare_request(request)
         self.assertEqual(first.messages[-3:], current)
         self.assertEqual(second.messages[-3:], current)
-        self.assertEqual(len(model.seen), 1)
+        self.assertEqual(len(model.seen), 2)
+        self.assertEqual(len(model.seen), attempts)
         final = AIMessage(content='final')
         self.assertEqual(plan.committed_messages([*previous, *current, final]),
                          [*plan.retained_history, *current, final])
@@ -226,7 +233,9 @@ class ContextMemoryTests(unittest.TestCase):
         original_summary = memory_value('已有主题')
         plan = self.plan(previous, summary=original_summary, model=SummaryModel(ConnectionError('offline')))
         view = plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
-        self.assertEqual(plan.summary, original_summary)
+        self.assertEqual({key: value for key, value in plan.summary.items()
+                          if key != 'task_references'}, original_summary)
+        self.assertTrue(plan.summary['task_references'][0].startswith('question-0 '))
         self.assertEqual(plan.retained_history, previous[-4:])
         self.assertEqual(plan.run.status, 'running')
         self.assertEqual(plan.stats['summary_status'], 'fallback')
@@ -242,9 +251,10 @@ class ContextMemoryTests(unittest.TestCase):
                 previous = history()
                 plan = self.plan(previous, model=SummaryModel(answer))
                 view = plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
-                self.assertIsNone(plan.summary)
+                self.assertEqual(plan.summary['topic'], '')
+                self.assertTrue(plan.summary['task_references'][0].startswith('question-0 '))
                 self.assertEqual(plan.stats['summary_status'], 'fallback')
-                self.assertEqual(view.messages[:-1], previous[-4:])
+                self.assertEqual(view.messages[1:-1], previous[-4:])
 
     def test_optional_local_timeout_falls_back_while_parent_remains_running(self):
         previous = history()
@@ -252,9 +262,10 @@ class ContextMemoryTests(unittest.TestCase):
         with patch('agent.context_memory.optional_model_call', side_effect=CallTimeout('optional', kind='model')):
             view = plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
         self.assertEqual(plan.run.status, 'running')
-        self.assertIsNone(plan.summary)
+        self.assertEqual(plan.summary['topic'], '')
+        self.assertTrue(plan.summary['task_references'][0].startswith('question-0 '))
         self.assertEqual(plan.stats['summary_status'], 'fallback')
-        self.assertEqual(view.messages[:-1], previous[-4:])
+        self.assertEqual(view.messages[1:-1], previous[-4:])
 
     def test_summary_cancellation_is_terminal_and_original_history_is_unchanged(self):
         previous = history()
@@ -263,7 +274,7 @@ class ContextMemoryTests(unittest.TestCase):
         with self.assertRaises(RunCancelled):
             plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
         self.assertEqual(run.status, 'cancelled')
-        self.assertIsNone(plan.summary)
+        self.assertEqual(plan.summary['topic'], '')
         self.assertEqual(plan.history, previous)
         self.assertEqual(plan.retained_history, previous)
 
@@ -283,6 +294,109 @@ class ContextMemoryTests(unittest.TestCase):
         self.assertEqual(model.seen, [])
         self.assertEqual(run.counts['model'], 0)
         self.assertEqual(plan.stats['summary_status'], 'skipped_call_budget')
+
+    def test_two_remaining_calls_are_reserved_for_tool_and_final_answer(self):
+        previous = history()
+        run = new_run(max_model_calls=2)
+        model = SummaryModel()
+        plan = self.plan(previous, run=run, model=model)
+        view = plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
+        self.assertEqual(model.seen, [])
+        self.assertEqual(run.counts['model'], 0)
+        self.assertEqual(plan.stats['lost_turns'], 4)
+        self.assertEqual(plan.stats['summary_input_omitted_turns'], 4)
+        self.assertIn('question-0 ', view.messages[0].content)
+
+    def test_incremental_summary_sees_initial_goal_and_preserves_raw_goal_if_model_forgets(self):
+        goal = '整理 2027-04 温室记录，只需要湿度和照明时长，并注明缺失值。'
+        previous = [HumanMessage(content=goal), AIMessage(content='已记录目标。')]
+        for index in range(1, 64):
+            previous += [HumanMessage(content=f'第{index}轮准备进度：资料排序和核对标题。'),
+                         AIMessage(content=f'已记录第{index}轮准备进度。')]
+        model = SummaryModel(answer=AIMessage(content=json.dumps(memory_value('资料排序'))))
+        plan = self.plan(previous, model=model)
+        view = plan.prepare_request(Request([*previous, HumanMessage(content='最初目标是什么？')]))
+        supplied = [turn for messages in model.seen
+                    for turn in json.loads(messages[-1].content)['completed_turns']]
+        self.assertEqual(supplied[0][0]['content'], goal)
+        self.assertEqual(len(supplied), 62)
+        self.assertEqual(plan.stats['lost_turns'], 0)
+        self.assertEqual(plan.stats['summary_input_omitted_turns'], 0)
+        self.assertEqual(plan.summary['task_references'], [goal])
+        self.assertIn(goal, view.messages[0].content)
+        self.assertEqual(plan.summary['topic'], '资料排序', 'The fake summary deliberately forgets the goal')
+        # Successful-turn state persists the program's original quote even after
+        # a later compression, without making it higher-trust than current input.
+        next_plan = self.plan(history(), summary=plan.summary, model=SummaryModel())
+        next_view = next_plan.prepare_request(Request([*history(), HumanMessage(content='改为 2027-05 温度。')]))
+        self.assertEqual(next_plan.summary['task_references'][0], goal)
+        self.assertEqual(next_view.messages[-1].content, '改为 2027-05 温度。')
+        self.assertIn('当前问题优先', next_view.messages[0].content)
+
+    def test_summary_failure_keeps_raw_goal_but_does_not_claim_coverage(self):
+        previous = history()
+        plan = self.plan(previous, model=SummaryModel(ConnectionError('offline')))
+        view = plan.prepare_request(Request([*previous, HumanMessage(content='follow up')]))
+        self.assertEqual(plan.stats['summarized_turns'], 0)
+        self.assertEqual(plan.stats['summary_seen_turns'], 0)
+        self.assertEqual(plan.stats['lost_turns'], 4)
+        self.assertEqual(plan.summary['reported_results'], [])
+        self.assertIn('question-0 ', view.messages[0].content)
+        self.assertLessEqual(sum(len(text.encode('utf-8'))
+                                 for text in plan.summary['task_references']), 1024)
+
+    def test_recent_short_task_change_survives_repeated_progress_and_acknowledgements(self):
+        previous = [HumanMessage(content='生成三月湿度报告'), AIMessage(content='已记录。'),
+                    HumanMessage(content='改查五月温度'), AIMessage(content='已更新目标。')]
+        for index in range(40):
+            previous += [HumanMessage(content=f'第{index}轮准备进度：资料排序和核对标题。'),
+                         AIMessage(content='已记录。')]
+        previous += [HumanMessage(content='好的'), AIMessage(content='收到')]
+        policy = controlled_policy(trigger_fraction=.01)
+        plan = self.plan(previous, policy=policy)
+        plan.prepare_request(Request([*previous, HumanMessage(content='当前查什么？')]))
+        self.assertIn('改查五月温度', plan.summary['task_references'])
+        self.assertNotIn('好的', plan.summary['task_references'])
+        self.assertFalse(any('准备进度' in text for text in plan.summary['task_references']))
+
+    def test_repeated_substantive_request_is_not_treated_as_progress_noise(self):
+        previous = [HumanMessage(content='生成三月湿度报告'), AIMessage(content='已记录。')]
+        for _ in range(5):
+            previous += [HumanMessage(content='改查五月温度'), AIMessage(content='已更新目标。')]
+        policy = controlled_policy(trigger_fraction=.01)
+        plan = self.plan(previous, policy=policy)
+        plan.prepare_request(Request([*previous, HumanMessage(content='继续')]))
+        self.assertIn('改查五月温度', plan.summary['task_references'])
+
+    def test_partial_summary_call_budget_reports_uncovered_turns(self):
+        previous = history(12)
+        model = SummaryModel()
+        run = new_run(max_model_calls=3)
+        plan = self.plan(previous, model=model, run=run)
+        plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
+        covered = len(json.loads(model.seen[0][-1].content)['completed_turns'])
+        self.assertEqual(len(model.seen), 1)
+        self.assertEqual(run.counts['model'], 1)
+        self.assertEqual(plan.stats['summary_status'], 'partial_generated')
+        self.assertEqual(plan.stats['summarized_turns'], covered)
+        self.assertEqual(plan.stats['lost_turns'], 10 - covered)
+        self.assertEqual(plan.stats['summary_input_omitted_turns'], 10 - covered)
+
+    def test_oversized_historical_tool_turn_is_not_partially_summarized(self):
+        previous = [HumanMessage(content='处理完整工具返回'), AIMessage(content='', tool_calls=[
+            {'name': 'one', 'args': {}, 'id': 'old'}]),
+            ToolMessage(content='x' * 10000, tool_call_id='old'), AIMessage(content='done')]
+        previous += history(3, 800)
+        model = SummaryModel()
+        plan = self.plan(previous, model=model)
+        plan.prepare_request(Request([*previous, HumanMessage(content='next')]))
+        supplied = [turn for messages in model.seen
+                    for turn in json.loads(messages[-1].content)['completed_turns']]
+        self.assertEqual(len(supplied), 1)
+        self.assertEqual(supplied[0][0]['content'], previous[4].content)
+        self.assertEqual(plan.stats['lost_turns'], 1)
+        self.assertEqual(plan.stats['summary_status'], 'partial_generated')
+        self.assertEqual(plan.summary['task_references'][0], '处理完整工具返回')
 
     def test_later_model_request_rechecks_tools_and_trims_additional_whole_turns(self):
         previous = history(2, 400)
@@ -357,6 +471,14 @@ class ContextMemoryTests(unittest.TestCase):
         with self.assertRaises(InvalidConversationMemory):
             parse_summary(AIMessage(content=json.dumps(memory_value()), invalid_tool_calls=[
                 {'name': 'forbidden', 'args': 'not-json', 'id': 'bad', 'error': 'invalid'}]))
+        # Raw quote state may be persisted by the application, never fabricated
+        # by the summary model. Both paths enforce a finite text-only budget.
+        allowed = {**memory_value(), 'task_references': ['历史用户目标']}
+        self.assertEqual(validate_summary(allowed), allowed)
+        with self.assertRaises(InvalidConversationMemory):
+            parse_summary(AIMessage(content=json.dumps(allowed)))
+        with self.assertRaises(InvalidConversationMemory):
+            validate_summary({**memory_value(), 'task_references': ['x' * 1025]})
 
 
 if __name__ == '__main__':

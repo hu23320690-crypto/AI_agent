@@ -1,0 +1,236 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 20,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 17,
+      "3": 25,
+      "5": 27
+    },
+    "mrr_at_5": 0.8345238095238096,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 24,
+    "partial": 4,
+    "incorrect": 0,
+    "grounded": 24,
+    "strict_pass": 23,
+    "strict_fail": 5,
+    "strict_pass_fraction_planned": 0.8214285714285714,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 27,
+      "all_required_hit": 26,
+      "policy_hit": 26
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 5,
+    "strict_pass": 5,
+    "strict_fail": 1,
+    "strict_pass_fraction_planned": 0.8333333333333334,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 6,
+    "task_fail": 0,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 128,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.34134719999929075,
+      "p95_seconds": 0.4809209999984887
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 2.5494070000022475,
+      "p95_seconds": 3.811440900000889
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 18.320437599999423,
+      "p95_seconds": 36.341715899998235
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 7.312249349999547,
+      "p95_seconds": 53.90383169999768
+    }
+  },
+  "model_usage": {
+    "observed_requests": 57,
+    "requests_by_status": {
+      "ok": 57,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 57,
+    "input_tokens": 107397,
+    "output_tokens": 13409,
+    "request_input_message_counts": {
+      "count": 57,
+      "median_messages": 2,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "V2K01",
+      "status": "ok",
+      "review": {
+        "id": "V2K01",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "剂量及不可多滴主体正确，但把每月改为固定每30天，并把粘灰与卡顿关联为具体因果；本次资料未提供固定30天口径，严格频次与忠实度不通过。",
+        "result_sha256": "8d2ec1b9a8c1833c98e8376e6d0c7e0460b74ae41408f58814634d318b902fe8",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K05",
+      "status": "ok",
+      "review": {
+        "id": "V2K05",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "不可混用、规格功能不同、污水专用与损坏风险完整，但新增扫地滤网过滤毛发等固体颗粒的具体说明没有本次输入直接依据；其他主刷清理事实不能替代滤网事实。",
+        "result_sha256": "b3d66e6c07cd1dc93debfff320b4d6c319e44a0986ea715d46749999c5e368b9",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K13",
+      "status": "ok",
+      "review": {
+        "id": "V2K13",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "实际输入同时有两份扫地问答：一般≤2cm与多数1.5-2cm/高端2.5cm。输出选择后一口径且保留机型限制，但没有交付冻结必答的一般≤2cm；保留题面来源名称歧义，不改金标准。",
+        "result_sha256": "fb7c21a474fd374fdb804337c5b403064f56f98a74c97a35d887eae1e8a4cb96",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K17",
+      "status": "ok",
+      "review": {
+        "id": "V2K17",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "功能仅支持机型、APP绘路径与精准清扫主体正确，但把另一条先扫后拖模式设置当作自定义路线具体操作；实际来源未支持这种功能关联。",
+        "result_sha256": "9552ab0467af9b5dd18fef0be87f07099f3355c92b94c84cd35a99f1b7128b79",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K24",
+      "status": "ok",
+      "review": {
+        "id": "V2K24",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "清水刻度、污水、清理水位传感器、加水倒污水重启正确，但仅说操作前断电，未覆盖冻结必答全程断电；本次实际输入也未包含通用断电资料，不能以库内其他位置有据替代。",
+        "result_sha256": "947aa2a223e09ca73cc251205304f311039f2cd389a7c510ddef92fcb352c922",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2N01",
+      "status": "ok",
+      "review": {
+        "id": "V2N01",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "正确拒绝提供未给出的厂商扭矩与螺丝规格，没有编造所求数值；但附加引用故障第4条未出现在本次实际输入，主刷电机故障说明也没有本次依据，严格忠实度不通过。",
+        "result_sha256": "5d9327240ed4446d681280bb3a1ef42075cc4cd88717e98c8a3ce5a001f20fa0",
+        "review_method": "Codex主助手按冻结SEMANTIC_REVIEW_V2、题面、必答点与实际输入/来源/工具输出复核；非盲评，非独立真人或领域专家审核。程序引用按该次获准服务资料输入核对；模型覆盖指标仍只统计实际LLM输入。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

@@ -23,6 +23,19 @@ dist/
 evaluation/results/*/logs/
 evaluation/results/*/workers/
 
+# Local repair trials remain available for diagnosis; publish the final run.
+/evaluation/results/agent_task_repair_trial_v1/
+/evaluation/results/agent_task_repair_v1/
+/evaluation/results/agent_task_repair_final_v1/
+/evaluation/results/agent_task_repair_final_v2/
+/evaluation/results/agent_task_repair_v2/
+/evaluation/results/agent_task_repair_v3/
+/evaluation/results/agent_task_repair_final/
+/evaluation/results/agent_task_repair_verified_v1/
+/evaluation/results/agent_task_repair_delivery_v1/
+/evaluation/results/agent_task_repair_delivery_v2/
+/evaluation/results/agent_task_repair_delivery_v3/
+
 # Publish only the evidence referenced by active/historical documentation.
 /artifacts/**
 !/artifacts/context_management_v1/
@@ -98,6 +111,10 @@ evaluation/results/*/workers/
 !/artifacts/evaluation_v2/pytest.log
 !/artifacts/evaluation_v2/doctor_offline.json
 !/artifacts/evaluation_v2/ci_history.json
+!/artifacts/agent_task_repair_v1/
+!/artifacts/agent_task_repair_v1/checks.json
+!/artifacts/agent_task_repair_v1/pytest_complete.log
+!/artifacts/agent_task_repair_v1/doctor_offline.json
 
 
 .git-init-backup/

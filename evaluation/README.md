@@ -1,6 +1,8 @@
 # 评测与验证入口
 
-本页整理截至 **2026-10-07**。本轮评测于 2026-10-06 开始，2026-10-07 完成原 60 个案例、旧 12 道保留题与新 40 题两版同题对照的记录和辅助语义复核。新题当前版有 2 个截断案例，保持未知；方法与最终结果见 [EVALUATION_V2.md](../docs/EVALUATION_V2.md)。2026-10-01 的上下文验收和 2026-10-05 的 API、pytest、跨平台/容器检查保留为历史记录。本轮本机 pytest 367 通过、3 项权限跳过、270 个子断言通过，离线 doctor 146 项通过，pip check 无冲突，见[本轮检查](../artifacts/evaluation_v2/checks.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
+最新修复回归：同一冻结40题，知识严格通过 **23/28**、资料不足 **5/6**、Agent全轮任务 **6/6**，40/40执行完成。pytest **505项通过、3项Windows符号链接权限跳过、290个子断言通过**，耗时48.26秒。证据和方法见[Agent任务修复](../docs/AGENT_TASK_REPAIR.md)。holdout_v2已用于调试，结果属于已见题回归，主助手复核不属于独立真人盲评。
+
+以下为修复前评测及历史验收：本页整理截至 **2026-10-07**。修复前评测于 2026-10-06 开始，2026-10-07 完成原 60 个案例、旧 12 道保留题与新 40 题两版同题对照的记录和辅助语义复核。新题当时版有 2 个截断案例，保持未知；方法与最终结果见 [EVALUATION_V2.md](../docs/EVALUATION_V2.md)。2026-10-01 的上下文验收和 2026-10-05 的 API、pytest、跨平台/容器检查保留为历史记录。修复前评测本机 pytest 367 通过、3 项权限跳过、270 个子断言通过，离线 doctor 146 项通过，pip check 无冲突，见[修复前评测检查](../artifacts/evaluation_v2/checks.json)。对应提交的 Windows/Linux 与 Docker 结果见 [Actions](https://github.com/hu23320690-crypto/AI_agent/actions) / PR 检查，本机验证不替代 CI。
 
 评测分为检索证据、答案语义、Agent 任务、Runtime 故障控制和安全边界。各层使用不同样本与指标，分别报告；进程完成、单元测试通过、检索命中与答案正确不能互相替代。
 
@@ -8,9 +10,10 @@
 
 | 目的 | 入口与证据 |
 | --- | --- |
-| 本轮原题回归、旧保留题与新题同题对照 | [方法与结果](../docs/EVALUATION_V2.md)、[新 40 题说明](holdout_v2/README.md)、[本轮语义复核规则](SEMANTIC_REVIEW_V2.md) |
+| 修复后40题回归 | [修复说明](../docs/AGENT_TASK_REPAIR.md)、[汇总](results/agent_task_repair_delivery_v4/summary.json)、[复核](results/agent_task_repair_delivery_v4/reviews.jsonl) |
+| 修复前原题回归、旧保留题与新题同题对照 | [方法与结果](../docs/EVALUATION_V2.md)、[新 40 题说明](holdout_v2/README.md)、[本轮语义复核规则](SEMANTIC_REVIEW_V2.md) |
 | 新 40 题两版结果与配对变化 | [历史版汇总](results/holdout_v2_historical_optimized/summary.json)、[当前版汇总](results/holdout_v2_current/summary.json)、[配对对照](results/holdout_v2_comparison/comparison.json) |
-| 本轮本机离线实现检查 | [检查清单](../artifacts/evaluation_v2/checks.json)、[pytest](../artifacts/evaluation_v2/pytest.log)、[离线 doctor](../artifacts/evaluation_v2/doctor_offline.json) |
+| 修复前本机离线实现检查 | [检查清单](../artifacts/evaluation_v2/checks.json)、[pytest](../artifacts/evaluation_v2/pytest.log)、[离线 doctor](../artifacts/evaluation_v2/doctor_offline.json) |
 | 当前上下文管理实现与验收 | [实现说明](../docs/CONTEXT_MANAGEMENT.md)、[2026-10-01 验收](../docs/CONTEXT_MANAGEMENT_VERIFICATION.md) |
 | 2026-10-05 API 工程化与跨平台验证 | [历史检查](../artifacts/api_engineering_v1/checks.json)、[历史真实 HTTP 输出](../artifacts/api_engineering_v1/live_smoke.json)、[历史 CI 第三次运行](https://github.com/hu23320690-crypto/AI_agent/actions/runs/37268280297) |
 | 原问答与 Agent 基线 | [baseline_v1 汇总](results/baseline_v1/summary.md)、[逐题记录](results/baseline_v1/audit.md) |
@@ -25,7 +28,7 @@
 
 阶段文档、旧结果及其冻结快照记录当时的实现和验证范围。当前运行方式以本页、主 [README](../README.md) 和上下文管理说明为准，不将历史测试数量改写成当前验收结果。
 
-## 已有结果及解释范围
+## 修复前与历史结果及解释范围
 
 | 范围 | 已有结果 | 解释 |
 | --- | --- | --- |
@@ -34,7 +37,7 @@
 | 新 40 题历史混合检索版 | 知识严格通过 24/28（4 题部分正确）；资料不足 6/6；Agent 全轮任务 0/6（6 例失败），工具名称路径 4/6 | 40 例均执行完成；每版计划 45 次真实用户提问，其中 Agent 11 次，另注入的 128 对合成历史不计真实模型交互 |
 | 新 40 题当前版 | 知识严格通过 21/28（6 题部分正确、1 题截断未知）；资料不足 6/6；Agent 全轮任务 0/6（5 例失败、1 例截断未知），工具名称路径 4/6 | 40 例均保存记录，38 例执行完成；未知保留在原计划分母，不计为正确拒答或任务成功 |
 | 新 40 题配对变化 | 知识 21 共同通过、2 退步、4 共同失败、1 未知，0 进步；资料不足 6 共同通过；Agent 5 共同失败、1 未知 | 两版检索 Top-5 任一锚命中 28/28、全部必需锚命中 27/28，不能由相同召回覆盖推导答案或任务均通过 |
-| 本轮本机离线实现检查 | pytest 367 通过、3 项 Windows 符号链接权限跳过、270 个子断言通过；离线 doctor 146 项通过、pip check 无冲突 | 42.49 秒；2 个 seal 子场景和 1 个安全子场景跳过，受控程序测试不能替代真实回答质量或对应提交的 CI |
+| 修复前本机离线实现检查 | pytest 367 通过、3 项 Windows 符号链接权限跳过、270 个子断言通过；离线 doctor 146 项通过、pip check 无冲突 | 42.49 秒；2 个 seal 子场景和 1 个安全子场景跳过，受控程序测试不能替代真实回答质量或对应提交的 CI |
 | 历史检索比较 | 向量 Top-3 标注证据命中 31/40，混合 Top-5 为 38/40；同为 Top-5 时向量为 33/40 | 前一比较同时改变召回方式和 K；38/40 是检索证据指标，不是答案正确率 |
 | 历史完整问答 | 40 道知识题严格通过 30/40 → 33/40；资料不足题 8/8 → 8/8；Agent 任务 11/12 → 12/12 | 见 baseline_v1 与 optimized_v1；多项改动共同作用，不能归因于某个单一算法 |
 | 历史上下文受控回归 | 259 项运行，258 通过，1 项 Windows 符号链接权限跳过，0 失败/错误 | 2026-10-01 功能验收，2026-10-05 API 接入前的独立上传副本再次通过相同回归；模拟依赖验证程序行为，不代表真实模型问答或攻击抵抗率 |
@@ -49,7 +52,7 @@
 
 题集和语义复核由 Codex 助手依据项目资料编写、检查，助手团队之间复查仍不属于独立领域专家标注或真人盲评。资料未经核实为厂商手册；本项目测量资料一致性与应用边界，不证明通用产品知识真实、安全防护完整或生产规模稳定性。
 
-新题的 V2A01/V2A02 正确查表后仍因最终报告超出指定字段范围、遗漏差值而未完成请求；V2A04 两版都漏晾干条件。当前 V2A05/V2A06 的摘要只保留整理文件主题，丢失维护对象、月份、字段或不足不猜要求；历史版相应长历史任务也未完成。当前 V2K22 与 V2A03 第二轮截断，整题/整案为未知。知识退步 V2K19 漏软毛刷限定，V2K21 混淆机器人补电与拆卸电池存放条件。各项理由及 V2K13/V2K28 的评分歧义保存在 reviews，不改冻结题面、金标准或分母。新题结果不支持全面提升，本轮未基于这些输出修改业务实现。
+新题的 V2A01/V2A02 正确查表后仍因最终报告超出指定字段范围、遗漏差值而未完成请求；V2A04 两版都漏晾干条件。当前 V2A05/V2A06 的摘要只保留整理文件主题，丢失维护对象、月份、字段或不足不猜要求；历史版相应长历史任务也未完成。当前 V2K22 与 V2A03 第二轮截断，整题/整案为未知。知识退步 V2K19 漏软毛刷限定，V2K21 混淆机器人补电与拆卸电池存放条件。各项理由及 V2K13/V2K28 的评分歧义保存在 reviews，不改冻结题面、金标准或分母。新题结果不支持全面提升，该次冻结实验未基于输出修改业务；后续修复及回归另见Agent任务修复说明。
 
 新题辅助复核隐藏版本标签并打乱顺序；实际提示、消息结构和工具行为可能透露版本特征，不能称为完全盲评或独立真人专家审核。两版整体同时改变检索排序、提示、来源治理、预算与历史管理，不将差异归因于单一功能。
 

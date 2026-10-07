@@ -101,7 +101,7 @@ class RuntimeGraphTests(unittest.TestCase):
 
     def test_tool_timeout_is_terminal_and_cannot_be_paraphrased(self):
         release, entered = Event(), Event()
-        def blocked(_query):
+        def blocked(_query, *, question=None, query_context=None):
             entered.set()
             release.wait(5)
             return '迟到的知识回答'

@@ -14,6 +14,27 @@ from evaluation.compare import compare_cases, comparable, blind_bundle
 
 
 class EvaluationV2Tests(unittest.TestCase):
+    def test_service_evidence_is_recorded_without_claiming_a_model_request(self):
+        observer = ModelObserver()
+        doc = Document(page_content='部件甲：每周清理，晾干后使用。',
+                       metadata={'source_id': 'approved', 'source_version': 'v1', 'source': 'a.txt'})
+        service = object()
+        def extracted(actual_service, query, docs, *, question):
+            self.assertIs(actual_service, service)
+            self.assertEqual(question, '它多久清理？')
+            return docs[0].page_content
+        answer = observer.record_rag_answer(extracted, service, '部件甲多久清理', [doc],
+                                            question='它多久清理？')
+        self.assertEqual(answer, doc.page_content)
+        self.assertEqual(observer.calls, [])
+        self.assertEqual(observer.rag_answers[0]['model_request_indices'], [])
+        self.assertEqual(observer.rag_answers[0]['docs'][0]['metadata']['source_version'], 'v1')
+        self.assertEqual(input_evidence({'evidence': []}, observer.calls)['observed_context_calls'], 0)
+        with self.assertRaisesRegex(ConnectionError, 'revoked'):
+            observer.record_rag_answer(lambda *a, **k: (_ for _ in ()).throw(ConnectionError('revoked')),
+                                      service, 'q', [doc])
+        self.assertEqual(observer.rag_answers[-1]['status'], 'error')
+
     def test_seed_has_completed_pairs_and_no_inference(self):
         spec = {"generator": "synthetic_completed_pairs_v1", "pairs": 64,
                 "goal": "处理主刷毛发", "constraints": ["资料不足请拒答"],

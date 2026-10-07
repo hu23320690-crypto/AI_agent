@@ -182,7 +182,7 @@ def _model_blocked(case):
 def _tool_blocked(case):
     entered, release, exited = Event(), Event(), Event()
     side_effects = []
-    def block(query):
+    def block(query, *, question=None, query_context=None):
         side_effects.append('tool_dispatched')
         entered.set()
         try:

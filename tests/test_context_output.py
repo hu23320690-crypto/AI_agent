@@ -51,7 +51,11 @@ class ContextOutputGraphTests(unittest.TestCase):
         agent.messages = history()
         self.assertEqual("".join(agent.execute_stream("继续会话")), "本轮完整答复")
         self.assertEqual(len(summary_model.seen), 1)
-        self.assertIsNone(agent.summary, "A provider-truncated JSON summary was committed")
+        self.assertEqual(agent.summary['topic'], '', "A provider-truncated topic was committed")
+        for key in ('user_requests', 'reported_results', 'open_questions'):
+            self.assertEqual(agent.summary[key], [], "A provider-truncated summary was committed")
+        self.assertTrue(agent.summary['task_references'][0].startswith('question-0 '))
+        self.assertNotIn('主刷清理', json.dumps(agent.summary, ensure_ascii=False))
         self.assertEqual(agent.last_run["status"], "succeeded")
         self.assertTrue(any(event["event"] == "context_summary_fallback"
                             and event["error_type"] == "InvalidConversationMemory"
@@ -86,7 +90,7 @@ class ContextOutputGraphTests(unittest.TestCase):
         previous = [HumanMessage(content="此前问候"), answer("此前完整回复")]
         agent.messages = previous
 
-        def rag_query(query):
+        def rag_query(query, *, question=None, query_context=None):
             response = invoke_rag_model(ChatPromptValue(messages=[HumanMessage(content=query)]), {})
             return response.content
 
