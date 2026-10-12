@@ -1,0 +1,49 @@
+{
+  "stage": "P0",
+  "constructed_before_inference": true,
+  "model_calls": 0,
+  "baseline_parser_calls": 0,
+  "implementation_files_changed": false,
+  "component_count": 140,
+  "split_counts": {
+    "dev": 40,
+    "test": 100
+  },
+  "agent_cases": 12,
+  "agent_real_questions": 24,
+  "ids_unique": true,
+  "queries_unique": true,
+  "dev_test_exact_overlap": 0,
+  "old_sets_exact_question_overlap": 0,
+  "catalog_membership_and_unknown_disjoint": true,
+  "history_size_bound": true,
+  "csv_record_values_checked": 47,
+  "agent_delta_annotations": 8,
+  "agent_author_checks": {
+    "component_count": 20,
+    "agent_count": 12,
+    "real_turn_count": 24,
+    "record_value_checks": 47,
+    "comparison_delta_checks": 8,
+    "exact_source_line_checks": 28,
+    "model_or_intent_parser_calls": 0,
+    "files": {
+      "test_tasks.jsonl": "9c3a48e52ad65bc892c37ecc5337251031b6605c1de9bc64cb4f6262987b91c0",
+      "agent_rows.jsonl": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c"
+    }
+  },
+  "reviews": [
+    {
+      "method": "independent assistant static review",
+      "status": "completed",
+      "items": "component semantics, actual CSV values/deltas, original knowledge quotes",
+      "expert_or_author_approval": false
+    }
+  ],
+  "clarifications": {
+    "V8_no_today_anchor": "confirmed by project author 2026-10-13",
+    "selector_not_authority": "correct requested month does not grant access or missing-month values",
+    "joint_field_order": "metadata separates known/unknown yet retains their original global order"
+  },
+  "scope_note": "Only exact textual duplicates checked; category/semantic overlap is intentional, no claim of external independent unseen data."
+}

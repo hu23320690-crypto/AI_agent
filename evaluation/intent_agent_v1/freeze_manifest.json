@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "hash_algorithm": "sha256",
+  "status": "candidate_fixed_pending_author_review",
+  "candidate_fixed_at_utc": "2026-10-12T23:00:03.396887+00:00",
+  "requires_author_approval_before_P1": true,
+  "files": {
+    "cases.jsonl": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+    "construction_audit.json": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+    "dataset_manifest.json": "508fd14567c9a4cf70e5dc701900b1ff42039113687bad1bf4bfb11cf0a5d58d",
+    "README.md": "3e1d9201e2e7e64a65372ea92cb9c3dba629081aca1182408ffc81c0a0d1c370",
+    "SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+    "TEST_GOLD_REVIEW.md": "9294e784d4fb832619f19a22d9e32b0ec1dfd6582ccf445b48ac3f0ebbb84018"
+  },
+  "note": "Content fingerprint, not signature, external blind review or inference-results seal."
+}
