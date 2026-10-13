@@ -1,0 +1,97 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+ROOT = Path(r'C:\Users\胡\Documents\Codex\2026-09-17\new-chat\AI_agent_publication')
+PREFLIGHT = ROOT / 'evaluation/results/intent_p31_preflight'
+DIGEST = '359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7'
+os.environ['PYTHONUTF8'] = '1'
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
+os.chdir(ROOT)
+sys.path.insert(0, str(ROOT))
+
+def sha(data): return hashlib.sha256(data).hexdigest()
+def dump(path, value):
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+def git(*args):
+    return subprocess.check_output(['git','-c','safe.directory='+ROOT.as_posix(),*args], cwd=ROOT)
+def stamp(): return datetime.now(ZoneInfo('Australia/Sydney')).isoformat()
+REF = (PREFLIGHT/'runtime_commit.txt').read_text(encoding='utf-8').strip() if (PREFLIGHT/'runtime_commit.txt').exists() else None
+
+def runtime_check():
+    if not REF: raise RuntimeError('Implementation commit not registered')
+    names = git('ls-tree','-r','--name-only',REF).decode('utf-8').splitlines()
+    paths = [p for p in names if p.split('/')[0] in {'agent','model','utils','rag','prompts','config'}
+             or (p.startswith('evaluation/') and p.endswith('.py') and '/results/' not in p)]
+    paths += ['app.py','scripts/seal_evaluation_run.py','scripts/prepare_evaluation_variant.py','scripts/manage.py']
+    hashes = {}
+    for p in paths:
+        actual = (ROOT/p).read_bytes()
+        if actual != git('show',REF+':'+p): raise RuntimeError('Runtime differs from registered commit: '+p)
+        hashes[p] = sha(actual)
+    return dict(sorted(hashes.items()))
+
+def add_manifest(run, repeat_label=None):
+    hashes=runtime_check()
+    fixed=json.loads((PREFLIGHT/'runtime_byte_identity.json').read_text(encoding='utf-8'))
+    if hashes != fixed['files_sha256']: raise RuntimeError('Runtime changed since preflight')
+    manifest=json.loads((run/'manifest.json').read_text(encoding='utf-8'))
+    label='已见 test 回归（P3 后修复版），不作为未见成绩' if '已见 test' in run.name else 'dev' if '_dev_' in run.name else '已见题回归（P3.1）'
+    manifest.update(p31_runtime_version=REF,p31_runtime_byte_sha256=hashes,p31_dataset_label=label,
+        p31_repeat_identity=repeat_label,p31_control_script_sha256=sha(Path(__file__).read_bytes()),
+        p31_authorization='Author authorized post-P3 correction using C/dev only, one dev batch, C Agent blinded regressions and one seen-test hybrid regression. P3 scores unchanged; default rule; no push.')
+    for p in PREFLIGHT.iterdir():
+        if not p.is_file(): continue
+        target=run/'p31_preflight'/p.name
+        target.parent.mkdir(exist_ok=True)
+        target.write_bytes(p.read_bytes())
+    for name in hashes:
+        target=run/'snapshot'/name
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes((ROOT/name).read_bytes())
+    dump(run/'manifest.json',manifest)
+
+def preflight():
+    status=json.loads((PREFLIGHT/'check_status.json').read_text(encoding='utf-8-sig'))
+    if any(status.values()): raise RuntimeError('Offline verification failed')
+    hashes=runtime_check()
+    changed=git('diff','--name-only','c105253026453bb203aab1186d68aae0bb10acd3',REF,'--',*hashes).decode().splitlines()
+    if set(changed)!={'agent/intent/validate.py','agent/intent/resolve.py'}: raise RuntimeError('Change outside two authorized report rules: '+repr(changed))
+    dump(PREFLIGHT/'runtime_byte_identity.json',{'runtime_commit':REF,'files_sha256':hashes,'files':len(hashes),'checked_at':stamp(),'runtime_changes':changed,'prompt_config_rule_bytes_unchanged':True})
+    result=subprocess.run([sys.executable,'-B','scripts/manage.py','doctor'],cwd=ROOT,capture_output=True)
+    (PREFLIGHT/'doctor_online.json').write_bytes(result.stdout)
+    (PREFLIGHT/'doctor_online.stderr.txt').write_bytes(result.stderr)
+    doctor=json.loads(result.stdout.decode('utf-8'))
+    if result.returncode or not doctor['ok'] or next(m['digest'] for m in doctor['models'] if m['name']=='qwen3:4b')!=DIGEST: raise RuntimeError('Online doctor/model identity failed')
+    print('P3.1 runtime verified',REF,len(hashes),'files; model digest verified',flush=True)
+
+def components(split):
+    from evaluation import intent_eval
+    import scripts.seal_evaluation_run as sealer
+    original=sealer.seal_run
+    modes=['rule','llm_only','hybrid'] if split=='dev' else ['hybrid']
+    for mode in modes:
+        run=ROOT/'evaluation/results'/(f'intent_v1_r1_dev_p31_{mode}' if split=='dev' else '已见 test 回归（P3 后修复版），不作为未见成绩_p31_hybrid')
+        if run.exists(): raise RuntimeError('Existing run; no rerun authorized')
+        runtime_check()
+        def seal_with_manifest(folder,verify=False):
+            add_manifest(Path(folder),'r001')
+            (Path(folder)/'P31_LABEL.txt').write_text('已见 test 回归（P3 后修复版），不作为未见成绩\n' if split=='test' else 'P3.1 dev，非未见成绩\n',encoding='utf-8')
+            return original(folder,verify=verify)
+        sealer.seal_run=seal_with_manifest
+        args=['--dataset',f'evaluation/intent_v1_r1/{split}.jsonl','--split',split,'--mode',mode,'--repeat','1','--run',str(run)]
+        if split=='test': args+=['--p3-approved']
+        print('START',split,mode,stamp(),flush=True)
+        code=intent_eval.main(args)
+        original(run,verify=True)
+        print('DONE',split,mode,'exit',code,stamp(),flush=True)
+    sealer.seal_run=original
+
+if __name__=='__main__':
+    if sys.argv[1]=='preflight': preflight()
+    elif sys.argv[1] in ['dev','test']: components(sys.argv[1])

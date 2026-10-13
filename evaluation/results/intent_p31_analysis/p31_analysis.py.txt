@@ -1,0 +1,116 @@
+from collections import Counter
+from pathlib import Path
+import json
+import statistics
+import sys
+from unittest.mock import patch
+from p31_control import ROOT, dump, sha
+from p31_agents import rows, jsonl, GROUPS
+
+def agent_metrics(group):
+    from evaluation.intent_eval import nearest_rank
+    totals={}
+    for name,dataset,prefix,seed in GROUPS[group]:
+        totals[name]={}
+        for mode in ['rule','hybrid']:
+            run=ROOT/'evaluation/results'/f'{prefix}_{mode}'
+            cases={c['id']:c for c in rows(run/'cases.jsonl')}
+            reviews={r['id']:r for r in rows(run/'reviews.jsonl')}
+            raw=rows(run/'results.jsonl')
+            turn_rows=[]
+            for result in raw:
+                case=cases[result['id']]
+                for index,expected in enumerate(case['turns']):
+                    turn=result.get('turns',[])[index] if index<len(result.get('turns',[])) else {}
+                    review=reviews[result['id']]['turn_reviews'][index]
+                    events=(turn.get('runtime') or {}).get('events',[])
+                    intent=[e for e in events if e['event']=='intent_resolved']
+                    required=expected.get('required_tools',[])
+                    report=bool(expected.get('gold_intent')) or 'fetch_external_data' in required or 'fetch_external_data' in expected.get('allowed_tools',[]) or bool(intent)
+                    turn_rows.append({'id':result['id'],'turn_index':index+1,'query':expected['query'],
+                        'answer_score':review['answer_score'],'grounded':review['grounded'],'note':review['note'],
+                        'task_pass':reviews[result['id']]['task_pass'],'status':turn.get('status','not_run'),
+                        'tool_selection':turn.get('tool_selection'),'report_turn':report,
+                        'intent_latency_ms':intent[-1]['latency_ms'] if intent else None,
+                        'intent_mode':intent[-1]['mode'] if intent else None,
+                        'intent_extra_model_calls':sum(e['event']=='call_started' and e.get('kind')=='model' and e.get('name')=='agent.intent' for e in events),
+                        'intent_budget_skip':int(bool(intent and intent[-1].get('fallback_reason') in ['model_budget','time_budget','context_budget'])),
+                        'intent_fallback_reason':intent[-1].get('fallback_reason') if intent else None,
+                        'intent_conflicts':intent[-1].get('conflicts',[]) if intent else [],
+                        'result_sha256':reviews[result['id']]['result_sha256']})
+            jsonl(run/'p31_turn_metrics.jsonl',turn_rows)
+            report_rows=[t for t in turn_rows if t['report_turn']]
+            latencies=[t['intent_latency_ms']/1000 for t in report_rows if t['intent_latency_ms'] is not None]
+            totals[name][mode]={'planned_tasks':len(cases),'planned_turns':len(turn_rows),
+                'whole_task_pass':sum(r['task_pass'] for r in reviews.values()),
+                'content_score_counts':{str(s):sum(t['answer_score']==s for t in turn_rows) for s in [0,1,2]},
+                'faithful_turns':sum(t['grounded'] for t in turn_rows),
+                'report_turns':len(report_rows),'intent_observed_turns':len(latencies),
+                'intent_latency_p50_seconds':nearest_rank(latencies,.50),'intent_latency_p95_seconds':nearest_rank(latencies,.95),
+                'extra_intent_model_calls':sum(t['intent_extra_model_calls'] for t in turn_rows),
+                'budget_skips':sum(t['intent_budget_skip'] for t in turn_rows),
+                'rows':turn_rows,'evidence':str(run.relative_to(ROOT))}
+        before={ (t['id'],t['turn_index']):t for t in totals[name]['rule']['rows']}
+        increments=[]
+        for t in totals[name]['hybrid']['rows']:
+            b=before[(t['id'],t['turn_index'])]
+            if t['intent_latency_ms'] is not None and b['intent_latency_ms'] is not None:
+                increments.append((t['intent_latency_ms']-b['intent_latency_ms'])/1000)
+        paired=json.loads((ROOT/'evaluation/results'/f'{prefix}_blind/paired_summary.json').read_text(encoding='utf-8'))
+        totals[name]['paired']=paired
+        totals[name]['paired_intent_latency_increment']={'count':len(increments),'p50_seconds':nearest_rank(increments,.50),'p95_seconds':nearest_rank(increments,.95)}
+    dest=ROOT/'evaluation/results'/f'intent_p31_{group}_analysis'
+    dest.mkdir(exist_ok=True)
+    dump(dest/'summary.json',totals)
+    return totals
+
+def review_view(group,name,start,end):
+    spec=next(s for s in GROUPS[group] if s[0]==name)
+    package=rows(ROOT/'evaluation/results'/f'{spec[2]}_blind/review_package.jsonl')
+    for sample in package[start-1:end]:
+        def doc(d): return {'text':d['text'],'source':d.get('metadata',{}).get('source'),'source_id':d.get('metadata',{}).get('source_id')}
+        unique={}
+        for r in sample['model_requests']:
+            for c in r.get('rag_contexts',[]):
+                for d in c['docs']: unique[json.dumps(doc(d),ensure_ascii=False)]=doc(d)
+        print(json.dumps({'sample_id':sample['sample_id'],'case':{k:v for k,v in sample['case'].items() if k in ['id','kind','category','user_id','city','turns','seed_history','fault_injection']},'result_sha256':sample['result_sha256'],
+            'execution_status':sample['execution_status'],'turn_execution_outcomes':sample['turn_execution_outcomes'],
+            'turns':[{k:t.get(k) for k in ['query','status','answer','tool_calls','tool_results','tool_selection']} for t in sample['turns']],
+            'program_answer_inputs':[{'query':r['query'],'status':r['status'],'answer':r.get('answer'),'docs':[doc(d) for d in r['docs']]} for r in sample.get('rag_answers',[])],
+            'actual_RAG_model_input_docs':list(unique.values())},ensure_ascii=False))
+
+def phase_report(group):
+    summary=json.loads((ROOT/f'evaluation/results/intent_p31_{group}_analysis/summary.json').read_text(encoding='utf-8'))
+    label='B：Agent test' if group=='B' else 'C：已见题回归'
+    lines=[f'# P3.1 {label}','',
+        '按冻结合同逐轮评内容0/1/2和忠实度；任务通过另要求全轮完整、内容2、忠实度真。标签及 Runtime 成本信息隐藏，样本按运行前登记种子打乱。评分完成并锁定 SHA256 后才使用揭盲键。每条评分绑定原始 result_sha256。此为 Codex 助手辅助盲评，不是独立专家审核。',
+        '', '| 数据集/模式 | 全轮通过 | 内容0/1/2 | 忠实轮数 | 报告轮/解析观测 | 解析p50/p95秒 | 额外意图调用 | 预算跳过 |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']:
+            m=s[mode]; c=m['content_score_counts']; p50=m['intent_latency_p50_seconds']; p95=m['intent_latency_p95_seconds']
+            fmt=lambda x:f'{x:.4f}' if x is not None else '缺测'
+            lines.append(f"| {name}/{mode} | {m['whole_task_pass']}/{m['planned_tasks']} | {c['0']}/{c['1']}/{c['2']} | {m['faithful_turns']}/{m['planned_turns']} | {m['report_turns']}/{m['intent_observed_turns']} | {fmt(p50)}/{fmt(p95)} | {m['extra_intent_model_calls']} | {m['budget_skips']} |")
+    lines+=['','| 数据集 | 进步 | 退步 | 共同通过 | 共同失败 | 未知 | 配对新增解析p95秒/观测轮 |','|---|---:|---:|---:|---:|---:|---:|']
+    for name,s in summary.items():
+        p=s['paired']; l=s['paired_intent_latency_increment']; p95=l['p95_seconds']
+        lines.append(f"| {name} | {p['improved']} | {p['regressed']} | {p['stable_pass']} | {p['stable_fail']} | {p['unknown']} | {p95 if p95 is not None else '缺测'}/{l['count']} |")
+    lines+=['','## 逐轮评分和成本','',
+        '表内内容分/忠实度按真实轮次顺序。逐轮完整理由、工具选择、意图冲突、预算跳过及 result_sha256 保留于各运行目录的 `reviews.jsonl` 和 `p31_turn_metrics.jsonl`。尚未执行或截断的轮次也有评分，不从任务分母删除。',
+        '', '| 数据集/模式/任务 | 逐轮 内容分/忠实度 | 全轮通过 |','|---|---|---|']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']:
+            grouped={}
+            for t in s[mode]['rows']: grouped.setdefault(t['id'],[]).append(t)
+            for case,ts in grouped.items(): lines.append(f"| {name}/{mode}/{case} | "+'; '.join(f"T{t['turn_index']}={t['answer_score']}/{'真' if t['grounded'] else '假'}" for t in ts)+f" | {ts[0]['task_pass']} |")
+    lines+=['','证据目录：']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']: lines.append(f"- {name}/{mode}: `{s[mode]['evidence']}`（已封存）。")
+    if group=='C': lines+=['','知识与资料不足非Agent题在运行前依据代码路径证明决定不重跑：`evaluation/results/intent_p3_preflight/non_report_path_proof.json 与 evaluation/results/intent_p31_preflight/runtime_byte_identity.json` ；P3.1 仅改报告意图校验。本节只用于检查退步，不能作为未见泛化证据。']
+    (ROOT/f'evaluation/INTENT_P31_{group}.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    print(json.dumps({n:{m:{k:s[m][k] for k in ['whole_task_pass','planned_tasks','planned_turns','faithful_turns']} for m in ['rule','hybrid']} for n,s in summary.items()},ensure_ascii=False))
+
+
+if __name__=='__main__':
+    if sys.argv[1]=='view': review_view('C',sys.argv[2],int(sys.argv[3]),int(sys.argv[4]))
+    elif sys.argv[1]=='report': phase_report('C')

@@ -1,0 +1,12 @@
+{"sample_id": "S001", "mode": "hybrid", "id": "V2A03", "result_sha256": "fa2abebb0774baa58dd9435261a31eac44341c870741ede52aa74dfbb87e7091"}
+{"sample_id": "S002", "mode": "hybrid", "id": "V2A06", "result_sha256": "d8a8ab40afd40afae7bb49fceb94337c0819e2ab76fb243175264da0ab0afb33"}
+{"sample_id": "S003", "mode": "hybrid", "id": "V2A04", "result_sha256": "61a20b6a512615206cebe6c982cdae48f744a0d04cb1902ea82ab5bf171aebd6"}
+{"sample_id": "S004", "mode": "hybrid", "id": "V2A05", "result_sha256": "62ba7e97403bfbd09c0096ee5d54375490b8e27e6bb65b7c824ef0d44dc2e150"}
+{"sample_id": "S005", "mode": "rule", "id": "V2A06", "result_sha256": "4453c520210242c89edbbd81667f7e1bc473321d7a329b64d033a1fe59c76cea"}
+{"sample_id": "S006", "mode": "rule", "id": "V2A01", "result_sha256": "7209cb035eff19f553e5fbde64818548d5fd51ea53ebd47bc903d6fd3e069e6c"}
+{"sample_id": "S007", "mode": "rule", "id": "V2A05", "result_sha256": "19fbe661d7996f7fe868f4c405c9058241101aa44e3656d39fe524fb332dd081"}
+{"sample_id": "S008", "mode": "hybrid", "id": "V2A01", "result_sha256": "ff0984d5c5fe74982e4aecd99f15f22195ba31d754b039503c778b1655f8588a"}
+{"sample_id": "S009", "mode": "hybrid", "id": "V2A02", "result_sha256": "87a93102bdf2fc8984f886827ebfa866c6b55e1004adc14ddcbeafa7788e9dde"}
+{"sample_id": "S010", "mode": "rule", "id": "V2A03", "result_sha256": "f01379cce3365cc7823e4e948d97e0da495a3b4ef412754b7781feed4ae59b1c"}
+{"sample_id": "S011", "mode": "rule", "id": "V2A04", "result_sha256": "4244f072be729ea33f22cfbd983f899d52bf23f1fe9033a493410f5166203856"}
+{"sample_id": "S012", "mode": "rule", "id": "V2A02", "result_sha256": "f320e1ea6b31db5f0de9aeebeaa7553d48b2574da099e94e1d0ab759075db7be"}

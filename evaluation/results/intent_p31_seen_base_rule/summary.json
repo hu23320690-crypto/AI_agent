@@ -1,0 +1,151 @@
+{
+  "planned": 12,
+  "completed": 12,
+  "statuses": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 12,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 0,
+    "planned": 0,
+    "hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_metrics_observed": 0,
+    "policy_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "mrr_at_5": null,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 12,
+    "completed": 12,
+    "reviewed": 12,
+    "task_pass": 12,
+    "task_fail": 0,
+    "unknown": 0,
+    "tool_selection_pass": 12,
+    "planned_real_turns": 14,
+    "synthetic_seeded_turns": 0,
+    "observed_model_requests": 27
+  },
+  "latency": {
+    "retrieval": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "rag_generation": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "agent_turn": {
+      "count": 14,
+      "median_seconds": 13.322595150002599,
+      "p95_seconds": 25.22320039999613
+    },
+    "case_wall_all_statuses": {
+      "count": 12,
+      "median_seconds": 17.236038350001763,
+      "p95_seconds": 56.34567319999769
+    }
+  },
+  "model_usage": {
+    "observed_requests": 27,
+    "requests_by_status": {
+      "ok": 27,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 27,
+    "input_tokens": 33135,
+    "output_tokens": 13321,
+    "request_input_message_counts": {
+      "count": 27,
+      "median_messages": 2,
+      "p95_messages": 8
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

@@ -1,0 +1,139 @@
+import json
+from pathlib import Path
+from p31_control import ROOT, REF, PREFLIGHT, dump, git, runtime_check, sha, stamp
+from p31_agents import rows, GROUPS
+
+TEST_RUN = '已见 test 回归（P3 后修复版），不作为未见成绩_p31_hybrid'
+
+def load(path): return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+
+def report():
+    from scripts.seal_evaluation_run import seal_run
+    from evaluation.report import result_sha256
+    dev={m:load(ROOT/f'evaluation/results/intent_v1_r1_dev_p31_{m}/summary.json')['aggregate'] for m in ['rule','llm_only','hybrid']}
+    prior_dev={m:load(ROOT/f'evaluation/results/intent_v1_r1_dev_p21_{m}/summary.json')['aggregate'] for m in dev}
+    C=load(ROOT/'evaluation/results/intent_p31_C_analysis/summary.json')
+    prior_C=load(ROOT/'evaluation/results/intent_p3_C_analysis/summary.json')
+    test=load(ROOT/'evaluation/results'/TEST_RUN/'summary.json')['aggregate']
+    audit=[]
+    runs=[f'intent_v1_r1_dev_p31_{m}' for m in dev]+[f'{spec[2]}_{m}' for spec in GROUPS['C'] for m in ['rule','hybrid']]+[TEST_RUN]
+    hashes=runtime_check()
+    gold_paths=['evaluation/intent_v1_r1/dev.jsonl','evaluation/intent_v1_r1/test.jsonl',
+                'evaluation/cases.jsonl','evaluation/generalization_v1/cases.jsonl','evaluation/holdout_v2/cases.jsonl']
+    gold_hashes={p:sha((ROOT/p).read_bytes()) for p in gold_paths}
+    for p,h in gold_hashes.items():
+        assert h==sha(git('show','d61a06ae64c96703293e963eb0e76cef12ea09be:'+p))
+    for name in runs:
+        run=ROOT/'evaluation/results'/name
+        seal_run(run,verify=True)
+        manifest=load(run/'manifest.json')
+        assert manifest['p31_runtime_version']==REF and manifest['p31_runtime_byte_sha256']==hashes
+        for p,h in hashes.items(): assert sha((run/'snapshot'/p).read_bytes())==h
+        assert next(m['digest'] for m in manifest['model_identity'].values() if m['name']=='qwen3:4b')=='359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7'
+        original=(run/'snapshot/input_dataset.jsonl').read_bytes()
+        assert sha(original)==manifest['input_dataset_sha256'] and sha(original) in gold_hashes.values()
+        if '_seen_' in name:
+            raw={r['id']:r for r in rows(run/'results.jsonl')}
+            for review in rows(run/'reviews.jsonl'):
+                assert review['result_sha256']==result_sha256(raw[review['id']])
+        audit.append({'run':name,'seal_verified':True,'runtime_files_equal_registered_commit':len(hashes)})
+    for spec in GROUPS['C']:
+        blind=ROOT/'evaluation/results'/f'{spec[2]}_blind'
+        lock=load(blind/'scores_before_reveal.json')
+        assert lock['scores_sha256']==sha((blind/'blind_scores.jsonl').read_bytes())
+    # Provenance is checked by names and bytes, without reading old test text.
+    changed=git('diff','--name-only','d0329b5409b7dbb70fd2f03b879db2866d222f4a','--','evaluation/results','evaluation/INTENT_P3_REPORT.md','evaluation/INTENT_P3_A.md','evaluation/INTENT_P3_B.md','evaluation/INTENT_P3_C.md').decode().splitlines()
+    assert all('p31' in p or 'P31' in p for p in changed), changed
+    dump(ROOT/'evaluation/results/intent_p31_final_audit.json',{'checked_at':stamp(),'runtime_commit':REF,'registered_runs':audit,'gold_sha256_equal_d61a06a':gold_hashes,'P3_archives_and_scores_unchanged':True,'blind_scores_fixed_before_reveal':True,'default_mode':'rule','pushed':False})
+    gates={'dev_accuracy':dev['hybrid']['exact_count']>=prior_dev['hybrid']['exact_count'],
+           'dev_danger':dev['hybrid']['severity_counts']['dangerous']<=prior_dev['hybrid']['severity_counts']['dangerous']}
+    comparison={}
+    for name,s in C.items():
+        old={t['id']:t['task_pass'] for t in prior_C[name]['hybrid']['rows']}
+        new={t['id']:t['task_pass'] for t in s['hybrid']['rows']}
+        historical_regression=[i for i in old if old[i] and not new[i]]
+        turn_regressions=[]
+        for mode in ['rule','hybrid']:
+            old_turns={(t['id'],t['turn_index']):t for t in prior_C[name][mode]['rows']}
+            for t in s[mode]['rows']:
+                b=old_turns[(t['id'],t['turn_index'])]
+                if (t['answer_score']<b['answer_score'] or b['grounded'] and not t['grounded']
+                        or b['tool_selection']['pass'] and not t['tool_selection']['pass']):
+                    turn_regressions.append({'mode':mode,'id':t['id'],'turn':t['turn_index'],
+                        'content_before':b['answer_score'],'content_after':t['answer_score'],
+                        'faithful_before':b['grounded'],'faithful_after':t['grounded'],
+                        'tool_pass_before':b['tool_selection']['pass'],'tool_pass_after':t['tool_selection']['pass'],
+                        'note':t['note'],'result_sha256':t['result_sha256']})
+        comparison[name]={'hybrid_new_failures_vs_P3':historical_regression,'paired':s['paired'],
+            'turn_regressions_vs_P3':turn_regressions,
+            'hybrid_ge_rule':s['hybrid']['whole_task_pass']>=s['rule']['whole_task_pass'],
+            'no_new_regression':s['paired']['regressed']==0 and not historical_regression and s['paired']['unknown']==0}
+        gates[name]=comparison[name]['hybrid_ge_rule'] and comparison[name]['no_new_regression']
+    accepted=all(gates.values())
+    data={'runtime_commit':REF,'dev':dev,'prior_dev':prior_dev,'C':C,'prior_C':prior_C,'C_comparison':comparison,'seen_test_regression':test,'acceptance':gates,'accepted':accepted}
+    dest=ROOT/'evaluation/results/intent_p31_analysis'
+    dest.mkdir(exist_ok=True)
+    dump(dest/'summary.json',data)
+    for p in Path(__file__).parent.glob('p31_*.py'):
+        (dest/(p.name+'.txt')).write_bytes(p.read_bytes())
+    lines=['# LLM Intent P3.1 修正与已见题回归报告','',
+        f'日期：2026-10-13（Australia/Sydney）。修正运行版本 `{REF}`。P3 正式成绩、报告和封存全部保留；G5 仍未通过，默认保持 rule，未 push。',
+        f'**预定验收：{"满足" if accepted else "未满足"}。** 逐项判定见下表。已见 test 数字仅描述修复后回归，不用于此轮验收，也不能更新 P3 的未见成绩。','',
+        '## 修正范围','',
+        '仅 agent/intent/validate.py 与配套 resolve.py 空字段处理变化。V4 比较视图先去掉绝对、相对、裸月及中文月份，再去掉尾部“的报告/的记录/使用记录/数据”等泛词。只有这些日期/泛词的未知项被删除并记录 non_metric_unknown_dropped；其造成的模型空列表范围限制一并撤销，显式用户“只列”仍优先。真实部件、区域、模式限定保留，非空未知名称继续保留原始锚定原词。',
+        '查询一致性只在有效 previous_target、当前实际查询月和声明锚点均存在时生效：声明 current_lookup/today 加原有偏移不等于查询月，而 previous_target 加相同偏移恰好等于查询月，改用后者并记录 anchor_lookup_consistency。没有上一目标、两种计算都不匹配、声明 none/previous_target、已匹配、原有 null+unresolved、否定相对表达等保留原行为。未扩大偏移语法；比较基准的计算不变。',
+        '提示词、配置、rule 解析、其他校验、模型与预算、SCORING 和 gold 均未改。62 个虚构正反例覆盖这些边界及 rule 等价性、llm_only 不应用本修正。完整 pytest：1077 passed、291 subtests passed、3 项 Windows 符号链接权限跳过；doctor --offline 149 检查、在线 152 检查通过。qwen3:4b digest 为 359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7。','',
+        '## G1A02 首轮遗漏原因（本轮不修）','',
+        '原话：“请查我2025年5月，只列宠物毛发清理率和滤网剩余寿命。”已查记录含宠物毛发清理91%和滤网寿命剩余45天，Agent 的初始报告草稿也含两项。但意图模型原始 JSON 只提出宠物毛发清理，target=2025-05、anchor=none；校验冲突为空。最终只交付91%。这是结构化模型的语义漏提取，不属于日期被当限定词/未知字段，也不是锚点重算。本轮没有补字段启发式或提示词修改。',
+        '先于实现写入 INTENT_DEV_LOG.md；P3 证据 evaluation/results/intent_p3_seen_generalization_v1_hybrid/results.jsonl，G1A02 call_index=2，result_sha256=ca6e44689ec626069b7ea43053f999450036513bf19251b4b397dd28b7c8d658。','',
+        '## dev：P2.1 与 P3.1 同题对照','',
+        '| 模式 | P2.1 正确/40 | P3.1 正确/40 | 危险错误 前→后 | P3.1 p50/p95秒 | 回退/预算跳过/执行失败 |',
+        '|---|---:|---:|---:|---:|---|']
+    for m,n in dev.items():
+        b=prior_dev[m]; l=n['latency_seconds']['all']
+        lines.append(f"| {m} | {b['exact_count']} ({b['exact_accuracy']:.1%}) | {n['exact_count']} ({n['exact_accuracy']:.1%}) | {b['severity_counts']['dangerous']}→{n['severity_counts']['dangerous']} | {l['p50']:.4f}/{l['p95']:.4f} | {n['fallback_count']}/{n['budget_skip_count']}/{n['execution_failure_count']} |")
+    lines+=['','dev 的各槽位、全部错误分级、冲突与成本保存在各 summary.json；完整原始结果与确定性评分全部封存。与P2.1逐题比较，三模式原始提议均无变化，rule及llm_only的40条预测也完全相同；hybrid仅ID028从错误转正确，冲突为field_not_in_catalog、non_metric_unknown_dropped、fields_rule_fallback，删除日期假字段后回到已有安全字段选择。对照证据：evaluation/results/intent_p31_analysis/dev_paired_comparison.json。这次净增1题可以归因于校验变化，但单次结果并非统计显著性证明。','',
+        '## C：已见题 Agent 回归，原 SCORING 盲评','',
+        '| 数据集 | P3 rule/hybrid 全轮通过 | P3.1 rule/hybrid 全轮通过 | 进步/退步/共同通过/共同失败/未知 | hybrid 相对 P3 新全轮失败 |',
+        '|---|---|---|---|---|']
+    for name,s in C.items():
+        b=prior_C[name]; p=s['paired']; n=s['rule']['planned_tasks']
+        lines.append(f"| {name} | {b['rule']['whole_task_pass']}/{n}，{b['hybrid']['whole_task_pass']}/{n} | {s['rule']['whole_task_pass']}/{n}，{s['hybrid']['whole_task_pass']}/{n} | {p['improved']}/{p['regressed']}/{p['stable_pass']}/{p['stable_fail']}/{p['unknown']} | {','.join(comparison[name]['hybrid_new_failures_vs_P3']) or '无'} |")
+    lines+=['','| 数据集/模式 | 内容0/1/2：P3→P3.1 | 忠实轮数：P3→P3.1 | P3.1解析p50/p95秒 | 额外意图调用/预算跳过 |','|---|---|---:|---:|---|']
+    for name,s in C.items():
+        for m in ['rule','hybrid']:
+            n=s[m]; q=n['content_score_counts']
+            b=prior_C[name][m]; bq=b['content_score_counts']
+            lines.append(f"| {name}/{m} | {bq['0']}/{bq['1']}/{bq['2']}→{q['0']}/{q['1']}/{q['2']} | {b['faithful_turns']}/{b['planned_turns']}→{n['faithful_turns']}/{n['planned_turns']} | {n['intent_latency_p50_seconds']:.4f}/{n['intent_latency_p95_seconds']:.4f} | {n['extra_intent_model_calls']}/{n['budget_skips']} |")
+    lines+=['','全轮任务要求全部真实轮次内容2、忠实度真并交付完成；工具要求单独核查。标签/成本事件隐藏，完整任务按事先确定种子打乱；逐轮理由、result_sha256 与全轮判断在 blind_scores.jsonl 中，评分 SHA256 先锁定再揭盲。此为助手辅助标签隐藏评分，不是独立专家复核。详见 [C逐轮评分表](INTENT_P31_C.md)。',
+        '实际修正证据：A03、A10的三个hybrid报告轮均触发non_metric_unknown_dropped，完整交付已查记录；G1A03 T2触发anchor_lookup_consistency，目标保持实际查询的2026-01并交付not_found。G1A02仍是原始提议漏滤网字段，两个报告轮均无冲突。G1A05的新长历史/知识失败两轮意图解析调用均为0，不能归因于本轮V4/V7校验改动；该失败照样保留在Agent分母。原始提议、答案、冲突事件和SHA256见evaluation/results/intent_p31_analysis/C_fix_evidence.json。','',
+        '相对P3逐轮退步（即使全轮任务原本已失败也保留）：','']
+    turn_bad=[(name,t) for name,c in comparison.items() for t in c['turn_regressions_vs_P3']]
+    for name,t in turn_bad:
+        lines.append(f"- {name}/{t['mode']}/{t['id']} T{t['turn']}：内容{t['content_before']}→{t['content_after']}，忠实度{t['faithful_before']}→{t['faithful_after']}，工具要求{t['tool_pass_before']}→{t['tool_pass_after']}。{t['note']} result_sha256={t['result_sha256']}。")
+    if not turn_bad: lines.append('无。')
+    lines+=['',
+        '## 已见 test 回归（P3 后修复版），不作为未见成绩','',
+        '实现先独立提交并完成 dev/C；最后仅运行一次 hybrid，自动按冻结评分合同计算汇总。未打开/展示/分析 test 题面、逐题原始提议或失败内容；未据该结果修改代码、提示词、gold 或重跑。','',
+        f"正确 {test['exact_count']}/{test['planned_count']}（{test['exact_accuracy']:.1%}）；危险错误 {test['severity_counts']['dangerous']}，wrong_scope {test['severity_counts']['wrong_scope']}，safe_fail {test['severity_counts']['safe_fail']}，other_error {test['severity_counts']['other_error']}；执行失败 {test['execution_failure_count']}，回退 {test['fallback_count']}，预算跳过 {test['budget_skip_count']}。p50/p95={test['latency_seconds']['all']['p50']:.4f}/{test['latency_seconds']['all']['p95']:.4f}秒，额外模型调用{test['extra_model_calls']}。",
+        f'结果目录：`evaluation/results/{TEST_RUN}`。目录名、manifest 和 P31_LABEL.txt 均保留上述已见标签。','',
+        '| 槽位 | 已见 test 回归准确率 |','|---|---:|']
+    for k,v in test['slot_accuracy'].items(): lines.append(f'| {k} | {v:.1%} |')
+    lines+=['','## 预定验收判定','',
+        '| 条件 | 数字/证据 | 是否满足 |','|---|---|---|',
+        f"| dev hybrid 正确率 ≥ P2.1 | {dev['hybrid']['exact_count']}/40 ≥ 32/40；dev hybrid summary.json | {'是' if gates['dev_accuracy'] else '否'} |",
+        f"| dev hybrid 危险错误 ≤ P2.1 | {dev['hybrid']['severity_counts']['dangerous']}/40 ≤ 1/40；全部分母保留 | {'是' if gates['dev_danger'] else '否'} |"]
+    for name,s in C.items():
+        q=comparison[name]
+        op='≥' if q['hybrid_ge_rule'] else '<'
+        lines.append(f"| C {name} hybrid ≥ rule 且无新退步 | {s['hybrid']['whole_task_pass']} {op} {s['rule']['whole_task_pass']}；同题退步{s['paired']['regressed']}，相对P3 hybrid新失败{len(q['hybrid_new_failures_vs_P3'])} | {'是' if gates[name] else '否'} |")
+    lines+=['','“无新退步”同时核查本轮同题 rule→hybrid 和 P3 hybrid→P3.1 hybrid 全轮通过转失败；未知不默认通过。组件 test 不参与验收。','',
+        '## 封存、版本与限制','',
+        '共10个新运行（dev3、C6、已见test1），全部串行、新目录、一次、不挑选、不重跑，均经原seal脚本封存并verify。每个manifest包含71文件完整SHA256及实现提交；原始结果和每轮评分哈希绑定保留。审计：evaluation/results/intent_p31_final_audit.json；完整汇总及控制脚本：evaluation/results/intent_p31_analysis/。P3归档和评分未改。',
+        '已见题来自同一演示资料域。意图解析温度固定为0但未显式配置seed；Agent规划、摘要及RAG保持各自原配置，单次生成仍可波动。跨阶段前后差异不能全部归因于这两条校验规则；G1A02上游漏字段、知识资料取用或维护对象混淆等未修。test 已见回归不能补充未见证据或补判P3 G5。',
+        f'实现提交：`{REF}`。验证结果和本报告在后续单独提交中归档。默认保持rule；未push。',
+        '仓库报告：`'+str(ROOT/'evaluation/INTENT_P31_REPORT.md')+'`。']
+    (ROOT/'evaluation/INTENT_P31_REPORT.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    print(json.dumps({'accepted':accepted,'acceptance':gates,'dev':{m:{'exact':v['exact_count'],'danger':v['severity_counts']['dangerous']} for m,v in dev.items()},'C':{n:{m:s[m]['whole_task_pass'] for m in ['rule','hybrid']} for n,s in C.items()},'seen_test':{'exact':test['exact_count'],'danger':test['severity_counts']['dangerous']}},ensure_ascii=False))
+
+if __name__=='__main__': report()
