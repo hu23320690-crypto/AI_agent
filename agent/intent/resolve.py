@@ -33,6 +33,18 @@ def _knowledge_excluded(query):
                           r'(?:再|额外|另外)?\s*(?:说明|解释|介绍|阐明|讲解)', query))
 
 
+def _previous_from_history(history_queries, known_fields, fallback_month):
+    """Recover the same absolute selector state when no saved intent exists."""
+    previous = ReportIntent()
+    for query in history_queries:
+        if isinstance(query, str):
+            updated = resolve_report_intent(query, known_fields=known_fields,
+                                            fallback_month=fallback_month, previous_intent=previous)
+            if updated.fields or updated.target_month or updated.limited or updated.compare:
+                previous = updated
+    return previous
+
+
 def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
                         known_fields=(), fallback_month=None, today=None, run=None,
                         mode=None, llm_history_queries=None):
@@ -73,11 +85,17 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         return result(reason='model_budget')
     if run.deadline - run.clock() < cfg.timeout_seconds + 5:
         return result(reason='time_budget')
-    bounded = bounded_history_queries(
-        history_queries if llm_history_queries is None else llm_history_queries, cfg)
+    llm_history = history_queries if llm_history_queries is None else tuple(llm_history_queries)
+    bounded = bounded_history_queries(llm_history, cfg)
+    # A legacy/component caller may supply user history before any absolute
+    # intent was saved. Its last resolved month must precede this turn's lookup;
+    # otherwise V7 could shift the already queried target a second time.
+    effective_previous = previous_intent
+    if effective_previous is None and llm_history:
+        effective_previous = _previous_from_history(llm_history, known_fields, fallback_month)
     try:
         proposal = parse_turn_intent(query, history_queries=bounded,
-                                     previous_intent=previous_intent, known_fields=known_fields,
+                                     previous_intent=effective_previous, known_fields=known_fields,
                                      today=today, run=run, cfg=cfg)
     except InvalidIntentProposal:
         return result(reason='invalid_proposal', conflicts=('structure_invalid',))
@@ -100,7 +118,7 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         return result(reason='model_error')
 
     checked = validate_proposal(
-        proposal, query=query, history_queries=bounded, previous_intent=previous_intent,
+        proposal, query=query, history_queries=bounded, previous_intent=effective_previous,
         known_fields=known_fields, fallback_month=fallback_month, rule_intent=rule,
         mode=cfg.mode)
     if checked.rejected:
@@ -133,6 +151,8 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
             # Field validation can remove all items. Keep the baseline's safe
             # selectors rather than accidentally expanding an unspecified list.
             fields = tuple(field for field in rule.fields if field not in excluded)
+            if fields:
+                conflicts.append('fields_rule_fallback')
             limited = limited or rule.limited or had_fields
     intent = ReportIntent(fields=fields, target_month=proposal.target_month,
                           comparison_month=proposal.baseline_month, compare=proposal.compare,

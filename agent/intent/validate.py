@@ -146,7 +146,9 @@ def validate_proposal(
         checked = checked.model_copy(update={"fields": [
             item for item in fields if item.field not in excluded and item.mention not in excluded
         ]})
-        return ValidationResult(checked, tuple(conflicts))
+        return ValidationResult(checked, tuple(conflicts), unresolved_month=bool(
+            checked.unresolved and (checked.target_month is None or
+                                    checked.compare and checked.baseline_month is None)))
 
     previous = previous_intent or ReportIntent()
     texts = (query, *(text for text in history_queries if isinstance(text, str)))
@@ -277,7 +279,8 @@ def validate_proposal(
         )
     baseline = validate_month("baseline", baseline, checked.baseline_mention, rule_intent.comparison_month)
     updates.update(target_month=target, baseline_month=baseline)
-    unresolved = unresolved or (checked.unresolved and target is None)
+    unresolved = unresolved or (checked.unresolved and
+                                (target is None or checked.compare and baseline is None))
     if unresolved:
         updates["unresolved"] = True
     return ValidationResult(
