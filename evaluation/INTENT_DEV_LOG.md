@@ -113,3 +113,21 @@ Across the three hybrid rounds the top counts are month_unsupported=9, mention_n
 Before P3 the author must decide whether to authorize the registered test batch and confirm held-out gold approval. The batch remains rule x1, llm_only x3, hybrid x3 on the exact frozen runtime commit, with fresh directories and full-repeat mean/worst statistics. Planned repeat identities are r001/r002/r003. Sampling remains the frozen factory configuration: temperature=0, reasoning=False, num_predict capped at384, JSON schema format, no explicitly configured seed. The model tag/digest and all source/config hashes must remain fixed. The author should accept the documented conservative date refusals and remaining field omissions as limitations of this frozen version, or pause P3 for a separately versioned P1 review; no test-based repair is allowed. Default mode stays rule until P3 G1-G6 are evaluated.
 
 P2 is complete. P3 has not started. This final entry freezes the runtime source commit above; the following commit records this declaration only.
+
+## P2.1 pre-implementation analysis and fixed decision rule
+
+Date: 2026-10-13. Author explicitly authorized this additional dev-based revision before P3. No test, merged cases, Agent dataset or review/check file is read. Prompt SHA256 must remain `ec7e3a7e507417ee775b59bfcfd030ff78fc605ff4305ad92c55bad7ddb1cfb4`.
+
+| Dev evidence | Missing general date form | Why the previous validator rejected it |
+| --- | --- | --- |
+| ID017 | Chinese digit-by-digit four-character year followed by a month | `_ABSOLUTE_MONTH` requires four numeric digits; a Chinese year was not extracted. The bare-month pattern also excludes a month immediately after 年, so it cannot repair the omission. |
+| ID019 | 同年 followed by a month, with a previous effective year | `_BARE_MONTH` forbids 年 immediately before the month. No separate same-year extractor used the available previous target year. |
+| ID024 | Directional 往前 N 个月 as a comparison date | `_RELATIVE_OFFSET` accepts N个月前/之前 and other established forms, but not a direction prefix before the count. Round 3 additionally returned the calculated ISO month in baseline_mention rather than the original relative phrase, so mention-only relative recognition could not supply evidence. |
+
+Generalization will recognize whole Chinese digit years and legal calendar months, same-year months only with an existing effective year, and explicit directional calendar offsets only with an existing applicable anchor. Current positive text supplies directional evidence even when the model rewrites the baseline mention. Evidence supports a proposed date; it does not choose a date or change V7 arithmetic. Ambiguous front-N ranges, missing anchors, wrong calculations, negated date evidence and fabricated expressions are covered by fictional negative tests. No case ID or dev-specific field/date enters validation code or tests.
+
+V3 will keep unanchored mappings only while they remain authorized catalog selections, with `mention_unanchored_kept`. Unknown names remain strictly anchored, including catalog mappings downgraded to unknown by unchanged V4. V2, V4, V5, V7, V8, V9, V10, prompt, resolver, runner and runtime settings are outside this revision.
+
+Before the extra dev run, the fixed acceptance gate is dangerous ≤ 1 (including ID021) AND exact ≥ 27/40. One fresh sealed run per mode, repeat=1. Pass: freeze the new code/test commit as the sole P3 runtime version. Fail: retain `babeaa6049f008534a8d76b859ecbd04f7bd8fee`. Neither outcome permits another tuning round. The historical P2 freeze declaration above is retained as provenance and is superseded only by an explicitly passing P2.1 declaration.
+
+P2.1 pre-run verification: 63 new fictional-data tests passed; the related suite passed 289 tests. Complete pytest: 1015 passed, 291 subtests passed, three Windows symlink privilege skips (61.93 seconds). Offline doctor: 149 checks, no failures; online doctor: 152 checks, same qwen3:4b digest available. Two existing V3-specific tests changed their expected behavior: unanchored authorized mappings are retained, and a retained mapping remains limited rather than using the old rule-field fallback. Bounded history, V4/V9, rule equivalence and llm_only tests remain passing. No dev-specific literals enter code/tests, and prompt bytes are unchanged.
