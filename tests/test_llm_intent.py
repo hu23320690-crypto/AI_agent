@@ -151,13 +151,13 @@ def test_03_outside_catalog_degrades_to_unknown_and_renders_unprovided(monkeypat
     assert '星辉率：81%' not in text
 
 
-def test_04_unanchored_field_mention_is_discarded(monkeypatch):
+def test_04_unanchored_catalog_mapping_is_kept(monkeypatch):
     install_model(monkeypatch, proposal(fields=[{'mention': '晶片寿命', 'field': '晶片寿命'}]))
     result = resolve()
-    assert result.intent.fields == ('星辉率',)
-    assert '晶片寿命' not in result.intent.fields
+    assert result.intent.fields == ('晶片寿命',)
     assert result.intent.limited
-    assert 'mention_not_in_text' in result.trace['conflicts']
+    assert 'mention_unanchored_kept' in result.trace['conflicts']
+    assert 'mention_not_in_text' not in result.trace['conflicts']
 
 
 def test_05_qualifier_cannot_be_dropped_to_a_catalog_field(monkeypatch):
@@ -667,15 +667,17 @@ def test_month_format_requires_ascii_digits(monkeypatch):
     assert 'month_invalid' in result.trace['conflicts']
 
 
-def test_unknown_scope_after_field_rejection_cannot_expand_to_full_report(monkeypatch):
+def test_unanchored_catalog_mapping_stays_limited_without_expanding_to_full_report(monkeypatch):
     install_model(monkeypatch, proposal(scope='unspecified', fields=[
         {'mention': '幻尘消耗', 'field': '幻尘消耗'}]))
     result = resolve()
-    assert result.intent.fields == ('星辉率',)
+    assert result.intent.fields == ('幻尘消耗',)
     assert result.intent.limited
     text = render_lookup(fictional_record(), intent=result.intent)
     assert '晶片寿命' not in text
-    assert '幻尘消耗' not in text
+    assert '星辉率' not in text
+    assert '幻尘消耗：2个/月' in text
+    assert 'mention_unanchored_kept' in result.trace['conflicts']
 
 
 @pytest.mark.parametrize('fail_at', [1, 2])

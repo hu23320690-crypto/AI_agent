@@ -41,6 +41,18 @@ _QUESTION_SUFFIXES = re.compile(
 )
 _COUNT_WORD = r"[0-9零〇一二两三四五六七八九十百千万]+"
 _COUNT_BOUNDARY = r"(?<![0-9零〇一二两三四五六七八九十百千万前.点+\-])"
+# P2.1 evidence only: recognize complete numerals, including malformed months
+# so their spans cannot accidentally be reparsed as a smaller bare month.
+_CHINESE_YEAR_MONTH = re.compile(
+    r"(?<![0-9零〇一二两三四五六七八九十百千万])"
+    r"(?P<year>[零〇一二三四五六七八九]{4})\s*年\s*"
+    r"(?P<month>" + _COUNT_WORD + r")\s*月"
+)
+_SAME_YEAR_MONTH = re.compile(r"(?<![不非])同年\s*(?P<month>" + _COUNT_WORD + r")\s*月")
+_DIRECTIONAL_MONTH = re.compile(
+    r"往(?P<direction>前|后)(?P<count>" + _COUNT_WORD + r")个月"
+    r"(?![前后]|内|之内|期间|以来)"
+)
 # Longest phrases go first, so “上上个月” cannot become “上个月”. Ordinary
 # “前一个月” remains a single-month selector; ambiguous “前三个月” is absent.
 _RELATIVE_OFFSET = re.compile(
@@ -128,14 +140,29 @@ def _explicit_months(text: str, previous: ReportIntent, fallback: str | None) ->
     """Extract written absolute/bare months with an already established year."""
     absolute: list[tuple[int, str]] = []
     occupied: list[tuple[int, int]] = []
-    for match in _ABSOLUTE_MONTH.finditer(text):
+    written = sorted((*_ABSOLUTE_MONTH.finditer(text), *_CHINESE_YEAR_MONTH.finditer(text)),
+                     key=lambda match: match.start())
+    for match in written:
         raw = match["month"]
-        month = int(raw) if raw.isdigit() else _CHINESE_MONTHS[raw]
-        value = f'{int(match["year"]):04d}-{month:02d}'
-        if valid_month(value):
-            absolute.append((match.start(), value))
+        month = int(raw) if raw.isdigit() and len(raw) <= 2 else _month_count(raw)
+        year = match['year']
+        year = int(year) if year.isdigit() else int(''.join(str(_CHINESE_DIGITS[char]) for char in year))
+        if month is not None:
+            value = f'{year:04d}-{month:02d}'
+            if valid_month(value):
+                absolute.append((match.start(), value))
         occupied.append(match.span())
     values = {value for _, value in absolute}
+    for match in _SAME_YEAR_MONTH.finditer(text):
+        occupied.append(match.span())
+        month = _month_count(match['month'])
+        earlier = [value for position, value in absolute if position < match.start()]
+        anchor = (earlier[-1] if earlier else
+                  previous.target_month if valid_month(previous.target_month) else fallback)
+        if month is not None and valid_month(anchor):
+            value = f'{anchor[:4]}-{month:02d}'
+            if valid_month(value):
+                values.add(value)
     occupied.extend(match.span() for match in _RELATIVE_MONTH.finditer(text))
     occupied.extend(match.span() for match in _RELATIVE_OFFSET.finditer(text))
     for match in _BARE_MONTH.finditer(text):
@@ -150,6 +177,18 @@ def _explicit_months(text: str, previous: ReportIntent, fallback: str | None) ->
             if valid_month(value):
                 values.add(value)
     return values
+
+
+def _directional_offset(text: str) -> int | None:
+    """One written direction/count is date evidence, not a V7 recomputation."""
+    matches = list(_DIRECTIONAL_MONTH.finditer(_compact(text)))
+    if len(matches) != 1:
+        return None
+    match = matches[0]
+    count = _month_count(match['count'])
+    if count is None:
+        return None
+    return -count if match['direction'] == '前' else count
 
 
 def _relative_offset(mention: str, positive_texts: tuple[str, ...]) -> int | None:
@@ -246,10 +285,14 @@ def validate_proposal(
     excluded = set(excluded_fields)
     fields = []
     for item in checked.fields:
-        # V3: unknown labels must be anchored as strictly as catalog labels.
-        if not _anchored(item.mention, texts):
-            conflict("mention_not_in_text")
-            continue
+        # V3: authorized mappings may keep a model's rewritten mention;
+        # names displayed verbatim as unknown must still have written evidence.
+        anchored = _anchored(item.mention, texts)
+        if not anchored:
+            if item.field is None:
+                conflict("mention_not_in_text")
+                continue
+            conflict("mention_unanchored_kept")
         # V4: do not discard a component or scope modifier around a field.
         mention = _compact(item.mention)
         field = _compact(item.field) if item.field is not None else ""
@@ -262,6 +305,11 @@ def validate_proposal(
             if _GENERAL_MODIFIERS.sub("", remainder):
                 conflict("qualifier_dropped")
                 item = item.model_copy(update={"field": None})
+        # Apply the same V3 unknown-name contract after an unchanged V4
+        # downgrade; an unanchored catalog mapping must not invent display text.
+        if item.field is None and not anchored:
+            conflict("mention_not_in_text")
+            continue
         # V9: current exclusions also apply to a field copied from history.
         if (_only_masked_mention(item.mention, texts)
                 or (item.field is not None and _only_masked_mention(item.field, texts))
@@ -326,8 +374,19 @@ def validate_proposal(
         # V6: null + unresolved is a valid safe failure, never filled from prose.
         if value is None or slot in fallback_slots:
             return value
+        # P2.1 adds directional evidence from current positive text, including
+        # a baseline whose model mention was rewritten as ISO. It only accepts
+        # the proposed calculated value; V7's existing recomputation is intact.
+        direction = _directional_offset(_positive_text(query))
+        directional_month = None
+        target_direction = (_directional_offset(checked.target_mention)
+                            if _anchored(checked.target_mention, (_positive_text(query),)) else None)
+        if slot == 'target' and target_direction is not None:
+            directional_month = shift_month(declared_anchor, target_direction)
+        elif slot == 'baseline' and checked.compare and direction is not None and target_direction is None:
+            directional_month = shift_month(target, direction)
         if (value not in raw_months and value != previous.target_month
-                and slot not in justified):
+                and slot not in justified and value != directional_month):
             conflict("month_unsupported")
             invalid = invalid or rule_intent.invalid_month
             unresolved = unresolved or rule_intent.unresolved_month
