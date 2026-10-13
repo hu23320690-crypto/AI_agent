@@ -85,3 +85,31 @@ llm_only: execution failures=0, budget skips=0, extra model calls=40; conflicts=
 hybrid: execution failures=0, budget skips=0, extra model calls=40; conflicts={"field_not_in_catalog": 1, "mention_not_in_text": 3, "month_unsupported": 3, "negated_field_selected": 1, "qualifier_dropped": 2}.
 
 No validation, resolver, runner, model/runtime/configuration or gold changes were made in this round.
+
+## P2 freeze declaration
+
+Final code and prompt commit (the sole P3 runtime version): `babeaa6049f008534a8d76b859ecbd04f7bd8fee`.
+Final prompt SHA256: `ec7e3a7e507417ee775b59bfcfd030ff78fc605ff4305ad92c55bad7ddb1cfb4`.
+Model: qwen3:4b, digest `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`.
+
+The final version is round 3. Its full dev score is 27/40 (67.5%), dangerous=1; the amended ID021 alone accounts for that dangerous mark. The unchanged 39-case auxiliary score is 27/39 (69.23%), dangerous=0. Round 2 had higher exact accuracy (30/40) and dangerous=3; all three prompt versions and every raw result remain committed. No further prompt tuning or fourth dev round is planned. A single dev run does not establish safety or generalization.
+
+Round records: R1 `fa04a4c`, R2 `2849fd23971ce324a5e4f0265fb3e9660c4312b0`, R3 `babeaa6049f008534a8d76b859ecbd04f7bd8fee`. Run manifests record Git HEAD at invocation; prompt changes were committed with their completed round records. Every measured live prompt is independently bound by SHA256 and its frozen snapshot. The final source files match the round 3 snapshot byte for byte.
+
+Final verification: 952 passed, 291 subtests passed, three Windows symlink privilege skips; 60.87 seconds. `doctor --offline`: 149 checks, no failures. All nine completed archives verify through scripts/seal_evaluation_run.py, each has 40 planned/result/review records. Across nine runs every non-prompt code, evaluation, configuration, CSV, dev dataset and model identity is identical. All 360 executions were ok; budget skips and whole-proposal fallbacks were zero; additional model calls total 240. No protected test/merged/Agent/review/check files were opened and no push was performed.
+
+Frozen round 3 hybrid conflicts:
+
+| Code | Count | Evidence / interpretation |
+| --- | ---: | --- |
+| month_unsupported | 3 | ID017/019/024: otherwise correct months conservatively rejected by narrow date evidence extraction; coverage limitation, not a new arithmetic or merge defect. |
+| mention_not_in_text | 3 | ID002/006/008: standard names substituted for original mentions; correct field mappings removed as required by V3. Not harmless. |
+| qualifier_dropped | 2 | ID010: effective correction, final pass. ID012: component qualifier protected, but the model's unknown name still included request wording and remained incorrect. |
+| field_not_in_catalog | 1 | ID028: the model supplied a month as a field. Catalog enforcement downgrades the invalid selection; the proposal was already incorrect. |
+| negated_field_selected | 1 | ID031: an excluded selected field removed; final pass. |
+
+Across the three hybrid rounds the top counts are month_unsupported=9, mention_not_in_text=8, qualifier_dropped=5, exclusion_not_in_text=4, field_not_in_catalog=3 (tied with negated_field_selected=3). The four exclusion_not_in_text firings did not add errors; R1's two catalog firings only cleared unsupported exclusions. Four of five qualifier firings corrected the final result completely. These classes are not blanket harmless: judgment follows each raw proposal and final difference. R1's sole relative_month_recomputed firing amplified an incorrect model anchor declaration into a wrong month; the final prompt strengthens the anchor declaration instructions.
+
+Before P3 the author must decide whether to authorize the registered test batch and confirm held-out gold approval. The batch remains rule x1, llm_only x3, hybrid x3 on the exact frozen runtime commit, with fresh directories and full-repeat mean/worst statistics. Planned repeat identities are r001/r002/r003. Sampling remains the frozen factory configuration: temperature=0, reasoning=False, num_predict capped at384, JSON schema format, no explicitly configured seed. The model tag/digest and all source/config hashes must remain fixed. The author should accept the documented conservative date refusals and remaining field omissions as limitations of this frozen version, or pause P3 for a separately versioned P1 review; no test-based repair is allowed. Default mode stays rule until P3 G1-G6 are evaluated.
+
+P2 is complete. P3 has not started. This final entry freezes the runtime source commit above; the following commit records this declaration only.
