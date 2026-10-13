@@ -131,3 +131,31 @@ V3 will keep unanchored mappings only while they remain authorized catalog selec
 Before the extra dev run, the fixed acceptance gate is dangerous ≤ 1 (including ID021) AND exact ≥ 27/40. One fresh sealed run per mode, repeat=1. Pass: freeze the new code/test commit as the sole P3 runtime version. Fail: retain `babeaa6049f008534a8d76b859ecbd04f7bd8fee`. Neither outcome permits another tuning round. The historical P2 freeze declaration above is retained as provenance and is superseded only by an explicitly passing P2.1 declaration.
 
 P2.1 pre-run verification: 63 new fictional-data tests passed; the related suite passed 289 tests. Complete pytest: 1015 passed, 291 subtests passed, three Windows symlink privilege skips (61.93 seconds). Offline doctor: 149 checks, no failures; online doctor: 152 checks, same qwen3:4b digest available. Two existing V3-specific tests changed their expected behavior: unanchored authorized mappings are retained, and a retained mapping remains limited rather than using the old rule-field fallback. Bounded history, V4/V9, rule equivalence and llm_only tests remain passing. No dev-specific literals enter code/tests, and prompt bytes are unchanged.
+
+## P2.1 completed dev run and final freeze declaration
+
+Candidate code/test commit: `c105253026453bb203aab1186d68aae0bb10acd3`. One sealed dev run per mode, repeat=1; no subsequent tuning or rerun.
+
+| Mode | Round 3 exact / 40 | P2.1 exact / 40 | Round 3 dangerous | P2.1 dangerous | Round 3 p95 (s) | P2.1 p95 (s) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| rule | 10/40 (25.0%) | 10/40 (25.0%) | 8 | 8 | 0.0019 | 0.0019 |
+| llm_only | 32/40 (80.0%) | 31/40 (77.5%) | 1 | 1 | 1.3848 | 1.3777 |
+| hybrid | 27/40 (67.5%) | 32/40 (80.0%) | 1 | 1 | 1.3970 | 1.4105 |
+
+All 120 executions were ok; model/time/context budget skips=0; fallback rate=0 in every mode. Successful-state latency is identical to all-state latency. Extra model calls: rule=0, llm_only=40, hybrid=40. Each completed archive contains 40 planned/result/review records and its seal verifies.
+
+ID021 remains in the full denominator and is single listed: rule exact=1/1, dangerous=0; llm_only exact=0/1, dangerous=1; hybrid exact=0/1, dangerous=1. It was not used for tuning. Hybrid excluding ID021 is 32/39 (82.05%), dangerous=0.
+
+Hybrid conflicts: {"field_not_in_catalog": 1, "mention_unanchored_kept": 3, "negated_field_selected": 1, "qualifier_dropped": 2}. mention_not_in_text=0 and month_unsupported=0. The three unanchored authorized mappings are retained and the three previously unsupported dev dates now pass. Remaining non-amended failures are ID007/011/012/013/014/015/028; no further repair is performed.
+
+Measured model proposals differ from round 3 in ID001/007/019/027/033/034 for both model modes despite unchanged prompt/input/model hashes. ID007 is an additional semantic omission, accounting for llm_only 32/40 -> 31/40 and reducing the net hybrid gain by one. No result is replaced or selected by rerunning. Improvements must therefore be read with this single-run variation in mind.
+
+Snapshot comparison confirms that only agent/intent/validate.py changed among runtime code; prompt, configuration, evaluator, CSV, dataset and model identity hashes are unchanged. Prompt SHA256: `ec7e3a7e507417ee775b59bfcfd030ff78fc605ff4305ad92c55bad7ddb1cfb4`. Model digest: `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`.
+
+Artifacts: `evaluation/results/intent_v1_r1_dev_p21_rule`, `evaluation/results/intent_v1_r1_dev_p21_llm_only`, `evaluation/results/intent_v1_r1_dev_p21_hybrid`.
+
+Predeclared gate passed: dangerous=1 <= 1 and exact=32/40 >= 27/40. The previous `babeaa6049f008534a8d76b859ecbd04f7bd8fee` freeze is superseded.
+
+**Final P3 sole runtime version: `c105253026453bb203aab1186d68aae0bb10acd3`.** The prompt remains the round 3 prompt; the source/test commit above includes only the authorized V3/V6 changes. This following commit records completed evaluation evidence and this declaration without altering runtime code.
+
+Verification: 63 new fictional tests; complete pytest 1015 passed, 291 subtests passed, three Windows symlink privilege skips. Offline doctor 149 checks passed. Pure-rule intent equivalence remains passing. No test, merged/Agent dataset or protected review/check file was opened. No push. Default mode remains rule. P2.1 is complete; P3 awaits explicit author confirmation.
