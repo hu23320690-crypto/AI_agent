@@ -34,8 +34,8 @@ def dependency_checks():
 def doctor(offline=False):
     checks = [{'name':'Python 3.12', 'ok':sys.version_info[:2] == (3, 12), 'actual':sys.version.split()[0]}]
     checks.extend(dependency_checks())
-    for name in ('config/rag.yml', 'config/chroma.yml', 'config/agent.yml', 'config/runtime.yml', 'config/context.yml', 'config/context_tokenizer.json', 'config/tokenizers/qwen3_4b.json.gz', 'config/resilience.yml', 'config/security.yml', 'config/knowledge_sources.json',
-                 'prompts/main_prompt.txt', 'prompts/rag_summarize.txt', 'data/external/records.csv'):
+    for name in ('config/rag.yml', 'config/chroma.yml', 'config/agent.yml', 'config/runtime.yml', 'config/context.yml', 'config/intent.yml', 'config/context_tokenizer.json', 'config/tokenizers/qwen3_4b.json.gz', 'config/resilience.yml', 'config/security.yml', 'config/knowledge_sources.json',
+                 'prompts/main_prompt.txt', 'prompts/rag_summarize.txt', 'prompts/intent_parser.txt', 'data/external/records.csv'):
         checks.append({'name':name, 'ok':(ROOT/name).is_file()})
     model_info = []
     try:
@@ -48,6 +48,9 @@ def doctor(offline=False):
         from agent.context_budget import load_context_policy
         load_context_policy()
         checks.append({'name':'context configuration', 'ok':True})
+        from agent.intent.llm_parser import load_intent_config
+        load_intent_config()
+        checks.append({'name':'intent configuration', 'ok':True})
         rag = yaml.safe_load((ROOT/'config/rag.yml').read_text(encoding='utf-8'))
         if rag['chat_model_name'] == 'qwen3:4b':
             from types import SimpleNamespace

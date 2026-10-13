@@ -135,6 +135,12 @@ class RunContext:
             if maximum is not None and self.counts[kind] >= maximum:
                 raise self.fail(BudgetExceeded(f'本轮 {kind} 调用次数已达到上限，请简化问题后重试。'))
 
+    def remaining_calls(self, kind):
+        """Inspect a budget without reserving calls or changing run status."""
+        with self.lock:
+            maximum = getattr(self.limits, f'max_{kind}_calls', None)
+            return math.inf if maximum is None else max(0, maximum - self.counts[kind])
+
     def reserve(self, kind):
         with self.lock:
             self.check_budget(kind)

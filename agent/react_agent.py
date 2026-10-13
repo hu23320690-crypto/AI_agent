@@ -4,6 +4,7 @@ import re
 import sys
 from copy import deepcopy
 from dataclasses import asdict, replace
+from datetime import date
 from pathlib import Path
 from threading import Lock, RLock
 if __package__ in (None, ""):
@@ -17,7 +18,7 @@ from rag.security import KnowledgeAccessError
 from rag.rag_service import EvidenceCheck
 from rag.answer_policy import requires_conditional_guarantee, conditional_guarantee_reply
 from utils.report_render import render_lookup, record_fields
-from utils.report_intent import resolve_report_intent
+from agent.intent import resolve_turn_intent
 from utils.record_evidence import record_evidence_reply
 from utils.logger_hander import logger
 from agent.runtime import RunContext, RunBusy, load_limits, default_runtime, runtime_call
@@ -233,10 +234,12 @@ class ReactAgent:
             # Once a report has completed, its resolved absolute month and
             # field selectors survive compression without replaying relative
             # queries ("next month") twice. This confers no lookup authority.
-            report_intent = resolve_report_intent(
-                query, previous_queries if report_intent is None else (),
+            turn_intent = resolve_turn_intent(
+                query, history_queries=previous_queries if report_intent is None else (),
+                llm_history_queries=previous_queries,
                 known_fields=known_fields, fallback_month=context['lookup_result']['month'],
-                previous_intent=report_intent)
+                previous_intent=report_intent, today=date.today(), run=run)
+            report_intent = turn_intent.intent
             if (report_intent.target_month is None and not report_intent.invalid_month
                     and not report_intent.unresolved_month):
                 report_intent = replace(report_intent, target_month=context['lookup_result']['month'])
@@ -248,7 +251,7 @@ class ReactAgent:
             # Preserve successful RAG subtask answers, and answer a requested
             # evidence boundary from verified records/source text, never from
             # an arbitrary planner diagnosis or a similar field name.
-            knowledge_requested = _knowledge_requested(query)
+            knowledge_requested = turn_intent.knowledge_requested
             if knowledge_requested:
                 if observations:
                     text += "\n\n" + "\n\n".join(observations)

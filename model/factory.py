@@ -12,11 +12,16 @@ from agent.runtime import dependency_call, dependency_key
 def budgeted_chat_model(model, policy, *, purpose='agent'):
     """Cap generation and choose thinking by the trusted request purpose."""
     from agent.context_budget import output_cap
-    if purpose not in {'agent', 'rag'}:
+    if purpose not in {'agent', 'rag', 'intent'}:
         raise ValueError('Unknown chat model purpose')
     if isinstance(model, ChatOllama):
         configured = model.num_ctx
         window = min(policy.window_tokens, configured) if isinstance(configured, int) and configured > 0 else policy.window_tokens
+        if purpose == 'intent':
+            from agent.intent.schema import INTENT_SCHEMA
+            return model.model_copy(update={'num_predict': min(output_cap(model, policy), 384),
+                                            'num_ctx': window, 'reasoning': False,
+                                            'temperature': 0, 'format': INTENT_SCHEMA})
         return model.model_copy(update={'num_predict': output_cap(model, policy), 'num_ctx': window,
                                         'reasoning': (policy.rag_reasoning_enabled if purpose == 'rag'
                                                       else policy.reasoning_enabled)})
