@@ -1,14 +1,14 @@
 {
-  "version": "intent_v1_r1-step2-review-draft",
-  "stage": "P0_revision_step2",
+  "version": "intent_v1_r1",
+  "stage": "P0_completed",
   "created_date": "2026-10-13",
-  "recorded_at_utc": "2026-10-13T00:11:41.482841+00:00",
-  "frozen_at_utc": null,
-  "freeze_status": "not_frozen",
-  "gold_review_status": "pending_revised_cases_author_review",
-  "evaluation_eligible": false,
-  "approved_for_next_stage": false,
-  "revision_status": "dev_retained_test_step2_applied",
+  "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "frozen_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "freeze_status": "frozen_author_approved",
+  "gold_review_status": "author_approved",
+  "evaluation_eligible": true,
+  "approved_for_next_stage": true,
+  "revision_status": "frozen_author_approved",
   "parent_dataset": "evaluation/intent_v1",
   "parent_candidate_commit": "b581633e78c355cb2da73a3cd574d65571b8f30a",
   "parent_cases_sha256": "ce099e20a163f0a4b8a154e3366ebf2e3a35e7e5bc5972764bc7a9536c900760",
@@ -119,7 +119,7 @@
   ],
   "full_component_static_validation": "passed_140_of_140_data_only_checks_and_independent_assistant_review",
   "artifact_sha256": {
-    "AUTHOR_DECISIONS.json": "32adfe589aef1d3b9d22bf1d13eb8ea0a4fba78d31765fa77da712b965840e1c",
+    "AUTHOR_DECISIONS.json": "f562ebebbbcc7e00b4e703aace99df02c118aeb150a17f5460f79a63b21cba3f",
     "cases.jsonl": "60d06fd9831c19062fda31bf8286a6347e485e30d80d40fbd466d3360354d33d",
     "dev.jsonl": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
     "DEV_CHANGES_REVIEW.md": "594482ea6a3114a7b72ab1c5ab43c466b69fe734bdb324da74500c4c12619e06",
@@ -150,10 +150,54 @@
     "IT088"
   ],
   "execution_baseline_commit": "f14b964",
-  "step1_gold_review_status": "author_review_passed",
-  "step2_gold_review_status": "pending_author_review",
+  "step1_gold_review_status": "author_approved",
+  "step2_gold_review_status": "author_approved",
   "unknown_alias_cases": [
     "IT085"
   ],
-  "authoritative_checks": "step2_checks.json"
+  "authoritative_checks": "step2_checks.json",
+  "approval_basis": {
+    "author_approved": true,
+    "approval_date": "2026-10-13",
+    "approval_timezone": "Australia/Sydney",
+    "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+    "authority": "项目作者在当前会话直接批准r1全部题集并明确要求冻结。",
+    "review_document": {
+      "path": "docs/plans/P0_GOLD_REVIEW.md",
+      "sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
+      "method": "Claude协助逐条审核，项目作者确认审核意见和三步r1修订。"
+    },
+    "revision_commits": [
+      {
+        "step": 1,
+        "commit": "f14b964b5cf1f11d85dba1735d10700048fc9164",
+        "short_commit": "f14b964",
+        "subject": "test: intent r1 第一步，dev 4 题改写（作者已复核）"
+      },
+      {
+        "step": 2,
+        "commit": "45d65f0de48ac8a7b98ae6427fc4445d2d04f0b9",
+        "short_commit": "45d65f0",
+        "subject": "test: intent r1 第二步，替换 4 道不可达 test 题并补充 note"
+      },
+      {
+        "step": 3,
+        "commit": "a8a032510cf1d067b442f637d544d4042282337d",
+        "short_commit": "a8a0325",
+        "subject": "test: intent r1 第三步，替换 2 个与已见题同构的 Agent 任务"
+      }
+    ]
+  },
+  "formal_evaluation_datasets": [
+    "evaluation/intent_v1_r1",
+    "evaluation/intent_agent_v1_r1"
+  ],
+  "archived_excluded_datasets": [
+    "evaluation/intent_v1",
+    "evaluation/intent_agent_v1"
+  ],
+  "p1_p2_allowed_dataset_file": "evaluation/intent_v1_r1/dev.jsonl",
+  "freeze_manifest": "freeze_manifest.json",
+  "artifact_hash_policy": "artifact_sha256 excludes dataset_manifest.json and freeze_manifest.json to avoid circular hashes; freeze_manifest lists every other directory file, including dataset_manifest.json.",
+  "approval_status_authority": "dataset_manifest.json and AUTHOR_DECISIONS.json contain current approval; preceding revision review materials are historical snapshots preserved byte-for-byte."
 }

@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "hash_algorithm": "sha256",
+  "status": "frozen_author_approved",
+  "frozen_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "approval_date": "2026-10-13",
+  "approval_timezone": "Australia/Sydney",
+  "author_approval": {
+    "author_approved": true,
+    "approval_date": "2026-10-13",
+    "approval_timezone": "Australia/Sydney",
+    "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+    "authority": "项目作者在当前会话直接批准r1全部题集并明确要求冻结。",
+    "review_document": {
+      "path": "docs/plans/P0_GOLD_REVIEW.md",
+      "sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
+      "method": "Claude协助逐条审核，项目作者确认审核意见和三步r1修订。"
+    },
+    "revision_commits": [
+      {
+        "step": 1,
+        "commit": "f14b964b5cf1f11d85dba1735d10700048fc9164",
+        "short_commit": "f14b964",
+        "subject": "test: intent r1 第一步，dev 4 题改写（作者已复核）"
+      },
+      {
+        "step": 2,
+        "commit": "45d65f0de48ac8a7b98ae6427fc4445d2d04f0b9",
+        "short_commit": "45d65f0",
+        "subject": "test: intent r1 第二步，替换 4 道不可达 test 题并补充 note"
+      },
+      {
+        "step": 3,
+        "commit": "a8a032510cf1d067b442f637d544d4042282337d",
+        "short_commit": "a8a0325",
+        "subject": "test: intent r1 第三步，替换 2 个与已见题同构的 Agent 任务"
+      }
+    ]
+  },
+  "requires_author_approval_before_P1": false,
+  "formal_evaluation_datasets": [
+    "evaluation/intent_v1_r1",
+    "evaluation/intent_agent_v1_r1"
+  ],
+  "archived_excluded_datasets": [
+    "evaluation/intent_v1",
+    "evaluation/intent_agent_v1"
+  ],
+  "p1_p2_allowed_dataset_file": "evaluation/intent_v1_r1/dev.jsonl",
+  "files": {
+    "AUTHOR_DECISIONS.json": "b462f2874630d6aad262e455914d04b2d3ed3327aff98e8fe80e12af48da5c16",
+    "cases.jsonl": "4371c1bb5355ba7fc33648c4ce0bc6ef5d38a2d771b96092a9df21f398a6c666",
+    "dataset_manifest.json": "4dd2bcb3f6d37fd6906069840223ad810196321ea7968a8de0599e67f5830c98",
+    "README.md": "a87b4e066eb7e03054b4c537826ddb7602ca268bacea804a8e88998a08b46633",
+    "SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+    "step3_checks.json": "19b307e4df30054b2a4cde5ebe0eec109789a6cdcf08e7f536c69cea1e614408",
+    "STEP3_REVIEW.md": "cf75fcec941bcecaed6df95d001edaad7768b2381377a6c479a13c2cd652810f",
+    "STEP3_SIMILARITY.md": "d6e063bc974590b8aac805ab064e4f14232f90235c249f648221cdf9974438bd"
+  },
+  "coverage": "Every file in this directory except freeze_manifest.json itself; its own SHA256 is calculated independently after writing, as in the original P0 convention.",
+  "historical_artifacts_policy": "Earlier review documents and check records are sealed unchanged; current approval status is defined by dataset_manifest.json and AUTHOR_DECISIONS.json.",
+  "note": "Content fingerprint and project-author approval; not an external blind review or inference-results seal."
+}
