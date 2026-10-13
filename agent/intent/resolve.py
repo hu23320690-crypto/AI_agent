@@ -29,17 +29,22 @@ class TurnIntentResult:
     final_excluded_fields: tuple[str, ...] = ()
 
 
-def _observed_rule_scope(query, rule_intent):
-    """Observe the current positive range with the legacy _update precedence."""
+def _explicit_scope(query):
+    """Observe only current positive scope words, with _update precedence."""
     positive = _positive_text(query)
     full_matches = list(_FULL.finditer(positive))
     only_matches = list(_ONLY.finditer(positive))
     if full_matches and (not only_matches or
                          full_matches[-1].start() > only_matches[-1].start()):
         return 'full_report'
-    if only_matches or rule_intent.limited:
+    if only_matches:
         return 'only_listed'
     return None
+
+
+def _rule_final_scope(query, rule_intent):
+    """Describe the rule result without treating inferred limits as evidence."""
+    return _explicit_scope(query) or ('only_listed' if rule_intent.limited else 'unspecified')
 
 
 def _rule_knowledge_requested(query):
@@ -80,7 +85,8 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
     # Always run the unchanged baseline with exactly the caller's old inputs.
     rule = resolve_report_intent(query, history_queries, known_fields=known_fields,
                                  fallback_month=fallback_month, previous_intent=previous_intent)
-    rule_scope = _observed_rule_scope(query, rule)
+    explicit_scope = _explicit_scope(query)
+    rule_scope = _rule_final_scope(query, rule)
     rule_knowledge = _rule_knowledge_requested(query)
     cfg = load_intent_config()
     if mode is not None:
@@ -151,9 +157,9 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         return result(reason='task_type_conflict', conflicts=checked.conflicts)
     had_fields = bool(proposal.fields)
     proposal, conflicts = checked.proposal, list(checked.conflicts)
-    if cfg.mode == 'hybrid' and rule_scope is not None and rule_scope != proposal.scope:
-        updates = {'scope': rule_scope}
-        if rule_scope == 'full_report':
+    if cfg.mode == 'hybrid' and explicit_scope is not None and explicit_scope != proposal.scope:
+        updates = {'scope': explicit_scope}
+        if explicit_scope == 'full_report':
             updates['fields'] = []
         proposal = proposal.model_copy(update=updates)
         conflicts.append('scope_rule_override')

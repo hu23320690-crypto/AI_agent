@@ -107,14 +107,33 @@ def test_rule_scope_is_exposed_without_changing_legacy_intent_or_calling_a_model
     assert run.counts['model'] == 0
 
 
-def test_rule_limited_scope_overrides_even_without_a_scope_marker(monkeypatch):
+@pytest.mark.parametrize('scope', ['only_listed', 'full_report', 'unspecified'])
+def test_rule_limited_without_scope_words_preserves_llm_scope(monkeypatch, scope):
     query = '2032年11月星辉率是多少'
-    install_model(monkeypatch, proposal(scope='full_report', fields=STAR))
+    assert resolve_report_intent(query, known_fields=CATALOG).limited
+    install_model(monkeypatch, proposal(scope=scope, fields=STAR))
     result = resolve(query)
-    assert result.final_scope == 'only_listed'
-    assert result.intent.fields == ('星辉率',)
-    assert result.intent.limited
-    assert 'scope_rule_override' in result.trace['conflicts']
+    assert result.final_scope == scope
+    assert result.intent.fields == (() if scope == 'full_report' else ('星辉率',))
+    assert result.intent.limited == (scope != 'full_report')
+    assert 'scope_rule_override' not in result.trace['conflicts']
+
+
+@pytest.mark.parametrize('query', [
+    '2032年10月覆盖率也在里面，给我整份报告',
+    '2032年10月的报告全给我，包括覆盖率',
+])
+def test_full_report_paraphrases_with_named_metric_do_not_trigger_scope_override(monkeypatch, query):
+    catalog = ('覆盖率', '晶片寿命')
+    assert resolve_report_intent(query, known_fields=catalog).limited
+    install_model(monkeypatch, proposal(
+        scope='full_report', fields=[{'mention': '覆盖率', 'field': '覆盖率'}],
+        target_month='2032-10', target_mention='2032年10月'))
+    result = resolve(query, known_fields=catalog, fallback_month='2032-10')
+    assert result.final_scope == 'full_report'
+    assert result.intent.fields == ()
+    assert not result.intent.limited
+    assert 'scope_rule_override' not in result.trace['conflicts']
 
 
 @pytest.mark.parametrize('query, expected_scope', [
