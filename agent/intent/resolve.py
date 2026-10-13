@@ -155,7 +155,9 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         mode=cfg.mode)
     if checked.rejected:
         return result(reason='task_type_conflict', conflicts=checked.conflicts)
-    had_fields = bool(proposal.fields)
+    # Date/report labels removed by V4 are not an explicit empty metric list.
+    # Real selections removed by other checks retain the existing safe limit.
+    had_fields = bool(proposal.fields) and not checked.non_metric_only
     proposal, conflicts = checked.proposal, list(checked.conflicts)
     if cfg.mode == 'hybrid' and explicit_scope is not None and explicit_scope != proposal.scope:
         updates = {'scope': explicit_scope}

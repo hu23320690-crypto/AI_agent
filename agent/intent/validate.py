@@ -25,6 +25,7 @@ class ValidationResult:
     invalid_month: bool = False
     unresolved_month: bool = False
     rejected: bool = False
+    non_metric_only: bool = False
 
 
 # The absolute selector also accepts a spelled-out month after an explicit year.
@@ -39,6 +40,7 @@ _GENERAL_MODIFIERS = re.compile(r"剩余|寿命|率|的|数值|多少|情况|比
 _QUESTION_SUFFIXES = re.compile(
     r"(?:多少天|这一项|这一栏|是多少|还能用|还剩|剩下|几天|天数|多久|这项|一栏|记录|数据)+$"
 )
+_REPORT_SUFFIXES = re.compile(r"(?:的?(?:使用记录|报告|记录|数据))+$")
 _COUNT_WORD = r"[0-9零〇一二两三四五六七八九十百千万]+"
 _COUNT_BOUNDARY = r"(?<![0-9零〇一二两三四五六七八九十百千万前.点+\-])"
 # P2.1 evidence only: recognize complete numerals, including malformed months
@@ -110,6 +112,19 @@ def _month_count(raw: str) -> int | None:
 
 def _compact(value: str) -> str:
     return re.sub(r"\s", "", value)
+
+
+def _metric_mention(value: str) -> str:
+    """Remove calendar/request prose without removing metric qualifiers.
+
+    This view is only for V4 and the empty-unknown check. Original mentions
+    remain the source for V3/V9 anchoring and meaningful unknown display names.
+    """
+    value = _compact(value)
+    for pattern in (_ABSOLUTE_MONTH, _CHINESE_YEAR_MONTH, _SAME_YEAR_MONTH,
+                    _DIRECTIONAL_MONTH, _RELATIVE_OFFSET, _RELATIVE_MONTH, _BARE_MONTH):
+        value = pattern.sub("", value)
+    return _REPORT_SUFFIXES.sub("", value)
 
 
 def _legal_month(value: object) -> bool:
@@ -283,8 +298,15 @@ def validate_proposal(
     if len(excluded_fields) != len(checked.excluded_fields):
         conflict("exclusion_not_in_text")
     excluded = set(excluded_fields)
+    non_metric_only = bool(checked.fields) and all(
+        item.field is None and not _metric_mention(item.mention) for item in checked.fields
+    )
     fields = []
     for item in checked.fields:
+        mention = _metric_mention(item.mention)
+        if item.field is None and not mention:
+            conflict("non_metric_unknown_dropped")
+            continue
         # V3: authorized mappings may keep a model's rewritten mention;
         # names displayed verbatim as unknown must still have written evidence.
         anchored = _anchored(item.mention, texts)
@@ -294,7 +316,6 @@ def validate_proposal(
                 continue
             conflict("mention_unanchored_kept")
         # V4: do not discard a component or scope modifier around a field.
-        mention = _compact(item.mention)
         field = _compact(item.field) if item.field is not None else ""
         if field and field != mention and field in mention:
             position = mention.index(field)
@@ -305,6 +326,9 @@ def validate_proposal(
             if _GENERAL_MODIFIERS.sub("", remainder):
                 conflict("qualifier_dropped")
                 item = item.model_copy(update={"field": None})
+        if item.field is None and not mention:
+            conflict("non_metric_unknown_dropped")
+            continue
         # Apply the same V3 unknown-name contract after an unchanged V4
         # downgrade; an unanchored catalog mapping must not invent display text.
         if item.field is None and not anchored:
@@ -319,6 +343,10 @@ def validate_proposal(
         fields.append(item)
 
     updates: dict[str, object] = {"fields": fields, "excluded_fields": excluded_fields}
+    if non_metric_only and checked.scope == "only_listed":
+        # A list consisting solely of report/date prose cannot restrict the
+        # report to zero metrics. Explicit current scope still wins in resolve.
+        updates["scope"] = "unspecified"
     target, baseline = checked.target_month, checked.baseline_month
     invalid = False
     unresolved = False
@@ -413,6 +441,17 @@ def validate_proposal(
         "none": None,
     }[checked.target_anchor]
     if target_offset is not None:
+        # The current lookup may already be the resolved next/previous month.
+        # Use a different anchor only when the observed query proves the same
+        # offset from the saved target; never guess from two mismatches.
+        if (checked.target_anchor in {"current_lookup", "today"}
+                and valid_month(declared_anchor) and valid_month(previous.target_month)
+                and valid_month(fallback_month)
+                and not (target is None and checked.unresolved)
+                and shift_month(declared_anchor, target_offset) != fallback_month
+                and shift_month(previous.target_month, target_offset) == fallback_month):
+            declared_anchor = previous.target_month
+            conflict("anchor_lookup_consistency")
         target = recompute("target", target, declared_anchor, target_offset)
     # V8 also protects a proposal that omitted its current relative mention.
     # A baseline-relative phrase uses the target, so it does not demand an
@@ -443,4 +482,5 @@ def validate_proposal(
     return ValidationResult(
         checked.model_copy(update=updates), tuple(conflicts),
         invalid_month=invalid, unresolved_month=unresolved,
+        non_metric_only=non_metric_only,
     )
