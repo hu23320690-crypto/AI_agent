@@ -120,6 +120,15 @@ flowchart TD
 - 非 root 的 Docker 镜像，Compose 编排 Ollama、初始化和持久卷。GitHub Actions 在 Windows 和 Linux 上运行 pytest，并做容器存活检查。
 - 669 项离线测试通过：模型推理用脚本替代，LangGraph 图、Chroma 和 Streamlit 都是真实组件。
 
+### 7. LLM 意图解析 + 规则校验
+
+设计与完整评测：[docs/LLM_INTENT.md](docs/LLM_INTENT.md)
+
+- LLM 按 JSON Schema 提议字段、月份、范围和知识子问，报告数值继续由程序从实际查询结果渲染。
+- V1–V10 只校验可证伪的结构、目录、日期、限定和排除冲突，保留未知项及可见拒答。
+- 调用、结构或预算失败时回退原正则解析；意图提议不授予用户身份或工具权限。
+- 默认保持 `rule`，可通过 `AGENT_INTENT_MODE=hybrid` 主动开启；消融与失败案例见上方设计文档。
+
 ## 设计取舍：问题与做法
 
 | 问题 | 做法 |
@@ -130,6 +139,8 @@ flowchart TD
 | 分块越大，排序反而越差 | 对比 200 / 400 / 600 字分块后保留 200 字，改用向量 + BM25 融合（见下方检索对比） |
 | 本地 Qwen 模板即使关闭思考仍会输出思考内容，占用生成额度，可能导致回答被截断 | RAG 生成改用只含 `answer` 字段的 JSON schema 约束；被截断的输出直接拒绝，不写入历史 |
 | 线程超时后结果迟到，可能覆盖用户已经清空的会话 | 取消、清空与提交在同一把锁下串行执行；提交前检查本轮状态，迟到结果直接丢弃 |
+| 正则覆盖不了新说法 | LLM 提议、规则校验、失败回退 |
+| 只用 LLM 危险错误反而更多 | 保留可证伪的校验规则 |
 
 ## 评测结果
 
@@ -161,6 +172,19 @@ flowchart TD
 - 首次测试中 Agent 任务只通过 1/6。多数失败是工具查对了，但最终交付出错，比如字段同义词没有对上、目标月份和对比月份混淆、"报告 + 知识判断"的组合任务漏了一部分。
 - 修复后的两行属于"已见题回归"：题目已经用来定位问题，不能代表对未见问题的泛化能力。下一步需要另外冻结一套新题来检验。
 - 样本量小，每次只跑一遍；语义判分由 AI 助手辅助完成，未经独立人工盲评。逐题失败分析见 [AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)。
+
+### 意图解析改造（未见题）
+
+P3 冻结版本的组件正确率取均值，与最差一次相同；危险错误取最大一次。Agent 按全部真实轮次完成判任务通过。来源：[evaluation/INTENT_P3_A.md](evaluation/INTENT_P3_A.md)、[evaluation/INTENT_P3_B.md](evaluation/INTENT_P3_B.md)。
+
+| 模式 / 任务 | 组件正确率 | 危险错误 | Agent 全轮通过 |
+| --- | ---: | ---: | ---: |
+| rule | 16.0% | 13/100 | — |
+| llm_only | 79.0% | 15/100 | — |
+| hybrid | 80.0% | 10/100 | — |
+| Agent test（rule → hybrid） | — | — | 1/12 → 4/12 |
+
+默认仍为 `rule`：G5 的已见报告任务回归出现退步，未满足全部准入条件；`hybrid` 保留为可选开关，判定见 [evaluation/INTENT_P3_REPORT.md](evaluation/INTENT_P3_REPORT.md)。
 
 ### 鲁棒性与安全
 
@@ -196,6 +220,18 @@ ollama pull qwen3-embedding:4b
 ```
 
 页面侧栏默认的演示用户是 1001。
+
+**可选 hybrid 模式**
+
+默认意图模式为 `rule`。要开启 `hybrid`，在启动页面或 API 前设置环境变量，并重启已有服务进程：
+
+```powershell
+$env:AGENT_INTENT_MODE = 'hybrid'
+.\.venv\Scripts\python.exe -B scripts/manage.py serve
+# API 服务也使用此环境变量，再执行 scripts/manage.py api。
+```
+
+Linux shell 使用 `export AGENT_INTENT_MODE=hybrid`。设计与回退行为见 [docs/LLM_INTENT.md](docs/LLM_INTENT.md)。
 
 **REST API**
 
