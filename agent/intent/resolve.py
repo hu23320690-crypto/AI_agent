@@ -5,6 +5,7 @@ from dataclasses import dataclass, replace
 from datetime import date
 import re
 import time
+from typing import Literal
 
 from agent.context_budget import ContextBudgetExceeded
 from agent.runtime import (CallTimeout, CircuitOpen, DependencyUnavailable,
@@ -21,9 +22,24 @@ class TurnIntentResult:
     intent: ReportIntent
     knowledge_requested: bool
     trace: dict
-    # Kept separately from the privacy-safe trace. Range/exclusion consumers
-    # must not infer full-report scope from the rendered remaining-field list.
+    # Proposal is diagnostic; consumers use the final range/exclusion slots,
+    # independently of the renderer's remaining-field list or rule fallback.
     proposal: IntentProposal | None = None
+    final_scope: Literal['only_listed', 'full_report', 'unspecified'] = 'unspecified'
+    final_excluded_fields: tuple[str, ...] = ()
+
+
+def _observed_rule_scope(query, rule_intent):
+    """Observe the current positive range with the legacy _update precedence."""
+    positive = _positive_text(query)
+    full_matches = list(_FULL.finditer(positive))
+    only_matches = list(_ONLY.finditer(positive))
+    if full_matches and (not only_matches or
+                         full_matches[-1].start() > only_matches[-1].start()):
+        return 'full_report'
+    if only_matches or rule_intent.limited:
+        return 'only_listed'
+    return None
 
 
 def _rule_knowledge_requested(query):
@@ -64,6 +80,7 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
     # Always run the unchanged baseline with exactly the caller's old inputs.
     rule = resolve_report_intent(query, history_queries, known_fields=known_fields,
                                  fallback_month=fallback_month, previous_intent=previous_intent)
+    rule_scope = _observed_rule_scope(query, rule)
     rule_knowledge = _rule_knowledge_requested(query)
     cfg = load_intent_config()
     if mode is not None:
@@ -71,7 +88,8 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
     run = run or current_run()
 
     def result(intent=rule, knowledge=rule_knowledge, *, source='rule', reason=None,
-               conflicts=(), proposal=None):
+               conflicts=(), proposal=None, final_scope=rule_scope or 'unspecified',
+               final_excluded_fields=()):
         if run is not None:
             run.check()
         trace = {'mode': cfg.mode, 'source': source, 'fallback_reason': reason,
@@ -79,7 +97,8 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
                  'latency_ms': round((time.monotonic() - started) * 1000, 3)}
         if run is not None:
             run.note('intent_resolved', **trace)
-        return TurnIntentResult(intent, knowledge, trace, proposal)
+        return TurnIntentResult(intent, knowledge, trace, proposal,
+                                final_scope, tuple(final_excluded_fields))
 
     if cfg.mode == 'rule':
         return result()
@@ -132,16 +151,17 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         return result(reason='task_type_conflict', conflicts=checked.conflicts)
     had_fields = bool(proposal.fields)
     proposal, conflicts = checked.proposal, list(checked.conflicts)
+    if cfg.mode == 'hybrid' and rule_scope is not None and rule_scope != proposal.scope:
+        updates = {'scope': rule_scope}
+        if rule_scope == 'full_report':
+            updates['fields'] = []
+        proposal = proposal.model_copy(update=updates)
+        conflicts.append('scope_rule_override')
     limited = (proposal.scope == 'only_listed' or
                proposal.scope == 'unspecified' and bool(proposal.fields))
     full = proposal.scope == 'full_report'
     knowledge = bool(proposal.knowledge_question.strip())
     if cfg.mode == 'hybrid':
-        positive = _positive_text(query)
-        if (_ONLY.search(positive) or _FULL.search(positive)) and limited != rule.limited:
-            limited, full = rule.limited, not rule.limited
-            proposal = proposal.model_copy(update={'scope': 'full_report' if full else 'only_listed'})
-            conflicts.append('scope_rule_override')
         if _knowledge_excluded(query) and knowledge:
             knowledge = False
             conflicts.append('knowledge_rule_override')
@@ -167,4 +187,5 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
                           limited=limited, invalid_month=checked.invalid_month,
                           unresolved_month=checked.unresolved_month)
     return result(intent, knowledge, source='merged' if conflicts else 'llm',
-                  conflicts=conflicts, proposal=proposal)
+                  conflicts=conflicts, proposal=proposal, final_scope=proposal.scope,
+                  final_excluded_fields=proposal.excluded_fields)

@@ -1,4 +1,5 @@
 """Full-report exclusions use only the authorized target record for this turn."""
+from dataclasses import replace
 from datetime import date
 
 import pytest
@@ -70,6 +71,29 @@ def test_full_report_exclusion_keeps_target_metrics_and_omits_history_only_metri
     assert '星辉率：81%' in text
     assert '晶片寿命' not in text
     assert '幻尘消耗' not in text
+    assert '未提供' not in text
+
+
+@pytest.mark.parametrize('diagnostic_scope', [None, 'only_listed'])
+def test_full_report_exclusion_filter_uses_final_slots_not_proposal(monkeypatch, diagnostic_scope):
+    full_exclusion(monkeypatch)
+    original = react_agent.resolve_turn_intent
+
+    def resolve_without_scope_diagnostic(*args, **kwargs):
+        result = original(*args, **kwargs)
+        assert result.final_scope == 'full_report'
+        assert result.final_excluded_fields == ('晶片寿命',)
+        diagnostic = (None if diagnostic_scope is None else
+                      result.proposal.model_copy(update={'scope': diagnostic_scope,
+                                                         'excluded_fields': []}))
+        return replace(result, proposal=diagnostic)
+
+    monkeypatch.setattr(react_agent, 'resolve_turn_intent', resolve_without_scope_diagnostic)
+    text, intent, _ = execute('2032年11月完整报告，不要晶片寿命', [record()],
+                              lookup_records=[record('2032-10', fields=('幻尘消耗',))])
+    assert intent.fields == ('星辉率',)
+    assert '星辉率：81%' in text
+    assert '晶片寿命' not in text and '幻尘消耗' not in text
     assert '未提供' not in text
 
 

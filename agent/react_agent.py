@@ -243,9 +243,8 @@ class ReactAgent:
             if (report_intent.target_month is None and not report_intent.invalid_month
                     and not report_intent.unresolved_month):
                 report_intent = replace(report_intent, target_month=context['lookup_result']['month'])
-            if (turn_intent.proposal is not None
-                    and turn_intent.proposal.scope == 'full_report'
-                    and turn_intent.proposal.excluded_fields):
+            if (turn_intent.final_scope == 'full_report'
+                    and turn_intent.final_excluded_fields):
                 # Exclusions turn a full report into the remaining metrics.
                 # The session catalog may contain other months' metrics; only
                 # this turn's authorized target record supplies this list.
@@ -255,7 +254,9 @@ class ReactAgent:
                                       and item.get('user_id') == self.user_id), None)
                 if target_record is not None:
                     target_fields = record_fields(target_record['data'])
-                    fields = tuple(field for field in report_intent.fields if field in target_fields)
+                    excluded = set(turn_intent.final_excluded_fields)
+                    fields = tuple(field for field in report_intent.fields
+                                   if field in target_fields and field not in excluded)
                     report_intent = replace(report_intent, fields=fields,
                                             limited=report_intent.limited or not fields)
             text = render_lookup(context["lookup_result"], query=query,
