@@ -1,0 +1,172 @@
+import ast
+import copy
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+ROOT = Path(r'C:\Users\胡\Documents\Codex\2026-09-17\new-chat\AI_agent_publication')
+REF = 'c105253026453bb203aab1186d68aae0bb10acd3'
+PREFLIGHT = ROOT / 'evaluation/results/intent_p3_preflight'
+DIGEST = '359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7'
+os.environ['PYTHONUTF8'] = '1'
+os.environ['PYTHONDONTWRITEBYTECODE'] = '1'
+os.chdir(ROOT)
+sys.path.insert(0, str(ROOT))
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+def dump(path, value):
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+
+def git(*args):
+    return subprocess.check_output(['git','-c','safe.directory='+ROOT.as_posix(),*args], cwd=ROOT)
+
+def stamp():
+    return datetime.now(ZoneInfo('Australia/Sydney')).isoformat()
+
+def runtime_check():
+    names = git('ls-tree','-r','--name-only',REF).decode('utf-8').splitlines()
+    paths = [p for p in names if p.split('/')[0] in {'agent','model','utils','rag','prompts','config'}
+             or (p.startswith('evaluation/') and p.endswith('.py') and '/results/' not in p)]
+    paths += ['app.py','scripts/seal_evaluation_run.py','scripts/prepare_evaluation_variant.py','scripts/manage.py']
+    hashes = {}
+    for p in paths:
+        expected = git('show',REF+':'+p)
+        actual = (ROOT/p).read_bytes()
+        if expected != actual:
+            raise RuntimeError('Frozen runtime bytes differ: '+p)
+        hashes[p] = sha(actual)
+    for folder in ['agent','model','utils','rag','prompts','config','evaluation']:
+        for p in (ROOT/folder).rglob('*'):
+            if p.is_file() and p.suffix in {'.py','.txt','.yml','.yaml','.json','.gz'} and (folder!='evaluation' or p.suffix=='.py') and '__pycache__' not in p.parts and 'results' not in p.parts:
+                if p.relative_to(ROOT).as_posix() not in paths:
+                    raise RuntimeError('Unregistered runtime file: '+str(p))
+    return dict(sorted(hashes.items()))
+
+def path_proof():
+    production = ['agent','model','utils','rag','prompts','config','app.py']
+    changed = git('diff','--name-only','main',REF,'--',*production).decode().splitlines()
+    allowed = {'agent/react_agent.py','agent/runtime/core.py','model/factory.py','config/intent.yml','prompts/intent_parser.txt'}
+    if any(p not in allowed and not p.startswith('agent/intent/') for p in changed):
+        raise RuntimeError('Change outside report intent scope: '+repr(changed))
+    trees = [ast.parse(git('show',ref+':agent/react_agent.py').decode('utf-8-sig')) for ref in ['main',REF]]
+    def report_test(n):
+        return isinstance(n,ast.If) and ast.dump(n.test)==ast.dump(ast.parse('context["lookup_result"] is not None',mode='eval').body)
+    normalized=[]
+    for tree in trees:
+        tree=copy.deepcopy(tree)
+        tree.body=[n for n in tree.body if not isinstance(n,(ast.Import,ast.ImportFrom))]
+        report_nodes=[n for n in ast.walk(tree) if report_test(n)]
+        if len(report_nodes)!=1: raise RuntimeError('Report branch could not be uniquely isolated')
+        report_nodes[0].body=[ast.Pass()]
+        normalized.append(ast.dump(tree,include_attributes=False))
+    if normalized[0]!=normalized[1]: raise RuntimeError('ReactAgent changes outside report branch')
+    factory=[ast.parse(git('show',ref+':model/factory.py').decode('utf-8-sig')) for ref in ['main',REF]]
+    f=factory[1]
+    for n in ast.walk(f):
+        if isinstance(n,ast.Set) and all(isinstance(x,ast.Constant) for x in n.elts):
+            n.elts=[x for x in n.elts if x.value!='intent']
+        if hasattr(n,'body') and isinstance(n.body,list):
+            n.body=[x for x in n.body if not (isinstance(x,ast.If) and ast.dump(x.test)==ast.dump(ast.parse("purpose == 'intent'",mode='eval').body))]
+    if ast.dump(factory[0])!=ast.dump(factory[1]): raise RuntimeError('Existing model purposes changed')
+    core=[ast.parse(git('show',ref+':agent/runtime/core.py').decode('utf-8-sig')) for ref in ['main',REF]]
+    for n in ast.walk(core[1]):
+        if isinstance(n,ast.ClassDef): n.body=[x for x in n.body if not (isinstance(x,ast.FunctionDef) and x.name=='remaining_calls')]
+    if ast.dump(core[0])!=ast.dump(core[1]): raise RuntimeError('Existing runtime code changed')
+    tests = git('diff','--name-status','main',REF,'--','tests').decode().splitlines()
+    if any(not line.startswith('A\t') for line in tests): raise RuntimeError('Existing baseline tests changed')
+    return {'passed':True,'main_commit':git('rev-parse','main').decode().strip(),'runtime_commit':REF,
+            'changed_production_files':changed,'react_agent_ast_equal_except_report_body_and_imports':True,
+            'existing_agent_and_rag_model_purposes_ast_equal':True,'existing_runtime_ast_equal':True,
+            'knowledge_unanswerable_and_security_sources_byte_unchanged':True,
+            'existing_main_tests_unchanged':True,'test_changes':tests,
+            'pre_run_decision':'Knowledge and unanswerable cases will not be rerun. This is a code-path scope decision made before any P3 inference, not an observed accuracy result.'}
+
+def preflight():
+    hashes=runtime_check()
+    proof=path_proof()
+    PREFLIGHT.mkdir(parents=True,exist_ok=False)
+    dump(PREFLIGHT/'runtime_byte_identity.json',{'checked_at':stamp(),'runtime_commit':REF,'files_sha256':hashes,'checked_files':len(hashes),'mismatches':[],
+        'generated_data_note':'Python bytecode and the generated Chroma index are not versioned runtime source. Source documents and tokenizer cache remain hash-bound by each runner.'})
+    dump(PREFLIGHT/'non_report_path_proof.json',proof)
+    (PREFLIGHT/'production_diff.patch').write_bytes(git('diff','main',REF,'--','agent','model','utils','rag','prompts','config'))
+    result=subprocess.run([sys.executable,'-B','scripts/manage.py','doctor'],cwd=ROOT,capture_output=True)
+    (PREFLIGHT/'doctor.stdout.json').write_bytes(result.stdout)
+    (PREFLIGHT/'doctor.stderr.txt').write_bytes(result.stderr)
+    doctor=json.loads(result.stdout.decode('utf-8'))
+    if result.returncode or not doctor['ok'] or next(m['digest'] for m in doctor['models'] if m['name']=='qwen3:4b')!=DIGEST:
+        raise RuntimeError('Doctor/model identity failed')
+    baseline_tests=git('ls-tree','-r','--name-only','main','tests').decode().splitlines()
+    baseline_tests=[p for p in baseline_tests if Path(p).name.startswith('test_') and p.endswith('.py')]
+    dump(PREFLIGHT/'offline_test_plan.json',{'mode':'rule','baseline_test_files':baseline_tests,'baseline_expected_passed':669,
+        'run_command':[sys.executable,'-B','-m','pytest',*baseline_tests,'-q']})
+    with (PREFLIGHT/'offline_tests.txt').open('w',encoding='utf-8') as out:
+        t=subprocess.run([sys.executable,'-B','-m','pytest',*baseline_tests,'-q'],cwd=ROOT,env={**os.environ,'AGENT_INTENT_MODE':'rule'},stdout=out,stderr=subprocess.STDOUT)
+    dump(PREFLIGHT/'offline_tests_status.json',{'exit_code':t.returncode,'finished_at':stamp()})
+    if t.returncode: raise RuntimeError('G1 baseline offline tests failed')
+    print(json.dumps({'preflight':str(PREFLIGHT),'runtime_files':len(hashes),'proof':True,'doctor':True,'baseline_tests_exit':t.returncode},ensure_ascii=False),flush=True)
+
+def add_manifest(run, repeat_label=None):
+    hashes=runtime_check()
+    manifest=json.loads((run/'manifest.json').read_text(encoding='utf-8'))
+    frozen=json.loads((PREFLIGHT/'runtime_byte_identity.json').read_text(encoding='utf-8'))
+    if hashes!=frozen['files_sha256']: raise RuntimeError('Runtime differs from preflight')
+    manifest['p3_runtime_version']=REF
+    manifest['p3_runtime_byte_sha256']=hashes
+    manifest['p3_runtime_byte_check']='Every listed file byte-equal to Git blob at p3_runtime_version before and after this run.'
+    manifest['p3_authorization']='Author approved test gold frozen at d61a06a and this batch in the 2026-10-13 user request.'
+    manifest['p3_repeat_identity']=repeat_label
+    manifest['p3_control_script_sha256']=sha(Path(__file__).read_bytes())
+    for name in ['runtime_byte_identity.json','non_report_path_proof.json','doctor.stdout.json','offline_tests.txt','offline_tests_status.json','offline_tests_workspace_temp.txt','offline_tests_workspace_temp_status.json']:
+        target=run/'p3_preflight'/name
+        target.parent.mkdir(exist_ok=True)
+        target.write_bytes((PREFLIGHT/name).read_bytes())
+    for name,h in hashes.items():
+        target=run/'snapshot'/name
+        if not target.exists():
+            target.parent.mkdir(parents=True,exist_ok=True)
+            target.write_bytes((ROOT/name).read_bytes())
+    dump(run/'manifest.json',manifest)
+
+def offline_workspace_temp():
+    runtime_check()
+    plan=json.loads((PREFLIGHT/'offline_test_plan.json').read_text(encoding='utf-8'))
+    temp=Path(__file__).parent/'p3_tmp'
+    temp.mkdir(exist_ok=True)
+    env={**os.environ,'TMP':str(temp),'TEMP':str(temp),'AGENT_INTENT_MODE':'rule'}
+    with (PREFLIGHT/'offline_tests_workspace_temp.txt').open('x',encoding='utf-8') as out:
+        t=subprocess.run(plan['run_command'],cwd=ROOT,env=env,stdout=out,stderr=subprocess.STDOUT)
+    dump(PREFLIGHT/'offline_tests_workspace_temp_status.json',{'exit_code':t.returncode,'finished_at':stamp(),'temp_directory':str(temp),
+        'reason':'Initial offline run had sandbox Temp os.replace WinError 5; all original baseline test files are checked again using the authorized workspace temp directory. No formal P3 inference rerun.'})
+    if t.returncode: raise RuntimeError('Baseline offline tests failed in writable workspace temp')
+    print('Baseline workspace-temp offline tests passed',flush=True)
+
+def components():
+    from evaluation import intent_eval
+    import scripts.seal_evaluation_run as sealer
+    original=sealer.seal_run
+    for mode,repeats in [('rule',1),('llm_only',3),('hybrid',3)]:
+        for idx in range(1,repeats+1):
+            label=f'r{idx:03d}'
+            run=ROOT/f'evaluation/results/intent_v1_r1_test_p3_{mode}_{label}'
+            runtime_check()
+            def seal_with_manifest(folder,verify=False):
+                add_manifest(Path(folder),label)
+                return original(folder,verify=verify)
+            sealer.seal_run=seal_with_manifest
+            print('START',mode,label,stamp(),flush=True)
+            code=intent_eval.main(['--dataset','evaluation/intent_v1_r1/test.jsonl','--split','test','--p3-approved','--mode',mode,'--repeat','1','--run',str(run)])
+            print('DONE',mode,label,'exit',code,stamp(),flush=True)
+            original(run,verify=True)
+    sealer.seal_run=original
+
+if __name__=='__main__':
+    if sys.argv[1]=='preflight': preflight()
+    elif sys.argv[1]=='offline_workspace_temp': offline_workspace_temp()
+    elif sys.argv[1]=='components': components()

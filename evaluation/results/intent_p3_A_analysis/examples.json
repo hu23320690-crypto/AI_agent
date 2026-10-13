@@ -1,0 +1,157 @@
+[
+  {
+    "case_id": "IT001",
+    "label": "成功：同义字段和顺序",
+    "query": "把2025年1月主刷还能撑几天放在前面，再列平均每天清扫的面积，报告就这两项。",
+    "history": [],
+    "final_intent": {
+      "fields": [
+        "主刷寿命",
+        "日均清扫"
+      ],
+      "target_month": "2025-01",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [],
+    "note": "将“主刷还能撑几天”和“平均每天清扫的面积”映射为目录字段，顺序、范围和月份均正确。",
+    "result_sha256": "1e70efc397f2c670b256041f2d51bb6c979ef80759b25dba7b512b8f24156d28",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  },
+  {
+    "case_id": "IT021",
+    "label": "成功：区域限定保护",
+    "query": "2025年2月只列厨房覆盖率这一栏。",
+    "history": [],
+    "final_intent": {
+      "fields": [
+        "厨房覆盖率"
+      ],
+      "target_month": "2025-02",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [
+      "qualifier_dropped"
+    ],
+    "note": "V4拒绝将“厨房覆盖率”映射为通用“覆盖率”，保留未知原指标，未选择目录里的近似字段。",
+    "result_sha256": "da46ff796b97b105ca13aa72e68f5eb0136422fcbc562703ce69c5e38d09420a",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  },
+  {
+    "case_id": "IT047",
+    "label": "成功：明确查询锚点的月份算术",
+    "query": "以刚查到的这份记录为起点，前一个月只列尘盒清理。",
+    "history": [],
+    "final_intent": {
+      "fields": [
+        "尘盒清理"
+      ],
+      "target_month": "2025-07",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [
+      "relative_month_recomputed"
+    ],
+    "note": "以当前查询2025-08为明确起点，代码重算前一个月为2025-07；组件选择正确不授予该未查询月的数字输出权限。",
+    "result_sha256": "5155150b7d91748895c13dbfe9a252910a76972402c388c443a5e4e6fcec3ba4",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  },
+  {
+    "case_id": "IT041",
+    "label": "失败：日期被误当字段限定词",
+    "query": "只取 2025 年十一月的玩具避障率，我不需要其它项。",
+    "history": [],
+    "final_intent": {
+      "fields": [
+        "2025 年十一月的玩具避障率"
+      ],
+      "target_month": "2025-11",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [
+      "qualifier_dropped"
+    ],
+    "note": "原始mention携带日期，V4把日期当作字段限定，误将可答的“玩具避障率”降为未知，造成safe_fail。",
+    "result_sha256": "38d6f5a2055e8dfbe8e9d265f02bb1c1c704192302bbd60bc5b2d75644955b88",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  },
+  {
+    "case_id": "IT044",
+    "label": "失败：错误锚点声明被重算放大",
+    "query": "翻到下个月，仍然只列避障成功率。",
+    "history": [
+      "只列 2025 年七月的避障成功率。"
+    ],
+    "final_intent": {
+      "fields": [
+        "避障成功率"
+      ],
+      "target_month": "2025-09",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [
+      "relative_month_recomputed"
+    ],
+    "note": "gold应由上轮2025-07得到2025-08；模型的锚点声明使V7重算为2025-09，产生错误但合法的目标月。校验不保证语义锚点判断正确。",
+    "result_sha256": "ee0a8664203c692b8f8104b66922557a0b6760075b58ac579c1227182345c292",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  },
+  {
+    "case_id": "IT075",
+    "label": "失败：撤回月份和字段误选未拦住",
+    "query": "我不比较 2025 年四月了，2025 年五月只列主刷寿命。",
+    "history": [],
+    "final_intent": {
+      "fields": [
+        "覆盖率"
+      ],
+      "target_month": "2025-04",
+      "comparison_month": null,
+      "compare": false,
+      "limited": true,
+      "invalid_month": false,
+      "unresolved_month": false,
+      "scope": "only_listed",
+      "knowledge_requested": false,
+      "excluded_fields": []
+    },
+    "conflicts": [],
+    "note": "应选择2025-05主刷寿命，最终选择2025-04覆盖率；无冲突码。月份有据和目录成员检查不足以证明当前肯定意图角色。",
+    "result_sha256": "33ea51153528c92e26c9a2ed949cec346e377c68b0b896e481ad4134b3cb722f",
+    "evidence": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl"
+  }
+]
