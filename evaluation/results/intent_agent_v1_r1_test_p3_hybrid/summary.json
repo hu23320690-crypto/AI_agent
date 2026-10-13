@@ -1,0 +1,408 @@
+{
+  "planned": 12,
+  "completed": 12,
+  "statuses": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 12,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 0,
+    "planned": 0,
+    "hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_metrics_observed": 0,
+    "policy_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "mrr_at_5": null,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 12,
+    "completed": 12,
+    "reviewed": 12,
+    "task_pass": 4,
+    "task_fail": 8,
+    "unknown": 0,
+    "tool_selection_pass": 9,
+    "planned_real_turns": 24,
+    "synthetic_seeded_turns": 0,
+    "observed_model_requests": 70
+  },
+  "latency": {
+    "retrieval": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "rag_generation": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "agent_turn": {
+      "count": 24,
+      "median_seconds": 23.221462949997658,
+      "p95_seconds": 70.53596480000124
+    },
+    "case_wall_all_statuses": {
+      "count": 12,
+      "median_seconds": 63.61347359999854,
+      "p95_seconds": 98.36259189999691
+    }
+  },
+  "model_usage": {
+    "observed_requests": 70,
+    "requests_by_status": {
+      "ok": 70,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 70,
+    "input_tokens": 106595,
+    "output_tokens": 49261,
+    "request_input_message_counts": {
+      "count": 70,
+      "median_messages": 3.0,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "IA001",
+      "status": "ok",
+      "review": {
+        "sample_id": "S009",
+        "result_sha256": "f5cbe93a7d48dcd326771423f1f90839fa7d548b628cf51ea4942b414cadeb52",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "本轮fetch1001/2025-10，主刷40天、日均46㎡按所要求的顺序和范围交付，同义字段映射正确，均受授权记录支持。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 0,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "第二轮只fetch了2025-09，没有本轮重新取得目标2025-10；最终说明目标本轮未查询而拒绝交付，没有编造数据。但目标40天/46㎡、基准45天/44㎡及-5天/+2㎡均未列出，核心比较失败。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:39:25.783260+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA001",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA002",
+      "status": "ok",
+      "review": {
+        "sample_id": "S017",
+        "result_sha256": "9ea0bfe73b8e5952427b6559f54e131ab5553fa32875351733a75c7da07c7394",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "受信1003/2025-01本轮记录支持毛发92%、地毯增压15次/月，按顺序只列两栏，不比较且无知识追加。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 0,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "仅查1003/2024-12并得到not_found，未本轮重新查2025-01；最终只拒绝用别月代替目标，未给目标92%/15次月和基准无记录的比较结论。拒答与本轮查询边界一致、没有补零或估算，但核心交付失败。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:40:48.762886+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA002",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA004",
+      "status": "ok",
+      "review": {
+        "sample_id": "S019",
+        "result_sha256": "0b1b02f3834813a6172fea6bf04f10a03b9a5fecbd8ed608e83bc2dc1f6ee828",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "1002/2025-11覆盖90%与单次耗水量未提供正确，顺序范围无追加，来自本轮实际fetch。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 2,
+            "grounded": false,
+            "requirements_met": false,
+            "note": "内容正确给尘盒每4天、集尘座滤网寿命未提供，但本轮零工具调用，缺少必须的fetch和当前目标本轮授权查询。旧轮11月数据不能满足冻结的当前数字来源要求；内容与忠实度分别判定。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:40:48.762886+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA004",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA005",
+      "status": "ok",
+      "review": {
+        "sample_id": "S015",
+        "result_sha256": "078fd8475a073b27580f7cadfb4b3bc4db3d9ff5f2eace8ff5d9654a4770503a",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "requirements_met": false,
+            "note": "1001/2025-02 HEPA35%及仅一栏正确，但必需RAG未执行、3–6个月更换周期遗漏，知识子问未完成；所给记录事实受本轮工具支持。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "1001/2025-11 HEPA15%及不比较、仅一栏正确；未回答比例能否换算剩余月数及资料是否给出依据，且首轮没有取得可复用的已验证HEPA知识。已输出比例有本轮工具支持，未补造月数或诊断。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:40:07.210213+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA005",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA006",
+      "status": "ok",
+      "review": {
+        "sample_id": "S013",
+        "result_sha256": "2ec7e4a5884281ab4afe519ca6e62d99cf6dbc071ccc50e4d5302ac85cad869b",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "本轮授权1009/2025-10，两个所要字段按顺序交付89%及94%，数量后缀未并入字段，未追加其他指标。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 0,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "本轮仅fetch2025-07基准，未取得本轮目标2025-10，程序拒绝替代目标数据；没有编造数值。但目标与基准值及增加5/3个百分点完全未交付，核心比较任务失败。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:40:07.210213+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA006",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA007",
+      "status": "ok",
+      "review": {
+        "sample_id": "S021",
+        "result_sha256": "dfbbabbfd32c7557d4b4f6cbe7aec8ee834117a091d8745c9b027737c502cd04",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "本轮fetch1010/2025-05支持边刷25天、电池19%，按请求顺序只交付两项，单位、身份、月份和范围正确。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 0,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "环比轮仅fetch2025-04基准，未本轮取得5月目标，最终安全拒绝替代目标数据；但目标25天/19%、上月30天/18%及-5天/+1个百分点均未交付，核心比较失败。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:42:43.453309+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA007",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA010",
+      "status": "ok",
+      "review": {
+        "sample_id": "S005",
+        "result_sha256": "658c723b4acc0b1324bb07128ec64c8c8a3b3cc39ee0baf43448234ca8c8e85c",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 1,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "仅实际fetch了1007/2025-09，目标覆盖89%和滤网65天正确；因未查2025-08而未给基准88%/70天及+1个百分点/-5天，比较请求只部分完成。缺基准的说明受本轮工具支持，未用零填充。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "本轮fetch1007/2025-10，按原字段顺序只给91%和60天，显式取消比较后没有旧基准或差值，均有本轮记录支持。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:38:45.929537+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA010",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "IA012",
+      "status": "ok",
+      "review": {
+        "sample_id": "S008",
+        "result_sha256": "3efefc861f2e266cae418ef4a134b5d7949c34a2cfcbb2cc45d8d350c24149fa",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "1006/2025-11实际记录支持边刷50天，不含主刷寿命；答案按顺序给50天和主刷未提供，未以别的部件代替。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": true,
+            "requirements_met": false,
+            "note": "1006/2025-12边刷45天和卡扣寿命未提供正确、范围正确；未执行必需RAG，遗漏卡扣断裂或松动无法固定时立即更换同款原装卡扣的知识条件。已交付报告事实仍受本轮记录支持。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T20:38:45.929537+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "IA012",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

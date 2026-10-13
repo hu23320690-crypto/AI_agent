@@ -1,0 +1,24 @@
+{
+  "before_scores_sha256": "35f428a98f23a6154f4d19a7d69a1bde606a84e8b4aa4d59852c5b4e7ad6e479",
+  "after_scores_sha256": "96ffbf3dc7a0115255d80c8f6c27ad89790927c4840cb7998275e01363f9b6b0",
+  "reveal_key_not_opened": true,
+  "corrections": [
+    {
+      "sample_id": "S004",
+      "turn": 1,
+      "answer_score_unchanged": 1,
+      "grounded_before": true,
+      "grounded_after": false,
+      "reason": "Before reveal, apply the same factual-evidence contract: falsely saying an answerable catalog metric was not provided contradicts this turn authorized record. Visible refusal is not automatically faithful."
+    },
+    {
+      "sample_id": "S010",
+      "turn": 1,
+      "answer_score_unchanged": 0,
+      "grounded_before": true,
+      "grounded_after": false,
+      "reason": "Before reveal, apply the same factual-evidence contract: falsely saying an answerable catalog metric was not provided contradicts this turn authorized record. Visible refusal is not automatically faithful."
+    }
+  ],
+  "note": "Two wording cleanups additionally remove unrelated identity/percentage phrases from review notes; scores unchanged."
+}

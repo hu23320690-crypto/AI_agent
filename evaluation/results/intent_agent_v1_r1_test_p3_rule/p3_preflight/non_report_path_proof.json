@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "main_commit": "d61a06ae64c96703293e963eb0e76cef12ea09be",
+  "runtime_commit": "c105253026453bb203aab1186d68aae0bb10acd3",
+  "changed_production_files": [
+    "agent/intent/__init__.py",
+    "agent/intent/llm_parser.py",
+    "agent/intent/resolve.py",
+    "agent/intent/schema.py",
+    "agent/intent/validate.py",
+    "agent/react_agent.py",
+    "agent/runtime/core.py",
+    "config/intent.yml",
+    "model/factory.py",
+    "prompts/intent_parser.txt"
+  ],
+  "react_agent_ast_equal_except_report_body_and_imports": true,
+  "existing_agent_and_rag_model_purposes_ast_equal": true,
+  "existing_runtime_ast_equal": true,
+  "knowledge_unanswerable_and_security_sources_byte_unchanged": true,
+  "existing_main_tests_unchanged": true,
+  "test_changes": [
+    "A\ttests/test_intent_eval.py",
+    "A\ttests/test_intent_report_exclusions.py",
+    "A\ttests/test_intent_scope_merge.py",
+    "A\ttests/test_llm_intent.py",
+    "A\ttests/test_llm_intent_p21.py",
+    "A\ttests/test_llm_intent_revision.py"
+  ],
+  "pre_run_decision": "Knowledge and unanswerable cases will not be rerun. This is a code-path scope decision made before any P3 inference, not an observed accuracy result."
+}
