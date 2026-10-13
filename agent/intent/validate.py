@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass
+from datetime import date
 import re
 
 from agent.intent.schema import IntentField, IntentProposal
@@ -33,6 +34,66 @@ _ABSOLUTE_MONTH = re.compile(
     r"(?P<month>\d{1,2}|十二|十一|十|[一二三四五六七八九])\s*月?(?!\d)"
 )
 _GENERAL_MODIFIERS = re.compile(r"剩余|寿命|率|的|数值|多少|情况|比例")
+# These are generic only after the selected catalog name. A prefix such as
+# “还剩” must not accidentally disappear when the field substring is removed.
+_QUESTION_SUFFIXES = re.compile(
+    r"(?:多少天|这一项|这一栏|是多少|还能用|还剩|剩下|几天|天数|多久|这项|一栏|记录|数据)+$"
+)
+_COUNT_WORD = r"[0-9零〇一二两三四五六七八九十百千万]+"
+_COUNT_BOUNDARY = r"(?<![0-9零〇一二两三四五六七八九十百千万前.点+\-])"
+# Longest phrases go first, so “上上个月” cannot become “上个月”. Ordinary
+# “前一个月” remains a single-month selector; ambiguous “前三个月” is absent.
+_RELATIVE_OFFSET = re.compile(
+    r"(?<![上下])(?P<double_previous>上上(?:个)?月)|"
+    r"(?<![上下])(?P<double_next>下下(?:个)?月)|"
+    + _COUNT_BOUNDARY + r"(?P<count_before>" + _COUNT_WORD + r")个月(?:之前|前)|"
+    + r"之前(?P<before_count>" + _COUNT_WORD + r")个月(?![前后])|"
+    + _COUNT_BOUNDARY + r"(?P<count_after>" + _COUNT_WORD + r")个月后|"
+    + r"(?<![上下])(?P<next>下一(?:个)?月|下个?月|后一(?:个)?月)|"
+    + r"(?<![上下])(?P<previous>上一(?:个)?月|上个?月|前一(?:个)?月|前个?月)"
+)
+_CHINESE_DIGITS = {word: number for number, word in enumerate("零一二三四五六七八九")}
+_CHINESE_DIGITS.update({"〇": 0, "两": 2})
+_CHINESE_UNITS = {"十": 10, "百": 100, "千": 1000, "万": 10000}
+
+
+def _month_count(raw: str) -> int | None:
+    """Read a written count without letting huge values fail integer parsing."""
+    if raw.isascii() and raw.isdigit():
+        digits = raw.lstrip("0") or "0"
+        # No calendar in the YYYY-MM wire range can survive this displacement.
+        return int(digits) if len(digits) <= 6 else 120000
+    if not raw or any(char not in _CHINESE_DIGITS and char not in _CHINESE_UNITS for char in raw):
+        return None
+    if all(char in _CHINESE_DIGITS for char in raw):
+        # Chinese cardinal counts are a single digit unless they contain units.
+        # Reject approximate phrases such as “两三个月”, rather than invent 23.
+        return _CHINESE_DIGITS[raw] if len(raw) == 1 else None
+    if len(raw) > 32:
+        return 120000
+    total, section, digit, previous_unit = 0, 0, None, 10000
+    for char in raw:
+        if char in _CHINESE_DIGITS:
+            value = _CHINESE_DIGITS[char]
+            if digit not in (None, 0):
+                return None
+            digit = value
+            continue
+        unit = _CHINESE_UNITS[char]
+        if unit == 10000:
+            if total or not section and digit in (None, 0):
+                return None
+            total = (section + (digit or 0)) * unit
+            section, digit, previous_unit = 0, None, 10000
+        else:
+            if unit >= previous_unit or digit == 0:
+                return None
+            # “十” is ten, but a missing multiplier for 百/千 is malformed.
+            if digit is None and (unit != 10 or section):
+                return None
+            section += (digit if digit is not None else 1) * unit
+            digit, previous_unit = None, unit
+    return total + section + (digit or 0)
 
 
 def _compact(value: str) -> str:
@@ -76,6 +137,7 @@ def _explicit_months(text: str, previous: ReportIntent, fallback: str | None) ->
         occupied.append(match.span())
     values = {value for _, value in absolute}
     occupied.extend(match.span() for match in _RELATIVE_MONTH.finditer(text))
+    occupied.extend(match.span() for match in _RELATIVE_OFFSET.finditer(text))
     for match in _BARE_MONTH.finditer(text):
         if any(start <= match.start() < end for start, end in occupied):
             continue
@@ -94,10 +156,27 @@ def _relative_offset(mention: str, positive_texts: tuple[str, ...]) -> int | Non
     # A fabricated date mention must not create its own V6 justification.
     if not _anchored(mention, positive_texts):
         return None
-    match = _RELATIVE_MONTH.search(mention)
-    if match is not None:
-        return 1 if match["next"] else -1
-    return -1 if "环比" in mention else None
+    offsets = []
+    for match in _RELATIVE_OFFSET.finditer(_compact(mention)):
+        if match["double_previous"]:
+            offsets.append(-2)
+        elif match["double_next"]:
+            offsets.append(2)
+        elif match["next"]:
+            offsets.append(1)
+        elif match["previous"]:
+            offsets.append(-1)
+        else:
+            raw = match["count_before"] or match["before_count"] or match["count_after"]
+            count = _month_count(raw)
+            if count is None:
+                return None
+            offsets.append(count if match["count_after"] else -count)
+    if not offsets and "环比" in mention:
+        return -1
+    # A broad or fabricated mention containing two date roles is not evidence
+    # for picking either one. The model must extract the intended date phrase.
+    return offsets[0] if len(offsets) == 1 else None
 
 
 def validate_proposal(
@@ -108,6 +187,7 @@ def validate_proposal(
     previous_intent: ReportIntent | None = None,
     known_fields: Iterable[str] = (),
     fallback_month: str | None = None,
+    today: date | None = None,
     rule_intent: ReportIntent,
     mode: str = "hybrid",
 ) -> ValidationResult:
@@ -153,9 +233,14 @@ def validate_proposal(
     previous = previous_intent or ReportIntent()
     texts = (query, *(text for text in history_queries if isinstance(text, str)))
     positive_texts = tuple(_positive_text(text) for text in texts)
-    # V9: an exclusion is a current written fact, not model authority to hide
-    # arbitrary catalog fields. A positive correction cancels the exclusion.
-    excluded_fields = [field for field in excluded_fields if _only_masked_mention(field, (query,))]
+    # Exclusions are the model's interpretation, validated only against current
+    # written evidence and the authorized catalog, without a negation lexicon.
+    excluded_fields = [field for field in excluded_fields if (
+        _anchored(field, (query,)) or any(
+            item.field == field and _anchored(item.mention, (query,))
+            for item in checked.fields
+        )
+    )]
     if len(excluded_fields) != len(checked.excluded_fields):
         conflict("exclusion_not_in_text")
     excluded = set(excluded_fields)
@@ -169,7 +254,11 @@ def validate_proposal(
         mention = _compact(item.mention)
         field = _compact(item.field) if item.field is not None else ""
         if field and field != mention and field in mention:
-            remainder = mention.replace(field, "", 1)
+            position = mention.index(field)
+            prefix, suffix = mention[:position], mention[position + len(field):]
+            suffix = _QUESTION_SUFFIXES.sub("", suffix)
+            suffix = _QUESTION_SUFFIXES.sub("", _GENERAL_MODIFIERS.sub("", suffix))
+            remainder = prefix + suffix
             if _GENERAL_MODIFIERS.sub("", remainder):
                 conflict("qualifier_dropped")
                 item = item.model_copy(update={"field": None})
@@ -206,9 +295,12 @@ def validate_proposal(
     def recompute(slot: str, value: str | None, anchor: str | None, offset: int) -> str | None:
         nonlocal invalid, unresolved
         if not valid_month(anchor):
-            # V8: never substitute today's date for a missing report anchor.
+            # V8: a missing declared anchor cannot borrow a different one.
             conflict("no_anchor")
             unresolved = True
+            return None
+        if value is None and checked.unresolved:
+            # V6: keep a deliberate safe failure, even when prose has a date.
             return None
         calculated = shift_month(anchor, offset)
         if calculated is None:
@@ -255,12 +347,20 @@ def validate_proposal(
     current_positive = (_positive_text(query),)
     target_offset = _relative_offset(checked.target_mention, current_positive)
     baseline_offset = _relative_offset(checked.baseline_mention, current_positive)
+    declared_anchor = {
+        "previous_target": previous.target_month,
+        "current_lookup": fallback_month,
+        "today": f"{today.year:04d}-{today.month:02d}" if isinstance(today, date) else None,
+        "none": None,
+    }[checked.target_anchor]
     if target_offset is not None:
-        target = recompute("target", target, previous.target_month or fallback_month, target_offset)
-    # V8 also protects an omitted relative mention from a guessed current date.
+        target = recompute("target", target, declared_anchor, target_offset)
+    # V8 also protects a proposal that omitted its current relative mention.
+    # A baseline-relative phrase uses the target, so it does not demand an
+    # independent target anchor when the target was explicitly written.
     if (target_offset is None and baseline_offset is None
-            and _RELATIVE_MONTH.search(_positive_text(query))
-            and not valid_month(previous.target_month) and not valid_month(fallback_month)
+            and _RELATIVE_OFFSET.search(_compact(_positive_text(query)))
+            and not valid_month(declared_anchor)
             and target not in current_positive_months):
         conflict("no_anchor")
         target = None
@@ -274,9 +374,7 @@ def validate_proposal(
         updates["compare"] = True
         baseline_offset = -1
     if baseline_offset is not None:
-        baseline = recompute(
-            "baseline", baseline, target or previous.target_month or fallback_month, baseline_offset
-        )
+        baseline = recompute("baseline", baseline, target, baseline_offset)
     baseline = validate_month("baseline", baseline, checked.baseline_mention, rule_intent.comparison_month)
     updates.update(target_month=target, baseline_month=baseline)
     unresolved = unresolved or (checked.unresolved and

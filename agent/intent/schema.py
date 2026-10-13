@@ -22,6 +22,7 @@ class IntentProposal(BaseModel):
     # V5 validates calendar values so an invalid slot can fall back separately.
     target_month: str | None
     target_mention: str
+    target_anchor: Literal["previous_target", "current_lookup", "today", "none"]
     compare: bool
     baseline_month: str | None
     baseline_mention: str

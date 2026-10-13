@@ -32,6 +32,7 @@ def proposal(**changes):
         'scope': 'only_listed',
         'target_month': '2032-11',
         'target_mention': '2032年11月',
+        'target_anchor': 'none',
         'compare': False,
         'baseline_month': None,
         'baseline_mention': '',
@@ -198,7 +199,8 @@ def test_06_negated_month_cannot_be_selected(monkeypatch):
 
 
 def test_07_relative_month_is_recomputed_across_year_boundary(monkeypatch):
-    install_model(monkeypatch, proposal(target_month='2032-11', target_mention='下一月'))
+    install_model(monkeypatch, proposal(target_month='2032-11', target_mention='下一月',
+                                       target_anchor='previous_target'))
     previous = ReportIntent(fields=('星辉率',), target_month='2032-12', limited=True)
     result = resolve('下一月只列星辉率', previous_intent=previous, fallback_month='2033-01')
     assert result.intent.target_month == '2033-01'
@@ -309,6 +311,11 @@ def test_14_identity_and_tool_keys_invalidate_entire_proposal(monkeypatch, extra
 def test_14_agent_report_user_remains_session_user(monkeypatch):
     install_model(monkeypatch, proposal(user_id='model-fictional-user'))
     set_config(monkeypatch, mode='hybrid')
+    class FictionalDate:
+        @staticmethod
+        def today():
+            return TODAY
+    monkeypatch.setattr('agent.react_agent.date', FictionalDate)
     class LookupGraph:
         def invoke(self, state, *, config, context):
             record = fictional_record(user=context['user_id'])
@@ -563,7 +570,8 @@ def test_rule_mode_is_equivalent_for_fictitious_inputs(query, history, previous,
 
 
 def test_inherited_historical_relative_month_is_not_applied_twice(monkeypatch):
-    install_model(monkeypatch, proposal(target_month='2032-10', target_mention='上一月'))
+    install_model(monkeypatch, proposal(target_month='2032-10', target_mention='上一月',
+                                       target_anchor='previous_target'))
     previous = ReportIntent(fields=('星辉率',), target_month='2032-10', limited=True)
     result = resolve('继续只列星辉率', history_queries=(),
                      llm_history_queries=('上一月只列星辉率',), previous_intent=previous,
@@ -613,7 +621,7 @@ def test_listed_report_explicit_exclusion_removes_selected_field(monkeypatch):
 
 
 def test_unanchored_exclusion_cannot_hide_requested_field(monkeypatch):
-    install_model(monkeypatch, proposal(excluded_fields=['星辉率']))
+    install_model(monkeypatch, proposal(excluded_fields=['晶片寿命']))
     result = resolve()
     assert result.intent.fields == ('星辉率',)
     assert 'exclusion_not_in_text' in result.trace['conflicts']
@@ -626,9 +634,9 @@ def test_outside_catalog_exclusion_is_ignored(monkeypatch):
     assert 'field_not_in_catalog' in result.trace['conflicts']
 
 
-def test_positive_correction_cancels_prior_field_exclusion(monkeypatch):
+def test_positive_correction_keeps_selected_field_without_grounded_exclusion(monkeypatch):
     install_model(monkeypatch, proposal(fields=[{'mention': '晶片寿命', 'field': '晶片寿命'}],
-                                       excluded_fields=['晶片寿命']))
+                                       excluded_fields=['幻尘消耗']))
     result = resolve('2032年11月不要晶片寿命，改为只列晶片寿命')
     assert result.intent.fields == ('晶片寿命',)
     assert 'exclusion_not_in_text' in result.trace['conflicts']
@@ -692,7 +700,8 @@ def test_source_invalidation_remains_terminal_before_and_after_optional_call(mon
     (('2032年12月只列星辉率', '下一月只列星辉率', '晶片如何养护？'), '2033-02'),
 ])
 def test_hybrid_recovers_absolute_history_anchor_without_a_saved_intent(monkeypatch, history, target):
-    model = install_model(monkeypatch, proposal(target_month=target, target_mention='下一月'))
+    model = install_model(monkeypatch, proposal(target_month=target, target_mention='下一月',
+                                              target_anchor='previous_target'))
     result = resolve('下一月只列星辉率', history_queries=history,
                      previous_intent=None, fallback_month=target)
     assert result.intent.target_month == target

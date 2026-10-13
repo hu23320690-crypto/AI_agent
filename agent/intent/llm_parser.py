@@ -115,7 +115,7 @@ def intent_model():
 
 
 def parse_turn_intent(query, *, history_queries, previous_intent, known_fields,
-                      today, run, cfg):
+                      today, fallback_month, run, cfg):
     model = intent_model()
     policy = load_context_policy()
     messages = [
@@ -123,6 +123,7 @@ def parse_turn_intent(query, *, history_queries, previous_intent, known_fields,
         HumanMessage(content=json.dumps({
             'field_catalog': '\n'.join(known_fields),
             'today': (today or date.today()).isoformat(),
+            'current_lookup_month': fallback_month,
             'previous_intent': asdict(previous_intent) if previous_intent is not None else None,
             'history_queries': list(history_queries),
             'query': query,

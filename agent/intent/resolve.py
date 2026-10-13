@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, replace
+from datetime import date
 import re
 import time
 
@@ -12,6 +13,7 @@ from utils.report_intent import ReportIntent, _FULL, _ONLY, _positive_text, reso
 from .llm_parser import (InvalidIntentProposal, bounded_history_queries,
                          load_intent_config, parse_turn_intent)
 from .validate import validate_proposal
+from .schema import IntentProposal
 
 
 @dataclass(frozen=True)
@@ -19,6 +21,9 @@ class TurnIntentResult:
     intent: ReportIntent
     knowledge_requested: bool
     trace: dict
+    # Kept separately from the privacy-safe trace. Range/exclusion consumers
+    # must not infer full-report scope from the rendered remaining-field list.
+    proposal: IntentProposal | None = None
 
 
 def _rule_knowledge_requested(query):
@@ -65,7 +70,8 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         cfg = replace(cfg, mode=mode)
     run = run or current_run()
 
-    def result(intent=rule, knowledge=rule_knowledge, *, source='rule', reason=None, conflicts=()):
+    def result(intent=rule, knowledge=rule_knowledge, *, source='rule', reason=None,
+               conflicts=(), proposal=None):
         if run is not None:
             run.check()
         trace = {'mode': cfg.mode, 'source': source, 'fallback_reason': reason,
@@ -73,10 +79,11 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
                  'latency_ms': round((time.monotonic() - started) * 1000, 3)}
         if run is not None:
             run.note('intent_resolved', **trace)
-        return TurnIntentResult(intent, knowledge, trace)
+        return TurnIntentResult(intent, knowledge, trace, proposal)
 
     if cfg.mode == 'rule':
         return result()
+    today = today if today is not None else date.today()
     run = run or RunContext()
     run.check()
     # Optional calls must never turn an already exhausted budget into a
@@ -96,7 +103,7 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
     try:
         proposal = parse_turn_intent(query, history_queries=bounded,
                                      previous_intent=effective_previous, known_fields=known_fields,
-                                     today=today, run=run, cfg=cfg)
+                                     today=today, fallback_month=fallback_month, run=run, cfg=cfg)
     except InvalidIntentProposal:
         return result(reason='invalid_proposal', conflicts=('structure_invalid',))
     except ContextBudgetExceeded:
@@ -119,7 +126,7 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
 
     checked = validate_proposal(
         proposal, query=query, history_queries=bounded, previous_intent=effective_previous,
-        known_fields=known_fields, fallback_month=fallback_month, rule_intent=rule,
+        known_fields=known_fields, fallback_month=fallback_month, today=today, rule_intent=rule,
         mode=cfg.mode)
     if checked.rejected:
         return result(reason='task_type_conflict', conflicts=checked.conflicts)
@@ -133,6 +140,7 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
         positive = _positive_text(query)
         if (_ONLY.search(positive) or _FULL.search(positive)) and limited != rule.limited:
             limited, full = rule.limited, not rule.limited
+            proposal = proposal.model_copy(update={'scope': 'full_report' if full else 'only_listed'})
             conflicts.append('scope_rule_override')
         if _knowledge_excluded(query) and knowledge:
             knowledge = False
@@ -158,4 +166,5 @@ def resolve_turn_intent(query, *, history_queries=(), previous_intent=None,
                           comparison_month=proposal.baseline_month, compare=proposal.compare,
                           limited=limited, invalid_month=checked.invalid_month,
                           unresolved_month=checked.unresolved_month)
-    return result(intent, knowledge, source='merged' if conflicts else 'llm', conflicts=conflicts)
+    return result(intent, knowledge, source='merged' if conflicts else 'llm',
+                  conflicts=conflicts, proposal=proposal)
