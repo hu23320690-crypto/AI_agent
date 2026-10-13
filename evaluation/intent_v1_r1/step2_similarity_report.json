@@ -1,15 +1,15 @@
 {
-  "method": "Same step1 character SequenceMatcher, autojunk=False; whitespace/punctuation removed; optional calendar/Arabic-number masking.",
-  "scope": "All 40 revised dev x 100 test, before and after the step2 test changes.",
-  "review_threshold": 0.8,
-  "threshold_note": "Review flag only; lexical similarity does not prove semantic independence.",
+  "method": "Python difflib.SequenceMatcher, character level, autojunk=False; whitespace/punctuation removed. Second view masks calendar phrases and Arabic numbers before normalizing.",
+  "threshold_note": "0.80 is a predeclared review flag, not an automatic leakage/proof threshold. Similarity is lexical, not semantic independence.",
+  "scope": "40 dev x 100 test; execution baseline f14b964 versus this step2 revision.",
   "before": {
     "pairs": 4000,
     "literal_max": 0.604651,
     "masked_max": 0.666667,
     "literal_at_least_0_80": 0,
     "masked_at_least_0_80": 0,
-    "exact_normalized_query_duplicates": 0
+    "exact_normalized_query_duplicates": 0,
+    "exact_masked_query_duplicates": 0
   },
   "after": {
     "pairs": 4000,
@@ -17,55 +17,228 @@
     "masked_max": 0.666667,
     "literal_at_least_0_80": 0,
     "masked_at_least_0_80": 0,
-    "exact_normalized_query_duplicates": 0
+    "exact_normalized_query_duplicates": 0,
+    "exact_masked_query_duplicates": 0
   },
-  "new_question_nearest_dev": [
-    {
-      "test_id": "IT052",
-      "nearest_dev": {
-        "dev_id": "ID006",
-        "test_id": "IT052",
-        "literal_ratio": 0.310345,
-        "date_number_masked_ratio": 0.346154,
-        "same_user": false,
-        "same_selected_fields": false
-      }
+  "new_case_nearest": {
+    "IT052": {
+      "literal_top3": [
+        {
+          "dev_id": "ID005",
+          "test_id": "IT052",
+          "literal_ratio": 0.333333,
+          "date_number_masked_ratio": 0.305085,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID015",
+          "test_id": "IT052",
+          "literal_ratio": 0.321429,
+          "date_number_masked_ratio": 0.285714,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID023",
+          "test_id": "IT052",
+          "literal_ratio": 0.285714,
+          "date_number_masked_ratio": 0.25,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ],
+      "date_number_masked_top3": [
+        {
+          "dev_id": "ID005",
+          "test_id": "IT052",
+          "literal_ratio": 0.333333,
+          "date_number_masked_ratio": 0.305085,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID015",
+          "test_id": "IT052",
+          "literal_ratio": 0.321429,
+          "date_number_masked_ratio": 0.285714,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID024",
+          "test_id": "IT052",
+          "literal_ratio": 0.258065,
+          "date_number_masked_ratio": 0.285714,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ]
     },
-    {
-      "test_id": "IT053",
-      "nearest_dev": {
-        "dev_id": "ID009",
-        "test_id": "IT053",
-        "literal_ratio": 0.363636,
-        "date_number_masked_ratio": 0.421053,
-        "same_user": true,
-        "same_selected_fields": false
-      }
+    "IT053": {
+      "literal_top3": [
+        {
+          "dev_id": "ID008",
+          "test_id": "IT053",
+          "literal_ratio": 0.26087,
+          "date_number_masked_ratio": 0.222222,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID005",
+          "test_id": "IT053",
+          "literal_ratio": 0.253521,
+          "date_number_masked_ratio": 0.215385,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID023",
+          "test_id": "IT053",
+          "literal_ratio": 0.235294,
+          "date_number_masked_ratio": 0.16129,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ],
+      "date_number_masked_top3": [
+        {
+          "dev_id": "ID017",
+          "test_id": "IT053",
+          "literal_ratio": 0.163934,
+          "date_number_masked_ratio": 0.254545,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID006",
+          "test_id": "IT053",
+          "literal_ratio": 0.228571,
+          "date_number_masked_ratio": 0.246154,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID008",
+          "test_id": "IT053",
+          "literal_ratio": 0.26087,
+          "date_number_masked_ratio": 0.222222,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ]
     },
-    {
-      "test_id": "IT054",
-      "nearest_dev": {
-        "dev_id": "ID016",
-        "test_id": "IT054",
-        "literal_ratio": 0.44898,
-        "date_number_masked_ratio": 0.465116,
-        "same_user": false,
-        "same_selected_fields": false
-      }
+    "IT054": {
+      "literal_top3": [
+        {
+          "dev_id": "ID002",
+          "test_id": "IT054",
+          "literal_ratio": 0.3125,
+          "date_number_masked_ratio": 0.275862,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID023",
+          "test_id": "IT054",
+          "literal_ratio": 0.30303,
+          "date_number_masked_ratio": 0.266667,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID038",
+          "test_id": "IT054",
+          "literal_ratio": 0.30303,
+          "date_number_masked_ratio": 0.266667,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ],
+      "date_number_masked_top3": [
+        {
+          "dev_id": "ID039",
+          "test_id": "IT054",
+          "literal_ratio": 0.273973,
+          "date_number_masked_ratio": 0.285714,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID002",
+          "test_id": "IT054",
+          "literal_ratio": 0.3125,
+          "date_number_masked_ratio": 0.275862,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID016",
+          "test_id": "IT054",
+          "literal_ratio": 0.253968,
+          "date_number_masked_ratio": 0.275862,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ]
     },
-    {
-      "test_id": "IT067",
-      "nearest_dev": {
-        "dev_id": "ID024",
-        "test_id": "IT067",
-        "literal_ratio": 0.385965,
-        "date_number_masked_ratio": 0.384615,
-        "same_user": true,
-        "same_selected_fields": true
-      }
+    "IT067": {
+      "literal_top3": [
+        {
+          "dev_id": "ID026",
+          "test_id": "IT067",
+          "literal_ratio": 0.310345,
+          "date_number_masked_ratio": 0.269231,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID023",
+          "test_id": "IT067",
+          "literal_ratio": 0.290323,
+          "date_number_masked_ratio": 0.25,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID008",
+          "test_id": "IT067",
+          "literal_ratio": 0.285714,
+          "date_number_masked_ratio": 0.245614,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ],
+      "date_number_masked_top3": [
+        {
+          "dev_id": "ID026",
+          "test_id": "IT067",
+          "literal_ratio": 0.310345,
+          "date_number_masked_ratio": 0.269231,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID023",
+          "test_id": "IT067",
+          "literal_ratio": 0.290323,
+          "date_number_masked_ratio": 0.25,
+          "same_user": false,
+          "same_selected_fields": false
+        },
+        {
+          "dev_id": "ID008",
+          "test_id": "IT067",
+          "literal_ratio": 0.285714,
+          "date_number_masked_ratio": 0.245614,
+          "same_user": false,
+          "same_selected_fields": false
+        }
+      ]
     }
-  ],
-  "all_after_pairs": [
+  },
+  "all_before_pairs": [
     {
       "dev_id": "ID001",
       "test_id": "IT001",
@@ -32067,7 +32240,7 @@
       "same_selected_fields": false
     }
   ],
-  "all_before_pairs": [
+  "all_after_pairs": [
     {
       "dev_id": "ID001",
       "test_id": "IT001",
@@ -32479,25 +32652,25 @@
     {
       "dev_id": "ID001",
       "test_id": "IT052",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.052632,
+      "literal_ratio": 0.228571,
+      "date_number_masked_ratio": 0.190476,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID001",
       "test_id": "IT053",
-      "literal_ratio": 0.085106,
-      "date_number_masked_ratio": 0.085106,
+      "literal_ratio": 0.186667,
+      "date_number_masked_ratio": 0.144928,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID001",
       "test_id": "IT054",
-      "literal_ratio": 0.088889,
-      "date_number_masked_ratio": 0.047619,
-      "same_user": true,
+      "literal_ratio": 0.191781,
+      "date_number_masked_ratio": 0.149254,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -32599,9 +32772,9 @@
     {
       "dev_id": "ID001",
       "test_id": "IT067",
-      "literal_ratio": 0.093023,
-      "date_number_masked_ratio": 0.1,
-      "same_user": true,
+      "literal_ratio": 0.173913,
+      "date_number_masked_ratio": 0.126984,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -33279,24 +33452,24 @@
     {
       "dev_id": "ID002",
       "test_id": "IT052",
-      "literal_ratio": 0.1875,
-      "date_number_masked_ratio": 0.206897,
-      "same_user": false,
+      "literal_ratio": 0.262295,
+      "date_number_masked_ratio": 0.222222,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID002",
       "test_id": "IT053",
-      "literal_ratio": 0.210526,
-      "date_number_masked_ratio": 0.210526,
+      "literal_ratio": 0.212121,
+      "date_number_masked_ratio": 0.166667,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID002",
       "test_id": "IT054",
-      "literal_ratio": 0.222222,
-      "date_number_masked_ratio": 0.242424,
+      "literal_ratio": 0.3125,
+      "date_number_masked_ratio": 0.275862,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -33399,8 +33572,8 @@
     {
       "dev_id": "ID002",
       "test_id": "IT067",
-      "literal_ratio": 0.058824,
-      "date_number_masked_ratio": 0.064516,
+      "literal_ratio": 0.233333,
+      "date_number_masked_ratio": 0.185185,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -34079,24 +34252,24 @@
     {
       "dev_id": "ID003",
       "test_id": "IT052",
-      "literal_ratio": 0.162162,
-      "date_number_masked_ratio": 0.117647,
+      "literal_ratio": 0.212121,
+      "date_number_masked_ratio": 0.169492,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID003",
       "test_id": "IT053",
-      "literal_ratio": 0.093023,
-      "date_number_masked_ratio": 0.093023,
+      "literal_ratio": 0.197183,
+      "date_number_masked_ratio": 0.153846,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID003",
       "test_id": "IT054",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.052632,
+      "literal_ratio": 0.173913,
+      "date_number_masked_ratio": 0.126984,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -34199,8 +34372,8 @@
     {
       "dev_id": "ID003",
       "test_id": "IT067",
-      "literal_ratio": 0.051282,
-      "date_number_masked_ratio": 0.055556,
+      "literal_ratio": 0.215385,
+      "date_number_masked_ratio": 0.169492,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -34879,24 +35052,24 @@
     {
       "dev_id": "ID004",
       "test_id": "IT052",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.102564,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.21875,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID004",
       "test_id": "IT053",
-      "literal_ratio": 0.085106,
-      "date_number_masked_ratio": 0.083333,
+      "literal_ratio": 0.133333,
+      "date_number_masked_ratio": 0.142857,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID004",
       "test_id": "IT054",
-      "literal_ratio": 0.088889,
-      "date_number_masked_ratio": 0.093023,
+      "literal_ratio": 0.136986,
+      "date_number_masked_ratio": 0.147059,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -34999,8 +35172,8 @@
     {
       "dev_id": "ID004",
       "test_id": "IT067",
-      "literal_ratio": 0.046512,
-      "date_number_masked_ratio": 0.04878,
+      "literal_ratio": 0.115942,
+      "date_number_masked_ratio": 0.125,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -35679,24 +35852,24 @@
     {
       "dev_id": "ID005",
       "test_id": "IT052",
-      "literal_ratio": 0.108108,
-      "date_number_masked_ratio": 0.058824,
-      "same_user": true,
+      "literal_ratio": 0.333333,
+      "date_number_masked_ratio": 0.305085,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID005",
       "test_id": "IT053",
-      "literal_ratio": 0.186047,
-      "date_number_masked_ratio": 0.186047,
+      "literal_ratio": 0.253521,
+      "date_number_masked_ratio": 0.215385,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID005",
       "test_id": "IT054",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.105263,
+      "literal_ratio": 0.289855,
+      "date_number_masked_ratio": 0.253968,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -35799,8 +35972,8 @@
     {
       "dev_id": "ID005",
       "test_id": "IT067",
-      "literal_ratio": 0.051282,
-      "date_number_masked_ratio": 0.055556,
+      "literal_ratio": 0.215385,
+      "date_number_masked_ratio": 0.169492,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -36479,24 +36652,24 @@
     {
       "dev_id": "ID006",
       "test_id": "IT052",
-      "literal_ratio": 0.222222,
-      "date_number_masked_ratio": 0.235294,
+      "literal_ratio": 0.184615,
+      "date_number_masked_ratio": 0.20339,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID006",
       "test_id": "IT053",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.046512,
-      "same_user": true,
+      "literal_ratio": 0.228571,
+      "date_number_masked_ratio": 0.246154,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID006",
       "test_id": "IT054",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.147059,
+      "date_number_masked_ratio": 0.15873,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -36599,8 +36772,8 @@
     {
       "dev_id": "ID006",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.15625,
+      "date_number_masked_ratio": 0.169492,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -37279,24 +37452,24 @@
     {
       "dev_id": "ID007",
       "test_id": "IT052",
-      "literal_ratio": 0.05,
-      "date_number_masked_ratio": 0.052632,
+      "literal_ratio": 0.202899,
+      "date_number_masked_ratio": 0.190476,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID007",
       "test_id": "IT053",
-      "literal_ratio": 0.043478,
-      "date_number_masked_ratio": 0.085106,
+      "literal_ratio": 0.135135,
+      "date_number_masked_ratio": 0.144928,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID007",
       "test_id": "IT054",
-      "literal_ratio": 0.136364,
-      "date_number_masked_ratio": 0.142857,
+      "literal_ratio": 0.138889,
+      "date_number_masked_ratio": 0.149254,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -37399,8 +37572,8 @@
     {
       "dev_id": "ID007",
       "test_id": "IT067",
-      "literal_ratio": 0.142857,
-      "date_number_masked_ratio": 0.15,
+      "literal_ratio": 0.205882,
+      "date_number_masked_ratio": 0.222222,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -38079,25 +38252,25 @@
     {
       "dev_id": "ID008",
       "test_id": "IT052",
-      "literal_ratio": 0.114286,
-      "date_number_masked_ratio": 0.0625,
+      "literal_ratio": 0.28125,
+      "date_number_masked_ratio": 0.245614,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID008",
       "test_id": "IT053",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.097561,
+      "literal_ratio": 0.26087,
+      "date_number_masked_ratio": 0.222222,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID008",
       "test_id": "IT054",
-      "literal_ratio": 0.102564,
-      "date_number_masked_ratio": 0.055556,
-      "same_user": false,
+      "literal_ratio": 0.179104,
+      "date_number_masked_ratio": 0.131148,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
@@ -38199,8 +38372,8 @@
     {
       "dev_id": "ID008",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.285714,
+      "date_number_masked_ratio": 0.245614,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -38879,24 +39052,24 @@
     {
       "dev_id": "ID009",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.218182,
+      "date_number_masked_ratio": 0.244898,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID009",
       "test_id": "IT053",
-      "literal_ratio": 0.1875,
-      "date_number_masked_ratio": 0.242424,
-      "same_user": true,
+      "literal_ratio": 0.133333,
+      "date_number_masked_ratio": 0.145455,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID009",
       "test_id": "IT054",
-      "literal_ratio": 0.066667,
-      "date_number_masked_ratio": 0.071429,
+      "literal_ratio": 0.172414,
+      "date_number_masked_ratio": 0.188679,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -38999,8 +39172,8 @@
     {
       "dev_id": "ID009",
       "test_id": "IT067",
-      "literal_ratio": 0.071429,
-      "date_number_masked_ratio": 0.076923,
+      "literal_ratio": 0.148148,
+      "date_number_masked_ratio": 0.163265,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -39679,24 +39852,24 @@
     {
       "dev_id": "ID010",
       "test_id": "IT052",
-      "literal_ratio": 0.12,
-      "date_number_masked_ratio": 0.085106,
+      "literal_ratio": 0.227848,
+      "date_number_masked_ratio": 0.194444,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID010",
       "test_id": "IT053",
-      "literal_ratio": 0.107143,
-      "date_number_masked_ratio": 0.107143,
+      "literal_ratio": 0.166667,
+      "date_number_masked_ratio": 0.128205,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID010",
       "test_id": "IT054",
-      "literal_ratio": 0.259259,
-      "date_number_masked_ratio": 0.235294,
+      "literal_ratio": 0.195122,
+      "date_number_masked_ratio": 0.157895,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -39799,9 +39972,9 @@
     {
       "dev_id": "ID010",
       "test_id": "IT067",
-      "literal_ratio": 0.038462,
-      "date_number_masked_ratio": 0.040816,
-      "same_user": false,
+      "literal_ratio": 0.153846,
+      "date_number_masked_ratio": 0.111111,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
@@ -40479,25 +40652,25 @@
     {
       "dev_id": "ID011",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.222222,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID011",
       "test_id": "IT053",
-      "literal_ratio": 0.108108,
-      "date_number_masked_ratio": 0.157895,
+      "literal_ratio": 0.123077,
+      "date_number_masked_ratio": 0.133333,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID011",
       "test_id": "IT054",
-      "literal_ratio": 0.057143,
-      "date_number_masked_ratio": 0.060606,
-      "same_user": false,
+      "literal_ratio": 0.15873,
+      "date_number_masked_ratio": 0.172414,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
@@ -40599,8 +40772,8 @@
     {
       "dev_id": "ID011",
       "test_id": "IT067",
-      "literal_ratio": 0.060606,
-      "date_number_masked_ratio": 0.064516,
+      "literal_ratio": 0.135593,
+      "date_number_masked_ratio": 0.148148,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -41279,24 +41452,24 @@
     {
       "dev_id": "ID012",
       "test_id": "IT052",
-      "literal_ratio": 0.102564,
-      "date_number_masked_ratio": 0.051282,
+      "literal_ratio": 0.205882,
+      "date_number_masked_ratio": 0.09375,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID012",
       "test_id": "IT053",
-      "literal_ratio": 0.133333,
-      "date_number_masked_ratio": 0.291667,
+      "literal_ratio": 0.191781,
+      "date_number_masked_ratio": 0.085714,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID012",
       "test_id": "IT054",
-      "literal_ratio": 0.093023,
-      "date_number_masked_ratio": 0.046512,
+      "literal_ratio": 0.197183,
+      "date_number_masked_ratio": 0.058824,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -41399,8 +41572,8 @@
     {
       "dev_id": "ID012",
       "test_id": "IT067",
-      "literal_ratio": 0.04878,
-      "date_number_masked_ratio": 0.04878,
+      "literal_ratio": 0.208955,
+      "date_number_masked_ratio": 0.0625,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -42079,24 +42252,24 @@
     {
       "dev_id": "ID013",
       "test_id": "IT052",
-      "literal_ratio": 0.071429,
-      "date_number_masked_ratio": 0.08,
+      "literal_ratio": 0.280702,
+      "date_number_masked_ratio": 0.24,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID013",
       "test_id": "IT053",
-      "literal_ratio": 0.235294,
-      "date_number_masked_ratio": 0.235294,
-      "same_user": true,
+      "literal_ratio": 0.193548,
+      "date_number_masked_ratio": 0.142857,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID013",
       "test_id": "IT054",
-      "literal_ratio": 0.0625,
-      "date_number_masked_ratio": 0.068966,
+      "literal_ratio": 0.233333,
+      "date_number_masked_ratio": 0.185185,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -42199,8 +42372,8 @@
     {
       "dev_id": "ID013",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.214286,
+      "date_number_masked_ratio": 0.16,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -42879,24 +43052,24 @@
     {
       "dev_id": "ID014",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
-      "same_user": true,
+      "literal_ratio": 0.137931,
+      "date_number_masked_ratio": 0.153846,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID014",
       "test_id": "IT053",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.055556,
+      "literal_ratio": 0.126984,
+      "date_number_masked_ratio": 0.137931,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID014",
       "test_id": "IT054",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.163934,
+      "date_number_masked_ratio": 0.178571,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -42999,8 +43172,8 @@
     {
       "dev_id": "ID014",
       "test_id": "IT067",
-      "literal_ratio": 0.064516,
-      "date_number_masked_ratio": 0.068966,
+      "literal_ratio": 0.175439,
+      "date_number_masked_ratio": 0.192308,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -43679,25 +43852,25 @@
     {
       "dev_id": "ID015",
       "test_id": "IT052",
-      "literal_ratio": 0.148148,
-      "date_number_masked_ratio": 0.083333,
+      "literal_ratio": 0.321429,
+      "date_number_masked_ratio": 0.285714,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID015",
       "test_id": "IT053",
-      "literal_ratio": 0.121212,
-      "date_number_masked_ratio": 0.060606,
+      "literal_ratio": 0.229508,
+      "date_number_masked_ratio": 0.181818,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID015",
       "test_id": "IT054",
-      "literal_ratio": 0.129032,
-      "date_number_masked_ratio": 0.071429,
-      "same_user": true,
+      "literal_ratio": 0.237288,
+      "date_number_masked_ratio": 0.188679,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -43799,9 +43972,9 @@
     {
       "dev_id": "ID015",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
-      "same_user": true,
+      "literal_ratio": 0.218182,
+      "date_number_masked_ratio": 0.163265,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -44479,24 +44652,24 @@
     {
       "dev_id": "ID016",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.133333,
+      "date_number_masked_ratio": 0.148148,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID016",
       "test_id": "IT053",
-      "literal_ratio": 0.108108,
-      "date_number_masked_ratio": 0.157895,
-      "same_user": false,
+      "literal_ratio": 0.153846,
+      "date_number_masked_ratio": 0.166667,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID016",
       "test_id": "IT054",
-      "literal_ratio": 0.114286,
-      "date_number_masked_ratio": 0.121212,
+      "literal_ratio": 0.253968,
+      "date_number_masked_ratio": 0.275862,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -44599,8 +44772,8 @@
     {
       "dev_id": "ID016",
       "test_id": "IT067",
-      "literal_ratio": 0.181818,
-      "date_number_masked_ratio": 0.193548,
+      "literal_ratio": 0.20339,
+      "date_number_masked_ratio": 0.222222,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -45279,25 +45452,25 @@
     {
       "dev_id": "ID017",
       "test_id": "IT052",
-      "literal_ratio": 0.148148,
-      "date_number_masked_ratio": 0.083333,
+      "literal_ratio": 0.178571,
+      "date_number_masked_ratio": 0.285714,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID017",
       "test_id": "IT053",
-      "literal_ratio": 0.484848,
-      "date_number_masked_ratio": 0.484848,
+      "literal_ratio": 0.163934,
+      "date_number_masked_ratio": 0.254545,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID017",
       "test_id": "IT054",
-      "literal_ratio": 0.193548,
-      "date_number_masked_ratio": 0.071429,
-      "same_user": false,
+      "literal_ratio": 0.169492,
+      "date_number_masked_ratio": 0.264151,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
@@ -45399,8 +45572,8 @@
     {
       "dev_id": "ID017",
       "test_id": "IT067",
-      "literal_ratio": 0.068966,
-      "date_number_masked_ratio": 0.076923,
+      "literal_ratio": 0.145455,
+      "date_number_masked_ratio": 0.204082,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -46079,24 +46252,24 @@
     {
       "dev_id": "ID018",
       "test_id": "IT052",
-      "literal_ratio": 0.166667,
-      "date_number_masked_ratio": 0.166667,
-      "same_user": false,
+      "literal_ratio": 0.075472,
+      "date_number_masked_ratio": 0.081633,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID018",
       "test_id": "IT053",
-      "literal_ratio": 0.133333,
-      "date_number_masked_ratio": 0.060606,
+      "literal_ratio": 0.137931,
+      "date_number_masked_ratio": 0.145455,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID018",
       "test_id": "IT054",
-      "literal_ratio": 0.285714,
-      "date_number_masked_ratio": 0.285714,
+      "literal_ratio": 0.107143,
+      "date_number_masked_ratio": 0.113208,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -46199,8 +46372,8 @@
     {
       "dev_id": "ID018",
       "test_id": "IT067",
-      "literal_ratio": 0.076923,
-      "date_number_masked_ratio": 0.076923,
+      "literal_ratio": 0.153846,
+      "date_number_masked_ratio": 0.163265,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -46879,25 +47052,25 @@
     {
       "dev_id": "ID019",
       "test_id": "IT052",
-      "literal_ratio": 0.1,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.122449,
+      "date_number_masked_ratio": 0.083333,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID019",
       "test_id": "IT053",
-      "literal_ratio": 0.076923,
-      "date_number_masked_ratio": 0.3125,
+      "literal_ratio": 0.074074,
+      "date_number_masked_ratio": 0.037037,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID019",
       "test_id": "IT054",
-      "literal_ratio": 0.166667,
-      "date_number_masked_ratio": 0.074074,
-      "same_user": true,
+      "literal_ratio": 0.115385,
+      "date_number_masked_ratio": 0.076923,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -46999,9 +47172,9 @@
     {
       "dev_id": "ID019",
       "test_id": "IT067",
-      "literal_ratio": 0.090909,
-      "date_number_masked_ratio": 0.08,
-      "same_user": true,
+      "literal_ratio": 0.125,
+      "date_number_masked_ratio": 0.083333,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -47679,24 +47852,24 @@
     {
       "dev_id": "ID020",
       "test_id": "IT052",
-      "literal_ratio": 0.26087,
-      "date_number_masked_ratio": 0.26087,
+      "literal_ratio": 0.115385,
+      "date_number_masked_ratio": 0.125,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID020",
       "test_id": "IT053",
-      "literal_ratio": 0.275862,
-      "date_number_masked_ratio": 0.125,
-      "same_user": true,
+      "literal_ratio": 0.140351,
+      "date_number_masked_ratio": 0.148148,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID020",
       "test_id": "IT054",
-      "literal_ratio": 0.296296,
-      "date_number_masked_ratio": 0.296296,
+      "literal_ratio": 0.109091,
+      "date_number_masked_ratio": 0.115385,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -47799,8 +47972,8 @@
     {
       "dev_id": "ID020",
       "test_id": "IT067",
-      "literal_ratio": 0.16,
-      "date_number_masked_ratio": 0.16,
+      "literal_ratio": 0.156863,
+      "date_number_masked_ratio": 0.166667,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -48479,24 +48652,24 @@
     {
       "dev_id": "ID021",
       "test_id": "IT052",
-      "literal_ratio": 0.2,
-      "date_number_masked_ratio": 0.2,
+      "literal_ratio": 0.081633,
+      "date_number_masked_ratio": 0.088889,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID021",
       "test_id": "IT053",
-      "literal_ratio": 0.153846,
-      "date_number_masked_ratio": 0.068966,
-      "same_user": false,
+      "literal_ratio": 0.185185,
+      "date_number_masked_ratio": 0.196078,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID021",
       "test_id": "IT054",
-      "literal_ratio": 0.5,
-      "date_number_masked_ratio": 0.5,
+      "literal_ratio": 0.076923,
+      "date_number_masked_ratio": 0.081633,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -48599,8 +48772,8 @@
     {
       "dev_id": "ID021",
       "test_id": "IT067",
-      "literal_ratio": 0.090909,
-      "date_number_masked_ratio": 0.090909,
+      "literal_ratio": 0.166667,
+      "date_number_masked_ratio": 0.177778,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -49279,24 +49452,24 @@
     {
       "dev_id": "ID022",
       "test_id": "IT052",
-      "literal_ratio": 0.095238,
-      "date_number_masked_ratio": 0.04878,
+      "literal_ratio": 0.225352,
+      "date_number_masked_ratio": 0.151515,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID022",
       "test_id": "IT053",
-      "literal_ratio": 0.208333,
-      "date_number_masked_ratio": 0.32,
-      "same_user": true,
-      "same_selected_fields": true
+      "literal_ratio": 0.157895,
+      "date_number_masked_ratio": 0.111111,
+      "same_user": false,
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID022",
       "test_id": "IT054",
-      "literal_ratio": 0.086957,
-      "date_number_masked_ratio": 0.044444,
+      "literal_ratio": 0.216216,
+      "date_number_masked_ratio": 0.142857,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -49399,8 +49572,8 @@
     {
       "dev_id": "ID022",
       "test_id": "IT067",
-      "literal_ratio": 0.090909,
-      "date_number_masked_ratio": 0.093023,
+      "literal_ratio": 0.257143,
+      "date_number_masked_ratio": 0.212121,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -50079,25 +50252,25 @@
     {
       "dev_id": "ID023",
       "test_id": "IT052",
-      "literal_ratio": 0.117647,
-      "date_number_masked_ratio": 0.064516,
-      "same_user": false,
-      "same_selected_fields": false
-    },
-    {
-      "dev_id": "ID023",
-      "test_id": "IT053",
-      "literal_ratio": 0.25,
+      "literal_ratio": 0.285714,
       "date_number_masked_ratio": 0.25,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID023",
+      "test_id": "IT053",
+      "literal_ratio": 0.235294,
+      "date_number_masked_ratio": 0.16129,
+      "same_user": false,
+      "same_selected_fields": false
+    },
+    {
+      "dev_id": "ID023",
       "test_id": "IT054",
-      "literal_ratio": 0.210526,
-      "date_number_masked_ratio": 0.171429,
-      "same_user": true,
+      "literal_ratio": 0.30303,
+      "date_number_masked_ratio": 0.266667,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -50199,9 +50372,9 @@
     {
       "dev_id": "ID023",
       "test_id": "IT067",
-      "literal_ratio": 0.166667,
-      "date_number_masked_ratio": 0.181818,
-      "same_user": true,
+      "literal_ratio": 0.290323,
+      "date_number_masked_ratio": 0.25,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -50879,25 +51052,25 @@
     {
       "dev_id": "ID024",
       "test_id": "IT052",
-      "literal_ratio": 0.181818,
-      "date_number_masked_ratio": 0.193548,
+      "literal_ratio": 0.258065,
+      "date_number_masked_ratio": 0.285714,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID024",
       "test_id": "IT053",
-      "literal_ratio": 0.102564,
-      "date_number_masked_ratio": 0.1,
+      "literal_ratio": 0.149254,
+      "date_number_masked_ratio": 0.16129,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID024",
       "test_id": "IT054",
-      "literal_ratio": 0.216216,
-      "date_number_masked_ratio": 0.228571,
-      "same_user": true,
+      "literal_ratio": 0.153846,
+      "date_number_masked_ratio": 0.166667,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -50999,10 +51172,10 @@
     {
       "dev_id": "ID024",
       "test_id": "IT067",
-      "literal_ratio": 0.342857,
-      "date_number_masked_ratio": 0.363636,
-      "same_user": true,
-      "same_selected_fields": true
+      "literal_ratio": 0.163934,
+      "date_number_masked_ratio": 0.178571,
+      "same_user": false,
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID024",
@@ -51679,24 +51852,24 @@
     {
       "dev_id": "ID025",
       "test_id": "IT052",
-      "literal_ratio": 0.097561,
-      "date_number_masked_ratio": 0.095238,
+      "literal_ratio": 0.228571,
+      "date_number_masked_ratio": 0.208955,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID025",
       "test_id": "IT053",
-      "literal_ratio": 0.297872,
-      "date_number_masked_ratio": 0.392157,
+      "literal_ratio": 0.16,
+      "date_number_masked_ratio": 0.136986,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID025",
       "test_id": "IT054",
-      "literal_ratio": 0.088889,
-      "date_number_masked_ratio": 0.043478,
+      "literal_ratio": 0.191781,
+      "date_number_masked_ratio": 0.197183,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -51799,9 +51972,9 @@
     {
       "dev_id": "ID025",
       "test_id": "IT067",
-      "literal_ratio": 0.093023,
-      "date_number_masked_ratio": 0.090909,
-      "same_user": false,
+      "literal_ratio": 0.231884,
+      "date_number_masked_ratio": 0.238806,
+      "same_user": true,
       "same_selected_fields": false
     },
     {
@@ -52479,25 +52652,25 @@
     {
       "dev_id": "ID026",
       "test_id": "IT052",
-      "literal_ratio": 0.066667,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.271186,
+      "date_number_masked_ratio": 0.230769,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID026",
       "test_id": "IT053",
-      "literal_ratio": 0.222222,
-      "date_number_masked_ratio": 0.222222,
+      "literal_ratio": 0.21875,
+      "date_number_masked_ratio": 0.172414,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID026",
       "test_id": "IT054",
-      "literal_ratio": 0.058824,
-      "date_number_masked_ratio": 0.0,
-      "same_user": true,
+      "literal_ratio": 0.225806,
+      "date_number_masked_ratio": 0.178571,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -52599,9 +52772,9 @@
     {
       "dev_id": "ID026",
       "test_id": "IT067",
-      "literal_ratio": 0.125,
-      "date_number_masked_ratio": 0.137931,
-      "same_user": true,
+      "literal_ratio": 0.310345,
+      "date_number_masked_ratio": 0.269231,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -53279,24 +53452,24 @@
     {
       "dev_id": "ID027",
       "test_id": "IT052",
-      "literal_ratio": 0.052632,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.208955,
+      "date_number_masked_ratio": 0.142857,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID027",
       "test_id": "IT053",
-      "literal_ratio": 0.045455,
-      "date_number_masked_ratio": 0.05,
-      "same_user": true,
+      "literal_ratio": 0.194444,
+      "date_number_masked_ratio": 0.129032,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID027",
       "test_id": "IT054",
-      "literal_ratio": 0.047619,
-      "date_number_masked_ratio": 0.057143,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.133333,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -53399,8 +53572,8 @@
     {
       "dev_id": "ID027",
       "test_id": "IT067",
-      "literal_ratio": 0.05,
-      "date_number_masked_ratio": 0.060606,
+      "literal_ratio": 0.272727,
+      "date_number_masked_ratio": 0.214286,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -54079,24 +54252,24 @@
     {
       "dev_id": "ID028",
       "test_id": "IT052",
-      "literal_ratio": 0.117647,
-      "date_number_masked_ratio": 0.083333,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.164384,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID028",
       "test_id": "IT053",
-      "literal_ratio": 0.105263,
-      "date_number_masked_ratio": 0.105263,
+      "literal_ratio": 0.164706,
+      "date_number_masked_ratio": 0.177215,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID028",
       "test_id": "IT054",
-      "literal_ratio": 0.072727,
-      "date_number_masked_ratio": 0.076923,
+      "literal_ratio": 0.216867,
+      "date_number_masked_ratio": 0.155844,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -54199,8 +54372,8 @@
     {
       "dev_id": "ID028",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.177215,
+      "date_number_masked_ratio": 0.136986,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -54879,24 +55052,24 @@
     {
       "dev_id": "ID029",
       "test_id": "IT052",
-      "literal_ratio": 0.107143,
-      "date_number_masked_ratio": 0.08,
+      "literal_ratio": 0.188235,
+      "date_number_masked_ratio": 0.16,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID029",
       "test_id": "IT053",
-      "literal_ratio": 0.129032,
-      "date_number_masked_ratio": 0.135593,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.17284,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID029",
       "test_id": "IT054",
-      "literal_ratio": 0.133333,
-      "date_number_masked_ratio": 0.111111,
+      "literal_ratio": 0.181818,
+      "date_number_masked_ratio": 0.151899,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -54999,8 +55172,8 @@
     {
       "dev_id": "ID029",
       "test_id": "IT067",
-      "literal_ratio": 0.034483,
-      "date_number_masked_ratio": 0.038462,
+      "literal_ratio": 0.238095,
+      "date_number_masked_ratio": 0.24,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -55679,24 +55852,24 @@
     {
       "dev_id": "ID030",
       "test_id": "IT052",
-      "literal_ratio": 0.047619,
-      "date_number_masked_ratio": 0.0,
-      "same_user": true,
+      "literal_ratio": 0.197183,
+      "date_number_masked_ratio": 0.149254,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID030",
       "test_id": "IT053",
-      "literal_ratio": 0.041667,
-      "date_number_masked_ratio": 0.196078,
+      "literal_ratio": 0.210526,
+      "date_number_masked_ratio": 0.136986,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID030",
       "test_id": "IT054",
-      "literal_ratio": 0.043478,
-      "date_number_masked_ratio": 0.043478,
+      "literal_ratio": 0.216216,
+      "date_number_masked_ratio": 0.169014,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -55799,8 +55972,8 @@
     {
       "dev_id": "ID030",
       "test_id": "IT067",
-      "literal_ratio": 0.090909,
-      "date_number_masked_ratio": 0.090909,
+      "literal_ratio": 0.285714,
+      "date_number_masked_ratio": 0.208955,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -56479,25 +56652,25 @@
     {
       "dev_id": "ID031",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.142857,
+      "date_number_masked_ratio": 0.15625,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID031",
       "test_id": "IT053",
-      "literal_ratio": 0.170213,
-      "date_number_masked_ratio": 0.208333,
+      "literal_ratio": 0.106667,
+      "date_number_masked_ratio": 0.114286,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID031",
       "test_id": "IT054",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
-      "same_user": true,
+      "literal_ratio": 0.109589,
+      "date_number_masked_ratio": 0.117647,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -56599,9 +56772,9 @@
     {
       "dev_id": "ID031",
       "test_id": "IT067",
-      "literal_ratio": 0.186047,
-      "date_number_masked_ratio": 0.195122,
-      "same_user": true,
+      "literal_ratio": 0.115942,
+      "date_number_masked_ratio": 0.125,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -57279,24 +57452,24 @@
     {
       "dev_id": "ID032",
       "test_id": "IT052",
-      "literal_ratio": 0.052632,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.179104,
+      "date_number_masked_ratio": 0.149254,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID032",
       "test_id": "IT053",
-      "literal_ratio": 0.181818,
-      "date_number_masked_ratio": 0.313725,
-      "same_user": true,
-      "same_selected_fields": true
+      "literal_ratio": 0.138889,
+      "date_number_masked_ratio": 0.136986,
+      "same_user": false,
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID032",
       "test_id": "IT054",
-      "literal_ratio": 0.095238,
-      "date_number_masked_ratio": 0.043478,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.169014,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -57399,8 +57572,8 @@
     {
       "dev_id": "ID032",
       "test_id": "IT067",
-      "literal_ratio": 0.1,
-      "date_number_masked_ratio": 0.090909,
+      "literal_ratio": 0.181818,
+      "date_number_masked_ratio": 0.149254,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -58079,25 +58252,25 @@
     {
       "dev_id": "ID033",
       "test_id": "IT052",
-      "literal_ratio": 0.277778,
-      "date_number_masked_ratio": 0.294118,
+      "literal_ratio": 0.184615,
+      "date_number_masked_ratio": 0.20339,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID033",
       "test_id": "IT053",
-      "literal_ratio": 0.095238,
-      "date_number_masked_ratio": 0.139535,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.215385,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID033",
       "test_id": "IT054",
-      "literal_ratio": 0.1,
-      "date_number_masked_ratio": 0.105263,
-      "same_user": true,
+      "literal_ratio": 0.117647,
+      "date_number_masked_ratio": 0.126984,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -58199,9 +58372,9 @@
     {
       "dev_id": "ID033",
       "test_id": "IT067",
-      "literal_ratio": 0.105263,
-      "date_number_masked_ratio": 0.111111,
-      "same_user": true,
+      "literal_ratio": 0.125,
+      "date_number_masked_ratio": 0.135593,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -58879,24 +59052,24 @@
     {
       "dev_id": "ID034",
       "test_id": "IT052",
-      "literal_ratio": 0.15,
-      "date_number_masked_ratio": 0.157895,
+      "literal_ratio": 0.144928,
+      "date_number_masked_ratio": 0.15873,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID034",
       "test_id": "IT053",
-      "literal_ratio": 0.086957,
-      "date_number_masked_ratio": 0.042553,
-      "same_user": true,
+      "literal_ratio": 0.162162,
+      "date_number_masked_ratio": 0.173913,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID034",
       "test_id": "IT054",
-      "literal_ratio": 0.045455,
-      "date_number_masked_ratio": 0.047619,
+      "literal_ratio": 0.222222,
+      "date_number_masked_ratio": 0.238806,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -58999,8 +59172,8 @@
     {
       "dev_id": "ID034",
       "test_id": "IT067",
-      "literal_ratio": 0.095238,
-      "date_number_masked_ratio": 0.1,
+      "literal_ratio": 0.176471,
+      "date_number_masked_ratio": 0.190476,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -59679,24 +59852,24 @@
     {
       "dev_id": "ID035",
       "test_id": "IT052",
-      "literal_ratio": 0.216216,
-      "date_number_masked_ratio": 0.228571,
+      "literal_ratio": 0.151515,
+      "date_number_masked_ratio": 0.166667,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID035",
       "test_id": "IT053",
-      "literal_ratio": 0.139535,
-      "date_number_masked_ratio": 0.136364,
+      "literal_ratio": 0.112676,
+      "date_number_masked_ratio": 0.121212,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID035",
       "test_id": "IT054",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.115942,
+      "date_number_masked_ratio": 0.125,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -59799,8 +59972,8 @@
     {
       "dev_id": "ID035",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.123077,
+      "date_number_masked_ratio": 0.133333,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -60479,24 +60652,24 @@
     {
       "dev_id": "ID036",
       "test_id": "IT052",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.147059,
+      "date_number_masked_ratio": 0.16129,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID036",
       "test_id": "IT053",
-      "literal_ratio": 0.044444,
-      "date_number_masked_ratio": 0.086957,
+      "literal_ratio": 0.109589,
+      "date_number_masked_ratio": 0.117647,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID036",
       "test_id": "IT054",
-      "literal_ratio": 0.046512,
-      "date_number_masked_ratio": 0.04878,
+      "literal_ratio": 0.197183,
+      "date_number_masked_ratio": 0.212121,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -60599,10 +60772,10 @@
     {
       "dev_id": "ID036",
       "test_id": "IT067",
-      "literal_ratio": 0.292683,
-      "date_number_masked_ratio": 0.307692,
+      "literal_ratio": 0.149254,
+      "date_number_masked_ratio": 0.16129,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID036",
@@ -61279,24 +61452,24 @@
     {
       "dev_id": "ID037",
       "test_id": "IT052",
-      "literal_ratio": 0.111111,
-      "date_number_masked_ratio": 0.060606,
-      "same_user": true,
+      "literal_ratio": 0.215385,
+      "date_number_masked_ratio": 0.172414,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID037",
       "test_id": "IT053",
-      "literal_ratio": 0.095238,
-      "date_number_masked_ratio": 0.095238,
+      "literal_ratio": 0.2,
+      "date_number_masked_ratio": 0.15625,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID037",
       "test_id": "IT054",
-      "literal_ratio": 0.1,
-      "date_number_masked_ratio": 0.054054,
+      "literal_ratio": 0.176471,
+      "date_number_masked_ratio": 0.129032,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -61399,8 +61572,8 @@
     {
       "dev_id": "ID037",
       "test_id": "IT067",
-      "literal_ratio": 0.052632,
-      "date_number_masked_ratio": 0.057143,
+      "literal_ratio": 0.1875,
+      "date_number_masked_ratio": 0.137931,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -62079,25 +62252,25 @@
     {
       "dev_id": "ID038",
       "test_id": "IT052",
-      "literal_ratio": 0.058824,
-      "date_number_masked_ratio": 0.064516,
+      "literal_ratio": 0.285714,
+      "date_number_masked_ratio": 0.25,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID038",
       "test_id": "IT053",
-      "literal_ratio": 0.25,
-      "date_number_masked_ratio": 0.25,
+      "literal_ratio": 0.205882,
+      "date_number_masked_ratio": 0.16129,
       "same_user": false,
-      "same_selected_fields": true
+      "same_selected_fields": false
     },
     {
       "dev_id": "ID038",
       "test_id": "IT054",
-      "literal_ratio": 0.105263,
-      "date_number_masked_ratio": 0.057143,
-      "same_user": true,
+      "literal_ratio": 0.30303,
+      "date_number_masked_ratio": 0.266667,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -62199,9 +62372,9 @@
     {
       "dev_id": "ID038",
       "test_id": "IT067",
-      "literal_ratio": 0.111111,
-      "date_number_masked_ratio": 0.121212,
-      "same_user": true,
+      "literal_ratio": 0.225806,
+      "date_number_masked_ratio": 0.178571,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
@@ -62879,24 +63052,24 @@
     {
       "dev_id": "ID039",
       "test_id": "IT052",
-      "literal_ratio": 0.146341,
-      "date_number_masked_ratio": 0.146341,
-      "same_user": true,
+      "literal_ratio": 0.057143,
+      "date_number_masked_ratio": 0.060606,
+      "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID039",
       "test_id": "IT053",
-      "literal_ratio": 0.12766,
-      "date_number_masked_ratio": 0.12,
+      "literal_ratio": 0.053333,
+      "date_number_masked_ratio": 0.055556,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID039",
       "test_id": "IT054",
-      "literal_ratio": 0.088889,
-      "date_number_masked_ratio": 0.088889,
+      "literal_ratio": 0.273973,
+      "date_number_masked_ratio": 0.285714,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -62999,8 +63172,8 @@
     {
       "dev_id": "ID039",
       "test_id": "IT067",
-      "literal_ratio": 0.093023,
-      "date_number_masked_ratio": 0.093023,
+      "literal_ratio": 0.144928,
+      "date_number_masked_ratio": 0.121212,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -63679,24 +63852,24 @@
     {
       "dev_id": "ID040",
       "test_id": "IT052",
-      "literal_ratio": 0.071429,
-      "date_number_masked_ratio": 0.071429,
+      "literal_ratio": 0.070175,
+      "date_number_masked_ratio": 0.075472,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID040",
       "test_id": "IT053",
-      "literal_ratio": 0.058824,
-      "date_number_masked_ratio": 0.054054,
+      "literal_ratio": 0.032258,
+      "date_number_masked_ratio": 0.033898,
       "same_user": false,
       "same_selected_fields": false
     },
     {
       "dev_id": "ID040",
       "test_id": "IT054",
-      "literal_ratio": 0.125,
-      "date_number_masked_ratio": 0.125,
+      "literal_ratio": 0.166667,
+      "date_number_masked_ratio": 0.175439,
       "same_user": false,
       "same_selected_fields": false
     },
@@ -63799,8 +63972,8 @@
     {
       "dev_id": "ID040",
       "test_id": "IT067",
-      "literal_ratio": 0.0,
-      "date_number_masked_ratio": 0.0,
+      "literal_ratio": 0.071429,
+      "date_number_masked_ratio": 0.075472,
       "same_user": false,
       "same_selected_fields": false
     },

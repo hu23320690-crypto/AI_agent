@@ -1,8 +1,8 @@
 {
-  "recorded_at_utc": "2026-10-12T23:34:45.385292+00:00",
+  "recorded_at_utc": "2026-10-13T00:11:41.482841+00:00",
   "author_confirmed_recommended_revision_choices": true,
-  "evidence": "Direct project author message accepts P0_GOLD_REVIEW section 5, then explicitly requests step 1 only.",
-  "approved_scope_this_turn": "Only dev ID010/028/029/039 rewrites and dev/test similarity check",
+  "evidence": "Direct author message confirms step1 review and authorizes component step2 A/B/C/D plus three commits; stop for revised test review.",
+  "approved_scope_this_turn": "Commit existing files unchanged, then component step2 only; no agent tasks.",
   "revised_gold_approval": "pending_author_review",
   "freeze_authorization": "Not yet; section 7 requires revised-case confirmation first.",
   "next_steps_status": {
@@ -23,6 +23,30 @@
       "IT085",
       "IT088"
     ],
-    "gold_approval": "pending_author_review"
-  }
+    "unknown_aliases": {
+      "IT085": [
+        "每日耗水量"
+      ]
+    },
+    "scoring_rule": "未知字段在去除空白后，与题面原词或该题 unknown_aliases 中列出的等价写法一致即可",
+    "gold_approval": "pending_author_review",
+    "dev_changes": false,
+    "agent_changes": false
+  },
+  "step1_gold_approval": "author_review_passed_per_current_user_message",
+  "execution_baseline_commit": "f14b964",
+  "constraint_interpretations": [
+    {
+      "requirement": "用户、字段和句式不与任何dev题重复",
+      "literal_unique_user_possible": false,
+      "reason": "CSV全部10个受信用户均已出现在dev，禁止造用户或改CSV。",
+      "applied_interpretation": "采用新的用户+字段组合；全部4个字段在dev题面、history、previous及gold均零提及；句式不复刻dev。"
+    },
+    {
+      "requirement": "其余96题逐字节一致",
+      "literal_full_line_equality": false,
+      "reason": "本轮要求修改4条note并增加IT085 unknown_aliases，整行不能同时字节一致。",
+      "applied_check": "相对执行基线95/96整行一致，仅IT085获授权note/alias有差异；相对第一步原test92/96整行一致，仅4条note及IT085 alias有差异。其余96题受保护JSON值全部逐字节一致。"
+    }
+  ]
 }

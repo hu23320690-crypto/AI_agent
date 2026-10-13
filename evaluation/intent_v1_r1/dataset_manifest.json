@@ -2,7 +2,7 @@
   "version": "intent_v1_r1-step2-review-draft",
   "stage": "P0_revision_step2",
   "created_date": "2026-10-13",
-  "recorded_at_utc": "2026-10-12T23:50:33.526931+00:00",
+  "recorded_at_utc": "2026-10-13T00:11:41.482841+00:00",
   "frozen_at_utc": null,
   "freeze_status": "not_frozen",
   "gold_review_status": "pending_revised_cases_author_review",
@@ -13,7 +13,7 @@
   "parent_candidate_commit": "b581633e78c355cb2da73a3cd574d65571b8f30a",
   "parent_cases_sha256": "ce099e20a163f0a4b8a154e3366ebf2e3a35e7e5bc5972764bc7a9536c900760",
   "parent_freeze_manifest_sha256": "e331458df8bfd5fae72da05a2d452394261295c81a27b6f1fc2c00306d3edfd0",
-  "dataset_sha256": "8fdc77b67faa75c479a8d946755f051ec283ce93fc7a91cd835953bb8260a94d",
+  "dataset_sha256": "60d06fd9831c19062fda31bf8286a6347e485e30d80d40fbd466d3360354d33d",
   "case_count": 140,
   "files": {
     "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
@@ -68,7 +68,7 @@
   "model_calls_before_review": 0,
   "parser_calls_before_review": 0,
   "step1_only": false,
-  "scoring_sha256": "e693b762a8550e06d76e91fe8f9b817415dad3bfe4734e671264b07489ecff1d",
+  "scoring_sha256": "d451c470e55a9605c4f5a8e17279312c5e573a3365dc3cd8bf2cca4674aa6d7a",
   "split_counts": {
     "dev": 40,
     "test": 100
@@ -99,7 +99,7 @@
   },
   "split_sha256": {
     "dev": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
-    "test": "3fb10363c0cc46876d2e10ec51caf4a33ecc90d80f29d510f4e0f9143ad9010d"
+    "test": "45ca70096687b54386a74216032694ed1984f44d8db74cfd64b6d1ae84f3c94c"
   },
   "changed_dev_ids": [
     "ID010",
@@ -117,23 +117,24 @@
     "IT085",
     "IT088"
   ],
-  "full_component_static_validation": "passed_automated_checks_pending_final_independent_review",
+  "full_component_static_validation": "passed_140_of_140_data_only_checks_and_independent_assistant_review",
   "artifact_sha256": {
-    "AUTHOR_DECISIONS.json": "892d223ae65f1999627b0f81a50d4ff78e89e552cc7a2bee50407a13566a3e6e",
-    "cases.jsonl": "8fdc77b67faa75c479a8d946755f051ec283ce93fc7a91cd835953bb8260a94d",
+    "AUTHOR_DECISIONS.json": "32adfe589aef1d3b9d22bf1d13eb8ea0a4fba78d31765fa77da712b965840e1c",
+    "cases.jsonl": "60d06fd9831c19062fda31bf8286a6347e485e30d80d40fbd466d3360354d33d",
     "dev.jsonl": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
     "DEV_CHANGES_REVIEW.md": "594482ea6a3114a7b72ab1c5ab43c466b69fe734bdb324da74500c4c12619e06",
-    "README.md": "2629685186230cfef9606246c43c5a2f52452f2f4f5c6be13c05dda4343ace62",
-    "SCORING.md": "e693b762a8550e06d76e91fe8f9b817415dad3bfe4734e671264b07489ecff1d",
+    "README.md": "0ecf90553b5153e49f6439d43938fef52b0cb13948b0592c4076320e83d964b6",
+    "SCORING.md": "d451c470e55a9605c4f5a8e17279312c5e573a3365dc3cd8bf2cca4674aa6d7a",
     "SIMILARITY.md": "5d9ca63284f92c83941d28645fdfc83807f8b237ca7f3bb575f5c047de038363",
     "similarity_report.json": "b7a8286579a0504ffcb870a6d9667281ae2cdaeb836cdb742a649c64aa163722",
     "step1_checks.json": "5fc37c36920450d26b02d51879968954b0bc363e96fd34c7bb64a6e38775b462",
-    "STEP2_REVIEW.md": "28f866734732d910dd0e74716b6e44b86afc84c1f4f4c78bb458838a19338d9c",
-    "STEP2_SIMILARITY.md": "1845489e7627d32507a449c604d2628362d59e2919fb0ec178e51dd51586e56c",
-    "step2_similarity_report.json": "f652b1c6df32da079e79e8d8e77c620354900188770effcaae7ec9e268e77604",
-    "step2_static_checks.json": "e867bb0ea1d7e87384f6972b7f77c447b77b950666396259e322567a2f52fe26",
-    "STEP2_STATIC_CHECKS.md": "88774970dc694f72a87576440112b8357a9f1cb8f814dfc097db0ad70864fe41",
-    "test.jsonl": "3fb10363c0cc46876d2e10ec51caf4a33ecc90d80f29d510f4e0f9143ad9010d"
+    "step2_checks.json": "3c5686f4826bf3231c5ddc2bed9476cff637b7556757b2bb0dac3aaf6f458e88",
+    "STEP2_REVIEW.md": "e9259a1d052b7eb4ea29a41c20f24c6b70f6e03c7d171efed97329cc842589e6",
+    "STEP2_SIMILARITY.md": "6246c60aa2e7e172bb31c0af252a6f9baa0b943740445ed54d24bf92b7fefdea",
+    "step2_similarity_report.json": "d849fcf8df28181ae241ae4646b978a528e51ad443b4f9847bc8c716526fe00f",
+    "step2_static_checks.json": "f544b070de69963750bf9837dad01bab45c5cf8b38ff845206ccbe43a71ac0f9",
+    "STEP2_STATIC_CHECKS.md": "9d4359ab8169732fb40611c99a73d15ae12cb991b879d0b442ed17a469d6157f",
+    "test.jsonl": "45ca70096687b54386a74216032694ed1984f44d8db74cfd64b6d1ae84f3c94c"
   },
   "step2_only_no_agent_changes": true,
   "replaced_test_ids": [
@@ -147,5 +148,12 @@
     "IT047",
     "IT085",
     "IT088"
-  ]
+  ],
+  "execution_baseline_commit": "f14b964",
+  "step1_gold_review_status": "author_review_passed",
+  "step2_gold_review_status": "pending_author_review",
+  "unknown_alias_cases": [
+    "IT085"
+  ],
+  "authoritative_checks": "step2_checks.json"
 }
