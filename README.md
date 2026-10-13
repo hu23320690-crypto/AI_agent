@@ -118,12 +118,13 @@ flowchart TD
 - FastAPI 提供 Bearer 鉴权，支持会话的创建、提问、取消和删除；限制请求体长度；`/healthz` 检查进程存活，`/readyz` 检查模型、索引和 tokenizer 是否就绪。
 - asyncio 负责等待和断连检测，同步的 Agent 调用放在有上限的线程中执行；同一会话互斥，总并发和会话 TTL 都有上限。
 - 非 root 的 Docker 镜像，Compose 编排 Ollama、初始化和持久卷。GitHub Actions 在 Windows 和 Linux 上运行 pytest，并做容器存活检查。
-- 669 项离线测试通过：模型推理用脚本替代，LangGraph 图、Chroma 和 Streamlit 都是真实组件。
+- 1077 项离线测试通过（其中原有 669 项未改动，用来证明默认 rule 模式行为不变）：模型推理用脚本替代，LangGraph 图、Chroma 和 Streamlit 都是真实组件。
 
 ### 7. LLM 意图解析 + 规则校验
 
 设计与完整评测：[docs/LLM_INTENT.md](docs/LLM_INTENT.md)
 
+- 未见题上组件正确率 16% → 80%，端到端 Agent 任务 1/12 → 4/12。
 - LLM 按 JSON Schema 提议字段、月份、范围和知识子问，报告数值继续由程序从实际查询结果渲染。
 - V1–V10 只校验可证伪的结构、目录、日期、限定和排除冲突，保留未知项及可见拒答。
 - 调用、结构或预算失败时回退原正则解析；意图提议不授予用户身份或工具权限。
@@ -140,7 +141,7 @@ flowchart TD
 | 本地 Qwen 模板即使关闭思考仍会输出思考内容，占用生成额度，可能导致回答被截断 | RAG 生成改用只含 `answer` 字段的 JSON schema 约束；被截断的输出直接拒绝，不写入历史 |
 | 线程超时后结果迟到，可能覆盖用户已经清空的会话 | 取消、清空与提交在同一把锁下串行执行；提交前检查本轮状态，迟到结果直接丢弃 |
 | 正则覆盖不了新说法 | LLM 提议、规则校验、失败回退 |
-| 只用 LLM 危险错误反而更多 | 保留可证伪的校验规则 |
+| 只用 LLM 时危险错误反而更多（15/100，正则为 13/100） | 保留可证伪的校验规则，危险错误降到 10/100 |
 
 ## 评测结果
 
@@ -170,7 +171,7 @@ flowchart TD
 | 新题集 holdout_v2：修复后 | 22/28 | 6/6 | 6/6 |
 
 - 首次测试中 Agent 任务只通过 1/6。多数失败是工具查对了，但最终交付出错，比如字段同义词没有对上、目标月份和对比月份混淆、"报告 + 知识判断"的组合任务漏了一部分。
-- 修复后的两行属于"已见题回归"：题目已经用来定位问题，不能代表对未见问题的泛化能力。下一步需要另外冻结一套新题来检验。
+- 修复后的两行属于"已见题回归"：题目已经用来定位问题，不能代表对未见问题的泛化能力。之后另行冻结了新题集，结果见下方"意图解析改造（未见题）"。
 - 样本量小，每次只跑一遍；语义判分由 AI 助手辅助完成，未经独立人工盲评。逐题失败分析见 [AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)。
 
 ### 意图解析改造（未见题）
@@ -184,7 +185,7 @@ P3 冻结版本的组件正确率取均值，与最差一次相同；危险错�
 | hybrid | 80.0% | 10/100 | — |
 | Agent test（rule → hybrid） | — | — | 1/12 → 4/12 |
 
-默认仍为 `rule`：G5 的已见报告任务回归出现退步，未满足全部准入条件；`hybrid` 保留为可选开关，判定见 [evaluation/INTENT_P3_REPORT.md](evaluation/INTENT_P3_REPORT.md)。
+默认仍为 `rule`：事先约定的 G5 要求已见任务不退步，但已见基础集从 12/12 降到 10/12、generalization_v1 从 5/6 降到 3/6；`hybrid` 保留为可选开关，判定见 [evaluation/INTENT_P3_REPORT.md](evaluation/INTENT_P3_REPORT.md)。
 
 ### 鲁棒性与安全
 
@@ -232,6 +233,8 @@ $env:AGENT_INTENT_MODE = 'hybrid'
 ```
 
 Linux shell 使用 `export AGENT_INTENT_MODE=hybrid`。设计与回退行为见 [docs/LLM_INTENT.md](docs/LLM_INTENT.md)。
+
+Docker Compose：在 .env 中写入 `AGENT_INTENT_MODE=hybrid`，再执行 `docker compose up -d` 重建容器。设置后可先运行 `scripts/manage.py doctor --offline`，模式值写错会在检查中报错。
 
 **REST API**
 
@@ -317,7 +320,7 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 - **规模**：只在 6 份资料、326 个分块和 120 条合成记录上验证过，没有测过大规模语料和高并发。
 - **身份**：API 使用共享的 Bearer 密钥，CSV 中的用户 ID 只是演示用的数据选择，不是多租户认证。
 - **部署**：只支持单进程、单 worker；会话和熔断状态保存在内存中，重启后丢失。
-- **回答质量**：报告意图解析基于规则，覆盖不了任意的自然语言表达；知识回答仍会出现漏步骤、混用部件条件的情况。
+- **回答质量**：默认的报告意图解析基于规则，覆盖不了任意说法；可选的 hybrid 在未见题上组件正确率 80%，但仍有 10/100 危险错误，端到端只通过 4/12，主要瓶颈在工具规划。知识回答仍会出现漏步骤、混用部件条件的情况。
 - **安全**：无法识别已获批准的错误资料；工具返回中的恶意文本可能经直出路径展示给用户。
 - **功能**：天气接口未接入；回答是一次性返回的，不支持 token 级流式输出。
 
