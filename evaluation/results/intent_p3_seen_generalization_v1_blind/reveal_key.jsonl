@@ -1,0 +1,12 @@
+{"sample_id": "S001", "mode": "rule", "id": "G1A05", "result_sha256": "f59241b1c0a28cda78dc60b0fab552af9bddb6cc12856558dfc3abcdbffd2e7d"}
+{"sample_id": "S002", "mode": "hybrid", "id": "G1A05", "result_sha256": "b423c7ef6bb8cf77a26f4b5ab362c7d2b1310b8141ac262fef1a83275e0de606"}
+{"sample_id": "S003", "mode": "rule", "id": "G1A03", "result_sha256": "12107777c9259816b45ec0148d07c353a38a930521e9534772f5741280028c57"}
+{"sample_id": "S004", "mode": "rule", "id": "G1A02", "result_sha256": "d2088e868eba6d322f134c54243e71911a465a35c49f5633f7d069686af61c22"}
+{"sample_id": "S005", "mode": "rule", "id": "G1A06", "result_sha256": "67d695694f947afee89965daefd6f89edf8b453d7561b00f9218c970007ca7a2"}
+{"sample_id": "S006", "mode": "hybrid", "id": "G1A03", "result_sha256": "afce7926d2289f623f1c949c854898b9685d91dab04f3e09f210936756441346"}
+{"sample_id": "S007", "mode": "hybrid", "id": "G1A01", "result_sha256": "eac144a2e7d1ef99eb09d9e630c7a77828ca72d90c06fdb5a10244116e3fce43"}
+{"sample_id": "S008", "mode": "rule", "id": "G1A01", "result_sha256": "a25faa137fcb3decf75986ed8f77b959e88efc674c74842076841955819180c4"}
+{"sample_id": "S009", "mode": "hybrid", "id": "G1A04", "result_sha256": "ba9892bc3212691377ee683da0557106e82977f3d22aa77da2374c729285fe3a"}
+{"sample_id": "S010", "mode": "hybrid", "id": "G1A02", "result_sha256": "ca6e44689ec626069b7ea43053f999450036513bf19251b4b397dd28b7c8d658"}
+{"sample_id": "S011", "mode": "hybrid", "id": "G1A06", "result_sha256": "c9a2d2f7311c3ab4f42d8161dafd1a0bd020462ebbdeb7fe5ce5dae1ed7715aa"}
+{"sample_id": "S012", "mode": "rule", "id": "G1A04", "result_sha256": "e63ea31facd294d31ac2d6aca4f9b1ca118f1e365d45212234d0d898eafd132f"}

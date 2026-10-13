@@ -1,0 +1,56 @@
+{
+  "gates": {
+    "G1": {
+      "passed": true,
+      "numbers": "原有测试669 passed、291 subtests passed、3项符号链接权限跳过；main测试文件均未改动。",
+      "evidence": "evaluation/results/intent_p3_preflight/offline_tests_workspace_temp.txt"
+    },
+    "G2": {
+      "passed": true,
+      "numbers": "hybrid最差80.0%，rule 16.0%，增加64.0个百分点（要求≥10）。",
+      "evidence": "evaluation/results/intent_p3_A_analysis/summary.json"
+    },
+    "G3": {
+      "passed": true,
+      "numbers": "hybrid最大危险错误10/100，rule 13/100。",
+      "evidence": "evaluation/results/intent_p3_A_analysis/summary.json"
+    },
+    "G4": {
+      "passed": true,
+      "numbers": "rule 1/12，hybrid 4/12；进步3，退步0，未知0。",
+      "evidence": "evaluation/results/intent_agent_v1_r1_test_p3_blind/paired_summary.json"
+    },
+    "G5": {
+      "passed": false,
+      "numbers": "知识/资料不足既有代码路径改动0，运行前决定不重跑，以代码路径等价证明作为本次准入依据；未声称实测新推理成绩变化为0。Agent base: rule 12/12，hybrid 10/12；generalization_v1: rule 5/6，hybrid 3/6；holdout_v2: rule 6/6，hybrid 6/6。",
+      "evidence": "evaluation/results/intent_p3_preflight/non_report_path_proof.json；evaluation/results/intent_p3_C_analysis/summary.json"
+    },
+    "G6": {
+      "passed": true,
+      "numbers": "各批次配对新增解析延迟p95最大4.6090秒（≤10）；hybrid预算跳过合计0/343，任一批次最大跳过率0.0%（≤5%）。",
+      "evidence": "evaluation/results/intent_p3_gate_metrics.json；各Agent运行p3_turn_metrics.jsonl"
+    }
+  },
+  "component_paired_latency_increments": [
+    {
+      "repeat": "r001",
+      "count": 100,
+      "p95_seconds": 1.6967761000014434
+    },
+    {
+      "repeat": "r002",
+      "count": 100,
+      "p95_seconds": 1.679370400001062
+    },
+    {
+      "repeat": "r003",
+      "count": 100,
+      "p95_seconds": 1.6955498999996053
+    }
+  ],
+  "max_paired_latency_p95_seconds": 4.609,
+  "hybrid_budget_skips": 0,
+  "planned_hybrid_report_turns": 343,
+  "max_budget_skip_rate": 0.0,
+  "agent_latency_note": "Only actually observed same-turn parser intervals are paired. Unreached parser paths are marked missing in per-turn metrics; they are not assigned an invented zero delay. This is parser overhead, not a causal estimate of full-Agent wall time."
+}

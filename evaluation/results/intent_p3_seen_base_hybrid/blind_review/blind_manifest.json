@@ -1,0 +1,11 @@
+{
+  "created_at": "2026-10-13T20:55:49.940046+11:00",
+  "seed": 20261014,
+  "samples": 24,
+  "mode_labels_removed_recursively": true,
+  "runtime_cost_events_removed": true,
+  "model_requests_in_package": "RAG input requests only; report authorization grounded from actual tools/history. Planner and intent extraction requests omitted because they add no authoritative report facts and expose variant cost.",
+  "package_sha256": "e78485dee7813f376a9bc7ab48397b546d14f6db26f3d894baddbf771890b6c7",
+  "key_sha256": "3afa17e0d73f2970d72ed35ee4a135c3bbb843e62c0c981ea36837f4072bea9e",
+  "instruction": "Reviewer reads only review_package.jsonl and saves sample-bound scores before reveal_key is opened. Assistant label-hidden review is not independent expert review."
+}
