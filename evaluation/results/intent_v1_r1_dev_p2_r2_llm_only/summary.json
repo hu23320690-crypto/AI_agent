@@ -1,0 +1,354 @@
+{
+  "aggregate": {
+    "budget_skip_count": 0,
+    "budget_skip_rate": 0.0,
+    "conflict_counts": {},
+    "exact_accuracy": 0.85,
+    "exact_count": 34,
+    "execution_failure_count": 0,
+    "execution_status_counts": {
+      "ok": 40
+    },
+    "extra_model_calls": 40,
+    "fallback_count": 0,
+    "fallback_rate": 0.0,
+    "latency_seconds": {
+      "all": {
+        "count": 40,
+        "missing_count": 0,
+        "p50": 1.2196516000003612,
+        "p95": 1.770810200001506
+      },
+      "successful": {
+        "count": 40,
+        "missing_count": 0,
+        "p50": 1.2196516000003612,
+        "p95": 1.770810200001506
+      }
+    },
+    "planned_count": 40,
+    "severity_counts": {
+      "dangerous": 3,
+      "other_error": 3,
+      "safe_fail": 0,
+      "wrong_scope": 0
+    },
+    "slot_accuracy": {
+      "compare": 1.0,
+      "comparison_month": 1.0,
+      "fields": 0.975,
+      "knowledge_requested": 1.0,
+      "requested_field_order": 0.9,
+      "scope": 1.0,
+      "target_month": 0.95,
+      "unknown_fields": 0.925,
+      "unresolved_month": 0.975
+    }
+  },
+  "amendment_id021": {
+    "affected": {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {},
+      "exact_accuracy": 0.0,
+      "exact_count": 0,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 1
+      },
+      "extra_model_calls": 1,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 1,
+          "missing_count": 0,
+          "p50": 1.0335236999999324,
+          "p95": 1.0335236999999324
+        },
+        "successful": {
+          "count": 1,
+          "missing_count": 0,
+          "p50": 1.0335236999999324,
+          "p95": 1.0335236999999324
+        }
+      },
+      "planned_count": 1,
+      "severity_counts": {
+        "dangerous": 1,
+        "other_error": 0,
+        "safe_fail": 0,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 1.0,
+        "comparison_month": 1.0,
+        "fields": 1.0,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 1.0,
+        "scope": 1.0,
+        "target_month": 0.0,
+        "unknown_fields": 1.0,
+        "unresolved_month": 0.0
+      }
+    },
+    "all_dev_denominator_preserved": true,
+    "excluding_affected": {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {},
+      "exact_accuracy": 0.8717948717948718,
+      "exact_count": 34,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 39
+      },
+      "extra_model_calls": 39,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 39,
+          "missing_count": 0,
+          "p50": 1.224275900000066,
+          "p95": 1.7978930999997829
+        },
+        "successful": {
+          "count": 39,
+          "missing_count": 0,
+          "p50": 1.224275900000066,
+          "p95": 1.7978930999997829
+        }
+      },
+      "planned_count": 39,
+      "severity_counts": {
+        "dangerous": 2,
+        "other_error": 3,
+        "safe_fail": 0,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 1.0,
+        "comparison_month": 1.0,
+        "fields": 0.9743589743589743,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.8974358974358975,
+        "scope": 1.0,
+        "target_month": 0.9743589743589743,
+        "unknown_fields": 0.9230769230769231,
+        "unresolved_month": 1.0
+      }
+    },
+    "ids": [
+      "ID021"
+    ],
+    "reference": "docs/plans/SCORING_AMENDMENT_01.md",
+    "used_for_prompt_tuning": false
+  },
+  "execution_note": "Failed/skipped/invalid model attempts remain in every planned denominator.",
+  "latency_method": "nearest-rank ceil(p*n), wall-clock seconds",
+  "mode": "llm_only",
+  "repeat": 1,
+  "repeat_metrics": {
+    "budget_skip_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "budget_skip_rate": {
+      "mean": 0.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "dangerous": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "dangerous_count": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "exact_accuracy": {
+      "mean": 0.85,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.85
+    },
+    "execution_failure_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "extra_model_calls": {
+      "mean": 40,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 40
+    },
+    "fallback_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "fallback_rate": {
+      "mean": 0.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "latency_all_p50": {
+      "mean": 1.2196516000003612,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.2196516000003612
+    },
+    "latency_all_p95": {
+      "mean": 1.770810200001506,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.770810200001506
+    },
+    "latency_successful_p50": {
+      "mean": 1.2196516000003612,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.2196516000003612
+    },
+    "latency_successful_p95": {
+      "mean": 1.770810200001506,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.770810200001506
+    },
+    "other_error": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "safe_fail": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "slot_compare_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_comparison_month_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_fields_accuracy": {
+      "mean": 0.975,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.975
+    },
+    "slot_knowledge_requested_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_requested_field_order_accuracy": {
+      "mean": 0.9,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.9
+    },
+    "slot_scope_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_target_month_accuracy": {
+      "mean": 0.95,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.95
+    },
+    "slot_unknown_fields_accuracy": {
+      "mean": 0.925,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.925
+    },
+    "slot_unresolved_month_accuracy": {
+      "mean": 0.975,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.975
+    },
+    "wrong_scope": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    }
+  },
+  "repeats": [
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {},
+      "exact_accuracy": 0.85,
+      "exact_count": 34,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 40
+      },
+      "extra_model_calls": 40,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 40,
+          "missing_count": 0,
+          "p50": 1.2196516000003612,
+          "p95": 1.770810200001506
+        },
+        "successful": {
+          "count": 40,
+          "missing_count": 0,
+          "p50": 1.2196516000003612,
+          "p95": 1.770810200001506
+        }
+      },
+      "planned_count": 40,
+      "repeat": 1,
+      "severity_counts": {
+        "dangerous": 3,
+        "other_error": 3,
+        "safe_fail": 0,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 1.0,
+        "comparison_month": 1.0,
+        "fields": 0.975,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.9,
+        "scope": 1.0,
+        "target_month": 0.95,
+        "unknown_fields": 0.925,
+        "unresolved_month": 0.975
+      }
+    }
+  ],
+  "split": "dev"
+}

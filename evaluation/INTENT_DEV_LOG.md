@@ -35,3 +35,28 @@ hybrid: execution failures=0, budget skips=0, extra model calls=40; conflicts={"
 
 No validation, resolver, runner, model/runtime/configuration or gold changes were made in this round.
 
+
+## Round 2
+
+Changes: Prompt only: require every positive unknown metric as field=null; exact original mentions even for catalog synonyms; exclusions must be explicit and do not follow declined explanations; report value/category questions are not knowledge; continuing relative targets use previous_target unless a different starting point is explicitly selected. One fictional mixed known/unknown/qualifier example replaces the unknown-event example; six examples total. ID021 was not used.
+
+| Mode | Exact / 40 | Dangerous | Fallback | p95 all (s) | p95 success (s) | Exact / 39 auxiliary | Dangerous / 39 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| rule | 10/40 (25.0%) | 8 | 0.0% | 0.0018 | 0.0018 | 9/39 (23.1%) | 8 |
+| llm_only | 34/40 (85.0%) | 3 | 0.0% | 1.7708 | 1.7708 | 34/39 (87.2%) | 2 |
+| hybrid | 30/40 (75.0%) | 3 | 0.0% | 1.7835 | 1.7835 | 30/39 (76.9%) | 2 |
+
+Run source commit: `fa04a4c4484fcc58276dd166cfc6a3ecab1918fa`.
+Prompt SHA256: `1100a20220955b0938ffdf13dcaf89b84e172c18bcda95741975b71dad661de4`.
+Original dev SHA256: `f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a`.
+Model: `qwen3:4b`, digest `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`.
+
+ID021 (not used for tuning): rule: exact=1/1, dangerous=0; llm_only: exact=0/1, dangerous=1; hybrid: exact=0/1, dangerous=1.
+
+Artifacts: `evaluation/results/intent_v1_r1_dev_p2_r2_rule`, `evaluation/results/intent_v1_r1_dev_p2_r2_llm_only`, `evaluation/results/intent_v1_r1_dev_p2_r2_hybrid`.
+
+rule: execution failures=0, budget skips=0, extra model calls=0; conflicts={}.
+llm_only: execution failures=0, budget skips=0, extra model calls=40; conflicts={}.
+hybrid: execution failures=0, budget skips=0, extra model calls=40; conflicts={"mention_not_in_text": 2, "month_unsupported": 3, "negated_field_selected": 1, "qualifier_dropped": 1}.
+
+No validation, resolver, runner, model/runtime/configuration or gold changes were made in this round.
