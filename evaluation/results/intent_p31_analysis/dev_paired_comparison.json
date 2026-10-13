@@ -1,0 +1,30 @@
+{
+  "rule": {
+    "prediction_changed_ids": [],
+    "raw_proposal_changed_ids": [],
+    "pass_transitions": []
+  },
+  "llm_only": {
+    "prediction_changed_ids": [],
+    "raw_proposal_changed_ids": [],
+    "pass_transitions": []
+  },
+  "hybrid": {
+    "prediction_changed_ids": [
+      "ID028"
+    ],
+    "raw_proposal_changed_ids": [],
+    "pass_transitions": [
+      {
+        "id": "ID028",
+        "before": false,
+        "after": true,
+        "conflicts": [
+          "field_not_in_catalog",
+          "non_metric_unknown_dropped",
+          "fields_rule_fallback"
+        ]
+      }
+    ]
+  }
+}

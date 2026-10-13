@@ -1,0 +1,355 @@
+[
+  {
+    "dataset": "base",
+    "id": "A03",
+    "result_sha256": "ceaf74d335da0de2313d89f1501d8b57ebfe5a468534f39054564a962bbb9693",
+    "intent_proposals": [
+      {
+        "call_index": 2,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "2025-1",
+              "field": null
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-01",
+          "target_mention": "2025-1",
+          "target_anchor": "none",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      }
+    ],
+    "turns": [
+      {
+        "turn": 1,
+        "query": "请查询我2025-1的使用记录。",
+        "answer": "# 扫地机器人 2025-01 使用报告\n\n演示用户：1002\n\n## 使用概况\n- 70㎡公寓 | 情侣 | 瓷砖\n\n## 清洁表现\n- 覆盖率:88%\n- 避障失败:2次/周（电线缠绕）\n\n## 耗材状态\n- 边刷磨损:中度\n- 尘盒清理:每3天\n\n## 使用对比\n- 拖地功能使用率低于同类30%\n\n以上为本地演示记录。未提供的指标不作推算；剩余寿命与比例不转换为未经记录支持的更换日期。",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 21.125,
+            "mode": "hybrid",
+            "source": "merged",
+            "fallback_reason": null,
+            "conflicts": [
+              "non_metric_unknown_dropped"
+            ],
+            "latency_ms": 1360.0
+          }
+        ],
+        "intent_model_calls": 1
+      }
+    ]
+  },
+  {
+    "dataset": "base",
+    "id": "A10",
+    "result_sha256": "33215197a935cbf3036398df3dc08418764520fcc40336912d0453e228b50b72",
+    "intent_proposals": [
+      {
+        "call_index": 2,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "2025年8月",
+              "field": null
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-08",
+          "target_mention": "2025年8月",
+          "target_anchor": "today",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      },
+      {
+        "call_index": 5,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "2025年9月",
+              "field": "2025-09"
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-09",
+          "target_mention": "2025年9月",
+          "target_anchor": "previous_target",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      }
+    ],
+    "turns": [
+      {
+        "turn": 1,
+        "query": "请查询我2025年8月的使用记录。",
+        "answer": "# 扫地机器人 2025-08 使用报告\n\n演示用户：1001\n\n## 使用概况\n- 65㎡公寓 | 单身 | 木地板\n\n## 清洁表现\n- 覆盖率:83%\n- 日均清扫:43㎡\n- 漏扫区域:沙发底部+床底+阳台角落\n\n## 耗材状态\n- 主刷寿命:剩余50天\n- HEPA滤网:剩余30%\n\n## 使用对比\n- 优于60%同面积用户（清洁频率持续略降）\n\n以上为本地演示记录。未提供的指标不作推算；剩余寿命与比例不转换为未经记录支持的更换日期。",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 17.015,
+            "mode": "hybrid",
+            "source": "merged",
+            "fallback_reason": null,
+            "conflicts": [
+              "non_metric_unknown_dropped"
+            ],
+            "latency_ms": 1328.0
+          }
+        ],
+        "intent_model_calls": 1
+      },
+      {
+        "turn": 2,
+        "query": "那2025年9月呢？",
+        "answer": "# 扫地机器人 2025-09 使用报告\n\n演示用户：1001\n\n## 使用概况\n- 65㎡公寓 | 单身 | 木地板\n\n## 清洁表现\n- 覆盖率:84%\n- 日均清扫:44㎡\n- 漏扫区域:沙发底部+床底\n\n## 耗材状态\n- 主刷寿命:剩余45天\n- HEPA滤网:剩余25%\n\n## 使用对比\n- 优于63%同面积用户（清洁频率小幅回升）\n\n以上为本地演示记录。未提供的指标不作推算；剩余寿命与比例不转换为未经记录支持的更换日期。",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 21.562,
+            "mode": "hybrid",
+            "source": "merged",
+            "fallback_reason": null,
+            "conflicts": [
+              "field_not_in_catalog",
+              "non_metric_unknown_dropped"
+            ],
+            "latency_ms": 1484.0
+          }
+        ],
+        "intent_model_calls": 1
+      }
+    ]
+  },
+  {
+    "dataset": "generalization_v1",
+    "id": "G1A02",
+    "result_sha256": "3b5cdc6fe4b55ab35526c5da5ddbba68614dbbb04dadba43da5b6f768a28ae0c",
+    "intent_proposals": [
+      {
+        "call_index": 2,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "宠物毛发清理率",
+              "field": "宠物毛发清理"
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-05",
+          "target_mention": "2025年5月",
+          "target_anchor": "none",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      },
+      {
+        "call_index": 5,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "宠物毛发清理率",
+              "field": "宠物毛发清理"
+            },
+            {
+              "mention": "滤网剩余寿命",
+              "field": "滤网寿命"
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-04",
+          "target_mention": "前一个月",
+          "target_anchor": "previous_target",
+          "compare": true,
+          "baseline_month": "2025-05",
+          "baseline_mention": "5月",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      }
+    ],
+    "turns": [
+      {
+        "turn": 1,
+        "query": "请查我2025年5月，只列宠物毛发清理率和滤网剩余寿命。",
+        "answer": "演示用户 1009，2025-05：\n- 宠物毛发清理：91%",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 11.875,
+            "mode": "hybrid",
+            "source": "llm",
+            "fallback_reason": null,
+            "conflicts": [],
+            "latency_ms": 1375.0
+          }
+        ],
+        "intent_model_calls": 1
+      },
+      {
+        "turn": 2,
+        "query": "那前一个月这两项是多少？与刚才的5月相比各变了多少？请保留单位。",
+        "answer": "演示用户 1009，2025-04 与 2025-05 比较：\n| 指标 | 2025-05 | 2025-04 | 变化 |\n| --- | --- | --- | --- |\n| 宠物毛发清理 | 91% | 90% | 减少1个百分点 |\n| 滤网寿命 | 剩余45天 | 剩余50天 | 增加5天 |",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 22.422,
+            "mode": "hybrid",
+            "source": "llm",
+            "fallback_reason": null,
+            "conflicts": [],
+            "latency_ms": 1625.0
+          }
+        ],
+        "intent_model_calls": 1
+      }
+    ]
+  },
+  {
+    "dataset": "generalization_v1",
+    "id": "G1A03",
+    "result_sha256": "45236f16fb5976a6aaa449a69a2e8955352077608c832e17c8587a1c4b3347b7",
+    "intent_proposals": [
+      {
+        "call_index": 2,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "避障成功率",
+              "field": "避障成功率"
+            },
+            {
+              "mention": "主刷剩余寿命",
+              "field": "主刷寿命"
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2025-12",
+          "target_mention": "2025年12月",
+          "target_anchor": "none",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      },
+      {
+        "call_index": 5,
+        "proposal": {
+          "task_type": "report",
+          "fields": [
+            {
+              "mention": "避障成功率",
+              "field": "避障成功率"
+            },
+            {
+              "mention": "主刷寿命",
+              "field": "主刷寿命"
+            }
+          ],
+          "scope": "only_listed",
+          "target_month": "2026-01",
+          "target_mention": "下一月",
+          "target_anchor": "current_lookup",
+          "compare": false,
+          "baseline_month": null,
+          "baseline_mention": "",
+          "excluded_fields": [],
+          "knowledge_question": "",
+          "unresolved": false
+        }
+      }
+    ],
+    "turns": [
+      {
+        "turn": 1,
+        "query": "查询我2025年12月的避障成功率和主刷剩余寿命，只给这两项。",
+        "answer": "演示用户 1008，2025-12：\n- 避障成功率：98%\n- 主刷寿命：剩余55天",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 15.937,
+            "mode": "hybrid",
+            "source": "llm",
+            "fallback_reason": null,
+            "conflicts": [],
+            "latency_ms": 1500.0
+          }
+        ],
+        "intent_model_calls": 1
+      },
+      {
+        "turn": 2,
+        "query": "继续下一月，仍按这两项查询。如果没有这个月的记录，就说未找到，别拿12月或其他月份的数字充当本月。",
+        "answer": "未找到演示用户 1008 在 2026-01 的使用记录，无法生成该月报告。请确认用户 ID 和月份。",
+        "intent_events": [
+          {
+            "event": "intent_resolved",
+            "seconds": 16.266,
+            "mode": "hybrid",
+            "source": "merged",
+            "fallback_reason": null,
+            "conflicts": [
+              "mention_unanchored_kept",
+              "anchor_lookup_consistency"
+            ],
+            "latency_ms": 1438.0
+          }
+        ],
+        "intent_model_calls": 1
+      }
+    ]
+  },
+  {
+    "dataset": "generalization_v1",
+    "id": "G1A05",
+    "result_sha256": "9a2a80e6bf1e9ac52135b21eab7a74d27866c9e0eb8821fa3df2b72d1968e088",
+    "intent_proposals": [],
+    "turns": [
+      {
+        "turn": 1,
+        "query": "请回顾：我们最初选的是哪个具体清洁刷？关于动作、不同章节频率以及资料不足，我有哪些要求？",
+        "answer": "根据参考资料，用户最初选的具体清洁刷未明确提及。资料中提到的清洁刷相关配置包括：主刷（转速≥2000转/分钟，可调节）和边刷（转速≥1500转/分钟），但未说明最初选择的具体型号或类型。关于动作和频率，资料中提到：1) 宠物家庭需更换防缠绕主刷和高密度滤网，开启宠物模式，每天清理尘盒和滚刷；2) 大户型需分区清扫，断点续扫；3) 木地板拖地需注意烘干效果（含水率≤10%）。资料不足部分：未明确最初选择的清洁刷类型，未提供具体动作的详细频率（如宠物模式下清扫频次），未说明不同章节的维护周期（如滤网、边刷更换周期等）。需注意：资料中边刷寿命约6-12个月，主刷胶刷1-2年，毛刷6-12个月检查磨损，但未提及最初选择的具体刷型。",
+        "intent_events": [],
+        "intent_model_calls": 0
+      },
+      {
+        "turn": 2,
+        "query": "那它按维护资料该如何清理、多久水洗和更换，磨损变形时怎么办？请遵守刚才回顾的要求。",
+        "answer": "根据参考资料，针对自动洗拖布基站清洁仓内清洁刷的维护问题，严格区分动作类型并遵循资料描述：\n\n1. **去除毛发杂物**  \n   - 资料中明确：宠物家庭需**每天清理尘盒和滚刷**（对应去除毛发杂物），但未说明非宠物家庭的清理频率；  \n   - 毛刷需**6-12个月检查磨损**，但未明确去除毛发的周期性操作（如是否需定期手动清理）。\n\n2. **水洗**  \n   - 资料中**未提及水洗频率**，仅提到木地板拖地需控制含水率≤10%，但未说明清洁刷的水洗周期或条件。\n\n3. **更换**  \n   - 边刷寿命：**6-12个月**（需根据使用环境判断）；  \n   - 主刷胶刷寿命：**1-2年**；  \n   - 毛刷：**6-12个月检查磨损**，但未说明更换触发条件（如磨损变形时是否需立即更换）。\n\n4. **磨损变形时的处理**  \n   - 资料中仅提到毛刷需**6-12个月检查磨损**，但**未说明磨损变形后的具体处理步骤**（如是否需拆卸、更换或特殊清洁）。\n\n**资料不足说明**：  \n- 未明确最初选择的清洁刷类型（主刷/边刷/毛刷），因此无法针对性说明维护周期；  \n- 未提供磨损变形时的**操作指引**（如是否需联系客服、自行更换或触发自动报警）；  \n- 不同章节对维护频率的描述存在交叉（如宠物模式与大户型需求），但资料未明确区分清洁刷的维护逻辑。  \n\n（注：以上内容严格基于参考资料，未推测或补充未提及信息）",
+        "intent_events": [],
+        "intent_model_calls": 0
+      }
+    ]
+  }
+]

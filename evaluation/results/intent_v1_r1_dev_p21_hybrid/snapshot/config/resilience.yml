@@ -1,0 +1,10 @@
+# Each model/embedding request gets at most 2 attempts (1 initial + 1 retry).
+# Scope: synchronous user entry points; restart app after changing config.
+max_attempts: 2
+base_delay_seconds: 0.5
+max_delay_seconds: 2
+# Rolling window: minimum_samples AND failure_threshold must both be met.
+minimum_samples: 3
+failure_threshold: 3
+window_seconds: 60
+recovery_seconds: 15

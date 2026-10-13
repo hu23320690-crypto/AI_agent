@@ -1,0 +1,184 @@
+{
+  "planned": 6,
+  "completed": 6,
+  "statuses": {
+    "ok": 6,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 6,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 6,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 0,
+    "planned": 0,
+    "hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_metrics_observed": 0,
+    "policy_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "mrr_at_5": null,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 0,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": null,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 5,
+    "task_fail": 1,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 64,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "rag_generation": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 18.64590280000266,
+      "p95_seconds": 34.410160799998266
+    },
+    "case_wall_all_statuses": {
+      "count": 6,
+      "median_seconds": 45.49800855000285,
+      "p95_seconds": 59.034605799999554
+    }
+  },
+  "model_usage": {
+    "observed_requests": 25,
+    "requests_by_status": {
+      "ok": 25,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 25,
+    "input_tokens": 40582,
+    "output_tokens": 13289,
+    "request_input_message_counts": {
+      "count": 25,
+      "median_messages": 4,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "G1A05",
+      "status": "ok",
+      "review": {
+        "sample_id": "S001",
+        "result_sha256": "f59241b1c0a28cda78dc60b0fab552af9bddb6cc12856558dfc3abcdbffd2e7d",
+        "task_pass": false,
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "requirements_met": true,
+            "note": "长历史回忆完整保持清洁仓清洁刷、排除拖地模组清洁刷，三个动作分开、不同章节频率分列及资料不足不猜均正确，受原始seed用户目标和约束支持；无工具调用符合回忆要求。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": false,
+            "requirements_met": true,
+            "note": "正确给清洁仓清洁刷每日挑毛发杂物，但遗漏专项每周清毛、每月水洗、3–6个月及分章节频率；将水箱酸洗和主刷胶条打滑条目放入该刷维护流程，关键水洗/磨损对象越界，未完整完成请求。实际输入只有清洁仓每日、水箱/污水仓和主刷条目，不能支持将这些条件用于清洁仓清洁刷，忠实度假。"
+          }
+        ],
+        "note": "全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。本样本至少一项未满足；具体原因见逐轮理由。",
+        "scored_at": "2026-10-13T21:09:44.815397+11:00",
+        "review_method": "Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.",
+        "id": "G1A05",
+        "method": "Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review."
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

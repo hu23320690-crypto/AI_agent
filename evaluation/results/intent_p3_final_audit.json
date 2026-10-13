@@ -1,0 +1,166 @@
+{
+  "checked_at": "2026-10-13T21:57:36.221172+11:00",
+  "runtime_version": "c105253026453bb203aab1186d68aae0bb10acd3",
+  "runtime_files": 71,
+  "archives": [
+    {
+      "run": "evaluation/results/intent_agent_v1_r1_test_p3_hybrid",
+      "mode": "hybrid",
+      "raw_records": 12,
+      "planned_cases": 12,
+      "review_records": 12,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_agent_v1_r1_test_p3_rule",
+      "mode": "rule",
+      "raw_records": 12,
+      "planned_cases": 12,
+      "review_records": 12,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_base_hybrid",
+      "mode": "hybrid",
+      "raw_records": 12,
+      "planned_cases": 12,
+      "review_records": 12,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_base_rule",
+      "mode": "rule",
+      "raw_records": 12,
+      "planned_cases": 12,
+      "review_records": 12,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_generalization_v1_hybrid",
+      "mode": "hybrid",
+      "raw_records": 6,
+      "planned_cases": 6,
+      "review_records": 6,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_generalization_v1_rule",
+      "mode": "rule",
+      "raw_records": 6,
+      "planned_cases": 6,
+      "review_records": 6,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_holdout_v2_hybrid",
+      "mode": "hybrid",
+      "raw_records": 6,
+      "planned_cases": 6,
+      "review_records": 6,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_p3_seen_holdout_v2_rule",
+      "mode": "rule",
+      "raw_records": 6,
+      "planned_cases": 6,
+      "review_records": 6,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_hybrid_r001",
+      "mode": "hybrid",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_hybrid_r002",
+      "mode": "hybrid",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_hybrid_r003",
+      "mode": "hybrid",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_llm_only_r001",
+      "mode": "llm_only",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_llm_only_r002",
+      "mode": "llm_only",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_llm_only_r003",
+      "mode": "llm_only",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    },
+    {
+      "run": "evaluation/results/intent_v1_r1_test_p3_rule_r001",
+      "mode": "rule",
+      "raw_records": 100,
+      "planned_cases": 100,
+      "review_records": 100,
+      "seal_verified": true,
+      "runtime_71_files_equal_frozen": true,
+      "input_gold_equal_d61a06a": true
+    }
+  ],
+  "archive_count": 15,
+  "raw_records": 772,
+  "component_records": 700,
+  "Agent_tasks_runs": 72,
+  "Agent_real_turns": 120,
+  "all_score_files_locked_before_reveal": true,
+  "default_mode_unchanged": true,
+  "gold_unchanged_from_d61a06a": true,
+  "push_performed": false
+}

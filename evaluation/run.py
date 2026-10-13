@@ -52,6 +52,7 @@ def evaluation_files():
 def environment_identity(dataset, timeout):
     """Resolve mutable model tags on every resume, not just the first run."""
     import yaml
+    from agent.intent.llm_parser import load_intent_config
     config = yaml.safe_load((ROOT/"config/rag.yml").read_text(encoding="utf-8"))
     host = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434").rstrip("/")
     with urllib.request.urlopen(host+"/api/tags", timeout=10) as response:
@@ -70,6 +71,7 @@ def environment_identity(dataset, timeout):
         raise RuntimeError("Frozen source bytes changed")
     date_inputs = {"execution_month": date.today().strftime("%Y-%m")} if "$CURRENT_MONTH" in dataset.read_text(encoding="utf-8-sig") else {}
     return {"identity_version": 2, "code_sha256": business_files(),
+            "intent_mode": load_intent_config().mode,
             **date_inputs,
             "evaluation_sha256": evaluation_files(), "dataset_sha256": digest(dataset),
             "dataset_manifest_sha256": digest(dataset.parent/"dataset_manifest.json"),

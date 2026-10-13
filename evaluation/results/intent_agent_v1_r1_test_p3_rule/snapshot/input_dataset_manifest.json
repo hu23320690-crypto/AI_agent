@@ -1,0 +1,147 @@
+{
+  "version": "intent_agent_v1_r1",
+  "stage": "P0_completed",
+  "created_date": "2026-10-13",
+  "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "frozen_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "freeze_status": "frozen_author_approved",
+  "gold_review_status": "author_approved",
+  "evaluation_eligible": true,
+  "approved_for_next_stage": true,
+  "revision_status": "frozen_author_approved",
+  "parent_dataset": "evaluation/intent_agent_v1",
+  "parent_candidate_commit": "b581633e78c355cb2da73a3cd574d65571b8f30a",
+  "parent_cases_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+  "parent_freeze_manifest_sha256": "ec92ef7366281dc6869b1d5b3fff7deab547a60d59d1dc95b6160e8d8df613b5",
+  "dataset_sha256": "4371c1bb5355ba7fc33648c4ce0bc6ef5d38a2d771b96092a9df21f398a6c666",
+  "case_count": 12,
+  "files": {
+    "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb",
+    "data/维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a"
+  },
+  "business_code_sha256": {
+    "agent/context_budget.py": "7a4275c45fccd64cded5668d7ac34886c1fc303a6a1d41f34768e0644d0ce3da",
+    "agent/context_memory.py": "d9e83b3f8ff3973fce1608362ba76c6d1b74ee02583d892a3c44c02f683f1d4e",
+    "agent/react_agent.py": "a3850466d4fb28f21232f1b7cff9bba52489c405c89217e9bc26e69aa885a95f",
+    "agent/runtime/__init__.py": "0aaa05727cf32e53c755b99aa3a041a5b664417b7e95c6de2dc43043a9aa6c0b",
+    "agent/runtime/core.py": "1d607e6dada8bd501a5e2fe58a33e40cefcce4ae73a28d3b3b0c81c5fa7b97f8",
+    "agent/runtime/resilience.py": "9077ec98b81bdc302b7239f49d36348188cb88cc855d7c84c0f107ef7229d39a",
+    "agent/tools/agent_tools.py": "0e76577b2db19741203961c11027babafc1e97377db6205c59d85d2929d29dd4",
+    "agent/tools/middleware.py": "2bc27595ed71bbf8bcf9c787b5b7c221f30e84e49344bf2d466f90ca2ca98870",
+    "agent/tools/policy.py": "9316790694b758e6f7da2b9a25222fc199006edefe1ac87bd428c0da2fd43ae5",
+    "app.py": "99e5a9d2bdecc138b7d8f45ce0e48d798fad64bd3c50fb03dc5fdae27958390e",
+    "config/agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config/chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config/context.yml": "d47801f0b784c6e2760619258b1ebf767e6b33d0f38c3682d81590736139900b",
+    "config/context_tokenizer.json": "5c9cdb944a7148eb129448f57f9bf90fd2fa362abf0e702b4e4bc414d9e9f24b",
+    "config/knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config/prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config/rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config/resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config/runtime.yml": "1d817f14949b2f66d9e42990ca693a35f5e4f2b78fc3a0f2d3c0bb2756119068",
+    "config/security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "model/factory.py": "388c9ac998fc02329d99e997a696d98fe602821b9b60c69c3b7aaf5be9eae723",
+    "model/token_count.py": "b28678128bd345ed8e3b5fc5f6f13802140c72d3f95b3fadbfb5f537a2db1548",
+    "prompts/main_prompt.txt": "b6ac895cf967d7cb857e9d0f351e55602a6efa2c66e6dccd8ec6a5336825d496",
+    "prompts/rag_summarize.txt": "90196c0eda56664f8e99b7509c930153d570c8b0c2760d950f83adef39771ca9",
+    "prompts/report_prompt.txt": "00bafa80990db2874ce556944d49eeeda1db279f2154e22237e352b39135d758",
+    "rag/answer_policy.py": "49112ef58267593ab7f39c225c22cdf102d12f24a994307b91a131163ecd0111",
+    "rag/hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag/maintenance_answer.py": "13bf548fb98072fffdc93d29673b4e522ac739d30fb5851b9ef698907a6b524e",
+    "rag/qa_answer.py": "b91ea2ca48604f60d9268349fd8154bb0b8bab8ed114d39c58bb345712e4f0e6",
+    "rag/query_context.py": "bcb2270fe5a671a0c5910334bcab7b206f77cec49305ac32a9e88c95ecee9043",
+    "rag/rag_service.py": "015d807df1dcce7c3787dffe54b4e28dbf9bc58dac0f1c58a00592d8c1a45512",
+    "rag/relevance.py": "55e95e83793e8bd01fc057d626161c50513ff3e04632d9cd342ef2ba7af565f0",
+    "rag/security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag/vector_store.py": "d5a4edc4dbd83bc5a1db44a72c24c961b48083cb9b2351b84a4e43329d1ac30e",
+    "utils/config_hander.py": "1ebba94eb8d66621786dd2df622718185e8fe75b4cadb2eab77d2b3f5a9a94c6",
+    "utils/file_hander.py": "e2162672e1e90e49f901518b94ffdb15589b3362516f661da0226b3c06201362",
+    "utils/logger_hander.py": "52024a62c9d12e3cc2b485cbb892504c7b377cd5f195d6f6db0828106777e880",
+    "utils/model_output.py": "2acaa914049e9eebb52b40206ea25ee8cd0d79ca4397f6e4940a52e504cd4e9d",
+    "utils/path_tool.py": "8ca641563a2963b5cb5199f34466702aee93474ecfee59a122b483a110fd618b",
+    "utils/prompt_loader.py": "1a108319c30cdfb906b41517c5e8e664f7d4ef78f3991a1e5878a3d14ca880b6",
+    "utils/record_evidence.py": "8b17533f2799deead536e17f883d52dbc82675b34706d07e976547d2ac51a898",
+    "utils/records.py": "4276af1594f2633b1af591a22356c469a38ab5cdcedcf27b1e9e55e6cd32a205",
+    "utils/report_intent.py": "82fa37d1d59b3b257f0268a44f6ac163dcea5bc9abb85c48aa881a2aee02ca9e",
+    "utils/report_render.py": "16abf1ed9a11a1358d46e60dd54bbd5ac5c3de863aae4c2dab97ce332e615849"
+  },
+  "source_review_sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
+  "model_calls_before_review": 0,
+  "parser_calls_before_review": 0,
+  "step1_only": false,
+  "scoring_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+  "question_count": 24,
+  "agent_question_count": 24,
+  "changed_agent_ids": [
+    "IA002",
+    "IA005",
+    "IA008"
+  ],
+  "full_agent_static_validation": "passed_data_only_checks_and_independent_assistant_review",
+  "artifact_sha256": {
+    "AUTHOR_DECISIONS.json": "b462f2874630d6aad262e455914d04b2d3ed3327aff98e8fe80e12af48da5c16",
+    "cases.jsonl": "4371c1bb5355ba7fc33648c4ce0bc6ef5d38a2d771b96092a9df21f398a6c666",
+    "README.md": "a87b4e066eb7e03054b4c537826ddb7602ca268bacea804a8e88998a08b46633",
+    "SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+    "step3_checks.json": "19b307e4df30054b2a4cde5ebe0eec109789a6cdcf08e7f536c69cea1e614408",
+    "STEP3_REVIEW.md": "cf75fcec941bcecaed6df95d001edaad7768b2381377a6c479a13c2cd652810f",
+    "STEP3_SIMILARITY.md": "d6e063bc974590b8aac805ab064e4f14232f90235c249f648221cdf9974438bd"
+  },
+  "replaced_agent_ids": [
+    "IA002",
+    "IA005"
+  ],
+  "note_only_agent_ids": [
+    "IA008"
+  ],
+  "execution_baseline_commit": "3156bac",
+  "component_step2_commit": "45d65f0",
+  "component_step2_author_review": "passed",
+  "authoritative_checks": "step3_checks.json",
+  "inherited_generalization_scoring_sha256": "1ca051700d47f07a897fe98a8e3fd69aefa18adf8c3ae549391a979fec434a67",
+  "approval_basis": {
+    "author_approved": true,
+    "approval_date": "2026-10-13",
+    "approval_timezone": "Australia/Sydney",
+    "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+    "authority": "项目作者在当前会话直接批准r1全部题集并明确要求冻结。",
+    "review_document": {
+      "path": "docs/plans/P0_GOLD_REVIEW.md",
+      "sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
+      "method": "Claude协助逐条审核，项目作者确认审核意见和三步r1修订。"
+    },
+    "revision_commits": [
+      {
+        "step": 1,
+        "commit": "f14b964b5cf1f11d85dba1735d10700048fc9164",
+        "short_commit": "f14b964",
+        "subject": "test: intent r1 第一步，dev 4 题改写（作者已复核）"
+      },
+      {
+        "step": 2,
+        "commit": "45d65f0de48ac8a7b98ae6427fc4445d2d04f0b9",
+        "short_commit": "45d65f0",
+        "subject": "test: intent r1 第二步，替换 4 道不可达 test 题并补充 note"
+      },
+      {
+        "step": 3,
+        "commit": "a8a032510cf1d067b442f637d544d4042282337d",
+        "short_commit": "a8a0325",
+        "subject": "test: intent r1 第三步，替换 2 个与已见题同构的 Agent 任务"
+      }
+    ]
+  },
+  "formal_evaluation_datasets": [
+    "evaluation/intent_v1_r1",
+    "evaluation/intent_agent_v1_r1"
+  ],
+  "archived_excluded_datasets": [
+    "evaluation/intent_v1",
+    "evaluation/intent_agent_v1"
+  ],
+  "p1_p2_allowed_dataset_file": "evaluation/intent_v1_r1/dev.jsonl",
+  "freeze_manifest": "freeze_manifest.json",
+  "artifact_hash_policy": "artifact_sha256 excludes dataset_manifest.json and freeze_manifest.json to avoid circular hashes; freeze_manifest lists every other directory file, including dataset_manifest.json.",
+  "approval_status_authority": "dataset_manifest.json and AUTHOR_DECISIONS.json contain current approval; preceding revision review materials are historical snapshots preserved byte-for-byte.",
+  "step3_gold_review_status": "author_approved"
+}

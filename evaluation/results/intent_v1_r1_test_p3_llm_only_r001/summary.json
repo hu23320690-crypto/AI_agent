@@ -1,0 +1,258 @@
+{
+  "aggregate": {
+    "budget_skip_count": 0,
+    "budget_skip_rate": 0.0,
+    "conflict_counts": {
+      "field_not_in_catalog": 2
+    },
+    "exact_accuracy": 0.79,
+    "exact_count": 79,
+    "execution_failure_count": 0,
+    "execution_status_counts": {
+      "ok": 100
+    },
+    "extra_model_calls": 100,
+    "fallback_count": 0,
+    "fallback_rate": 0.0,
+    "latency_seconds": {
+      "all": {
+        "count": 100,
+        "missing_count": 0,
+        "p50": 1.259660800002166,
+        "p95": 1.4297764000002644
+      },
+      "successful": {
+        "count": 100,
+        "missing_count": 0,
+        "p50": 1.259660800002166,
+        "p95": 1.4297764000002644
+      }
+    },
+    "planned_count": 100,
+    "severity_counts": {
+      "dangerous": 15,
+      "other_error": 2,
+      "safe_fail": 3,
+      "wrong_scope": 1
+    },
+    "slot_accuracy": {
+      "compare": 1.0,
+      "comparison_month": 0.97,
+      "fields": 0.88,
+      "knowledge_requested": 1.0,
+      "requested_field_order": 0.86,
+      "scope": 0.99,
+      "target_month": 0.95,
+      "unknown_fields": 0.87,
+      "unresolved_month": 0.96
+    }
+  },
+  "execution_note": "Failed/skipped/invalid model attempts remain in every planned denominator.",
+  "latency_method": "nearest-rank ceil(p*n), wall-clock seconds",
+  "mode": "llm_only",
+  "repeat": 1,
+  "repeat_metrics": {
+    "budget_skip_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "budget_skip_rate": {
+      "mean": 0.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "dangerous": {
+      "mean": 15,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 15
+    },
+    "dangerous_count": {
+      "mean": 15,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 15
+    },
+    "exact_accuracy": {
+      "mean": 0.79,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.79
+    },
+    "execution_failure_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "extra_model_calls": {
+      "mean": 100,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 100
+    },
+    "fallback_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "fallback_rate": {
+      "mean": 0.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "latency_all_p50": {
+      "mean": 1.259660800002166,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.259660800002166
+    },
+    "latency_all_p95": {
+      "mean": 1.4297764000002644,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.4297764000002644
+    },
+    "latency_successful_p50": {
+      "mean": 1.259660800002166,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.259660800002166
+    },
+    "latency_successful_p95": {
+      "mean": 1.4297764000002644,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.4297764000002644
+    },
+    "other_error": {
+      "mean": 2,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 2
+    },
+    "safe_fail": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "slot_compare_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_comparison_month_accuracy": {
+      "mean": 0.97,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.97
+    },
+    "slot_fields_accuracy": {
+      "mean": 0.88,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.88
+    },
+    "slot_knowledge_requested_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_requested_field_order_accuracy": {
+      "mean": 0.86,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.86
+    },
+    "slot_scope_accuracy": {
+      "mean": 0.99,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.99
+    },
+    "slot_target_month_accuracy": {
+      "mean": 0.95,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.95
+    },
+    "slot_unknown_fields_accuracy": {
+      "mean": 0.87,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.87
+    },
+    "slot_unresolved_month_accuracy": {
+      "mean": 0.96,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.96
+    },
+    "wrong_scope": {
+      "mean": 1,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1
+    }
+  },
+  "repeats": [
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "field_not_in_catalog": 2
+      },
+      "exact_accuracy": 0.79,
+      "exact_count": 79,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 100
+      },
+      "extra_model_calls": 100,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 1.259660800002166,
+          "p95": 1.4297764000002644
+        },
+        "successful": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 1.259660800002166,
+          "p95": 1.4297764000002644
+        }
+      },
+      "planned_count": 100,
+      "repeat": 1,
+      "severity_counts": {
+        "dangerous": 15,
+        "other_error": 2,
+        "safe_fail": 3,
+        "wrong_scope": 1
+      },
+      "slot_accuracy": {
+        "compare": 1.0,
+        "comparison_month": 0.97,
+        "fields": 0.88,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.86,
+        "scope": 0.99,
+        "target_month": 0.95,
+        "unknown_fields": 0.87,
+        "unresolved_month": 0.96
+      }
+    }
+  ],
+  "split": "test"
+}

@@ -1,0 +1,6328 @@
+{
+  "stage": "P0_revision_step2",
+  "consolidated_record": "step2_checks.json",
+  "static_validation": {
+    "case_count": 140,
+    "dev_count": 40,
+    "test_count": 100,
+    "all_passed": true,
+    "failures": [],
+    "per_check_pass_counts": {
+      "gold_nine_slots": 140,
+      "boolean_types": 140,
+      "field_lists": 140,
+      "known_in_catalog": 140,
+      "unknown_disjoint_catalog": 140,
+      "requested_order_unique": 140,
+      "requested_order_union": 140,
+      "known_order_projection": 140,
+      "unknown_order_projection": 140,
+      "scope_consistency": 140,
+      "comparison_consistency": 140,
+      "unresolved_consistency": 140,
+      "month_format": 140,
+      "previous_month_format": 140,
+      "today_format": 140,
+      "history_limit": 140,
+      "aliases_only_IT085": 140,
+      "aliases_disjoint_catalog": 140
+    },
+    "test_category_counts": {
+      "field_rephrase": 20,
+      "qualifier_distractor": 10,
+      "unknown_field": 8,
+      "month_resolution": 16,
+      "comparison_roles": 14,
+      "negation_correction": 12,
+      "report_scope": 8,
+      "report_knowledge": 8,
+      "multi_turn_reference": 4
+    },
+    "expected_test_quotas": {
+      "field_rephrase": 20,
+      "qualifier_distractor": 10,
+      "unknown_field": 8,
+      "month_resolution": 16,
+      "comparison_roles": 14,
+      "negation_correction": 12,
+      "report_scope": 8,
+      "report_knowledge": 8,
+      "multi_turn_reference": 4
+    },
+    "dev_category_counts": {
+      "field_rephrase": 8,
+      "qualifier_distractor": 4,
+      "unknown_field": 3,
+      "month_resolution": 6,
+      "comparison_roles": 6,
+      "negation_correction": 5,
+      "report_scope": 3,
+      "report_knowledge": 3,
+      "multi_turn_reference": 2
+    },
+    "history_max_count": 1,
+    "history_max_utf8_bytes": 97,
+    "combined_split_bytes_identical": true,
+    "cases": [
+      {
+        "id": "ID001",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 28
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID002",
+        "split": "dev",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷更换",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 77
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID003",
+        "split": "dev",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID004",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 51
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID005",
+        "split": "dev",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱首次激活"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 26
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID006",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 22
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID007",
+        "split": "dev",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷寿命",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 120
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID008",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 29
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID009",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID010",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 13
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID011",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 79
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID012",
+        "split": "dev",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID013",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID014",
+        "split": "dev",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 46
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID015",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 28
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID016",
+        "split": "dev",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 44
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID017",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "避障成功率",
+          "主刷寿命",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 39
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID018",
+        "split": "dev",
+        "catalog": [
+          "跨楼层成功率",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 117
+          },
+          {
+            "month": "2026-01",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 39
+      },
+      {
+        "id": "ID019",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 18
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 37
+      },
+      {
+        "id": "ID020",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 52
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 46
+      },
+      {
+        "id": "ID021",
+        "split": "dev",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 44
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID022",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 102
+          },
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID023",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 98
+          },
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 88
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID024",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          },
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 18
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID025",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理",
+          "避障成功率",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 83
+          },
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 113
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 22
+      },
+      {
+        "id": "ID026",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 58
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID027",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 112
+          },
+          {
+            "month": "2026-01",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID028",
+        "split": "dev",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网更换"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 65
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID029",
+        "split": "dev",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网更换"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 60
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 30
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID030",
+        "split": "dev",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 46
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID031",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID032",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网",
+          "漏扫区域"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 22
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID033",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID034",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 22
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID035",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 51
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID036",
+        "split": "dev",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID037",
+        "split": "dev",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 46
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID038",
+        "split": "dev",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "ID039",
+        "split": "dev",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱首次激活",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 26
+          },
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 36
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 97
+      },
+      {
+        "id": "ID040",
+        "split": "dev",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷寿命",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 120
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 52
+      },
+      {
+        "id": "IT001",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-01",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 2
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT002",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 28
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT003",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 19
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT004",
+        "split": "test",
+        "catalog": [
+          "跨楼层成功率",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 117
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT005",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 73
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT006",
+        "split": "test",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 100
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT007",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 44
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT008",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 36
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT009",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 111
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT010",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 52
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT011",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 85
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT012",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷更换",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 67
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT013",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷更换",
+          "尘盒容量"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-01",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 4
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT014",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 29
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT015",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 78
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT016",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫尝试使用",
+          "电池衰减"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 16
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT017",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱首次激活"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 26
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT018",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 35
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT019",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 82
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT020",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障成功率",
+          "主刷寿命",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 119
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT021",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 12
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT022",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 38
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT023",
+        "split": "test",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 50
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT024",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 59
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT025",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 71
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT026",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷更换",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 77
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT027",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 85
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT028",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 93
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT029",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 102
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT030",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 116
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT031",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷更换",
+          "尘盒容量"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 14
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT032",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT033",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 69
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT034",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网更换"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 75
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT035",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "电池衰减"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-01",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 6
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT036",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 37
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT037",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 23
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT038",
+        "split": "test",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网更换"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 60
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT039",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱首次激活"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 86
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT040",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT041",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 107
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT042",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 98
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 28
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 48
+      },
+      {
+        "id": "IT043",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 12
+          },
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 52
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 48
+      },
+      {
+        "id": "IT044",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 69
+          },
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 79
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 42
+      },
+      {
+        "id": "IT045",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 111
+          },
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 101
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 45
+      },
+      {
+        "id": "IT046",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷更换",
+          "尘盒容量",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 54
+          },
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 44
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 39
+      },
+      {
+        "id": "IT047",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 78
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT048",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷寿命",
+          "尘盒清理",
+          "边刷磨损"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 43
+          },
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 53
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 51
+      },
+      {
+        "id": "IT049",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 112
+          },
+          {
+            "month": "2026-01",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 33
+      },
+      {
+        "id": "IT050",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-01",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 8
+          },
+          {
+            "month": "2024-12",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 51
+      },
+      {
+        "id": "IT051",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷寿命",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 115
+          },
+          {
+            "month": "2026-02",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 69
+      },
+      {
+        "id": "IT052",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 107
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT053",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 94
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT054",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "餐桌区域漏扫",
+          "避障成功率",
+          "主刷磨损",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 59
+          },
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 69
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 34
+      },
+      {
+        "id": "IT055",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网",
+          "漏扫区域"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          },
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 32
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT056",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 18
+          },
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 38
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT057",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命",
+          "滤网更换"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 25
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT058",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 96
+          },
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 66
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT059",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷更换",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 67
+          },
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 57
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 54
+      },
+      {
+        "id": "IT060",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理",
+          "胶刷更换",
+          "尘盒容量"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 44
+          },
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 14
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT061",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 118
+          },
+          {
+            "month": "2026-01",
+            "phase": "current",
+            "csv_found": false,
+            "csv_line": null
+          },
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 118
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT062",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 91
+          },
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 51
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT063",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网",
+          "漏扫区域"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          },
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 12
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT064",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 38
+          },
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 48
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 63
+      },
+      {
+        "id": "IT065",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障成功率",
+          "主刷寿命",
+          "水箱加水",
+          "餐桌区域漏扫",
+          "主刷磨损"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 99
+          },
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 69
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT066",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 33
+          },
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 43
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT067",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 33
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT068",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-01",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 11
+          },
+          {
+            "month": "2025-02",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 21
+          },
+          {
+            "month": "2025-01",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 11
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 57
+      },
+      {
+        "id": "IT069",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 82
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT070",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT071",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 88
+          },
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 78
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT072",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 44
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT073",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 96
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 56
+      },
+      {
+        "id": "IT074",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-06",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 58
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 28
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT075",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网",
+          "漏扫区域"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          },
+          {
+            "month": "2025-04",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 32
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT076",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 106
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT077",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 47
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT078",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-07",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 68
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT079",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 85
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 39
+      },
+      {
+        "id": "IT080",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网",
+          "漏扫区域"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 42
+          },
+          {
+            "month": "2025-03",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 22
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT081",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 92
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT082",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒容量"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 84
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT083",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 107
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 36
+      },
+      {
+        "id": "IT084",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 93
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 44
+      },
+      {
+        "id": "IT085",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 106
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT086",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 121
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT087",
+        "split": "test",
+        "catalog": [
+          "猫砂泼洒处理",
+          "自动回充成功率",
+          "主刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-05",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 45
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT088",
+        "split": "test",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 100
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 53
+      },
+      {
+        "id": "IT089",
+        "split": "test",
+        "catalog": [
+          "手动操作占比",
+          "定时清扫使用率",
+          "电池衰减",
+          "水箱使用率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 96
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT090",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 102
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT091",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 88
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT092",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 107
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT093",
+        "split": "test",
+        "catalog": [
+          "毛发清理",
+          "地毯增压使用",
+          "胶刷寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 94
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT094",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障失败",
+          "边刷磨损",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 83
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT095",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "避障成功率",
+          "主刷寿命",
+          "水箱加水"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 99
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 0,
+        "history_utf8_bytes": 0
+      },
+      {
+        "id": "IT096",
+        "split": "test",
+        "catalog": [
+          "宠物毛发清理",
+          "自动回充成功率",
+          "胶刷缠绕",
+          "滤网寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 110
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 78
+      },
+      {
+        "id": "IT097",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "漏扫区域",
+          "主刷寿命",
+          "HEPA滤网"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-10",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 92
+          },
+          {
+            "month": "2025-11",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 102
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 54
+      },
+      {
+        "id": "IT098",
+        "split": "test",
+        "catalog": [
+          "跨楼层失败",
+          "玩具避障率",
+          "边刷寿命",
+          "集尘袋消耗",
+          "跨楼层成功率"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-11",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 107
+          },
+          {
+            "month": "2025-12",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 117
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 75
+      },
+      {
+        "id": "IT099",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "日均清扫",
+          "滤网寿命",
+          "尘盒清理"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-09",
+            "phase": "history",
+            "csv_found": true,
+            "csv_line": 88
+          },
+          {
+            "month": "2025-10",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 98
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 44
+      },
+      {
+        "id": "IT100",
+        "split": "test",
+        "catalog": [
+          "覆盖率",
+          "手动辅助清扫",
+          "定时清扫使用率",
+          "电池衰减",
+          "边刷寿命"
+        ],
+        "lookup_sources": [
+          {
+            "month": "2025-08",
+            "phase": "current",
+            "csv_found": true,
+            "csv_line": 81
+          }
+        ],
+        "checks": {
+          "gold_nine_slots": true,
+          "boolean_types": true,
+          "field_lists": true,
+          "known_in_catalog": true,
+          "unknown_disjoint_catalog": true,
+          "requested_order_unique": true,
+          "requested_order_union": true,
+          "known_order_projection": true,
+          "unknown_order_projection": true,
+          "scope_consistency": true,
+          "comparison_consistency": true,
+          "unresolved_consistency": true,
+          "month_format": true,
+          "previous_month_format": true,
+          "today_format": true,
+          "history_limit": true,
+          "aliases_only_IT085": true,
+          "aliases_disjoint_catalog": true
+        },
+        "history_count": 1,
+        "history_utf8_bytes": 65
+      }
+    ],
+    "catalog_extraction_note": {
+      "colon_key_value_lines_only": true,
+      "non_colon_narrative_lines_generate_fields": false,
+      "basis": "Original P0 authoring publication_staging/intent_p0_common.py lines 15-24 and step1 build_step1.py both require len(parts)==2 after the first Chinese/English colon split; same original frozen catalog convention."
+    }
+  },
+  "byte_preservation": {
+    "dev_file": {
+      "bytes_identical": true,
+      "before_sha256": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
+      "after_sha256": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a"
+    },
+    "test_vs_execution_baseline": {
+      "baseline": "f14b964",
+      "examined": 96,
+      "entire_line_byte_identical": 95,
+      "entire_line_byte_identical_ids": [
+        "IT001",
+        "IT002",
+        "IT003",
+        "IT004",
+        "IT005",
+        "IT006",
+        "IT007",
+        "IT008",
+        "IT009",
+        "IT010",
+        "IT011",
+        "IT012",
+        "IT013",
+        "IT014",
+        "IT015",
+        "IT016",
+        "IT017",
+        "IT018",
+        "IT019",
+        "IT020",
+        "IT021",
+        "IT022",
+        "IT023",
+        "IT024",
+        "IT025",
+        "IT026",
+        "IT027",
+        "IT028",
+        "IT029",
+        "IT030",
+        "IT031",
+        "IT032",
+        "IT033",
+        "IT034",
+        "IT035",
+        "IT036",
+        "IT037",
+        "IT038",
+        "IT039",
+        "IT040",
+        "IT041",
+        "IT042",
+        "IT043",
+        "IT044",
+        "IT045",
+        "IT046",
+        "IT047",
+        "IT048",
+        "IT049",
+        "IT050",
+        "IT051",
+        "IT055",
+        "IT056",
+        "IT057",
+        "IT058",
+        "IT059",
+        "IT060",
+        "IT061",
+        "IT062",
+        "IT063",
+        "IT064",
+        "IT065",
+        "IT066",
+        "IT068",
+        "IT069",
+        "IT070",
+        "IT071",
+        "IT072",
+        "IT073",
+        "IT074",
+        "IT075",
+        "IT076",
+        "IT077",
+        "IT078",
+        "IT079",
+        "IT080",
+        "IT081",
+        "IT082",
+        "IT083",
+        "IT084",
+        "IT086",
+        "IT087",
+        "IT088",
+        "IT089",
+        "IT090",
+        "IT091",
+        "IT092",
+        "IT093",
+        "IT094",
+        "IT095",
+        "IT096",
+        "IT097",
+        "IT098",
+        "IT099",
+        "IT100"
+      ],
+      "entire_96_lines_byte_identical": false,
+      "authorized_exceptions": [
+        "IT085"
+      ],
+      "changed_top_level_raw_values": {
+        "IT085": [
+          "note",
+          "unknown_aliases"
+        ]
+      },
+      "protected_raw_values_byte_identical": 96,
+      "explanation": "整行字节一致不包括获授权的note/IT085 unknown_aliases改动；题面、上下文、gold九槽和requested_field_order全部96题原始JSON值逐字节一致。"
+    },
+    "test_vs_step1_and_original": {
+      "baseline": "frozen intent_v1; equivalent to step1 test bytes",
+      "examined": 96,
+      "entire_line_byte_identical": 92,
+      "entire_line_byte_identical_ids": [
+        "IT001",
+        "IT002",
+        "IT003",
+        "IT004",
+        "IT005",
+        "IT006",
+        "IT007",
+        "IT008",
+        "IT009",
+        "IT010",
+        "IT011",
+        "IT012",
+        "IT014",
+        "IT015",
+        "IT016",
+        "IT017",
+        "IT018",
+        "IT019",
+        "IT020",
+        "IT021",
+        "IT022",
+        "IT023",
+        "IT024",
+        "IT025",
+        "IT026",
+        "IT027",
+        "IT028",
+        "IT029",
+        "IT030",
+        "IT031",
+        "IT032",
+        "IT033",
+        "IT034",
+        "IT035",
+        "IT036",
+        "IT037",
+        "IT038",
+        "IT039",
+        "IT040",
+        "IT041",
+        "IT042",
+        "IT043",
+        "IT044",
+        "IT045",
+        "IT046",
+        "IT048",
+        "IT049",
+        "IT050",
+        "IT051",
+        "IT055",
+        "IT056",
+        "IT057",
+        "IT058",
+        "IT059",
+        "IT060",
+        "IT061",
+        "IT062",
+        "IT063",
+        "IT064",
+        "IT065",
+        "IT066",
+        "IT068",
+        "IT069",
+        "IT070",
+        "IT071",
+        "IT072",
+        "IT073",
+        "IT074",
+        "IT075",
+        "IT076",
+        "IT077",
+        "IT078",
+        "IT079",
+        "IT080",
+        "IT081",
+        "IT082",
+        "IT083",
+        "IT084",
+        "IT086",
+        "IT087",
+        "IT089",
+        "IT090",
+        "IT091",
+        "IT092",
+        "IT093",
+        "IT094",
+        "IT095",
+        "IT096",
+        "IT097",
+        "IT098",
+        "IT099",
+        "IT100"
+      ],
+      "entire_96_lines_byte_identical": false,
+      "authorized_exceptions": [
+        "IT013",
+        "IT047",
+        "IT085",
+        "IT088"
+      ],
+      "changed_top_level_raw_values": {
+        "IT013": [
+          "note"
+        ],
+        "IT047": [
+          "note"
+        ],
+        "IT085": [
+          "note",
+          "unknown_aliases"
+        ],
+        "IT088": [
+          "note"
+        ]
+      },
+      "protected_raw_values_byte_identical": 96,
+      "explanation": "整行字节一致不包括获授权的note/IT085 unknown_aliases改动；题面、上下文、gold九槽和requested_field_order全部96题原始JSON值逐字节一致。"
+    },
+    "protected_files": {
+      "evaluation/intent_v1/cases.jsonl": {
+        "before_sha256": "ce099e20a163f0a4b8a154e3366ebf2e3a35e7e5bc5972764bc7a9536c900760",
+        "after_sha256": "ce099e20a163f0a4b8a154e3366ebf2e3a35e7e5bc5972764bc7a9536c900760",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/construction_audit.json": {
+        "before_sha256": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+        "after_sha256": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/dataset_manifest.json": {
+        "before_sha256": "6beef11e1897bbf0fbaf7cbef59f3cbc85e46e219768e4ff36bb105d26328dcd",
+        "after_sha256": "6beef11e1897bbf0fbaf7cbef59f3cbc85e46e219768e4ff36bb105d26328dcd",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/dev.jsonl": {
+        "before_sha256": "de7dc828dc0a95c2bd8b8ad37995c354908b9228212ad036abd43a98f27a98f7",
+        "after_sha256": "de7dc828dc0a95c2bd8b8ad37995c354908b9228212ad036abd43a98f27a98f7",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/freeze_manifest.json": {
+        "before_sha256": "e331458df8bfd5fae72da05a2d452394261295c81a27b6f1fc2c00306d3edfd0",
+        "after_sha256": "e331458df8bfd5fae72da05a2d452394261295c81a27b6f1fc2c00306d3edfd0",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/README.md": {
+        "before_sha256": "dae1e895193eca9e8a5866c3e87eaac1cd0f685048b788399760cd93f6a0b7ae",
+        "after_sha256": "dae1e895193eca9e8a5866c3e87eaac1cd0f685048b788399760cd93f6a0b7ae",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/SCORING.md": {
+        "before_sha256": "e693b762a8550e06d76e91fe8f9b817415dad3bfe4734e671264b07489ecff1d",
+        "after_sha256": "e693b762a8550e06d76e91fe8f9b817415dad3bfe4734e671264b07489ecff1d",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/test.jsonl": {
+        "before_sha256": "bfabc5383916ece09973a50251d64c8c5c0177f0ef641bca446e5adc88ee6940",
+        "after_sha256": "bfabc5383916ece09973a50251d64c8c5c0177f0ef641bca446e5adc88ee6940",
+        "bytes_identical": true
+      },
+      "evaluation/intent_v1/TEST_GOLD_REVIEW.md": {
+        "before_sha256": "fa17674f048bd74ffe129b464edfb6914ae30491dee66757c546d44715a3f57d",
+        "after_sha256": "fa17674f048bd74ffe129b464edfb6914ae30491dee66757c546d44715a3f57d",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/cases.jsonl": {
+        "before_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+        "after_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/construction_audit.json": {
+        "before_sha256": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+        "after_sha256": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/dataset_manifest.json": {
+        "before_sha256": "508fd14567c9a4cf70e5dc701900b1ff42039113687bad1bf4bfb11cf0a5d58d",
+        "after_sha256": "508fd14567c9a4cf70e5dc701900b1ff42039113687bad1bf4bfb11cf0a5d58d",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/freeze_manifest.json": {
+        "before_sha256": "ec92ef7366281dc6869b1d5b3fff7deab547a60d59d1dc95b6160e8d8df613b5",
+        "after_sha256": "ec92ef7366281dc6869b1d5b3fff7deab547a60d59d1dc95b6160e8d8df613b5",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/README.md": {
+        "before_sha256": "3e1d9201e2e7e64a65372ea92cb9c3dba629081aca1182408ffc81c0a0d1c370",
+        "after_sha256": "3e1d9201e2e7e64a65372ea92cb9c3dba629081aca1182408ffc81c0a0d1c370",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/SCORING.md": {
+        "before_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+        "after_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1/TEST_GOLD_REVIEW.md": {
+        "before_sha256": "9294e784d4fb832619f19a22d9e32b0ec1dfd6582ccf445b48ac3f0ebbb84018",
+        "after_sha256": "9294e784d4fb832619f19a22d9e32b0ec1dfd6582ccf445b48ac3f0ebbb84018",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1_r1/cases.jsonl": {
+        "before_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+        "after_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1_r1/dataset_manifest.json": {
+        "before_sha256": "0f0a0e62b473b7fdf9571ff68bc25c729df92b863b7a7367a26aa12ccb545274",
+        "after_sha256": "0f0a0e62b473b7fdf9571ff68bc25c729df92b863b7a7367a26aa12ccb545274",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1_r1/README.md": {
+        "before_sha256": "a8ba7b14776b94940071f79d9fa7c8be653612c955229a22a670f96130dbba18",
+        "after_sha256": "a8ba7b14776b94940071f79d9fa7c8be653612c955229a22a670f96130dbba18",
+        "bytes_identical": true
+      },
+      "evaluation/intent_agent_v1_r1/SCORING.md": {
+        "before_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+        "after_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+        "bytes_identical": true
+      }
+    },
+    "original_first_step_fingerprints_unchanged": true,
+    "tracked_files_outside_intent_v1_r1_unchanged": true
+  },
+  "parser_calls": 0,
+  "model_calls": 0,
+  "independent_assistant_reviews": {
+    "static": {
+      "status": "passed",
+      "scope": "140 cases, CSV catalogs, nine slots, 4 replacement semantics, notes/aliases, 68 manifest hashes and byte-preservation evidence",
+      "parser_calls": 0,
+      "model_calls": 0
+    },
+    "similarity": {
+      "status": "passed",
+      "scope": "all before/after 4000 pairs and each replacement literal/masked top3 reproduced exactly; semantics and dev field/template overlap independently checked",
+      "parser_calls": 0,
+      "model_calls": 0
+    },
+    "expert_or_author_approval": false
+  }
+}

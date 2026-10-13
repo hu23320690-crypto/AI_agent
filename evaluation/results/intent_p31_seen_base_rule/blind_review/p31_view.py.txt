@@ -1,0 +1,23 @@
+import json
+import sys
+from pathlib import Path
+from p31_control import ROOT
+from p31_agents import rows, GROUPS
+
+name,start,end=sys.argv[1],int(sys.argv[2]),int(sys.argv[3])
+spec=next(s for s in GROUPS['C'] if s[0]==name)
+for sample in rows(ROOT/'evaluation/results'/f'{spec[2]}_blind/review_package.jsonl')[start-1:end]:
+    docs={}
+    def add(d,role):
+        key=(d['text'],d.get('metadata',{}).get('source_id'))
+        docs.setdefault(key,{'text':d['text'],'source':Path(d.get('metadata',{}).get('source','')).name,'source_id':key[1],'roles':[]})
+        if role not in docs[key]['roles']: docs[key]['roles'].append(role)
+    for r in sample['model_requests']:
+        for c in r.get('rag_contexts',[]):
+            for d in c['docs']: add(d,'actual_RAG_model_input')
+    for r in sample.get('rag_answers',[]):
+        for d in r['docs']: add(d,'program_answer_input')
+    print(json.dumps({'sample_id':sample['sample_id'],'case':{k:v for k,v in sample['case'].items() if k in ['id','category','user_id','city','turns','seed_history','fault_injection']},
+        'result_sha256':sample['result_sha256'],'execution_status':sample['execution_status'],'turn_execution_outcomes':sample['turn_execution_outcomes'],
+        'turns':[{k:t.get(k) for k in ['query','status','answer','tool_calls','tool_results','tool_selection']} for t in sample['turns']],
+        'evidence_docs':list(docs.values())},ensure_ascii=False))

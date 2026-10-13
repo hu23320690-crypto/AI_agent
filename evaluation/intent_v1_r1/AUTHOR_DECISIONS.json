@@ -1,0 +1,97 @@
+{
+  "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+  "author_confirmed_recommended_revision_choices": true,
+  "evidence": "作者于2026-10-13在当前会话批准r1全部题集并要求冻结；批准依据为P0_GOLD_REVIEW及f14b964、45d65f0、a8a0325三步修订。",
+  "approved_scope_this_turn": "P0最后一步：冻结r1两个完整题集，记录作者批准；不执行P1或评测。",
+  "revised_gold_approval": "author_approved",
+  "freeze_authorization": "author_approved",
+  "next_steps_status": {
+    "component_test_replacements_and_notes": "author_approved",
+    "agent_replacements_and_notes": "author_approved"
+  },
+  "step2_execution_authorized": true,
+  "step2_scope": {
+    "replacements": [
+      "IT052",
+      "IT053",
+      "IT054",
+      "IT067"
+    ],
+    "note_only": [
+      "IT013",
+      "IT047",
+      "IT085",
+      "IT088"
+    ],
+    "unknown_aliases": {
+      "IT085": [
+        "每日耗水量"
+      ]
+    },
+    "scoring_rule": "未知字段在去除空白后，与题面原词或该题 unknown_aliases 中列出的等价写法一致即可",
+    "gold_approval": "author_approved",
+    "dev_changes": false,
+    "agent_changes": false
+  },
+  "step1_gold_approval": "author_approved",
+  "execution_baseline_commit": "f14b964",
+  "constraint_interpretations": [
+    {
+      "requirement": "用户、字段和句式不与任何dev题重复",
+      "literal_unique_user_possible": false,
+      "reason": "CSV全部10个受信用户均已出现在dev，禁止造用户或改CSV。",
+      "applied_interpretation": "采用新的用户+字段组合；全部4个字段在dev题面、history、previous及gold均零提及；句式不复刻dev。"
+    },
+    {
+      "requirement": "其余96题逐字节一致",
+      "literal_full_line_equality": false,
+      "reason": "本轮要求修改4条note并增加IT085 unknown_aliases，整行不能同时字节一致。",
+      "applied_check": "相对执行基线95/96整行一致，仅IT085获授权note/alias有差异；相对第一步原test92/96整行一致，仅4条note及IT085 alias有差异。其余96题受保护JSON值全部逐字节一致。"
+    }
+  ],
+  "author_approval": {
+    "author_approved": true,
+    "approval_date": "2026-10-13",
+    "approval_timezone": "Australia/Sydney",
+    "recorded_at_utc": "2026-10-13T00:40:00.515089+00:00",
+    "authority": "项目作者在当前会话直接批准r1全部题集并明确要求冻结。",
+    "review_document": {
+      "path": "docs/plans/P0_GOLD_REVIEW.md",
+      "sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
+      "method": "Claude协助逐条审核，项目作者确认审核意见和三步r1修订。"
+    },
+    "revision_commits": [
+      {
+        "step": 1,
+        "commit": "f14b964b5cf1f11d85dba1735d10700048fc9164",
+        "short_commit": "f14b964",
+        "subject": "test: intent r1 第一步，dev 4 题改写（作者已复核）"
+      },
+      {
+        "step": 2,
+        "commit": "45d65f0de48ac8a7b98ae6427fc4445d2d04f0b9",
+        "short_commit": "45d65f0",
+        "subject": "test: intent r1 第二步，替换 4 道不可达 test 题并补充 note"
+      },
+      {
+        "step": 3,
+        "commit": "a8a032510cf1d067b442f637d544d4042282337d",
+        "short_commit": "a8a0325",
+        "subject": "test: intent r1 第三步，替换 2 个与已见题同构的 Agent 任务"
+      }
+    ]
+  },
+  "formal_evaluation_datasets": [
+    "evaluation/intent_v1_r1",
+    "evaluation/intent_agent_v1_r1"
+  ],
+  "archived_excluded_datasets": [
+    "evaluation/intent_v1",
+    "evaluation/intent_agent_v1"
+  ],
+  "original_datasets_retained_as_archive": true,
+  "p1_p2_allowed_dataset_file": "evaluation/intent_v1_r1/dev.jsonl",
+  "all_revision_steps_author_approved": true,
+  "next_stage_execution_authorized": false,
+  "next_stage_execution_instruction": "本轮提交后停止；P1/P2只允许读取dev，具体实施等待新的用户指令。"
+}

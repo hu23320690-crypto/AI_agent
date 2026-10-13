@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-10-13T23:23:02.895201+11:00",
+  "runtime_commit": "95a1d476992a1999cadd75aea15c9e656a43262f",
+  "gold_sha256_equal_d61a06a": {
+    "evaluation/intent_v1_r1/dev.jsonl": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
+    "evaluation/intent_v1_r1/test.jsonl": "45ca70096687b54386a74216032694ed1984f44d8db74cfd64b6d1ae84f3c94c",
+    "evaluation/cases.jsonl": "bbc5fabf42ce501372f84db17c236cbf749ddfd8dc6990b463581c8d4ed90be6",
+    "evaluation/generalization_v1/cases.jsonl": "7308f8f52bbf3320b450848687a104baeabcfeb358f02b393bf13d202966a619",
+    "evaluation/holdout_v2/cases.jsonl": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9"
+  },
+  "P3_archives_and_scores_unchanged": true,
+  "blind_scores_fixed_before_reveal": true,
+  "default_mode": "rule",
+  "pushed": false,
+  "registered_runs": [
+    {
+      "run": "intent_v1_r1_dev_p31_rule",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_v1_r1_dev_p31_llm_only",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_v1_r1_dev_p31_hybrid",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_base_rule",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_base_hybrid",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_generalization_v1_rule",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_generalization_v1_hybrid",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_holdout_v2_rule",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "intent_p31_seen_holdout_v2_hybrid",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    },
+    {
+      "run": "已见 test 回归（P3 后修复版），不作为未见成绩_p31_hybrid",
+      "seal_verified": true,
+      "runtime_files_equal_registered_commit": 71
+    }
+  ]
+}

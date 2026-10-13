@@ -1,0 +1,300 @@
+from collections import Counter
+from pathlib import Path
+import json
+import statistics
+import sys
+from unittest.mock import patch
+from p3_control import ROOT, dump, sha
+from p3_agents import rows, jsonl, GROUPS
+
+def agent_metrics(group):
+    from evaluation.intent_eval import nearest_rank
+    totals={}
+    for name,dataset,prefix,seed in GROUPS[group]:
+        totals[name]={}
+        for mode in ['rule','hybrid']:
+            run=ROOT/'evaluation/results'/f'{prefix}_{mode}'
+            cases={c['id']:c for c in rows(run/'cases.jsonl')}
+            reviews={r['id']:r for r in rows(run/'reviews.jsonl')}
+            raw=rows(run/'results.jsonl')
+            turn_rows=[]
+            for result in raw:
+                case=cases[result['id']]
+                for index,expected in enumerate(case['turns']):
+                    turn=result.get('turns',[])[index] if index<len(result.get('turns',[])) else {}
+                    review=reviews[result['id']]['turn_reviews'][index]
+                    events=(turn.get('runtime') or {}).get('events',[])
+                    intent=[e for e in events if e['event']=='intent_resolved']
+                    required=expected.get('required_tools',[])
+                    report=bool(expected.get('gold_intent')) or 'fetch_external_data' in required or bool(intent)
+                    turn_rows.append({'id':result['id'],'turn_index':index+1,'query':expected['query'],
+                        'answer_score':review['answer_score'],'grounded':review['grounded'],'note':review['note'],
+                        'task_pass':reviews[result['id']]['task_pass'],'status':turn.get('status','not_run'),
+                        'tool_selection':turn.get('tool_selection'),'report_turn':report,
+                        'intent_latency_ms':intent[-1]['latency_ms'] if intent else None,
+                        'intent_mode':intent[-1]['mode'] if intent else None,
+                        'intent_extra_model_calls':sum(e['event']=='call_started' and e.get('kind')=='model' and e.get('name')=='agent.intent' for e in events),
+                        'intent_budget_skip':int(bool(intent and intent[-1].get('fallback_reason') in ['model_budget','time_budget','context_budget'])),
+                        'intent_fallback_reason':intent[-1].get('fallback_reason') if intent else None,
+                        'intent_conflicts':intent[-1].get('conflicts',[]) if intent else [],
+                        'result_sha256':reviews[result['id']]['result_sha256']})
+            jsonl(run/'p3_turn_metrics.jsonl',turn_rows)
+            report_rows=[t for t in turn_rows if t['report_turn']]
+            latencies=[t['intent_latency_ms']/1000 for t in report_rows if t['intent_latency_ms'] is not None]
+            totals[name][mode]={'planned_tasks':len(cases),'planned_turns':len(turn_rows),
+                'whole_task_pass':sum(r['task_pass'] for r in reviews.values()),
+                'content_score_counts':{str(s):sum(t['answer_score']==s for t in turn_rows) for s in [0,1,2]},
+                'faithful_turns':sum(t['grounded'] for t in turn_rows),
+                'report_turns':len(report_rows),'intent_observed_turns':len(latencies),
+                'intent_latency_p50_seconds':nearest_rank(latencies,.50),'intent_latency_p95_seconds':nearest_rank(latencies,.95),
+                'extra_intent_model_calls':sum(t['intent_extra_model_calls'] for t in turn_rows),
+                'budget_skips':sum(t['intent_budget_skip'] for t in turn_rows),
+                'rows':turn_rows,'evidence':str(run.relative_to(ROOT))}
+        before={ (t['id'],t['turn_index']):t for t in totals[name]['rule']['rows']}
+        increments=[]
+        for t in totals[name]['hybrid']['rows']:
+            b=before[(t['id'],t['turn_index'])]
+            if t['intent_latency_ms'] is not None and b['intent_latency_ms'] is not None:
+                increments.append((t['intent_latency_ms']-b['intent_latency_ms'])/1000)
+        paired=json.loads((ROOT/'evaluation/results'/f'{prefix}_blind/paired_summary.json').read_text(encoding='utf-8'))
+        totals[name]['paired']=paired
+        totals[name]['paired_intent_latency_increment']={'count':len(increments),'p50_seconds':nearest_rank(increments,.50),'p95_seconds':nearest_rank(increments,.95)}
+    dest=ROOT/'evaluation/results'/f'intent_p3_{group}_analysis'
+    dest.mkdir(exist_ok=True)
+    dump(dest/'summary.json',totals)
+    return totals
+
+def review_view(group,name,start,end):
+    spec=next(s for s in GROUPS[group] if s[0]==name)
+    package=rows(ROOT/'evaluation/results'/f'{spec[2]}_blind/review_package.jsonl')
+    for sample in package[start-1:end]:
+        print(json.dumps({'sample_id':sample['sample_id'],'case':sample['case'],'result_sha256':sample['result_sha256'],
+            'execution_status':sample['execution_status'],'turn_execution_outcomes':sample['turn_execution_outcomes'],
+            'turns':sample['turns'],'tool_results':sample['tool_results'],'rag_answers':sample.get('rag_answers'),
+            'rag_input_contexts':[r.get('rag_contexts') for r in sample['model_requests']]},ensure_ascii=False))
+
+def phase_report(group):
+    summary=json.loads((ROOT/f'evaluation/results/intent_p3_{group}_analysis/summary.json').read_text(encoding='utf-8'))
+    label='B：Agent test' if group=='B' else 'C：已见题回归'
+    lines=[f'# P3 {label}','',
+        '按冻结合同逐轮评内容0/1/2和忠实度；任务通过另要求全轮完整、内容2、忠实度真。标签及 Runtime 成本信息隐藏，样本按运行前登记种子打乱。评分完成并锁定 SHA256 后才使用揭盲键。每条评分绑定原始 result_sha256。此为 Codex 助手辅助盲评，不是独立专家审核。',
+        '', '| 数据集/模式 | 全轮通过 | 内容0/1/2 | 忠实轮数 | 报告轮/解析观测 | 解析p50/p95秒 | 额外意图调用 | 预算跳过 |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']:
+            m=s[mode]; c=m['content_score_counts']; p50=m['intent_latency_p50_seconds']; p95=m['intent_latency_p95_seconds']
+            fmt=lambda x:f'{x:.4f}' if x is not None else '缺测'
+            lines.append(f"| {name}/{mode} | {m['whole_task_pass']}/{m['planned_tasks']} | {c['0']}/{c['1']}/{c['2']} | {m['faithful_turns']}/{m['planned_turns']} | {m['report_turns']}/{m['intent_observed_turns']} | {fmt(p50)}/{fmt(p95)} | {m['extra_intent_model_calls']} | {m['budget_skips']} |")
+    lines+=['','| 数据集 | 进步 | 退步 | 共同通过 | 共同失败 | 未知 | 配对新增解析p95秒/观测轮 |','|---|---:|---:|---:|---:|---:|---:|']
+    for name,s in summary.items():
+        p=s['paired']; l=s['paired_intent_latency_increment']; p95=l['p95_seconds']
+        lines.append(f"| {name} | {p['improved']} | {p['regressed']} | {p['stable_pass']} | {p['stable_fail']} | {p['unknown']} | {p95 if p95 is not None else '缺测'}/{l['count']} |")
+    lines+=['','## 逐轮评分和成本','',
+        '表内内容分/忠实度按真实轮次顺序。逐轮完整理由、工具选择、意图冲突、预算跳过及 result_sha256 保留于各运行目录的 `reviews.jsonl` 和 `p3_turn_metrics.jsonl`。尚未执行或截断的轮次也有评分，不从任务分母删除。',
+        '', '| 数据集/模式/任务 | 逐轮 内容分/忠实度 | 全轮通过 |','|---|---|---|']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']:
+            grouped={}
+            for t in s[mode]['rows']: grouped.setdefault(t['id'],[]).append(t)
+            for case,ts in grouped.items(): lines.append(f"| {name}/{mode}/{case} | "+'; '.join(f"T{t['turn_index']}={t['answer_score']}/{'真' if t['grounded'] else '假'}" for t in ts)+f" | {ts[0]['task_pass']} |")
+    lines+=['','证据目录：']
+    for name,s in summary.items():
+        for mode in ['rule','hybrid']: lines.append(f"- {name}/{mode}: `{s[mode]['evidence']}`（已封存）。")
+    if group=='C': lines+=['','知识与资料不足非Agent题在运行前依据代码路径证明决定不重跑：`evaluation/results/intent_p3_preflight/non_report_path_proof.json` 和 `production_diff.patch`。本节只用于检查退步，不能作为未见泛化证据。']
+    (ROOT/f'evaluation/INTENT_P3_{group}.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    print(json.dumps({n:{m:{k:s[m][k] for k in ['whole_task_pass','planned_tasks','planned_turns','faithful_turns']} for m in ['rule','hybrid']} for n,s in summary.items()},ensure_ascii=False))
+
+def final_report():
+    from evaluation.intent_eval import nearest_rank
+    from p3_control import git, runtime_check
+    runtime_check()
+    A=json.loads((ROOT/'evaluation/results/intent_p3_A_analysis/summary.json').read_text(encoding='utf-8'))
+    B=json.loads((ROOT/'evaluation/results/intent_p3_B_analysis/summary.json').read_text(encoding='utf-8'))['intent_agent_v1_r1']
+    C=json.loads((ROOT/'evaluation/results/intent_p3_C_analysis/summary.json').read_text(encoding='utf-8'))
+    base={r['case_id']:r for r in rows(ROOT/'evaluation/results/intent_v1_r1_test_p3_rule_r001/results.jsonl')}
+    component_increments=[]
+    for idx in range(1,4):
+        h=rows(ROOT/f'evaluation/results/intent_v1_r1_test_p3_hybrid_r{idx:03d}/results.jsonl')
+        differences=[r['wall_seconds']-base[r['case_id']]['wall_seconds'] for r in h]
+        component_increments.append({'repeat':f'r{idx:03d}','count':len(differences),'p95_seconds':nearest_rank(differences,.95)})
+    all_increment_p95=[v['p95_seconds'] for v in component_increments]
+    all_increment_p95+=[s['paired_intent_latency_increment']['p95_seconds'] for s in [B,*C.values()] if s['paired_intent_latency_increment']['p95_seconds'] is not None]
+    skip_count=sum(r['budget_skip_count'] for r in A['hybrid']['runs'])+sum(s['hybrid']['budget_skips'] for s in [B,*C.values()])
+    report_count=300+sum(s['hybrid']['report_turns'] for s in [B,*C.values()])
+    max_skip_rate=max([r['budget_skip_rate'] for r in A['hybrid']['runs']]+[s['hybrid']['budget_skips']/s['hybrid']['report_turns'] if s['hybrid']['report_turns'] else 0 for s in [B,*C.values()]])
+    offline=(ROOT/'evaluation/results/intent_p3_preflight/offline_tests_workspace_temp.txt').read_text(encoding='utf-8')
+    gates={
+        'G1':{'passed':'669 passed, 3 skipped, 291 subtests passed' in offline,'numbers':'原有测试669 passed、291 subtests passed、3项符号链接权限跳过；main测试文件均未改动。','evidence':'evaluation/results/intent_p3_preflight/offline_tests_workspace_temp.txt'},
+        'G2':{'passed':A['hybrid']['worst_exact_accuracy']-A['rule']['worst_exact_accuracy']>=.10,'numbers':f"hybrid最差{A['hybrid']['worst_exact_accuracy']:.1%}，rule {A['rule']['worst_exact_accuracy']:.1%}，增加{(A['hybrid']['worst_exact_accuracy']-A['rule']['worst_exact_accuracy'])*100:.1f}个百分点（要求≥10）。",'evidence':'evaluation/results/intent_p3_A_analysis/summary.json'},
+        'G3':{'passed':A['hybrid']['worst_dangerous']<=A['rule']['worst_dangerous'],'numbers':f"hybrid最大危险错误{A['hybrid']['worst_dangerous']}/100，rule {A['rule']['worst_dangerous']}/100。",'evidence':'evaluation/results/intent_p3_A_analysis/summary.json'},
+        'G4':{'passed':B['hybrid']['whole_task_pass']>=B['rule']['whole_task_pass'] and B['paired']['improved']>B['paired']['regressed'],'numbers':f"rule {B['rule']['whole_task_pass']}/12，hybrid {B['hybrid']['whole_task_pass']}/12；进步{B['paired']['improved']}，退步{B['paired']['regressed']}，未知{B['paired']['unknown']}。",'evidence':'evaluation/results/intent_agent_v1_r1_test_p3_blind/paired_summary.json'},
+        'G5':{'passed':all(s['hybrid']['whole_task_pass']>=s['rule']['whole_task_pass'] for s in C.values()),'numbers':'知识/资料不足路径相对main无变化，运行前决定不重跑，以代码路径等价证明作为本次准入依据；未声称观察到新推理的准确率变化。Agent '+ '；'.join(f"{n}: rule {s['rule']['whole_task_pass']}/{s['rule']['planned_tasks']}，hybrid {s['hybrid']['whole_task_pass']}/{s['hybrid']['planned_tasks']}" for n,s in C.items())+'。','evidence':'evaluation/results/intent_p3_preflight/non_report_path_proof.json；evaluation/results/intent_p3_C_analysis/summary.json'},
+        'G6':{'passed':max(all_increment_p95)<=10 and max_skip_rate<=.05,'numbers':f"各批次配对新增解析延迟p95最大{max(all_increment_p95):.4f}秒（≤10）；hybrid预算跳过合计{skip_count}/{report_count}，任一批次最大跳过率{max_skip_rate:.1%}（≤5%）。",'evidence':'evaluation/results/intent_p3_gate_metrics.json；各Agent运行p3_turn_metrics.jsonl'}}
+    dump(ROOT/'evaluation/results/intent_p3_gate_metrics.json',{'gates':gates,'component_paired_latency_increments':component_increments,
+        'max_paired_latency_p95_seconds':max(all_increment_p95),'hybrid_budget_skips':skip_count,'planned_hybrid_report_turns':report_count,
+        'max_budget_skip_rate':max_skip_rate,'agent_latency_note':'Only actually observed same-turn parser intervals are paired. Unreached parser paths are marked missing in per-turn metrics; they are not assigned an invented zero delay. This is parser overhead, not a causal estimate of full-Agent wall time.'})
+    commits=git('log','-8','--format=%H %s').decode('utf-8').splitlines()
+    p3commits=[v for v in commits if 'P3 A' in v or 'P3 B' in v or 'P3 C' in v]
+    lines=['# LLM Intent P3 正式评测报告','',
+        '日期：2026-10-13（Australia/Sydney）。按作者批准的 A/B/C 批次运行，唯一运行时版本为 `c105253026453bb203aab1186d68aae0bb10acd3`。默认模式仍为 `rule`；实现、提示词、模型采样、工具与预算均未修改；未 push。',
+        '', '**准入结论：** '+('G1–G6全部满足。' if all(g['passed'] for g in gates.values()) else '未满足全部G1–G6；'+ '、'.join(k for k,g in gates.items() if not g['passed'])+'未通过。')+' 本阶段遵照作者指令不切换默认模式。',
+        '', '## 运行与评分合同','',
+        '已核对计划顶部修订记录、第5节/5.6节、第6节、两份r1 SCORING及其generalization引用、INTENT_EVAL与INTENT_DEV_LOG。引用[评分合同补充说明01](../docs/plans/SCORING_AMENDMENT_01.md)；test/Agent冻结gold不变。原SCORING里的待审核措辞为历史状态，冻结manifest及本次作者批准已确认准入。',
+        '', '运行前及每次运行后将所有运行时文件（含evaluation运行器/评分代码）逐字节与Git冻结blob核对，共71文件；无不一致。每个manifest的`p3_runtime_byte_sha256`保存完整SHA256，`p3_runtime_version`保存c105253。源CSV、知识资料、tokenizer缓存、依赖、模式及模型身份另由原运行器记录。生成的Chroma索引与Python缓存不是版本化运行时源代码。',
+        '', '`doctor`通过152检查；qwen3:4b digest=`359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`。首个doctor因沙箱网络权限失败，获本机网络权限后通过；无正式推理已在失败检查时启动。离线检查首次遇到沙箱Temp写权限问题，原日志保留；使用授权工作区临时目录后原669测试通过。',
+        '', '全部推理串行、每次新目录；A使用独立`--repeat 1`目录，预登记的r001/r002/r003身份写入manifest（原始记录内部编号保持r001，不重写结果）。LLM temperature=0、reasoning=False、JSON Schema、num_predict上限384，未显式设seed，沿用冻结工厂。所有失败/超时/未执行/未复核留在原分母，未重跑或挑选最佳题。完成评分与导出后用原seal脚本封存并verify。',
+        '', 'B/C评审包在输出后去掉模式标签及成本事件、打乱完整任务样本；只向评审暴露题目、答案、工具、实际知识输入及哈希。全部逐轮评分含理由，先保存评分并锁定其SHA256，再读取揭盲键。盲评是Codex助手辅助标签隐藏复核；不是独立真人或领域专家盲评。',
+        '', '## A：组件test（主要证据）','',
+        '| 模式 | 各次完全正确/100 | 均值/最差准确率 | 各次危险错误 | 最大危险错误 |','|---|---|---:|---|---:|']
+    for mode,s in A.items(): lines.append(f"| {mode} | "+'/'.join(str(r['exact_count']) for r in s['runs'])+f" | {s['mean_exact_accuracy']:.1%}/{s['worst_exact_accuracy']:.1%} | "+'/'.join(str(r['severity_counts']['dangerous']) for r in s['runs'])+f" | {s['worst_dangerous']} |")
+    lines+=['','完整分槽位、错误分级、回退率、冲突码、p50/p95（全部及成功状态）、逐题拦截与校验致错见[A结果表](INTENT_P3_A.md)及`evaluation/results/intent_p3_A_analysis/`。每次100题，共700条。']
+    lines+=['','## B：Agent test','', '| 模式 | 全轮通过/12 | 内容0/1/2（24轮） | 忠实轮/24 |','|---|---:|---:|---:|']
+    for mode in ['rule','hybrid']:
+        m=B[mode]; c=m['content_score_counts']; lines.append(f"| {mode} | {m['whole_task_pass']}/12 | {c['0']}/{c['1']}/{c['2']} | {m['faithful_turns']}/24 |")
+    p=B['paired']; lines+=['',f"同题对照：进步{p['improved']}，退步{p['regressed']}，共同通过{p['stable_pass']}，共同失败{p['stable_fail']}，未知{p['unknown']}。逐轮评分、完整理由、工具选择和每个报告轮成本见[B结果表](INTENT_P3_B.md)与各运行reviews.jsonl/p3_turn_metrics.jsonl。"]
+    lines+=['','## C：已见题回归','',
+        '先完成并保存[代码路径证明](results/intent_p3_preflight/non_report_path_proof.json)：除报告分支及必要导入外ReactAgent AST一致；既有agent/rag模型工厂路径AST一致；既有Runtime AST一致（只新增只读预算查询）；utils/rag、安全、工具、已有提示配置逐字节未变。原main测试文件未改动。证明成立，因此知识与资料不足非Agent题不重跑；这是正式推理前决定的简化。',
+        '', '| 数据集 | rule全轮通过 | hybrid全轮通过 | 进步/退步/共同通过/共同失败/未知 |','|---|---:|---:|---|']
+    for name,s in C.items():
+        p=s['paired']; lines.append(f"| {name} | {s['rule']['whole_task_pass']}/{s['rule']['planned_tasks']} | {s['hybrid']['whole_task_pass']}/{s['hybrid']['planned_tasks']} | {p['improved']}/{p['regressed']}/{p['stable_pass']}/{p['stable_fail']}/{p['unknown']} |")
+    lines+=['','逐轮内容、忠实度和解析成本见[C结果表](INTENT_P3_C.md)。三个完整冻结输入均保留；seal中的cases.jsonl只是运行前选定Agent阶段的显式计划，并用input_dataset_sha256绑定原输入。已见题只能检查退步，不算未见效果证据。',
+        '', '## G1–G6逐项判定','', '| 标准 | 通过 | 数字与理由 | 证据 |','|---|---|---|---|']
+    for key,g in gates.items(): lines.append(f"| {key} | {'是' if g['passed'] else '否'} | {g['numbers']} | `{g['evidence']}` |")
+    lines+=['','延迟使用nearest-rank。A为同题selector墙钟增量，B/C为trace实测意图解析增量；完整Agent模型/检索耗时会受规划波动影响，未将其声称为解析器的因果增量。没有实际进入解析的报告轮单列缺测，不虚构零值。',
+        '', '## 典型成功与失败（各3个）','', '以下固定引用hybrid r001原始输出作示例，均保留在100题主分母；示例不替代全部失败清单。']
+    examples=json.loads((ROOT/'evaluation/results/intent_p3_A_analysis/examples.json').read_text(encoding='utf-8'))
+    for e in examples:
+        lines+=['',f"### {e['label']}：{e['case_id']}",'',f"原文：{e['query']}"]
+        if e.get('history'): lines+=['', '历史用户原话：'+json.dumps(e['history'],ensure_ascii=False)]
+        lines+=['', '最终意图：','', '```json',json.dumps(e['final_intent'],ensure_ascii=False,indent=2),'```','',e['note'],
+            '', f"冲突码：`{', '.join(e['conflicts']) or '无'}`。原始证据：`{e['evidence']}`，result_sha256=`{e['result_sha256']}`。"]
+    lines+=['','## 局限性','',
+        '只有同一演示CSV/知识域、一个4B模型digest；组件100题、Agent12任务，不构成跨域或生产可靠性证明。冻结题由助手团队参与编制，作者批准gold；“未见”只指未用于实现、dev调优或结果筛选。三次组件重复反映这一固定配置的稳定性；Agent每模式只有一次，任务差异仍可能包含模型规划、检索和多轮历史波动。',
+        '', '确定性校验只能证伪目录、锚定、日期证据、算术和否定等事实，不能保证完整理解角色、顺序或遗漏。实际修正和保守校验造成的退步均如实列出。相对月份锚点合同修订不修改test gold。代码路径证明支持本次不重跑非Agent知识/资料不足题的范围决定，不是对新一轮随机生成分数的实测。',
+        '', '封存是SHA256清单与结构校验，不是防篡改签名。所有评分为助手依据真实证据复核，尚非独立领域专家审核。',
+        '', '## 提交与路径','',
+        '仓库报告路径：`C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\evaluation\\INTENT_P3_REPORT.md`。A/B分别独立提交；C和最终报告在本报告所在提交中完成。']
+    lines+=['- '+v for v in reversed(p3commits)]
+    (ROOT/'evaluation/INTENT_P3_REPORT.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    print(json.dumps({'gates':{k:v['passed'] for k,v in gates.items()},'max_increment_p95':max(all_increment_p95),'skips':skip_count,'report_turns':report_count},ensure_ascii=False))
+
+def component_summary():
+    from evaluation.intent_eval import build_case_inputs,adapt_result,score_case,_case_gold
+    from agent.intent.schema import IntentProposal
+    from agent.intent.resolve import resolve_turn_intent
+    from agent.runtime import RunContext
+    from utils.records import load_records
+    from scripts.seal_evaluation_run import seal_run,result_sha256
+    dest=ROOT/'evaluation/results/intent_p3_A_analysis'
+    dest.mkdir(exist_ok=False)
+    casepath=ROOT/'evaluation/intent_v1_r1/test.jsonl'
+    cases={c['id']:c for c in rows(casepath)}
+    records=load_records(str(ROOT/'data/external/records.csv'))
+    mode_summaries={}
+    results={}
+    for mode,count in [('rule',1),('llm_only',3),('hybrid',3)]:
+        summaries=[]
+        for idx in range(1,count+1):
+            run=ROOT/'evaluation/results'/f'intent_v1_r1_test_p3_{mode}_r{idx:03d}'
+            seal_run(run,verify=True)
+            summary=json.loads((run/'summary.json').read_text(encoding='utf-8'))['aggregate']
+            summaries.append({'repeat':f'r{idx:03d}','evidence':str(run.relative_to(ROOT)),**summary})
+            results[(mode,idx)]={r['case_id']:r for r in rows(run/'results.jsonl')}
+        mode_summaries[mode]={'runs':summaries,
+            'mean_exact_accuracy':statistics.mean(s['exact_accuracy'] for s in summaries),
+            'worst_exact_accuracy':min(s['exact_accuracy'] for s in summaries),
+            'mean_dangerous':statistics.mean(s['severity_counts']['dangerous'] for s in summaries),
+            'worst_dangerous':max(s['severity_counts']['dangerous'] for s in summaries),
+            'mean_slot_accuracy':{k:statistics.mean(s['slot_accuracy'][k] for s in summaries) for k in summaries[0]['slot_accuracy']},
+            'worst_slot_accuracy':{k:min(s['slot_accuracy'][k] for s in summaries) for k in summaries[0]['slot_accuracy']},
+            'all_conflicts':dict(sum((Counter(s['conflict_counts']) for s in summaries),Counter()))}
+    # Replay only the stored proposal through the unchanged deterministic
+    # llm_only merge, replacing its parser with a constant. No model is called,
+    # no benchmark is rerun, and no replay timing enters measured costs.
+    validation_effects=[]
+    observed_pairs=[]
+    for idx in range(1,4):
+        for case_id,h in results[('hybrid',idx)].items():
+            case=cases[case_id]
+            raw=h['raw_proposal']
+            before=None
+            if raw is not None:
+                inputs=build_case_inputs(case,records)
+                with patch('agent.intent.resolve.parse_turn_intent',return_value=IntentProposal.model_validate(raw)):
+                    run=RunContext()
+                    output=resolve_turn_intent(**inputs,mode='llm_only',run=run)
+                if run.counts.get('model',0): raise RuntimeError('Offline proposal replay called a model')
+                prediction=adapt_result(output,inputs['known_fields'])
+                before=score_case(prediction,_case_gold(case),case.get('unknown_aliases',()),status='ok')
+                dangerous_removed='dangerous' in before['error_flags'] and 'dangerous' not in h['score']['error_flags']
+                validation_worsened=before['pass'] and not h['score']['pass']
+                if dangerous_removed or validation_worsened:
+                    validation_effects.append({'case_id':case_id,'repeat':f'r{idx:03d}',
+                        'query':case['query'],'raw_hybrid_proposal_ablation_prediction':prediction,
+                        'raw_hybrid_proposal_ablation_score':before,'final_hybrid_prediction':h['prediction'],'final_hybrid_score':h['score'],
+                        'conflicts':h['trace'].get('conflicts',[]),'dangerous_removed':dangerous_removed,
+                        'validation_worsened':validation_worsened,'hybrid_result_sha256':result_sha256(h),
+                        'evidence':f'evaluation/results/intent_v1_r1_test_p3_hybrid_r{idx:03d}/results.jsonl',
+                        'method':'Deterministic stored-proposal replay; zero inference calls; used for attribution only.'})
+            l=results[('llm_only',idx)][case_id]
+            if 'dangerous' in l['score']['error_flags'] and 'dangerous' not in h['score']['error_flags']:
+                observed_pairs.append({'case_id':case_id,'repeat':f'r{idx:03d}','query':case['query'],
+                    'llm_only_prediction':l['prediction'],'hybrid_prediction':h['prediction'],
+                    'hybrid_conflicts':h['trace'].get('conflicts',[]),
+                    'same_hybrid_raw_proposal_dangerous':bool(before and 'dangerous' in before['error_flags']),
+                    'llm_only_result_sha256':result_sha256(l),'hybrid_result_sha256':result_sha256(h),
+                    'hybrid_fully_correct':h['score']['pass']})
+    dump(dest/'summary.json',mode_summaries)
+    jsonl(dest/'validation_effects.jsonl',validation_effects)
+    jsonl(dest/'llm_dangerous_hybrid_safe_pairs.jsonl',observed_pairs)
+    examples=[]
+    for case_id,label,note in [
+        ('IT001','成功：同义字段和顺序','将“主刷还能撑几天”和“平均每天清扫的面积”映射为目录字段，顺序、范围和月份均正确。'),
+        ('IT021','成功：区域限定保护','V4拒绝将“厨房覆盖率”映射为通用“覆盖率”，保留未知原指标，未选择目录里的近似字段。'),
+        ('IT047','成功：明确查询锚点的月份算术','以当前查询2025-08为明确起点，代码重算前一个月为2025-07；组件选择正确不授予该未查询月的数字输出权限。'),
+        ('IT041','失败：日期被误当字段限定词','原始mention携带日期，V4把日期当作字段限定，误将可答的“玩具避障率”降为未知，造成safe_fail。'),
+        ('IT044','失败：错误锚点声明被重算放大','gold应由上轮2025-07得到2025-08；模型的锚点声明使V7重算为2025-09，产生错误但合法的目标月。校验不保证语义锚点判断正确。'),
+        ('IT075','失败：撤回月份和字段误选未拦住','应选择2025-05主刷寿命，最终选择2025-04覆盖率；无冲突码。月份有据和目录成员检查不足以证明当前肯定意图角色。')]:
+        c=cases[case_id]; r=results[('hybrid',1)][case_id]
+        examples.append({'case_id':case_id,'label':label,'query':c['query'],'history':c.get('history',[]),
+            'final_intent':{**r['final_intent'],'scope':r['final_scope'],'knowledge_requested':r['prediction']['knowledge_requested'],'excluded_fields':r['final_excluded_fields']},
+            'conflicts':r['trace']['conflicts'],'note':note,'result_sha256':result_sha256(r),
+            'evidence':'evaluation/results/intent_v1_r1_test_p3_hybrid_r001/results.jsonl'})
+    dump(dest/'examples.json',examples)
+    lines=['# P3 A：组件 test 正式评测','',
+        '冻结运行时：`c105253026453bb203aab1186d68aae0bb10acd3`。作者已批准 d61a06a 冻结的金标准与本批次。每次100题；rule×1、llm_only×3、hybrid×3，共700条；未重跑、未筛选。所有原始状态留在分母。',
+        '', '| 模式/重复 | 完全正确/100 | 危险错误 | wrong_scope | safe_fail | other_error | 执行失败 | 回退 | p50/p95 秒（全部状态） |',
+        '|---|---:|---:|---:|---:|---:|---:|---:|---:|']
+    for mode,s in mode_summaries.items():
+        for r in s['runs']:
+            c=r['severity_counts']; l=r['latency_seconds']['all']
+            lines.append(f"| {mode}/{r['repeat']} | {r['exact_count']} | {c['dangerous']} | {c['wrong_scope']} | {c['safe_fail']} | {c['other_error']} | {r['execution_failure_count']} | {r['fallback_count']} | {l['p50']:.4f}/{l['p95']:.4f} |")
+    lines+=['','| 模式 | 正确率均值/最差 | 危险错误均值/最差（最大） |','|---|---:|---:|']
+    for mode,s in mode_summaries.items(): lines.append(f"| {mode} | {s['mean_exact_accuracy']:.1%}/{s['worst_exact_accuracy']:.1%} | {s['mean_dangerous']:.2f}/{s['worst_dangerous']} |")
+    lines+=['','| 槽位 | rule | llm_only 均值/最差 | hybrid 均值/最差 |','|---|---:|---:|---:|']
+    for slot in mode_summaries['rule']['mean_slot_accuracy']:
+        vals=[f"{mode_summaries[m]['mean_slot_accuracy'][slot]:.1%}/{mode_summaries[m]['worst_slot_accuracy'][slot]:.1%}" for m in ['llm_only','hybrid']]
+        lines.append(f"| {slot} | {mode_summaries['rule']['mean_slot_accuracy'][slot]:.1%} | {vals[0]} | {vals[1]} |")
+    lines+=['','全部冲突码计数（跨完整重复累计）：']
+    for mode,s in mode_summaries.items(): lines.append(f"- {mode}: `{json.dumps(s['all_conflicts'],ensure_ascii=False)}`")
+    lines+=['','每次额外模型调用/预算跳过：']
+    for mode,s in mode_summaries.items():
+        for r in s['runs']: lines.append(f"- {mode}/{r['repeat']}: {r['extra_model_calls']} / {r['budget_skip_count']}；证据 `{r['evidence']}/summary.json`。")
+    lines+=['','## llm_only 危险、hybrid 无危险的逐题对照','',
+        '同重复编号配对。两组模型提议可能不同；不能仅凭同题结果差异声称校验因果。下表单列 hybrid 自身原始提议经只保留 V1/V10/目录检查的确定性离线复算也危险的题；复算无模型调用，不计为新增评测或延迟样本。完整提议、分数和 SHA256 见 `evaluation/results/intent_p3_A_analysis/`。',
+        '', '| 题/重复 | hybrid 冲突码 | hybrid 完全正确 | 同一 hybrid 提议危险被去除 |','|---|---|---|---|']
+    for v in observed_pairs: lines.append(f"| {v['case_id']}/{v['repeat']} | {', '.join(v['hybrid_conflicts']) or '无'} | {v['hybrid_fully_correct']} | {v['same_hybrid_raw_proposal_dangerous']} |")
+    lines+=['','## 同一原始提议的校验效果','', '| 题/重复 | 移除危险 | 原本正确反而变错 | 冲突码 |','|---|---|---|---|']
+    for v in validation_effects: lines.append(f"| {v['case_id']}/{v['repeat']} | {v['dangerous_removed']} | {v['validation_worsened']} | {', '.join(v['conflicts'])} |")
+    if not validation_effects: lines.append('| 无 | — | — | — |')
+    lines+=['','所有耗时按 nearest-rank；各次成功状态 p50/p95 和缺测数保留于 sealed summary.json，未删除失败。合同补充说明：[SCORING_AMENDMENT_01](../docs/plans/SCORING_AMENDMENT_01.md)；未改 test gold。',
+        '', '运行前证据：`evaluation/results/intent_p3_preflight/`。原669项离线测试通过；首次沙箱临时目录权限失败保留，改用授权工作区临时目录后通过。这是离线环境检查，正式 test 未重跑。']
+    (ROOT/'evaluation/INTENT_P3_A.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
+    print(json.dumps({m:{k:s[k] for k in ['mean_exact_accuracy','worst_exact_accuracy','worst_dangerous']} for m,s in mode_summaries.items()},ensure_ascii=False))
+
+if __name__=='__main__':
+    if sys.argv[1]=='A': component_summary()
+    elif sys.argv[1]=='metrics': print(json.dumps(agent_metrics(sys.argv[2]),ensure_ascii=False))
+    elif sys.argv[1]=='view': review_view(sys.argv[2],sys.argv[3],int(sys.argv[4]),int(sys.argv[5]))
+    elif sys.argv[1]=='phase_report': phase_report(sys.argv[2])
+    elif sys.argv[1]=='final_report': final_report()

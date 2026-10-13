@@ -5,6 +5,7 @@ x-agent-environment: &agent-environment
   # Explicit administrator opt-in for this exact Compose service origin.
   TOKENIZER_ALLOWED_ORIGIN: http://ollama:11434
   PYTHONUTF8: "1"
+  AGENT_INTENT_MODE: ${AGENT_INTENT_MODE:-rule}
 
 x-agent-volumes: &agent-volumes
   # Docker populates an empty named volume from the image on first use.

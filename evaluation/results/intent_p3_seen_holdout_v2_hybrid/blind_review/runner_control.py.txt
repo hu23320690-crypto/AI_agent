@@ -1,0 +1,164 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import random
+import subprocess
+import sys
+from p3_control import ROOT, REF, PREFLIGHT, runtime_check, add_manifest, dump, stamp, sha, git
+
+GROUPS={
+    'B':[('intent_agent_v1_r1','evaluation/intent_agent_v1_r1/cases.jsonl','intent_agent_v1_r1_test_p3',20261013)],
+    'C':[('base','evaluation/cases.jsonl','intent_p3_seen_base',20261014),
+         ('generalization_v1','evaluation/generalization_v1/cases.jsonl','intent_p3_seen_generalization_v1',20261015),
+         ('holdout_v2','evaluation/holdout_v2/cases.jsonl','intent_p3_seen_holdout_v2',20261016)]}
+
+def rows(path):
+    return [json.loads(l) for l in Path(path).read_text(encoding='utf-8-sig').splitlines() if l.strip()]
+
+def jsonl(path, values):
+    Path(path).write_text(''.join(json.dumps(v,ensure_ascii=False)+'\n' for v in values),encoding='utf-8')
+
+def stripped(v):
+    if isinstance(v,dict):
+        return {k:stripped(x) for k,x in v.items() if k not in {'mode','intent_mode','p3_runtime_version','p3_repeat_identity','runtime','runtime_snapshots'}}
+    if isinstance(v,list): return [stripped(x) for x in v]
+    return v
+
+def run_group(group):
+    from evaluation.report import execution_outcome, turn_execution_outcome, result_sha256
+    for name,dataset,prefix,seed in GROUPS[group]:
+        dataset=ROOT/dataset
+        agent_cases=[c for c in rows(dataset) if c['kind']=='agent']
+        expected_turns=sum(len(c['turns']) for c in agent_cases)
+        for mode in ['rule','hybrid']:
+            run=ROOT/'evaluation/results'/f'{prefix}_{mode}'
+            if run.exists(): raise RuntimeError('Existing run directory: '+str(run))
+            runtime_check()
+            command=[sys.executable,'-B','-m','evaluation.run','--dataset',str(dataset),'--stage','agent','--run',str(run)]
+            print('START',group,name,mode,'planned',len(agent_cases),expected_turns,stamp(),flush=True)
+            temp=Path(__file__).parent/'p3_tmp'
+            temp.mkdir(exist_ok=True)
+            env={**os.environ,'AGENT_INTENT_MODE':mode,'PYTHONUTF8':'1','PYTHONDONTWRITEBYTECODE':'1','TEMP':str(temp),'TMP':str(temp)}
+            status=subprocess.run(command,cwd=ROOT,env=env).returncode
+            runtime_check()
+            manifest=json.loads((run/'manifest.json').read_text(encoding='utf-8'))
+            if manifest['intent_mode']!=mode: raise RuntimeError('Effective mode mismatch')
+            if len(rows(run/'results.jsonl'))!=len(agent_cases): raise RuntimeError('Missing planned result rows')
+            manifest.update(p3_group=group,p3_dataset_label='held-out Agent test' if group=='B' else '已见题回归',
+                git_commit=git('rev-parse','HEAD').decode().strip(),p3_command=command,p3_runner_exit=status,
+                finished_at=stamp(),p3_planned_agent_tasks=len(agent_cases),p3_planned_real_turns=expected_turns,
+                p3_analysis_script_sha256=sha(Path(__file__).read_bytes()),
+                p3_blind_shuffle_seed=seed)
+            # Preserve the untouched frozen full dataset and manifest, then make
+            # an explicit selected-agent execution plan for the archive seal.
+            manifest['input_dataset_sha256']=sha(dataset.read_bytes())
+            manifest['input_dataset_path']=str(dataset)
+            (run/'snapshot/input_dataset.jsonl').write_bytes(dataset.read_bytes())
+            original_manifest=(dataset.parent/'dataset_manifest.json').read_bytes()
+            (run/'snapshot/input_dataset_manifest.json').write_bytes(original_manifest)
+            manifest['input_dataset_manifest_sha256']=sha(original_manifest)
+            if group=='C':
+                selected=b''.join(line for line in dataset.read_bytes().splitlines(keepends=True) if line.strip() and json.loads(line.decode('utf-8-sig'))['kind']=='agent')
+                (run/'cases.jsonl').write_bytes(selected)
+                derived={'description':'Agent-only execution plan selected before inference; original frozen full dataset retained in snapshot/input_dataset.jsonl.',
+                    'case_count':len(agent_cases),'dataset_sha256':sha(selected),'files':manifest['source_sha256'],
+                    'input_dataset_sha256':manifest['input_dataset_sha256'],'knowledge_and_unanswerable_not_run_by_preflight_path_proof':True}
+                dump(run/'snapshot/dataset_manifest.json',derived)
+                manifest['dataset_sha256']=sha(selected)
+                manifest['dataset_manifest_sha256']=sha((run/'snapshot/dataset_manifest.json').read_bytes())
+            scoring=['evaluation/SEMANTIC_REVIEW_V2.md','evaluation/generalization_v1/SCORING.md']
+            if (dataset.parent/'SCORING.md').exists(): scoring.append((dataset.parent/'SCORING.md').relative_to(ROOT).as_posix())
+            for rule in scoring:
+                manifest['evaluation_sha256'][rule]=sha((ROOT/rule).read_bytes())
+                target=run/'snapshot'/rule
+                target.parent.mkdir(parents=True,exist_ok=True)
+                target.write_bytes((ROOT/rule).read_bytes())
+            dump(run/'manifest.json',manifest)
+            add_manifest(run,'r001')
+            print('DONE',group,name,mode,'exit',status,stamp(),flush=True)
+        directory=ROOT/'evaluation/results'/f'{prefix}_blind'
+        directory.mkdir(exist_ok=False)
+        candidates=[]
+        for mode in ['rule','hybrid']:
+            run=ROOT/'evaluation/results'/f'{prefix}_{mode}'
+            result_by_id={r['id']:r for r in rows(run/'results.jsonl')}
+            for case in agent_cases:
+                row=result_by_id[case['id']]
+                candidates.append((mode,case,row,result_sha256(row)))
+        random.Random(seed).shuffle(candidates)
+        bundle=[]
+        key=[]
+        for index,(mode,case,row,binding) in enumerate(candidates,1):
+            sample=f'S{index:03d}'
+            bundle.append(stripped({'sample_id':sample,'case':case,'result_sha256':binding,
+                'raw_status':row['status'],'execution_status':execution_outcome(row),
+                'turn_execution_outcomes':[turn_execution_outcome(t,row) for t in row.get('turns',[])],
+                'turns':row.get('turns',[]),'model_requests':[r for r in row.get('model_requests',[]) if r.get('rag_contexts')],
+                'tool_results':row.get('tool_results',[]),'rag_answers':row.get('rag_answers',[]),
+                'seeded_history':row.get('seeded_history',[])}))
+            key.append({'sample_id':sample,'mode':mode,'id':case['id'],'result_sha256':binding})
+        jsonl(directory/'review_package.jsonl',bundle)
+        jsonl(directory/'reveal_key.jsonl',key)
+        dump(directory/'blind_manifest.json',{'created_at':stamp(),'seed':seed,'samples':len(bundle),'mode_labels_removed_recursively':True,'runtime_cost_events_removed':True,
+            'model_requests_in_package':'RAG input requests only; report authorization grounded from actual tools/history. Planner and intent extraction requests omitted because they add no authoritative report facts and expose variant cost.',
+            'package_sha256':sha((directory/'review_package.jsonl').read_bytes()),'key_sha256':sha((directory/'reveal_key.jsonl').read_bytes()),
+            'instruction':'Reviewer reads only review_package.jsonl and saves sample-bound scores before reveal_key is opened. Assistant label-hidden review is not independent expert review.'})
+        print('BLIND PACKAGE',str(directory/'review_package.jsonl'),flush=True)
+
+def finalize(group):
+    from scripts.seal_evaluation_run import seal_run
+    from evaluation.compare import compare_cases
+    from evaluation.report import summarize
+    for name,dataset,prefix,seed in GROUPS[group]:
+        directory=ROOT/'evaluation/results'/f'{prefix}_blind'
+        scorepath=directory/'blind_scores.jsonl'
+        scores=rows(scorepath)
+        package=rows(directory/'review_package.jsonl')
+        by_sample={v['sample_id']:v for v in scores}
+        if len(by_sample)!=len(package) or len(scores)!=len(package): raise RuntimeError('Incomplete/duplicate blind scores')
+        for sample in package:
+            review=by_sample[sample['sample_id']]
+            if review['result_sha256']!=sample['result_sha256']: raise RuntimeError('Blind result hash mismatch')
+            if len(review['turn_reviews'])!=len(sample['case']['turns']): raise RuntimeError('Incomplete turn scoring')
+            complete=sample['execution_status']=='ok' and len(sample['turns'])==len(sample['case']['turns'])
+            for idx,t in enumerate(review['turn_reviews']):
+                if type(t['answer_score']) is not int or t['answer_score'] not in [0,1,2] or type(t['grounded']) is not bool or not t.get('note'):
+                    raise RuntimeError('Invalid turn review')
+                if idx>=len(sample['turn_execution_outcomes']) or sample['turn_execution_outcomes'][idx]!='ok': complete=False
+            expected=complete and all(t['answer_score']==2 and t['grounded'] and t.get('requirements_met',True) for t in review['turn_reviews'])
+            if review['task_pass']!=expected: raise RuntimeError('Whole-task/turn-score inconsistency: '+sample['sample_id'])
+        # Scores are now complete and hash-fixed; only now use the key.
+        dump(directory/'scores_before_reveal.json',{'completed_at':stamp(),'scores_sha256':sha(scorepath.read_bytes()),'scores':len(scores)})
+        key=rows(directory/'reveal_key.jsonl')
+        per_mode={m:[] for m in ['rule','hybrid']}
+        for link in key:
+            score=by_sample[link['sample_id']]
+            per_mode[link['mode']].append({**score,'id':link['id'],'method':'Codex assistant label-hidden randomized semantic review; scores fixed before reveal. Not independent domain-expert review.'})
+        runs={m:ROOT/'evaluation/results'/f'{prefix}_{m}' for m in per_mode}
+        cases=rows(runs['rule']/'cases.jsonl')
+        raw={m:rows(runs[m]/'results.jsonl') for m in per_mode}
+        transitions=compare_cases(cases,raw['rule'],raw['hybrid'],per_mode['rule'],per_mode['hybrid'])
+        jsonl(directory/'paired_cases.jsonl',transitions)
+        dump(directory/'paired_summary.json',{k:sum(t['transition']==k for t in transitions) for k in ['improved','regressed','stable_pass','stable_fail','unknown']})
+        for mode,run in runs.items():
+            jsonl(run/'reviews.jsonl',per_mode[mode])
+            for source in ['blind_manifest.json','review_package.jsonl','blind_scores.jsonl','scores_before_reveal.json','reveal_key.jsonl','paired_cases.jsonl','paired_summary.json','blind_review_corrections.json','runner_control.py.txt']:
+                if not (directory/source).exists(): continue
+                target=run/'blind_review'/source
+                target.parent.mkdir(exist_ok=True)
+                target.write_bytes((directory/source).read_bytes())
+            with (run/'report_cli.stdout.json').open('x',encoding='utf-8') as output:
+                subprocess.run([sys.executable,'-B','-m','evaluation.report','--run',str(run)],cwd=ROOT,check=True,stdout=output)
+    from p3_analysis import agent_metrics
+    agent_metrics(group)
+    for name,dataset,prefix,seed in GROUPS[group]:
+        for mode in ['rule','hybrid']:
+            run=ROOT/'evaluation/results'/f'{prefix}_{mode}'
+            seal_run(run)
+            seal_run(run,verify=True)
+            print('SEALED',group,name,mode,flush=True)
+
+if __name__=='__main__':
+    if sys.argv[1]=='run': run_group(sys.argv[2])
+    elif sys.argv[1]=='finalize': finalize(sys.argv[2])

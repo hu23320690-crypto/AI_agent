@@ -1,0 +1,31 @@
+import json
+from pathlib import Path
+import sys
+from p3_control import ROOT, stamp
+from p3_agents import rows, jsonl
+
+directory=ROOT/'evaluation/results'/sys.argv[1]
+package={s['sample_id']:s for s in rows(directory/'review_package.jsonl')}
+target=directory/'blind_scores.jsonl'
+existing=rows(target) if target.exists() else []
+seen={r['sample_id'] for r in existing}
+for entry in sys.stdin.read().splitlines():
+    if not entry.strip(): continue
+    sample_id,turns=json.loads(entry)
+    if sample_id in seen: raise RuntimeError('Already scored: '+sample_id)
+    s=package[sample_id]
+    if len(turns)!=len(s['case']['turns']): raise RuntimeError('Wrong planned turn count')
+    graded=[]
+    for idx,t in enumerate(turns):
+        score,grounded,note=t[:3]
+        actual=s['turns'][idx] if idx<len(s['turns']) else {}
+        requirements_met=t[3] if len(t)>3 else bool(actual.get('tool_selection',{}).get('pass',False))
+        graded.append({'turn':idx+1,'answer_score':score,'grounded':grounded,'requirements_met':requirements_met,'note':note})
+    complete=s['execution_status']=='ok' and len(s['turns'])==len(turns) and all(v=='ok' for v in s['turn_execution_outcomes'])
+    passed=complete and all(t['answer_score']==2 and t['grounded'] and t['requirements_met'] for t in graded)
+    existing.append({'sample_id':sample_id,'result_sha256':s['result_sha256'],'task_pass':passed,
+        'turn_reviews':graded,'note':'全轮任务通过要求执行完整、每轮内容2、忠实度真且该轮必需要求成立。'+('本样本全部满足。' if passed else '本样本至少一项未满足；具体原因见逐轮理由。'),
+        'scored_at':stamp(),'review_method':'Codex assistant scores the randomized label-hidden package before reading its reveal key. Content and evidence are assessed separately; tool names alone do not prove success.'})
+    seen.add(sample_id)
+jsonl(target,existing)
+print('Scored samples:',len(existing),'/',len(package))
