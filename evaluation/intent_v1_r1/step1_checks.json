@@ -1,0 +1,38 @@
+{
+  "stage": "P0_revision_step1",
+  "dev_count": 40,
+  "test_count": 100,
+  "agent_cases_inherited": 12,
+  "modified_dev_ids": [
+    "ID010",
+    "ID028",
+    "ID029",
+    "ID039"
+  ],
+  "unchanged_dev_cases": 36,
+  "test_bytes_unchanged": true,
+  "agent_case_bytes_unchanged": true,
+  "original_fingerprints": {
+    "evaluation/intent_v1/cases.jsonl": "ce099e20a163f0a4b8a154e3366ebf2e3a35e7e5bc5972764bc7a9536c900760",
+    "evaluation/intent_v1/construction_audit.json": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+    "evaluation/intent_v1/dataset_manifest.json": "6beef11e1897bbf0fbaf7cbef59f3cbc85e46e219768e4ff36bb105d26328dcd",
+    "evaluation/intent_v1/dev.jsonl": "de7dc828dc0a95c2bd8b8ad37995c354908b9228212ad036abd43a98f27a98f7",
+    "evaluation/intent_v1/freeze_manifest.json": "e331458df8bfd5fae72da05a2d452394261295c81a27b6f1fc2c00306d3edfd0",
+    "evaluation/intent_v1/README.md": "dae1e895193eca9e8a5866c3e87eaac1cd0f685048b788399760cd93f6a0b7ae",
+    "evaluation/intent_v1/SCORING.md": "e693b762a8550e06d76e91fe8f9b817415dad3bfe4734e671264b07489ecff1d",
+    "evaluation/intent_v1/test.jsonl": "bfabc5383916ece09973a50251d64c8c5c0177f0ef641bca446e5adc88ee6940",
+    "evaluation/intent_v1/TEST_GOLD_REVIEW.md": "fa17674f048bd74ffe129b464edfb6914ae30491dee66757c546d44715a3f57d",
+    "evaluation/intent_agent_v1/cases.jsonl": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+    "evaluation/intent_agent_v1/construction_audit.json": "8c0241438757f3c8bdb9b97e1d7b226d908498930333f6ea92822b83eb303653",
+    "evaluation/intent_agent_v1/dataset_manifest.json": "508fd14567c9a4cf70e5dc701900b1ff42039113687bad1bf4bfb11cf0a5d58d",
+    "evaluation/intent_agent_v1/freeze_manifest.json": "ec92ef7366281dc6869b1d5b3fff7deab547a60d59d1dc95b6160e8d8df613b5",
+    "evaluation/intent_agent_v1/README.md": "3e1d9201e2e7e64a65372ea92cb9c3dba629081aca1182408ffc81c0a0d1c370",
+    "evaluation/intent_agent_v1/SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+    "evaluation/intent_agent_v1/TEST_GOLD_REVIEW.md": "9294e784d4fb832619f19a22d9e32b0ec1dfd6582ccf445b48ac3f0ebbb84018"
+  },
+  "four_dev_source_and_order_checks": "passed",
+  "comparison_pairs_per_version": 4000,
+  "parser_calls": 0,
+  "model_calls": 0,
+  "future_steps_applied": false
+}

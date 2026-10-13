@@ -1,0 +1,257 @@
+{
+  "component_cases_checked": 140,
+  "dev": 40,
+  "test": 100,
+  "catalog_membership_checked": 140,
+  "field_order_and_projection_checked": 140,
+  "slot_consistency_checked": 140,
+  "category_quotas": "passed",
+  "date_formats_checked": 140,
+  "history_bounds_checked": 140,
+  "maximum_history_utf8_bytes": 97,
+  "successful_lookup_source_rows_examined": 174,
+  "arithmetic_checks": [
+    {
+      "id": "ID018",
+      "slot": "target_month",
+      "anchor": "2025-12",
+      "offset": 1,
+      "expected": "2026-01"
+    },
+    {
+      "id": "ID020",
+      "slot": "target_month",
+      "anchor": "2025-05",
+      "offset": 1,
+      "expected": "2025-06"
+    },
+    {
+      "id": "ID040",
+      "slot": "target_month",
+      "anchor": "2025-12",
+      "offset": 0,
+      "expected": "2025-12"
+    },
+    {
+      "id": "ID039",
+      "slot": "target_month",
+      "anchor": "2025-03",
+      "offset": 0,
+      "expected": "2025-03"
+    },
+    {
+      "id": "IT044",
+      "slot": "target_month",
+      "anchor": "2025-07",
+      "offset": 1,
+      "expected": "2025-08"
+    },
+    {
+      "id": "IT045",
+      "slot": "target_month",
+      "anchor": "2025-11",
+      "offset": -1,
+      "expected": "2025-10"
+    },
+    {
+      "id": "IT046",
+      "slot": "target_month",
+      "anchor": "2025-06",
+      "offset": -1,
+      "expected": "2025-05"
+    },
+    {
+      "id": "IT048",
+      "slot": "target_month",
+      "anchor": "2025-05",
+      "offset": 1,
+      "expected": "2025-06"
+    },
+    {
+      "id": "IT049",
+      "slot": "target_month",
+      "anchor": "2025-12",
+      "offset": 1,
+      "expected": "2026-01"
+    },
+    {
+      "id": "IT050",
+      "slot": "target_month",
+      "anchor": "2025-01",
+      "offset": -1,
+      "expected": "2024-12"
+    },
+    {
+      "id": "IT068",
+      "slot": "target_month",
+      "anchor": "2025-01",
+      "offset": 1,
+      "expected": "2025-02"
+    },
+    {
+      "id": "IT099",
+      "slot": "target_month",
+      "anchor": "2025-09",
+      "offset": 1,
+      "expected": "2025-10"
+    },
+    {
+      "id": "IT100",
+      "slot": "target_month",
+      "anchor": "2025-08",
+      "offset": 0,
+      "expected": "2025-08"
+    },
+    {
+      "id": "IT047",
+      "slot": "target_month",
+      "anchor": "2025-08",
+      "offset": -1,
+      "expected": "2025-07"
+    },
+    {
+      "id": "ID023",
+      "slot": "comparison_month",
+      "anchor": "2025-10",
+      "offset": -1,
+      "expected": "2025-09"
+    },
+    {
+      "id": "ID024",
+      "slot": "comparison_month",
+      "anchor": "2025-05",
+      "offset": -3,
+      "expected": "2025-02"
+    },
+    {
+      "id": "ID027",
+      "slot": "comparison_month",
+      "anchor": "2026-01",
+      "offset": -1,
+      "expected": "2025-12"
+    },
+    {
+      "id": "IT059",
+      "slot": "comparison_month",
+      "anchor": "2025-07",
+      "offset": -1,
+      "expected": "2025-06"
+    },
+    {
+      "id": "IT060",
+      "slot": "comparison_month",
+      "anchor": "2025-05",
+      "offset": -3,
+      "expected": "2025-02"
+    },
+    {
+      "id": "IT061",
+      "slot": "comparison_month",
+      "anchor": "2026-01",
+      "offset": -1,
+      "expected": "2025-12"
+    },
+    {
+      "id": "IT068",
+      "slot": "comparison_month",
+      "anchor": "2025-02",
+      "offset": -1,
+      "expected": "2025-01"
+    },
+    {
+      "id": "ID019",
+      "slot": "target_month",
+      "inherited_year": "2025",
+      "month": 2,
+      "expected": "2025-02"
+    },
+    {
+      "id": "IT042",
+      "slot": "target_month",
+      "inherited_year": "2025",
+      "month": 3,
+      "expected": "2025-03"
+    },
+    {
+      "id": "IT043",
+      "slot": "target_month",
+      "inherited_year": "2025",
+      "month": 6,
+      "expected": "2025-06"
+    },
+    {
+      "id": "IT051",
+      "slot": "target_month",
+      "inherited_year": "2026",
+      "month": 2,
+      "expected": "2026-02"
+    },
+    {
+      "id": "IT058",
+      "slot": "comparison_month",
+      "inherited_year": "2025",
+      "month": 7,
+      "expected": "2025-07"
+    },
+    {
+      "id": "IT063",
+      "slot": "comparison_month",
+      "inherited_year": "2025",
+      "month": 2,
+      "expected": "2025-02"
+    }
+  ],
+  "replacement_entry_checks": [
+    {
+      "id": "IT052",
+      "current_lookup_count": 1,
+      "current_successful_csv_record": true,
+      "unresolved_month": true,
+      "reason": "unknown_event_date"
+    },
+    {
+      "id": "IT053",
+      "current_lookup_count": 1,
+      "current_successful_csv_record": true,
+      "unresolved_month": true,
+      "reason": "unknown_event_date"
+    },
+    {
+      "id": "IT054",
+      "current_lookup_count": 1,
+      "current_successful_csv_record": true,
+      "unresolved_month": true,
+      "reason": "negated_current_month_without_replacement"
+    },
+    {
+      "id": "IT067",
+      "current_lookup_count": 1,
+      "current_successful_csv_record": true,
+      "unresolved_month": true,
+      "reason": "unknown_event_date"
+    }
+  ],
+  "exact_normalized_dev_test_duplicates": 0,
+  "parser_calls": 0,
+  "model_calls": 0,
+  "stage": "P0_revision_step2",
+  "replaced_test_ids": [
+    "IT052",
+    "IT053",
+    "IT054",
+    "IT067"
+  ],
+  "note_only_test_ids": [
+    "IT013",
+    "IT047",
+    "IT085",
+    "IT088"
+  ],
+  "unchanged_test_rows": 92,
+  "dev_bytes_unchanged": true,
+  "scoring_contract_unchanged": true,
+  "original_16_files_unchanged": true,
+  "agent_revision_unchanged": true,
+  "gold_month_semantics_review": "independent read-only assistant review pending completion",
+  "source_sha256": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+}

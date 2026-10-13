@@ -1,0 +1,28 @@
+{
+  "recorded_at_utc": "2026-10-12T23:34:45.385292+00:00",
+  "author_confirmed_recommended_revision_choices": true,
+  "evidence": "Direct project author message accepts P0_GOLD_REVIEW section 5, then explicitly requests step 1 only.",
+  "approved_scope_this_turn": "Only dev ID010/028/029/039 rewrites and dev/test similarity check",
+  "revised_gold_approval": "pending_author_review",
+  "freeze_authorization": "Not yet; section 7 requires revised-case confirmation first.",
+  "next_steps_status": {
+    "component_test_replacements_and_notes": "completed_pending_author_review",
+    "agent_replacements_and_notes": "deferred"
+  },
+  "step2_execution_authorized": true,
+  "step2_scope": {
+    "replacements": [
+      "IT052",
+      "IT053",
+      "IT054",
+      "IT067"
+    ],
+    "note_only": [
+      "IT013",
+      "IT047",
+      "IT085",
+      "IT088"
+    ],
+    "gold_approval": "pending_author_review"
+  }
+}
