@@ -1,19 +1,19 @@
 {
-  "version": "intent_agent_v1_r1-step1-review-draft",
-  "stage": "P0_revision_step1",
+  "version": "intent_agent_v1_r1-step3-review-draft",
+  "stage": "P0_revision_step3",
   "created_date": "2026-10-13",
-  "recorded_at_utc": "2026-10-12T23:34:45.385292+00:00",
+  "recorded_at_utc": "2026-10-13T00:29:23.105437+00:00",
   "frozen_at_utc": null,
   "freeze_status": "not_frozen",
   "gold_review_status": "pending_revised_cases_author_review",
   "evaluation_eligible": false,
   "approved_for_next_stage": false,
-  "revision_status": "scaffold_cases_unchanged_pending_step3",
+  "revision_status": "agent_step3_applied_pending_author_review",
   "parent_dataset": "evaluation/intent_agent_v1",
   "parent_candidate_commit": "b581633e78c355cb2da73a3cd574d65571b8f30a",
   "parent_cases_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
   "parent_freeze_manifest_sha256": "ec92ef7366281dc6869b1d5b3fff7deab547a60d59d1dc95b6160e8d8df613b5",
-  "dataset_sha256": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
+  "dataset_sha256": "4371c1bb5355ba7fc33648c4ce0bc6ef5d38a2d771b96092a9df21f398a6c666",
   "case_count": 12,
   "files": {
     "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb",
@@ -68,15 +68,35 @@
   "source_review_sha256": "bca8a5a01a1fbeae69760991141a0a0b92e9e75f487c74a92725672591cfde6a",
   "model_calls_before_review": 0,
   "parser_calls_before_review": 0,
-  "step1_only": true,
+  "step1_only": false,
   "scoring_sha256": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
   "question_count": 24,
   "agent_question_count": 24,
-  "changed_agent_ids": [],
-  "full_agent_static_validation": "deferred_to_step3",
+  "changed_agent_ids": [
+    "IA002",
+    "IA005",
+    "IA008"
+  ],
+  "full_agent_static_validation": "passed_data_only_checks_and_independent_assistant_review",
   "artifact_sha256": {
-    "cases.jsonl": "96e5af2361495f0e3d2e61293a3e92236cb8a5ccdc9ebe61e1f9baf63c38773c",
-    "README.md": "a8ba7b14776b94940071f79d9fa7c8be653612c955229a22a670f96130dbba18",
-    "SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4"
-  }
+    "AUTHOR_DECISIONS.json": "48cd8e06b7a68bdb24b757c0398a9ebaea954f1619576aa173e4112ab5352369",
+    "cases.jsonl": "4371c1bb5355ba7fc33648c4ce0bc6ef5d38a2d771b96092a9df21f398a6c666",
+    "README.md": "a87b4e066eb7e03054b4c537826ddb7602ca268bacea804a8e88998a08b46633",
+    "SCORING.md": "40844cc81e5ba7307062d89ea8c8f4a6f62c56a7e18a8bc2b127439e9422f8b4",
+    "step3_checks.json": "19b307e4df30054b2a4cde5ebe0eec109789a6cdcf08e7f536c69cea1e614408",
+    "STEP3_REVIEW.md": "cf75fcec941bcecaed6df95d001edaad7768b2381377a6c479a13c2cd652810f",
+    "STEP3_SIMILARITY.md": "d6e063bc974590b8aac805ab064e4f14232f90235c249f648221cdf9974438bd"
+  },
+  "replaced_agent_ids": [
+    "IA002",
+    "IA005"
+  ],
+  "note_only_agent_ids": [
+    "IA008"
+  ],
+  "execution_baseline_commit": "3156bac",
+  "component_step2_commit": "45d65f0",
+  "component_step2_author_review": "passed",
+  "authoritative_checks": "step3_checks.json",
+  "inherited_generalization_scoring_sha256": "1ca051700d47f07a897fe98a8e3fd69aefa18adf8c3ae549391a979fec434a67"
 }
