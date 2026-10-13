@@ -60,3 +60,28 @@ llm_only: execution failures=0, budget skips=0, extra model calls=40; conflicts=
 hybrid: execution failures=0, budget skips=0, extra model calls=40; conflicts={"mention_not_in_text": 2, "month_unsupported": 3, "negated_field_selected": 1, "qualifier_dropped": 1}.
 
 No validation, resolver, runner, model/runtime/configuration or gold changes were made in this round.
+
+## Round 3
+
+Changes: Prompt only: add concise Chinese verification rules for all positive unknowns, verbatim original noun phrases, independent target/baseline roles, report-vs-knowledge and ordinal history selection. Replace the relative-baseline knowledge example with a new fictional combined reference/target/ordinal/definition example. Six fictional examples total; no dev question copied or rewritten. ID021 was not used.
+
+| Mode | Exact / 40 | Dangerous | Fallback | p95 all (s) | p95 success (s) | Exact / 39 auxiliary | Dangerous / 39 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| rule | 10/40 (25.0%) | 8 | 0.0% | 0.0019 | 0.0019 | 9/39 (23.1%) | 8 |
+| llm_only | 32/40 (80.0%) | 1 | 0.0% | 1.3848 | 1.3848 | 32/39 (82.1%) | 0 |
+| hybrid | 27/40 (67.5%) | 1 | 0.0% | 1.3970 | 1.3970 | 27/39 (69.2%) | 0 |
+
+Run source commit: `2849fd23971ce324a5e4f0265fb3e9660c4312b0`.
+Prompt SHA256: `ec7e3a7e507417ee775b59bfcfd030ff78fc605ff4305ad92c55bad7ddb1cfb4`.
+Original dev SHA256: `f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a`.
+Model: `qwen3:4b`, digest `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`.
+
+ID021 (not used for tuning): rule: exact=1/1, dangerous=0; llm_only: exact=0/1, dangerous=1; hybrid: exact=0/1, dangerous=1.
+
+Artifacts: `evaluation/results/intent_v1_r1_dev_p2_r3_rule`, `evaluation/results/intent_v1_r1_dev_p2_r3_llm_only`, `evaluation/results/intent_v1_r1_dev_p2_r3_hybrid`.
+
+rule: execution failures=0, budget skips=0, extra model calls=0; conflicts={}.
+llm_only: execution failures=0, budget skips=0, extra model calls=40; conflicts={"field_not_in_catalog": 1}.
+hybrid: execution failures=0, budget skips=0, extra model calls=40; conflicts={"field_not_in_catalog": 1, "mention_not_in_text": 3, "month_unsupported": 3, "negated_field_selected": 1, "qualifier_dropped": 2}.
+
+No validation, resolver, runner, model/runtime/configuration or gold changes were made in this round.

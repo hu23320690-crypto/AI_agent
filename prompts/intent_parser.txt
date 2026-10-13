@@ -14,6 +14,12 @@ For absolute targets or inheritance without a new relative phrase, target_anchor
 scope: only_listed for a restricted list, full_report for an entire report, otherwise unspecified. Preserve full_report scope when excluding metrics. knowledge_question is the verbatim knowledge subquestion, or empty. Exclude explicitly declined explanations. Use report_with_knowledge only when that subquestion exists. Preserve requested field order.
 Requests to read recorded amounts, percentages, lifetimes or categorical levels are report requests, not knowledge questions. Instructions to copy, report or arrange a metric are never knowledge_question. Set it nonempty only for a separate requested explanation, definition, maintenance or compatibility question. Explicitly declined explanation/maintenance questions leave it empty. Current selections, cancellations and ordering override historical requests; inherit only what the current reference actually requests.
 Return compact JSON with no unnecessary whitespace. Use empty strings/lists and null exactly as the schema requires.
+输出前按以下含义核对，但不要输出核对过程：
+1. fields 要逐项保留本轮肯定点名的所有指标。目录没有对应项时也要保留 mention，field=null；不能因目录缺项省略它。不要因为两个名称共享一部分就合并为同一项。
+2. 每个 mention 必须在 query 或 history_queries 中逐字存在。field 可以用目录的规范名，mention 不能凭规范名改写。只截取足以识别该指标的原文名词片段。
+3. target_month 是本次要交付的主报告月份，baseline_month 是比较参照月份。两者分别按语义角色确定，不按日期在句中或查询列表里的出现顺序决定。一个显式年份可以给同句的裸月份提供年份。
+4. 只请求记录的数值或分档属性时 knowledge_question=""。拒绝解释不会撤回肯定请求的指标。
+5. 本轮按历史清单的序号选择时，仅取对应位置的指标；不要复制整个 previous_intent.fields。保留被选指标的原顺序，mention 从历史用户原话复制。
 
 Fictional examples (catalog: 星辉率, 晶片寿命; all dates/events are fictional):
 today: 2033-02-14; current_lookup_month: 2033-01; previous_intent: null; query: 上个月只列星辉率
@@ -26,5 +32,6 @@ query: 巡航表2037-09：晶片耐用天数、熔晶功耗、北舱星辉率；
 {"task_type":"report","fields":[{"mention":"晶片耐用天数","field":"晶片寿命"},{"mention":"熔晶功耗","field":null},{"mention":"北舱星辉率","field":null}],"scope":"only_listed","target_month":"2037-09","target_mention":"2037-09","target_anchor":"none","compare":false,"baseline_month":null,"baseline_mention":"","excluded_fields":[],"knowledge_question":"","unresolved":false}
 query: 2033-04完整报告，去掉晶片寿命
 {"task_type":"report","fields":[],"scope":"full_report","target_month":"2033-04","target_mention":"2033-04","target_anchor":"none","compare":false,"baseline_month":null,"baseline_mention":"","excluded_fields":["晶片寿命"],"knowledge_question":"","unresolved":false}
-query: 2033-02星辉率与三个月前相比；晶片如何养护？
-{"task_type":"report_with_knowledge","fields":[{"mention":"星辉率","field":"星辉率"}],"scope":"unspecified","target_month":"2033-02","target_mention":"2033-02","target_anchor":"none","compare":true,"baseline_month":"2032-11","baseline_mention":"三个月前","excluded_fields":[],"knowledge_question":"晶片如何养护？","unresolved":false}
+previous_intent.fields: [星辉率, 晶片寿命]; previous_intent.target_month: 2036-10; history_queries: [2036-10的巡航记录先记星辉率，再记晶片寿命。]
+query: 参考档案定为2036-02。新的主报告用2036-11，只取旧清单第一项作对照；星辉率的定义是什么？
+{"task_type":"report_with_knowledge","fields":[{"mention":"星辉率","field":"星辉率"}],"scope":"only_listed","target_month":"2036-11","target_mention":"2036-11","target_anchor":"none","compare":true,"baseline_month":"2036-02","baseline_mention":"2036-02","excluded_fields":[],"knowledge_question":"星辉率的定义是什么？","unresolved":false}
