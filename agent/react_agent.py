@@ -250,12 +250,13 @@ class ReactAgent:
                    "context_policy": self.context_policy, "memory_plan": plan}
         if service_state is not None:
             context.update(service_state)
-        if self.turn_trace is not None:
-            context["turn_trace"] = self.turn_trace
+        turn_trace = getattr(self, "turn_trace", None)
+        if turn_trace is not None:
+            context["turn_trace"] = turn_trace
         result = self.agent.invoke(
             {"messages": [*history, HumanMessage(content=query)]},
             config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency,
-                    **({"callbacks": [self.turn_trace]} if self.turn_trace is not None else {})},
+                    **({"callbacks": [turn_trace]} if turn_trace is not None else {})},
             context=context,
         )
         final = result["messages"][-1]

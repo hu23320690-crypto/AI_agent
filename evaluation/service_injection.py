@@ -1,5 +1,6 @@
 """Validated task-local overlays and proof of admission to actual model inputs."""
 import csv
+import json
 from pathlib import Path
 import sqlite3
 
@@ -79,6 +80,7 @@ def install_overlay(injection, context, db_path, *, root=ROOT):
 def exposure(injection, turns, *, complete):
     """A tool ran != its payload reached a model. Inspect actual request messages."""
     payload, proofs = injection['payload'], []
+    escaped = json.dumps(payload, ensure_ascii=False)[1:-1]
     def strings(value):
         if isinstance(value, str):
             yield value
@@ -96,7 +98,7 @@ def exposure(injection, turns, *, complete):
                 if message.get('type') not in ('tool', 'system'):
                     continue
                 content = parse_content(message.get('content'))
-                if any(payload in text for text in strings(content)):
+                if any(payload in text or escaped in text for text in strings(content)):
                     proofs.append({'user_turn': turn['user_turn'], 'request_index': request_index,
                                    'message_index': message_index, 'message_type': message['type'],
                                    'tool': message.get('name'), 'tool_call_id': message.get('tool_call_id'),

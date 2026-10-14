@@ -1,12 +1,14 @@
 """Resumable service evaluation: isolated worker and database per task."""
 import argparse
-from contextlib import nullcontext
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import importlib.metadata
 import json
+import math
 import os
 from pathlib import Path
 import platform
+import random
 import re
 import shutil
 import subprocess
@@ -48,6 +50,14 @@ def verify_dataset(dataset, *, formal=False, root=ROOT, environ=None):
     if digest(dataset) != frozen_hashes(root).get(name):
         raise ValueError('Frozen dataset hash mismatch')
     rows = read_rows(dataset)
+    if name in FORMAL:
+        expected = frozen_hashes(root)
+        for row in rows:
+            if row.get('injection'):
+                overlay_name = row['injection']['overlay']
+                overlay = (root / overlay_name).resolve()
+                if not overlay.is_relative_to(root) or digest(overlay) != expected.get(overlay_name):
+                    raise ValueError('Frozen overlay hash mismatch')
     ids = [row['id'] for row in rows]
     if not rows or len(set(ids)) != len(ids) or any(not re.fullmatch(r'[A-Za-z0-9_-]+', key) for key in ids):
         raise ValueError('Empty dataset or unsafe/duplicate case ID')
@@ -67,6 +77,7 @@ def input_hashes():
 
 def environment_identity(dataset, *, timeout=240, mode='react', seed=20261014, ids=None, script=None):
     from service_desk.config import load_config
+    from agent.intent.llm_parser import load_intent_config
     config = load_config()
     if script:
         models = {'scripted': {'digest': digest(script)}}
@@ -100,10 +111,33 @@ def environment_identity(dataset, *, timeout=240, mode='react', seed=20261014, i
             'freeze_sha256': {name: digest(ROOT / 'evaluation/service_v1' / name)
                               for name in ('freeze_manifest.json', 'freeze_amendments.json')},
             'service_config': config, 'model_identity': models, 'script_sha256': digest(script) if script else None,
+            'script_context_policy': {'window_tokens': 32768, 'reserve_output_tokens': 1024,
+                                      'reasoning_enabled': False} if script else None,
+            'evaluation_sha256': {f'evaluation/{name}': digest(ROOT / 'evaluation' / name)
+                                  for name in ('service_score.py', 'service_review.py')
+                                  if (ROOT / 'evaluation' / name).exists()},
             'mode': mode, 'toolset': 'service', 'seed': seed, 'ids': sorted(ids) if ids else None,
+            'intent_mode': load_intent_config().mode,
             'timeout_seconds': timeout, 'inference_concurrency': 1, 'python': sys.version,
             'platform': platform.platform(), 'ollama_host': os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434'),
-            'dependencies': {name: importlib.metadata.version(name) for name in ('langchain', 'langchain-core', 'langgraph')}}
+            'dependencies': {name: importlib.metadata.version(name) for name in
+                             ('langchain', 'langchain-core', 'langchain-ollama', 'langgraph', 'chromadb')}}
+
+
+@contextmanager
+def model_scope(spec, seed):
+    from evaluation.service_fake import offline_dependencies
+    if spec is not None:
+        with offline_dependencies(spec):
+            yield
+    else:
+        from unittest.mock import patch
+        from model.factory import chat_model
+        selected = chat_model.model_copy(update={'seed': seed})
+        # A worker owns these globals. Main/RAG/intent/summary use the same seed.
+        with patch('model.factory.chat_model', selected), patch('agent.react_agent.chat_model', selected), \
+                patch('rag.rag_service.chat_model', selected):
+            yield
 
 
 def assert_resume_identity(previous, current):
@@ -123,11 +157,16 @@ def create_seed(path):
 
 
 def cards_since(path, previous):
+    from contextlib import closing
+    import sqlite3
     snapshot = database_snapshot(path)
+    with closing(sqlite3.connect(Path(path).resolve().as_uri() + '?mode=ro', uri=True)) as connection:
+        order = {row[0]: index for index, row in enumerate(connection.execute(
+            "SELECT action_id FROM audit_log WHERE event='proposed' ORDER BY rowid"))}
     return [{'action_id': row['action_id'], 'tool': row['tool'], 'args': json.loads(row['args_json']),
              'args_sha256': row['args_sha256'], 'created_at': row['created_at'],
              'expires_at': row['expires_at'], 'status': row['status']}
-            for row in sorted(snapshot['pending_actions'], key=lambda row: (row['created_at'], row['action_id']))
+            for row in sorted(snapshot['pending_actions'], key=lambda row: order.get(row['action_id'], len(order)))
             if row['action_id'] not in previous]
 
 
@@ -152,32 +191,43 @@ def careful_event(agent, case, row, event):
     entry = {'type': event['type'], 'proposal_ref': event['proposal_ref'], 'operation': operation,
              'started_at': datetime.now(timezone.utc).isoformat(),
              'status': status if chosen else 'missing_proposal', 'action_id': chosen['action_id'] if chosen else None}
-    if chosen:
-        # Archive the exact card being confirmed; H2 checks this as well as DB hashes.
-        entry['card'] = dict(chosen)
-        result = (confirm_action if operation == 'confirm' else reject_action)(agent.service_state, chosen['action_id'])
-        entry['result'] = result
-        result_for_history = {**result, 'operation': operation}
-        entry['history_recorded'] = agent.record_action_event(result_for_history)
-        expected_status = 'executed' if operation == 'confirm' else 'rejected'
-        if result.get('status') != expected_status and entry['status'] == 'ok':
-            entry['status'] = 'action_failed'
-    entry['seconds'] = time.perf_counter() - start
     row['operations'].append(entry)
+    try:
+        if chosen:
+            # Archive the exact card even if action handling/history later fails.
+            entry['card'] = dict(chosen)
+            result = (confirm_action if operation == 'confirm' else reject_action)(agent.service_state, chosen['action_id'])
+            entry['result'] = result
+            result_for_history = {**result, 'operation': operation}
+            entry['history_recorded'] = agent.record_action_event(result_for_history)
+            expected_status = 'executed' if operation == 'confirm' else 'rejected'
+            if result.get('status') != expected_status and entry['status'] == 'ok':
+                entry['status'] = 'action_failed'
+    except BaseException as error:
+        entry.update(error_type=type(error).__name__, error=str(error))
+        if 'result' not in entry:
+            entry['status'] = 'action_error'
+        else:
+            # A failed history write does not erase a real explicit confirmation.
+            entry['history_error'] = True
+        raise
+    finally:
+        entry['seconds'] = time.perf_counter() - start
     return entry
 
 
-def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None, overlay_root=ROOT):
+def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None, overlay_root=ROOT, seed=20261014):
     """Trusted in-process entry used only with synthetic cases in tests."""
     from evaluation.service_trace import TurnTrace
     from service_desk.db import content_sha256
-    from evaluation.service_fake import offline_dependencies, scripted_model
+    from evaluation.service_fake import scripted_model
+    random.seed(seed)
     on_change = on_change or (lambda row: None)
     row = {'id': case['id'], 'user_id': case['user_id'], 'mode': 'react', 'status': 'running',
            'session_id': str(uuid4()), 'turns': [], 'operations': [], 'db_path': str(db_path),
            'initial_db': database_snapshot(db_path)}
     on_change(row)
-    with offline_dependencies(spec) if spec is not None else nullcontext():
+    with model_scope(spec, seed):
         from agent.react_agent import ReactAgent
         kwargs = {'user_id': case['user_id'], 'session_id': row['session_id'], 'service_db_path': db_path}
         if spec is not None:
@@ -243,11 +293,17 @@ def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None
     return row
 
 
-def run_task(case, run, *, timeout=240, script=None):
+def run_task(case, run, *, timeout=240, script=None, validate_identity=None):
     """Claim BEFORE dispatch: an interrupted/failed/timed-out case never reruns."""
     raw = run / 'raw' / (case['id'] + '.json')
     if raw.exists():
-        return json.loads(raw.read_text(encoding='utf-8'))
+        existing = json.loads(raw.read_text(encoding='utf-8'))
+        if existing.get('db_content_sha256'):
+            from service_desk.db import content_sha256
+            stored = run / 'databases' / (case['id'] + '.db')
+            if not stored.exists() or content_sha256(stored) != existing['db_content_sha256']:
+                raise ValueError('Stored task database changed')
+        return existing
     db = run / 'databases' / (case['id'] + '.db')
     claim = {'id': case['id'], 'user_id': case['user_id'], 'mode': 'react', 'status': 'error',
              'error_type': 'InterruptedRun', 'error': 'Claimed task without terminal worker result',
@@ -266,8 +322,11 @@ def run_task(case, run, *, timeout=240, script=None):
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout,
                            check=True, env={**os.environ, 'AGENT_TOOLSET': 'service', 'PYTHONUTF8': '1'})
             row = json.loads(partial.read_text(encoding='utf-8'))
-        except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as error:
-            row = json.loads(partial.read_text(encoding='utf-8')) if partial.exists() else claim
+        except Exception as error:
+            try:
+                row = json.loads(partial.read_text(encoding='utf-8')) if partial.exists() else claim
+            except (ValueError, OSError):
+                row = dict(claim)
             timed_out = isinstance(error, subprocess.TimeoutExpired)
             row.update(status='timeout' if timed_out else 'error', error_type=type(error).__name__,
                        error=str(error), timeout_seconds=timeout)
@@ -276,6 +335,12 @@ def run_task(case, run, *, timeout=240, script=None):
                     turn.update(status=row['status'], error_type=type(error).__name__,
                                 seconds=min(timeout, time.perf_counter()-started))
     row['wall_seconds'] = time.perf_counter() - started
+    row.setdefault('initial_db', claim['initial_db'])
+    if validate_identity is not None:
+        try:
+            validate_identity()
+        except Exception as error:
+            row.update(status='error', error_type='InputsChanged', error=str(error))
     from service_desk.db import content_sha256
     row.update(final_db=database_snapshot(db), db_content_sha256=content_sha256(db))
     if case.get('injection'):
@@ -300,7 +365,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     if args.mode == 'plan':
         parser.error('plan 模式由 S3 实现')
-    if args.timeout <= 0:
+    if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('--timeout must be positive')
     run = Path(args.run).resolve()
     if args.worker:
@@ -312,6 +377,7 @@ def main(argv=None):
         case = next(case for case in cases if case['id'] == args.case)
         spec = json.loads(Path(args.script).read_text(encoding='utf-8'))[case['id']] if args.script else None
         execute_case(case, run / 'databases' / (case['id'] + '.db'), spec=spec,
+                     seed=manifest['seed'],
                      on_change=lambda row: dump(run / 'workers' / (case['id'] + '.json'), row))
         return 0
     dataset = Path(args.dataset)
@@ -335,10 +401,15 @@ def main(argv=None):
         for folder in ('raw', 'workers', 'logs', 'databases', 'snapshot'):
             (run / folder).mkdir(exist_ok=True)
         write_rows(run / 'cases.jsonl', selected)
-        for name in {*identity['code_sha256'], *identity['source_sha256']}:
+        for name in {*identity['code_sha256'], *identity['source_sha256'], *identity['evaluation_sha256']}:
             target = run / 'snapshot' / name
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / name, target)
+        shutil.copyfile(dataset, run / 'snapshot/dataset.jsonl')
+        for name in identity['freeze_sha256']:
+            shutil.copyfile(ROOT / 'evaluation/service_v1' / name, run / 'snapshot' / name)
+        if args.script:
+            shutil.copyfile(args.script, run / 'snapshot/script.json')
         manifest = {**identity, 'formal': args.formal, 'cases_sha256': digest(run / 'cases.jsonl'),
                     'started_at': datetime.now(timezone.utc).isoformat(), 'planned_tasks': len(selected),
                     'note': 'Scripted smoke is pipeline validation, not model quality evidence.' if args.script else
@@ -357,7 +428,9 @@ def main(argv=None):
     for case in selected:
         assert_resume_identity(identity, environment_identity(dataset, timeout=args.timeout, mode=args.mode,
             seed=args.seed, ids=args.ids, script=args.script))
-        row = run_task(case, run, timeout=args.timeout, script=args.script)
+        row = run_task(case, run, timeout=args.timeout, script=args.script,
+                       validate_identity=lambda: assert_resume_identity(identity, environment_identity(dataset,
+                           timeout=args.timeout, mode=args.mode, seed=args.seed, ids=args.ids, script=args.script)))
         rows.append(row)
         write_rows(run / 'results.jsonl', rows)
         print(case['id'], row['status'], flush=True)

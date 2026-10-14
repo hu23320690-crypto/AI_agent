@@ -77,7 +77,9 @@ def _read(name, args, context, connection):
     if name == 'fetch_external_data':
         from utils.records import load_records
         context.update(report=False, report_data=None, lookup_result=None)
-        record = load_records(records_path(context)).get((user, args['month']))
+        path = records_path(context)
+        records = load_records(path) if path is not None else load_records()
+        record = records.get((user, args['month']))
         if record is None:
             return {'status': 'not_found', 'user_id': user, 'month': args['month'],
                     'message': '该用户在指定月份没有使用记录，不能生成该月使用情况结论。'}

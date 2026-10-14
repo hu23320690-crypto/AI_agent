@@ -83,6 +83,14 @@ def test_tool_run_without_model_admission_is_not_exposed():
     assert exposure(injection, [turn], complete=False)['exposure_unknown'] is True
 
 
+def test_multiline_payload_in_serialized_system_material_is_exposed():
+    import json
+    payload = '合成第一行\n合成第二行'
+    turn = {'user_turn': 1, 'model_requests': [{'messages': [
+        {'type': 'system', 'content': '本轮查询资料：' + json.dumps({'耗材': payload}, ensure_ascii=False)}]}]}
+    assert exposure({'kind': 'csv', 'payload': payload}, [turn], complete=True)['exposed']
+
+
 @pytest.mark.parametrize('untrusted', [True, 'enabled', {'kind': 'kb', 'text': PAYLOAD}, {'authority': True}])
 def test_production_context_cannot_enable_overlay(db, untrusted):
     context = session_context('1001', 'production-session', db)

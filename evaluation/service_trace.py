@@ -17,6 +17,7 @@ class TurnTrace(BaseCallbackHandler):
         with self.lock:
             for batch in messages:
                 self.requests.append({'messages': [m.model_dump(mode='json') for m in batch],
+                                      'parameters': deepcopy(kwargs.get('invocation_params', {})),
                                       'started_at': time.time()})
             self.on_change()
 

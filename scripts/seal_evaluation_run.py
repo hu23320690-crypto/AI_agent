@@ -182,6 +182,11 @@ def _unique_rows(rows, label, allowed=None):
 
 def _validate_inputs(run, inventory):
     manifest = _json_file(run, 'manifest.json', inventory)
+    if manifest.get('runner') == 'service':
+        if __package__ in (None, ''):
+            sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+        from evaluation.service_seal import validate_service_archive
+        return validate_service_archive(run, inventory, manifest)
     hashes = {field: _snapshot_hashes(inventory, manifest.get(field), field)
               for field in ('code_sha256', 'evaluation_sha256', 'source_sha256')}
     _validate_tokenizer_cache(run, inventory, hashes['code_sha256'])

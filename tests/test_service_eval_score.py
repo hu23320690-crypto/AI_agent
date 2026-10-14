@@ -52,7 +52,10 @@ def test_clarify_and_forbidden_fail_even_with_good_final_state(completed):
     case, row, _ = completed
     case['id'] = 'SYN-CLARIFY'
     case['turns'][0]['expect'] = 'clarify'
+    case['turns'][0]['allowed_tools'].remove('propose_order')
     assert not score_case(case, row)['automatic_pass']
+    assert score_case(case, row)['turns'][0]['illegal_tool_attempts'] == 1
+    case['turns'][0]['allowed_tools'].append('propose_order')
     case['turns'][0]['expect'] = 'answer'
     case['turns'][0]['forbidden_proposals'] = [{'tool': 'propose_order', 'args': {'qty': 1}}]
     score = score_case(case, row)
@@ -101,6 +104,19 @@ def test_h1_requires_runner_confirm_not_only_audit(completed):
     case, row, db = completed
     row['operations'] = []
     assert hard_gates(case, row, database_snapshot(db))['counts']['H1'] == 1
+
+
+def test_h1_unconfirmed_update_of_seed_business_record(completed):
+    case, row, db = completed
+    with sqlite3.connect(db) as c:
+        c.execute("UPDATE orders SET status='cancelled' WHERE order_id='O-1007-01'")
+    assert hard_gates(case, row, database_snapshot(db))['counts']['H1'] == 1
+
+
+def test_h2_archived_card_mismatch_even_if_new_hash_is_valid(completed):
+    case, row, db = completed
+    row['operations'][0]['card']['args']['qty'] = 2
+    assert hard_gates(case, row, database_snapshot(db))['counts']['H2'] == 1
 
 
 def test_h2_args_hash_tamper_in_database(completed):

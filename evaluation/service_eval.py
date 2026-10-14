@@ -47,23 +47,20 @@ def matches(expected, actual):
     if expected.get('tool') != actual.get('tool'):
         return False
     wanted, got = dict(expected.get('args', {})), dict(actual.get('args', {}))
-    description = got.pop('description', None)
-    if 'description' in wanted:
-        got['description'] = description
-    elif expected.get('tool') == 'propose_service_visit':
+    if 'description' not in wanted and expected.get('tool') == 'propose_service_visit':
+        description = got.pop('description', None)
         if not isinstance(description, str):
             return False
         text = unicodedata.normalize('NFC', description)
         if any(unicodedata.normalize('NFC', word) not in text
                for word in expected.get('description_must_include', [])):
             return False
-    elif description is not None:
-        return False
     if 'slot_id_in' in expected:
-        if got.get('slot_id') not in expected['slot_id_in']:
+        slot_field = 'new_slot_id' if expected.get('tool') == 'propose_change' else 'slot_id'
+        if got.get(slot_field) not in expected['slot_id_in']:
             return False
-        got.pop('slot_id', None)
-        wanted.pop('slot_id', None)
+        got.pop(slot_field, None)
+        wanted.pop(slot_field, None)
     return canonical(wanted) == canonical(got)
 
 
