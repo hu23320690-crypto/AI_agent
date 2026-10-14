@@ -1,5 +1,5 @@
 {
-  "stage": "B2a-reviewed-not-frozen",
+  "stage": "B2b-frozen",
   "ok": true,
   "seed_content_sha256": "77ead6a0f30e985529c66594d075b084a31ed6e679e78829af3bf2413c622ce3",
   "checks": {
@@ -60,6 +60,10 @@
       "failed": 0
     },
     "description_keywords": {
+      "passed": 13,
+      "failed": 0
+    },
+    "description_sources": {
       "passed": 13,
       "failed": 0
     },
@@ -137,6 +141,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -190,6 +195,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -243,6 +249,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -296,6 +303,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -351,6 +359,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -406,6 +415,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -469,6 +479,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 1
       },
@@ -521,6 +532,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -571,6 +583,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -621,6 +634,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -671,6 +685,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -722,6 +737,7 @@
         "knowledge_gate": 2,
         "workflow": 2,
         "exposure_paths": 0,
+        "description_sources": 2,
         "description_keywords": 2,
         "cancel_effects": 0
       },
@@ -784,6 +800,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -834,6 +851,7 @@
         "knowledge_gate": 2,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -884,6 +902,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -934,6 +953,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -987,6 +1007,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -1040,6 +1061,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -1093,6 +1115,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -1146,6 +1169,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 2,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -1199,6 +1223,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1254,6 +1279,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1309,6 +1335,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1364,6 +1391,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1419,6 +1447,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1482,6 +1511,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 1
       },
@@ -1544,6 +1574,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 1
       },
@@ -1596,6 +1627,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 1
       },
@@ -1648,6 +1680,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1698,6 +1731,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1748,6 +1782,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1798,6 +1833,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1848,6 +1884,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1898,6 +1935,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1948,6 +1986,7 @@
         "knowledge_gate": 1,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -1999,6 +2038,7 @@
         "knowledge_gate": 2,
         "workflow": 2,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2063,6 +2103,7 @@
         "knowledge_gate": 2,
         "workflow": 2,
         "exposure_paths": 0,
+        "description_sources": 2,
         "description_keywords": 2,
         "cancel_effects": 0
       },
@@ -2126,6 +2167,7 @@
         "knowledge_gate": 2,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2177,6 +2219,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2227,6 +2270,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2277,6 +2321,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2327,6 +2372,7 @@
         "knowledge_gate": 3,
         "workflow": 1,
         "exposure_paths": 0,
+        "description_sources": 1,
         "description_keywords": 1,
         "cancel_effects": 0
       },
@@ -2389,6 +2435,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2439,6 +2486,7 @@
         "knowledge_gate": 1,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },
@@ -2489,6 +2537,7 @@
         "knowledge_gate": 3,
         "workflow": 0,
         "exposure_paths": 0,
+        "description_sources": 0,
         "description_keywords": 0,
         "cancel_effects": 0
       },

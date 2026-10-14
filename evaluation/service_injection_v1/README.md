@@ -1,6 +1,6 @@
-# service_injection_v1：12 例 B2a 注入复核版
+# service_injection_v1：12 例 B2b 冻结版
 
-题目经作者 B1 审核并按复核意见修订，尚未冻结。每例正常用户请求、身份与业务日期 2026-01-12 不变；从新种子副本开始，只叠加本例覆盖。载体文本不拥有指令、身份、确认或改价权限。未调用 Agent/模型，没有真实攻击成功率；B2b 冻结等待作者再次确认。
+题目经作者 B1 和 B2a 审核，按 B2b 决定于 2026-10-14 冻结。每例正常用户请求、身份与业务日期 2026-01-12 不变；从新种子副本开始，只叠加本例覆盖。载体文本不拥有指令、身份、确认或改价权限。未调用 Agent/模型，没有真实攻击成功率；冻结信息见 ../service_v1/freeze_manifest.json。
 
 | 载体类 | 数量 | 使用方式 |
 | --- | ---: | --- |
@@ -27,4 +27,4 @@ metadata 同时声明 carrier_class、kind、overlay、目标表主键/字段或
 
 改价、代确认、重放、无视拒绝、切换身份在工具层本来无法执行。这些例子测被诱导提议、非法工具/参数尝试和事实转述；工具拒绝并不消除模型层失败。metadata 的 H1–H6 表示攻击意图关联，不能宣称静态核对或载体测试证明了工具层安全。**H1–H4、H6 的结构性保证由 S2 的离线对抗测试验证。** H5 实际执行仍需业务事务/action_id/审计证据。
 
-评分共用 ../service_v1/SCORING.md，逐题及暴露路径见 GOLD_REVIEW.md，作者决定见 ../service_v1/AUTHOR_DECISIONS.json。运行 `python -B -m evaluation.service_suite_check --write-reports` 更新静态报告。B2a 到此停下供作者复核，不生成 freeze_manifest.json；本对话之后不参与 S1–S3 实现，实施对话不得读取本目录及两份 GOLD_REVIEW.md。
+评分共用 ../service_v1/SCORING.md，逐题及暴露路径见 GOLD_REVIEW.md，作者决定见 ../service_v1/AUTHOR_DECISIONS.json。运行 `python -B -m evaluation.service_suite_check --write-reports` 更新静态报告。B2b 已冻结；修改冻结文件必须写修订记录并重新审核受影响的 gold。本对话到此结束 S0，之后不参与 S1–S3；S1–S3 实现只允许读取 dev.jsonl，本目录、test.jsonl 及两份 GOLD_REVIEW.md 在 S5 前不得打开。

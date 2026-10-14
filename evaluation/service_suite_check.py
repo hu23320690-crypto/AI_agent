@@ -1,4 +1,4 @@
-"""Offline B2a gold checks, not service tools, an Agent, or an execution runner.
+"""Offline frozen S0-B gold checks, not service tools, an Agent, or an execution runner.
 
 Only this module's disposable seed copies are changed. No model is imported.
 Run: python -B -m evaluation.service_suite_check [--write-reports].
@@ -36,7 +36,7 @@ DISTRIBUTION = {
 CHECK_NAMES = ('structure', 'proposals', 'blocked_requests', 'evidence', 'final_state',
                'similarity', 'isolation', 'csv_overlay', 'sql_overlay', 'workflow',
                'knowledge_gate', 'allowed_tools', 'scenario_overlap', 'test_user_limit',
-               'description_keywords', 'cancel_effects', 'exposure_paths')
+               'description_keywords', 'description_sources', 'cancel_effects', 'exposure_paths')
 READ_TOOL_ORDER = tuple(name for name in ARGUMENT_MODELS if name in READ_TOOLS)
 
 
@@ -393,6 +393,24 @@ def verify_description(proposal):
                 'description keyword exceeds four characters or is empty')
         if re.fullmatch(r'E[0-9]{2}', word):
             require(word == proposal.args.get('error_code'), 'description error keyword mismatch')
+
+
+def verify_description_sources(task):
+    queries, count = [], 0
+    for turn in task.turns:
+        if turn.type != 'user':
+            continue
+        queries.append(turn.query)
+        for proposal in turn.expected_proposals:
+            if proposal.tool != 'propose_service_visit':
+                continue
+            for word in proposal.description_must_include:
+                if re.fullmatch(r'E[0-9]{2}', word):
+                    continue
+                require(any(word in query for query in queries),
+                        f'description keyword has no prior/current user source: {word}')
+                count += 1
+    return count
 
 
 def verify_allowed(task):
@@ -789,7 +807,8 @@ def check_all(root=ROOT, *, write_reports=False):
                 try:
                     validations = {}
                     for stage, validator in (('allowed_tools', verify_allowed), ('knowledge_gate', verify_knowledge),
-                                             ('workflow', verify_workflow), ('exposure_paths', verify_exposure)):
+                                             ('workflow', verify_workflow), ('exposure_paths', verify_exposure),
+                                             ('description_sources', verify_description_sources)):
                         validations[stage] = validator(task)
                     stage = 'description_keywords'
                     descriptions = [p for turn in task.turns if turn.type == 'user'
@@ -825,11 +844,11 @@ def check_all(root=ROOT, *, write_reports=False):
                   'csv_overlay': sum(t.get('overlay') == 'csv' for t in details),
                   'sql_overlay': sum(t.get('overlay') == 'sql' for t in details)}
         counts.update({name: sum(t.get('validations', {}).get(name, 0) for t in details)
-                       for name in ('workflow', 'knowledge_gate', 'allowed_tools', 'description_keywords', 'cancel_effects', 'exposure_paths')})
+                       for name in ('workflow', 'knowledge_gate', 'allowed_tools', 'description_keywords', 'description_sources', 'cancel_effects', 'exposure_paths')})
         counts['scenario_overlap'] = sum(1 for a in tasks for b in tasks if a.split == 'dev' and b.split == 'test') if 'test' in splits else 0
         counts['test_user_limit'] = sum(count <= 5 for count in test_users.values()) if 'test' in splits else 0
         relevant_failures = [f for f in failures if f['id'] in {t.id for t in selected} or f['id'] in splits or f['id'] == 'all']
-        reports[suite] = {'stage': 'B2a-reviewed-not-frozen', 'ok': not relevant_failures, 'seed_content_sha256': config['seed_content_sha256'],
+        reports[suite] = {'stage': 'B2b-frozen', 'ok': not relevant_failures, 'seed_content_sha256': config['seed_content_sha256'],
                           'checks': {name: {'passed': counts[name], 'failed': sum(f['check'] == name for f in relevant_failures)}
                                      for name in CHECK_NAMES},
                           'distribution': {split: dict(Counter(t.category for t in selected if t.split == split)) for split in sorted(splits)},

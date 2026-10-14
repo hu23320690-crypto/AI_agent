@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "suite": "service_v1",
+  "status": "frozen",
+  "freeze_date": "2026-10-14",
+  "based_on_main_commit": "5991d11600fcd22153e8ba07989c66b2d17a3bcf",
+  "hash_algorithm": "SHA256",
+  "file_hash_basis": "exact_file_bytes",
+  "seed_content_sha256": "77ead6a0f30e985529c66594d075b084a31ed6e679e78829af3bf2413c622ce3",
+  "revision_rule": "此后修改上述任何文件，都必须写修订记录并重新审核受影响的 gold",
+  "isolation": {
+    "implementation_stages": [
+      "S1",
+      "S2",
+      "S3"
+    ],
+    "allowed_suite_input": "evaluation/service_v1/dev.jsonl",
+    "must_not_open_before": "S5",
+    "restricted_paths": [
+      "evaluation/service_v1/test.jsonl",
+      "evaluation/service_injection_v1/",
+      "evaluation/service_v1/GOLD_REVIEW.md",
+      "evaluation/service_injection_v1/GOLD_REVIEW.md"
+    ],
+    "authoring_conversation": "S0到此结束，本对话之后不参与S1–S3实现。"
+  },
+  "files": {
+    "config/service.yml": "c10292f4bf911ff3671668f666dd383b06952332561de57a384fc03d51466317",
+    "evaluation/service_injection_v1/README.md": "180b75d03c44813b273a6ca8f0397a91fd7cdbf788f44f3d660092a158237b2f",
+    "evaluation/service_injection_v1/cases.jsonl": "556e4e40e12bfa994ac2c853e86096db70448f24c9562192a208a9deffb92598",
+    "evaluation/service_injection_v1/overlays/SI-I01.sql": "9a44f5844b0dd601dc07e640e1ab634174cacf2f9de2055845d78469482ed062",
+    "evaluation/service_injection_v1/overlays/SI-I02.sql": "819c4f56b4f6172242167c37814eb1c69830d307c520b1613bae517977a9d3ff",
+    "evaluation/service_injection_v1/overlays/SI-I03.sql": "a709f61209f743754040265d994a6c71d302073b9b2cc49096a78391b554b50a",
+    "evaluation/service_injection_v1/overlays/SI-I04.txt": "63bd1c35447c7db8dba044d465ddbfae16cd2763be0beb1ac40a22dfb294665d",
+    "evaluation/service_injection_v1/overlays/SI-I05.txt": "c9404d0f91d18d9cf7cbf46045e7d47c3b82a0d4611897c7185f1107634d29cd",
+    "evaluation/service_injection_v1/overlays/SI-I06.txt": "33f8b0e35d3ff53b1c89f087bc0e3055fe8dc2ab54304233ba939e0c2ef34b15",
+    "evaluation/service_injection_v1/overlays/SI-I07.sql": "fa5d33dc4db89eb4bde62b3de9c039ccf406715e5d0d881f92747f0725d36efe",
+    "evaluation/service_injection_v1/overlays/SI-I08.sql": "76f2fb2af96c5e2ae3389abbc8609891e9fb23152ae5e2e24c5ce5fd1c11f149",
+    "evaluation/service_injection_v1/overlays/SI-I09.sql": "e9ddd6e08ee0ad50b7804371d184bf51f0f30d642551db3ea91454cfd644f11c",
+    "evaluation/service_injection_v1/overlays/SI-I10.csv": "74eb91103cff0d27150e0ff6aad315990a2e550354a09f5394b55c77479267c4",
+    "evaluation/service_injection_v1/overlays/SI-I11.csv": "21c6ab33f2b0c9d8d9a17a69dd737a754317cfa04f9af83a52b720dc2d5e81ce",
+    "evaluation/service_injection_v1/overlays/SI-I12.sql": "3d842e74f5af056269c1ec62a696bd42cbff9ce37283f754f2620cc9d9bd68fd",
+    "evaluation/service_suite_check.py": "23d5c1942e24ea004e1e89b7d9b625a8492b25b5fe8309c4dbf860089c457250",
+    "evaluation/service_v1/AUTHOR_DECISIONS.json": "65b153edaa4220e64664809776317b8ad8df9dc619b6d0fb15144905c97fd95d",
+    "evaluation/service_v1/README.md": "4ca0d2c6705a8fd7ad44b01f3f3845b628fa497f7a2c343c04c640bef9ef1760",
+    "evaluation/service_v1/SCORING.md": "fca7a5c7abd93866782321e65d699b875ac3559835cf6fced6e6118921af6e31",
+    "evaluation/service_v1/dev.jsonl": "a9412021c6c778fdc60355b917bb10f0e7e9c4e735b52e9ed9dcc09a361d91ef",
+    "evaluation/service_v1/test.jsonl": "247a2606c7f732d974ff7cfc7203d2ff4b1dda7b62e36fba1da598b53af56a1a",
+    "service_desk/contracts.py": "4a425c3c27f8dcf1848ba2a9fa193e209cd161ab4aefca949df33bbca984b7e3",
+    "service_desk/schema.sql": "03d654ad502e774f7e42ff7bf475f74e186572c8779d9805b92e0011acbb433e",
+    "service_desk/seed.py": "502cb6e9ce5d00cbd5f235431d7082f66e4ac03a11ffccf94cd731160a3a6abf",
+    "service_desk/tool_schema.py": "4374fa902f7a1aa445671877806067759ec40287f59dc27530a3ccc57b4fc72a",
+    "service_kb/manifest.json": "9f9f1a3ac50465c0db3d11ac914e9c4d78689666dd13b914821c3ac16edbc6fb"
+  }
+}

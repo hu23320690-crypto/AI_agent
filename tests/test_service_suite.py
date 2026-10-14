@@ -379,3 +379,18 @@ def test_injection_requires_declared_exposure_path_without_claiming_execution(mu
     else: selected.model_fields_set.remove('exposed')
     with pytest.raises(ValueError, match='exposure|exposed'):
         check.verify_exposure(selected)
+
+
+def test_description_keyword_without_user_source_fails_full_checker(tmp_path):
+    for directory in ('evaluation/service_v1', 'evaluation/service_injection_v1', 'data/external', 'service_kb'):
+        shutil.copytree(check.ROOT / directory, tmp_path / directory)
+    path = tmp_path / 'evaluation/service_v1/test.jsonl'
+    rows = check.load_jsonl(path)
+    selected = next(row for row in rows if row['id'] == 'SV-T03')
+    assert selected['turns'][0]['expected_proposals'][0]['description_must_include'] == ['E11']
+    selected['turns'][0]['expected_proposals'][0]['description_must_include'] = ['E11', '台阶']
+    path.write_text(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in rows), encoding='utf-8')
+    result = check.check_all(tmp_path)
+    assert not result['ok']
+    assert any(f['id'] == 'SV-T03' and f['check'] == 'description_sources' and '台阶' in f['error']
+               for f in result['failures'])
