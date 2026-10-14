@@ -77,6 +77,7 @@ class ReactAgent:
             from service_desk.access import session_context
             self.service_state = session_context(self.user_id, self.session_id, service_db_path)
         self.messages = []
+        self._recorded_action_events = set()
         self._history_checks = []
         self._lookup_records = []
         self._report_intent = None
@@ -106,6 +107,7 @@ class ReactAgent:
         with self._state_lock:
             self.cancel_current()
             self.messages = []
+            self._recorded_action_events.clear()
             self._history_checks = []
             self._lookup_records = []
             self._report_intent = None
@@ -118,6 +120,33 @@ class ReactAgent:
                 self._active_run.cancel()
                 return True
             return False
+
+    def record_action_event(self, result):
+        """Append one complete code-rendered card turn; return False on replay."""
+        with self._state_lock:
+            if self.toolset != 'service':
+                raise ValueError('service_disabled')
+            if self._active_run is not None:
+                raise RunBusy('当前会话已有任务运行，请等待或取消后重试。')
+            if (not isinstance(result, dict) or result.get('status') not in
+                    {'executed', 'rejected', 'expired', 'superseded', 'failed'}
+                    or not isinstance(result.get('action_id'), str) or not result['action_id']
+                    or not isinstance(result.get('message'), str) or not result['message']):
+                raise ValueError('invalid_action_result')
+            action_id = result['action_id']
+            if action_id in self._recorded_action_events:
+                return False
+            operation = result.get('operation', 'reject' if result['status'] == 'rejected' else 'confirm')
+            if operation not in ('confirm', 'reject'):
+                raise ValueError('invalid_action_operation')
+            label = '确认' if operation == 'confirm' else '拒绝'
+            self.messages.extend([
+                HumanMessage(content=f'[卡片操作] {label} {action_id}', name='action_event'),
+                AIMessage(content=result['message']),
+            ])
+            # Retain replay protection even after complete-turn history trimming.
+            self._recorded_action_events.add(action_id)
+            return True
 
     def execute_stream(self, query: str, *, run_context: RunContext | None = None):
         """Yield the final answer, retaining the existing API (not token streaming).
@@ -134,12 +163,13 @@ class ReactAgent:
                 raise ValueError("run_context must use this agent's limits and executor")
         if not query.strip():
             raise ValueError("请输入问题。")
-        if not self._turn_lock.acquire(blocking=False):
-            raise RunBusy("当前会话已有任务运行，请等待或取消后重试。")
-        run = run_context if run_context is not None else RunContext(self.limits, self.executor)
+        with self._state_lock:
+            if not self._turn_lock.acquire(blocking=False):
+                raise RunBusy("当前会话已有任务运行，请等待或取消后重试。")
+            run = run_context if run_context is not None else RunContext(self.limits, self.executor)
+            self._active_run = run
         try:
             with self._state_lock:
-                self._active_run = run
                 run.check()
                 history = list(self.messages)
                 history_checks = tuple(self._history_checks)
@@ -213,7 +243,7 @@ class ReactAgent:
                    "user_query": query,
                    "rag_user_history": [m.content for m in history
                                         if isinstance(m, HumanMessage) and isinstance(m.content, str)
-                                        and m.name != 'conversation_memory'],
+                                        and m.name not in ('conversation_memory', 'action_event')],
                    "report": False, "report_data": None,
                    "lookup_result": None, "lookup_results": [], "tool_errors": {}, "run_context": run,
                    "context_policy": self.context_policy, "memory_plan": plan}
@@ -243,7 +273,7 @@ class ReactAgent:
         elif context["lookup_result"] is not None:
             previous_queries = [m.content for m in history
                                 if isinstance(m, HumanMessage) and isinstance(m.content, str)
-                                and m.name != 'conversation_memory']
+                                and m.name not in ('conversation_memory', 'action_event')]
             if plan is not None and plan.summary is not None:
                 # A reference may have just been copied from this same graph
                 # prefix. Replay it only when no original turn is available.
