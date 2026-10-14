@@ -75,8 +75,11 @@ TOOL_ARGUMENTS = {
 }
 
 
-def safe_tool_name(name: Any) -> str:
+def safe_tool_name(name: Any, *, toolset="legacy") -> str:
     """Only fixed registered names enter policy logs and run traces."""
+    if toolset == "service":
+        from service_desk.contracts import SERVICE_TOOL_NAMES
+        return name if isinstance(name, str) and name in SERVICE_TOOL_NAMES else "<unknown>"
     return name if isinstance(name, str) and name in TOOL_ARGUMENTS else "<unknown>"
 
 
@@ -108,6 +111,9 @@ def authorize_tool(name: str, arguments: Any, context: Mapping[str, Any], *, too
     Each ReactAgent turn creates a new context, so report_data cannot carry over
     from a previous turn. Tool functions retain their own defensive checks.
     """
+    if context.get("toolset") == "service":
+        from service_desk.policy import authorize_service_tool
+        return authorize_service_tool(name, arguments, context, tool=tool)
     if not isinstance(name, str) or name not in TOOL_ARGUMENTS:
         raise ToolPolicyDenied("tool_not_allowed")
     if not isinstance(arguments, dict):

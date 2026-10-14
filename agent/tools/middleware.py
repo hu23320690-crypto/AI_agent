@@ -78,15 +78,19 @@ def monitor_tool(request: ToolCallRequest,
             logger.info("[tool monitor]工具%s调用成功", name)
         return result
     except ToolPolicyDenied as exc:
-        safe_name = safe_tool_name(name)
+        safe_name = safe_tool_name(name, toolset=context.get("toolset", "legacy"))
         run.note('tool_policy_denied', name=safe_name, reason_code=exc.code)
         logger.warning("[tool monitor]安全策略拒绝:%s (%s)", safe_name, exc.code)
         context['policy_denied'] = True
         errors[safe_name] = POLICY_ERROR
         if name == 'fetch_external_data':
             context.update(report=False, report_data=None, lookup_result=None)
+        observation = POLICY_OBSERVATION
+        if context.get("toolset") == "service":
+            from service_desk.failures import failure_json
+            observation = failure_json(exc.code, denied=True)
         return ToolMessage(
-            content=POLICY_OBSERVATION, name=safe_name,
+            content=observation, name=safe_name,
             tool_call_id=request.tool_call['id'], status='error',
         )
     except RuntimeControlError as exc:
@@ -108,6 +112,9 @@ def log_before_model(state: AgentState, runtime: Runtime):
 @dynamic_prompt
 def report_prompt_switch(request: ModelRequest) -> str:
     context = request.runtime.context or {}
+    if context.get("toolset") == "service":
+        from service_desk.prompt import service_prompt
+        return service_prompt(context)
     prompt = load_report_prompts() if context.get("report") else load_system_prompts()
     session = {"当前日期": date.today().isoformat(),
                "演示用户ID": context.get("user_id") or "未设置",

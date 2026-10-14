@@ -5,6 +5,7 @@ import sys
 from copy import deepcopy
 from dataclasses import asdict, replace
 from datetime import date
+from uuid import uuid4
 from pathlib import Path
 from threading import Lock, RLock
 if __package__ in (None, ""):
@@ -19,6 +20,7 @@ from rag.rag_service import EvidenceCheck
 from rag.answer_policy import requires_conditional_guarantee, conditional_guarantee_reply
 from utils.report_render import render_lookup, record_fields
 from agent.intent import resolve_turn_intent
+from agent.toolset import load_toolset
 from utils.record_evidence import record_evidence_reply
 from utils.logger_hander import logger
 from agent.runtime import RunContext, RunBusy, load_limits, default_runtime, runtime_call
@@ -63,9 +65,17 @@ def _knowledge_requested(query):
 
 class ReactAgent:
     def __init__(self, user_id: str = "", city: str = "", *, model=None, limits=None, executor=None,
-                 context_policy=None, summary_model=None):
+                 context_policy=None, summary_model=None, session_id=None, service_db_path=None):
         self.user_id = user_id.strip()
         self.city = city.strip()
+        self.toolset = load_toolset()
+        self.session_id = str(uuid4()) if session_id is None else session_id
+        if not isinstance(self.session_id, str) or not self.session_id.strip():
+            raise ValueError("session_id must be a nonempty string")
+        self.service_state = None
+        if self.toolset == "service":
+            from service_desk.access import session_context
+            self.service_state = session_context(self.user_id, self.session_id, service_db_path)
         self.messages = []
         self._history_checks = []
         self._lookup_records = []
@@ -80,11 +90,15 @@ class ReactAgent:
         self._active_run = None
         self._turn_lock = Lock()
         self._state_lock = RLock()
+        tools = [rag_summerize, get_weather, get_user_id, get_current_month,
+                 get_user_location, fill_context_for_report, fetch_external_data]
+        if self.toolset == "service":
+            from service_desk.tools import build_service_tools
+            tools = build_service_tools()
         self.agent = create_agent(
             context_schema=dict,
             model=selected_model,
-            tools=[rag_summerize, get_weather, get_user_id, get_current_month,
-                   get_user_location, fill_context_for_report, fetch_external_data],
+            tools=tools,
             middleware=[monitor_tool, log_before_model, report_prompt_switch, manage_context, monitor_model],
         )
 
@@ -194,6 +208,7 @@ class ReactAgent:
         yield text
 
     def _execute_turn(self, query, history, run, plan=None, *, lookup_records=(), report_intent=None):
+        service_state = getattr(self, "service_state", None)
         context = {"user_id": self.user_id, "city": self.city,
                    "user_query": query,
                    "rag_user_history": [m.content for m in history
@@ -202,6 +217,8 @@ class ReactAgent:
                    "report": False, "report_data": None,
                    "lookup_result": None, "lookup_results": [], "tool_errors": {}, "run_context": run,
                    "context_policy": self.context_policy, "memory_plan": plan}
+        if service_state is not None:
+            context.update(service_state)
         result = self.agent.invoke(
             {"messages": [*history, HumanMessage(content=query)]},
             config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency},
@@ -212,7 +229,12 @@ class ReactAgent:
             raise RuntimeError("模型没有生成完整回答，请重试。")
         # Successful tool observations belong to this turn. Never treat the
         # final planner's report prose or a previous assistant answer as data.
-        observations = list(dict.fromkeys(final_answer(m.content) for m in
+        def observation_text(message):
+            if service_state is not None:
+                from service_desk.prompt import rag_answer
+                return final_answer(rag_answer(message.content))
+            return final_answer(message.content)
+        observations = list(dict.fromkeys(observation_text(m) for m in
                             result["messages"][len(history) + 1:]
                             if isinstance(m, ToolMessage) and m.name == "rag_summarize"
                             and m.status == "success" and isinstance(m.content, str)))
@@ -234,11 +256,17 @@ class ReactAgent:
             # Once a report has completed, its resolved absolute month and
             # field selectors survive compression without replaying relative
             # queries ("next month") twice. This confers no lookup authority.
+            intent_reference = report_intent
+            if service_state is not None:
+                from service_desk.prompt import report_reference
+                intent_reference = report_reference(query, report_intent, service_state["business_date"])
             turn_intent = resolve_turn_intent(
                 query, history_queries=previous_queries if report_intent is None else (),
                 llm_history_queries=previous_queries,
                 known_fields=known_fields, fallback_month=context['lookup_result']['month'],
-                previous_intent=report_intent, today=date.today(), run=run)
+                previous_intent=intent_reference,
+                today=(date.fromisoformat(service_state["business_date"])
+                       if service_state is not None else date.today()), run=run)
             report_intent = turn_intent.intent
             if (report_intent.target_month is None and not report_intent.invalid_month
                     and not report_intent.unresolved_month):
