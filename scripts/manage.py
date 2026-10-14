@@ -34,6 +34,18 @@ def dependency_checks():
 def doctor(offline=False):
     checks = [{'name':'Python 3.12', 'ok':sys.version_info[:2] == (3, 12), 'actual':sys.version.split()[0]}]
     checks.extend(dependency_checks())
+    # Service drafts are checked independently; no generated database is required.
+    service_checks = (
+        ('config/service.yml', _check_service_config),
+        ('service_desk/schema.sql', _check_service_schema),
+        ('service_kb/manifest.json', _check_service_knowledge),
+    )
+    for name, check in service_checks:
+        try:
+            check()
+            checks.append({'name':name, 'ok':True})
+        except Exception as exc:
+            checks.append({'name':name, 'ok':False, 'error':str(exc)})
     for name in ('config/rag.yml', 'config/chroma.yml', 'config/agent.yml', 'config/runtime.yml', 'config/context.yml', 'config/intent.yml', 'config/context_tokenizer.json', 'config/tokenizers/qwen3_4b.json.gz', 'config/resilience.yml', 'config/security.yml', 'config/knowledge_sources.json',
                  'prompts/main_prompt.txt', 'prompts/rag_summarize.txt', 'prompts/intent_parser.txt', 'data/external/records.csv'):
         checks.append({'name':name, 'ok':(ROOT/name).is_file()})
@@ -94,6 +106,40 @@ def doctor(offline=False):
     return 1 if failures else 0
 
 
+def _check_service_config():
+    from service_desk.config import load_config
+    load_config()
+
+
+def _check_service_schema():
+    if not (ROOT/'service_desk/schema.sql').is_file():
+        raise ValueError('service schema is missing')
+
+
+def _check_service_knowledge():
+    from service_desk.config import load_config
+    from service_desk.knowledge import validate_manifest
+    validate_manifest(ROOT/load_config()['kb_dir'])
+
+
+def service_db(args):
+    import sqlite3
+    from service_desk.config import load_config
+    from service_desk.db import init_db, content_sha256
+    config = load_config()
+    path = Path(args.path) if args.path else ROOT/config['db_path']
+    try:
+        if args.service_command == 'init':
+            init_db(path, force=args.force, business_date=config['business_date'])
+            print('Service database initialized: '+str(path), flush=True)
+        else:
+            print(content_sha256(path), flush=True)
+    except (OSError, ValueError, sqlite3.Error) as exc:
+        print('service-db: '+str(exc), file=sys.stderr, flush=True)
+        return 1
+    return 0
+
+
 def demo(output=None):
     if doctor():
         return 1
@@ -131,6 +177,13 @@ def main(argv=None):
         return run_python(['-m', module, *argv[1:]])
     parser = argparse.ArgumentParser(description='扫地机器人客服：检查、初始化、测试、启动和真实演示')
     commands = parser.add_subparsers(dest='command', required=True)
+    p = commands.add_parser('service-db', help='生成或检查合成售后数据库（离线）')
+    service_commands = p.add_subparsers(dest='service_command', required=True)
+    init = service_commands.add_parser('init', help='生成确定性种子；默认拒绝覆盖')
+    init.add_argument('--path', help='数据库路径；默认读取 config/service.yml')
+    init.add_argument('--force', action='store_true', help='允许覆盖已有数据库')
+    hash_parser = service_commands.add_parser('hash', help='输出规范化内容 SHA256')
+    hash_parser.add_argument('--path', help='数据库路径；默认读取 config/service.yml')
     p = commands.add_parser('doctor', help='检查固定依赖、配置文件和Ollama模型')
     p.add_argument('--offline', action='store_true', help='跳过Ollama检查')
     commands.add_parser('index', help='初始化或增量更新知识库')
@@ -147,6 +200,8 @@ def main(argv=None):
     p = commands.add_parser('demo', help='运行6个真实Agent案例并保存输出')
     p.add_argument('--output', help='结果目录；已有同版本案例断点续跑')
     args = parser.parse_args(argv)
+    if args.command == 'service-db':
+        return service_db(args)
     if args.command == 'doctor':
         return doctor(args.offline)
     if args.command == 'knowledge':

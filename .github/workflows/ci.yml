@@ -40,6 +40,25 @@ jobs:
         run: python -m pip check
       - name: Check files and configuration without Ollama
         run: python -B scripts/manage.py doctor --offline
+      - name: Check deterministic service seed and canonical hash
+        shell: bash
+        run: |
+          python -B - <<'PY'
+          import json
+          from pathlib import Path
+          import sqlite3
+          from tempfile import TemporaryDirectory
+          from service_desk.config import load_config
+          from service_desk.db import init_db, content_sha256
+
+          with TemporaryDirectory() as folder:
+              paths = [Path(folder) / name for name in ('a.db', 'b.db')]
+              for path in paths:
+                  init_db(path)
+              hashes = [content_sha256(path) for path in paths]
+              assert hashes[0] == hashes[1] == load_config()['seed_content_sha256']
+              print(json.dumps({'hashes': hashes, 'sqlite_version': sqlite3.sqlite_version}))
+          PY
       - name: Run offline unit and API regressions
         run: python -B -m pytest -q
 
@@ -57,6 +76,10 @@ jobs:
         run: |
           docker compose config --quiet
           docker build --tag ai-agent:ci .
+      - name: Check packaged offline service data commands as non-root
+        run: |
+          docker run --rm --entrypoint python ai-agent:ci -B scripts/manage.py doctor --offline
+          docker run --rm --entrypoint sh ai-agent:ci -c 'python -B scripts/manage.py service-db init && python -B scripts/manage.py service-db hash'
       - name: Start non-root API without downloading models
         run: |
           docker run --detach --name ai-agent-ci \
