@@ -141,3 +141,21 @@ SQL 还拒绝 external_booked 负数与 NULL；反例测试可临时关闭约束
 doctor 在原检查之外新增独立的配置合法性、schema 存在、资料清单与文件一致性三项，不要求数据库已生成。容器只增加资料/数据包的打包与可写数据库目录，仍保持原启动入口；CI 另验证非 root 用户可运行离线 doctor 和数据库命令。
 
 Windows 沙箱默认临时目录可能不允许测试所需的文件替换。遇到该环境问题，可将 TEMP、TMP 指向有写权限的工作区临时目录再运行原命令，无需修改旧代码或测试。旧测试、旧配置、data、Agent、API、RAG 和模型文件均保持原样。S0-B 的题集、来源审批/独立 collection、工具实现与两段式执行均为后续阶段，不在本次交付内。
+
+## S2-A 确认协议与业务执行
+
+`service_desk.actions` 提供 `list_actions(session)`、`confirm_action(session, action_id)`、`reject_action(session, action_id)`，返回 Python 字典（列表入口返回卡片字典列表）。session 使用服务端绑定的映射：`session_id`、已存在的 `user_id`、`service_db_path`；可用 `session_context()` 构造，业务日期缺省读取 service 配置。确认入口独立于已结束的 RunContext，既不调用模型，也不注册为模型工具。API、界面及会话历史接入由 S2-B 完成。
+
+状态机为 `pending → executed / rejected / expired / superseded / failed`。终态不再转移；哈希、严格参数或归属检查失败返回 `denied` 并追加审计，动作保留原状态。只有 pending 可以拒绝；其他状态返回原结果。确认 pending 时按真实 UTC 时钟检查 `expires_at`（到期瞬间即过期），业务时段和保修仍用固定业务日期。列表仅返回本会话、本用户的所有状态卡片，顺序为 created_at、action_id，并惰性标记本会话已过期的 pending；不扫描其他会话。
+
+确认在 `BEGIN IMMEDIATE` 事务中重新检查会话、用户、原始存档 JSON 字节的 SHA256、严格模型及规范化表示、归属和 7.1 前置条件，然后执行效果、存档 result_json/decided_at、依次追加 confirmed/executed。已 executed 的动作直接返回第一次的 result_json，不重新检查库存或时段、不重新写审计。SQLite 写锁串行化并发确认，source_action_id 的 UNIQUE 约束另作兜底。业务写入或审计异常会回滚整个事务，不留下部分执行。
+
+新编号规则：取动作 UUID 的 32 位小写十六进制表示（去掉连字符），分别生成 `T-SVC-{uuid_hex}`、`A-SVC-{uuid_hex}`、`O-SVC-{uuid_hex}`。同一动作的编号确定、可复现，符合表及严格结果模型前缀/长度约束，与种子编号区分。上门的工单和预约都记录该 action_id；下单的订单也记录该 action_id。改约和取消复用原业务记录、保留原 source_action_id，以审计关联本次变更动作。
+
+业务效果：上门新增 scheduled 工单/预约，booked +1；下单新增 processing 订单，库存 −qty、金额为确认时单价 × qty；改约复用预约，原 booked −1、新 booked +1，工单 scheduled；取消预约同时取消工单，booked −1；取消 processing 订单退回其 qty 库存。确认时条件失效标 failed，业务表不变。错误码能否自查以及用户的附带条件仍由提议前的服务流程处理，不增加冻结契约之外的参数。
+
+审计事件：`proposed`、`confirmed`、`executed`、`rejected`、`expired`、`superseded`、`failed`、`denied`。成功顺序为 proposed → confirmed → executed；其他状态转换追加同名事件；重放终态不重复追加事件。审计只 INSERT，冻结触发器拒绝 UPDATE/DELETE。未知或越权动作的拒绝审计使用 action_id=NULL、固定 tool 和零哈希（冻结外键不允许引用未知动作），对外返回完全相同的 denied 信封，不泄露存在性。入口缺少有效服务端身份时由 ToolPolicyDenied 拒绝；审计 user_id 的冻结外键要求身份对应已存在用户。
+
+新提议在同一事务内取代本会话、本用户、同一工具且同一对象的全部 pending 旧动作：上门按 device_id，下单按 device_id+sku，变更按 target_id（改约和取消预约会互相取代）。旧动作置 superseded、写 decided_at/result_json 并追加 superseded，然后插入新 pending/proposed；失败或取消回滚整个取代过程。终态以及其他会话、其他用户、其他对象不被取代。
+
+同一个 RunContext 最多成功提交两次提议（取代也计一次，读工具和失败提议不计）。计数位于 run.counts['service_proposals']，提交与计数在 run.lock 下完成；超限返回结构化 blocked/proposal_limit，不写任何表。新的 RunContext 重新计数；只有 session 的低层提议调用没有轮次信息，调用方须像现有模型路径一样注入 run_context 才能执行每轮上限。

@@ -21,6 +21,7 @@ MESSAGES = {
     'purchase_limit': '数量超过单次限购，未生成订单提议。',
     'appointment_not_scheduled': '该预约当前不能改约或取消。',
     'order_not_processing': '该订单当前不能取消。',
+    'proposal_limit': '本轮最多生成两个待确认动作，请在下一轮重新提出请求。',
 }
 
 
