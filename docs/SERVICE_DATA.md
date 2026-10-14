@@ -155,3 +155,7 @@ Windows 沙箱默认临时目录可能不允许测试所需的文件替换。遇
 业务效果：上门新增 scheduled 工单/预约，booked +1；下单新增 processing 订单，库存 −qty、金额为确认时单价 × qty；改约复用预约，原 booked −1、新 booked +1，工单 scheduled；取消预约同时取消工单，booked −1；取消 processing 订单退回其 qty 库存。确认时条件失效标 failed，业务表不变。错误码能否自查以及用户的附带条件仍由提议前的服务流程处理，不增加冻结契约之外的参数。
 
 审计事件：`proposed`、`confirmed`、`executed`、`rejected`、`expired`、`superseded`、`failed`、`denied`。成功顺序为 proposed → confirmed → executed；其他状态转换追加同名事件；重放终态不重复追加事件。审计只 INSERT，冻结触发器拒绝 UPDATE/DELETE。未知或越权动作的拒绝审计使用 action_id=NULL、固定 tool 和零哈希（冻结外键不允许引用未知动作），对外返回完全相同的 denied 信封，不泄露存在性。入口缺少有效服务端身份时由 ToolPolicyDenied 拒绝；审计 user_id 的冻结外键要求身份对应已存在用户。
+
+新提议在同一事务内取代本会话、本用户、同一工具且同一对象的全部 pending 旧动作：上门按 device_id，下单按 device_id+sku，变更按 target_id（改约和取消预约会互相取代）。旧动作置 superseded、写 decided_at/result_json 并追加 superseded，然后插入新 pending/proposed；失败或取消回滚整个取代过程。终态以及其他会话、其他用户、其他对象不被取代。
+
+同一个 RunContext 最多成功提交两次提议（取代也计一次，读工具和失败提议不计）。计数位于 run.counts['service_proposals']，提交与计数在 run.lock 下完成；超限返回结构化 blocked/proposal_limit，不写任何表。新的 RunContext 重新计数；只有 session 的低层提议调用没有轮次信息，调用方须像现有模型路径一样注入 run_context 才能执行每轮上限。

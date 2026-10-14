@@ -203,11 +203,17 @@ def test_no_session_no_proposal(db):
     assert snapshot(db) == before
 
 
-def test_two_proposals_do_not_supersede_or_reserve_inventory(db):
+def test_two_proposals_supersede_without_reserving_inventory(db):
     results = [call(db, 'propose_order', device_id='D-1002-01', sku='SKU-FILTER', qty=2) for _ in range(2)]
     assert results[0]['action_id'] != results[1]['action_id']
     with sqlite3.connect(db) as connection:
-        assert connection.execute("SELECT count(*) FROM pending_actions WHERE status='pending'").fetchone()[0] == 2
+        assert connection.execute('SELECT count(*) FROM pending_actions').fetchone()[0] == 2
+        assert connection.execute("SELECT count(*) FROM pending_actions WHERE status='pending'").fetchone()[0] == 1
+        assert connection.execute("SELECT count(*) FROM pending_actions WHERE status='superseded'").fetchone()[0] == 1
+        assert connection.execute('SELECT status FROM pending_actions WHERE action_id=?',
+                                  (results[0]['action_id'],)).fetchone()[0] == 'superseded'
+        assert connection.execute('SELECT event FROM audit_log ORDER BY rowid').fetchall() == [
+            ('proposed',), ('superseded',), ('proposed',)]
         assert connection.execute("SELECT stock FROM consumables WHERE sku='SKU-FILTER'").fetchone()[0] == 80
 
 

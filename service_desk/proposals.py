@@ -6,6 +6,7 @@ from uuid import uuid4
 
 from agent.tools.policy import ToolPolicyDenied
 from service_desk.access import connection_for
+from service_desk.audit import append_event
 from service_desk.config import load_config
 from service_desk.contracts import RESULT_MODELS
 from service_desk.db import canonical_json
@@ -89,6 +90,23 @@ def _prepare(name, args, context, connection):
     return summary, {}
 
 
+def _supersede(connection, name, args, context, timestamp):
+    fields = {'propose_service_visit': ('device_id',), 'propose_order': ('device_id', 'sku'),
+              'propose_change': ('target_id',)}[name]
+    predicates = ' AND '.join(f"json_extract(args_json,'$.{field}')=?" for field in fields)
+    rows = connection.execute(
+        "SELECT * FROM pending_actions WHERE session_id=? AND user_id=? AND tool=? AND status='pending' AND "
+        + predicates + ' ORDER BY created_at,action_id',
+        (context['session_id'], context['user_id'], name, *(args[field] for field in fields))).fetchall()
+    for old in rows:
+        message = '该动作已被新提议取代，请查看新的确认卡片。'
+        result = canonical_json({'action_id': old['action_id'], 'status': 'superseded', 'message': message})
+        connection.execute(
+            "UPDATE pending_actions SET status='superseded',decided_at=?,result_json=? WHERE action_id=?",
+            (timestamp, result, old['action_id']))
+        append_event(connection, context, old, 'superseded', timestamp, message)
+
+
 def propose(name, arguments, context):
     session = context.get('session_id')
     if not isinstance(session, str) or not session.strip():
@@ -96,6 +114,12 @@ def propose(name, arguments, context):
     try:
         with connection_for(context, readonly=False) as connection:
             args = authorize_service_tool(name, arguments, context, connection=connection)
+            run = context.get('run_context')
+            if run is not None:
+                with run.lock:
+                    run.check()
+                    if run.counts['service_proposals'] >= 2:
+                        return failure_json('proposal_limit')
             summary, extra = _prepare(name, args, context, connection)
             # Omitted optional arguments have one normalized representation.
             normalized = {key: value for key, value in args.items() if value is not None}
@@ -111,24 +135,27 @@ def propose(name, arguments, context):
             }, strict=True)
             payload = result.model_dump(by_alias=True, exclude_none=True)
             serialized = canonical_json(payload)
+            _supersede(connection, name, args, context, result.created_at)
             connection.execute(
                 'INSERT INTO pending_actions '
                 '(action_id,session_id,user_id,tool,args_json,args_sha256,summary,created_at,expires_at,status) '
                 'VALUES (?,?,?,?,?,?,?,?,?,?)',
                 (result.action_id, session, context['user_id'], name, args_json, digest,
                  summary, result.created_at, result.expires_at, 'pending'))
-            connection.execute(
-                'INSERT INTO audit_log (id,ts,session_id,user_id,action_id,event,tool,args_sha256,detail) '
-                'VALUES (?,?,?,?,?,?,?,?,?)',
-                ('L-' + uuid4().hex, result.created_at, session, context['user_id'], result.action_id,
-                 'proposed', name, digest, '已生成待确认动作；业务表未变更。'))
+            append_event(connection, context, payload, 'proposed', result.created_at,
+                         '已生成待确认动作；业务表未变更。')
             # Cancellation cannot race this commit. A failed graph after a
             # successful proposal may leave a pending card; S2 owns its lifecycle.
-            run = context.get('run_context')
             with run.lock if run is not None else nullcontext():
                 if run is not None:
                     run.check_size(serialized, run.limits.max_output_chars, '工具结果')
+                    # The same RunContext can be used concurrently, even with
+                    # different databases. Count only successfully committed proposals.
+                    if run.counts['service_proposals'] >= 2:
+                        return failure_json('proposal_limit')
                 connection.commit()
+                if run is not None:
+                    run.counts['service_proposals'] += 1
             return serialized
     except PreconditionFailed as error:
         return failure_json(error.code)
