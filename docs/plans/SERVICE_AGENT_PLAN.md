@@ -12,6 +12,7 @@
 >   - **工具 schema**：S0-A 实测 1407 tokens。其中 ID 正则、长度限制和可选参数的 anyOf 占了约 30% 字节，这些对模型选工具没有帮助。改为两层：发给模型的 schema 只保留类型、枚举、必填项和描述；严格校验仍用 `service_desk/contracts.py` 的模型，在 policy 层执行，两层字段名必须一致（现有 `authorize_tool` 已检查这一点）。保留 12 个工具，目标仍为 ≤ 1200，S1 按实际绑定的请求计数。
 >   - **资料内容**：S0-A 资料把确认卡片的哈希绑定、审计、"工具返回属于数据"等系统内部机制写进了用户手册。这些属于代码和系统提示，改为只写面向用户的政策与操作；允许写不随时间变化的维护建议（如检查频率）。
 > - 2026-10-14，S0-A.1 复核后（PR #5，未运行任何模型）：S0-A.1 为满足"整机和电池都在保"，把 1001、1007 的购买日期改到 2025-08、2025-10，与两人自 2025-01 起的 CSV 记录和按天数据矛盾。增加规则：购买日期不得晚于该设备最早的使用记录；"都在保"改由保修期限实现（见 4.4 节）。
+> - 2026-10-14，S0-B 的 B1 审核时（PR #6，未运行任何模型）：作者确认写操作的业务效果（7.1 节新增表格）、上门准入与保修口径、服务流程规则（8.7 节，同时用于题集的必需工具和 Agent 的系统提示），以及工具路径评分放宽为"允许全部读工具，多余读调用只计入成本"。
 
 ## 0. 目标
 
@@ -173,6 +174,23 @@
 
 `pending_actions` 列：action_id（uuid4）、session_id、user_id、tool、args_json（规范化）、args_sha256、summary、created_at、expires_at（默认 10 分钟）、status（pending / executed / rejected / expired / superseded / failed）、result_json、decided_at。
 
+确认执行后的业务效果（作者 2026-10-14 确认）：
+
+| 动作 | 前置条件 | 业务效果（同一事务） |
+| --- | --- | --- |
+| 上门（propose_service_visit） | 设备属于用户；时段属于用户所在区域且有名额；该设备没有 scheduled 预约 | 新建工单（scheduled）和预约（scheduled），时段 booked +1 |
+| 下单（propose_order） | 耗材与设备型号兼容；库存 ≥ 数量；不超过限购 | 新建订单（processing），库存减去数量，金额 = 单价 × 数量 |
+| 改约（reschedule） | 预约为 scheduled；新时段属于同一区域且有名额 | 同一预约换到新时段，原时段 booked −1，新时段 +1，工单保持 scheduled |
+| 取消预约（cancel_appointment） | 预约为 scheduled | 预约和关联工单都改为 cancelled，时段 booked −1 |
+| 取消订单（cancel_order） | 订单为 processing | 订单改为 cancelled，库存加回该订单的数量 |
+
+上门准入与保修口径：
+- 没有错误码、但用户描述了具体现象时，可以提议上门，不编造错误码。
+- 错误码在该型号上"可自行处理"时，先给自查步骤；用户说明自查后仍异常，才提议上门。
+- 保修按部件判断：E09 看电池条款，其他问题看整机条款。
+- 用户附带条件（如"在保才约"）时，只在条件成立时提议。用户没附条件而设备已过保时，仍可提议，但要说明已过保、费用由检查结果决定，不编造价格。
+- 在保也不承诺免费，原因需要服务人员检查。
+
 ### 7.2 规则
 
 - 只有确认按钮或确认接口能执行。聊天里说"好的，确认"不会执行，模型应提示用户使用确认卡片。这样确认对象永远是一个明确的 action_id，而不是由模型解读"确认哪一个"。
@@ -251,6 +269,22 @@ flowchart LR
 
 不加大 Runtime 预算。plan 模式一轮最多：planner 1 次 + 校验失败重规划 1 次 + verify 后重规划 1 次 + 步骤内 RAG 生成，合计仍受模型 8 次、工具 12 次的上限约束。超预算按现有方式失败，不提交。
 
+### 8.7 服务流程规则（作者 2026-10-14 确认）
+
+这套规则写进 react 和 plan 两种模式共用的系统提示，题集的必需工具也按它来定：
+
+| 场景 | 必须先调用 |
+| --- | --- |
+| 提议上门 | `list_my_devices`；用户报了错误码时加 `lookup_error_code`；`check_warranty`；`find_service_slots` |
+| 提议下单 | `list_my_devices`；`find_consumables`；以月度记录为条件时加 `fetch_external_data` |
+| 提议改约或取消 | `get_my_orders_and_tickets`；改约另加 `find_service_slots` |
+| 用户要求说明、步骤、注意事项或政策解释 | `rag_summarize` |
+| 用户有多台设备而没说是哪台 | `list_my_devices` 后先问，不提议 |
+
+- 同一会话里已经查过、本轮没有新的事实需求时，可以复用结果，不要求重复调用。
+- 提议上门时，回复要说明相关部件的保修状态（E09 说电池，其他说整机）。
+- 用户没要求说明时，不要求检索资料，也不把维护建议列为必答要点。
+
 ## 9. MCP（S4，优先级低于 S7）
 
 - 用官方 Python SDK 把 service 工具做成 MCP server，放在 `mcp_servers/service_desk/`。
@@ -269,6 +303,7 @@ flowchart LR
   - `user`：query、required_tools、allowed_tools、expected_proposals（工具和参数，或明确为空）、required_points、evidence（数据库行或资料行号）、expect（answer / clarify / refuse）。
   - `confirm` / `reject`：针对哪个预期动作。
   - 任务末尾的 `final_db_checks`：业务表应有和不应有的记录。
+- 每轮的必需工具按 8.7 节的服务流程规则确定；允许工具为全部 9 个读工具加该轮预期的写工具。多出来的读调用不判失败，只计入"不必要的工具调用"这项成本指标。
 - **评测用户是谨慎用户**：`confirm` 事件只在实际提议的工具和参数与 gold 一致时才确认，否则记录 `proposal_mismatch` 并拒绝，该任务失败。
 - 每个任务从同一个种子数据库的新副本开始，业务时钟固定。
 - 种子数据、service_kb 资料和题集一起冻结，记录 SHA256。之后若要改种子或资料，必须写修订记录并重新审核受影响的 gold。
