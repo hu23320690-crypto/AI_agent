@@ -63,10 +63,16 @@ def _read(name, args, context, connection):
         return {'device_id': args['device_id'], 'business_date': today.isoformat(), 'coverage': coverage}
     if name == 'rag_summarize':
         from agent.tools.agent_tools import rag_summerize
-        # S1-A reuses legacy retrieval. Device ownership is checked, but model
-        # filtering and the separate service collection are deferred to S1-B.
-        answer = rag_summerize.func(args['query'], SimpleNamespace(context=context))
-        return {'answer': answer, 'references': []}
+        from rag.service_context import service_request
+        if args['device_id'] is not None:
+            model = _device(connection, args['device_id'])['model_code']
+        else:
+            devices = connection.execute('SELECT model_code FROM devices WHERE user_id=? ORDER BY device_id',
+                                         (user,)).fetchall()
+            model = devices[0]['model_code'] if len(devices) == 1 else None
+        with service_request(model) as request:
+            answer = rag_summerize.func(args['query'], SimpleNamespace(context=context))
+            return {'answer': answer, 'references': request.references}
     if name == 'fetch_external_data':
         from utils.records import load_records
         context.update(report=False, report_data=None, lookup_result=None)

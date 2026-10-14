@@ -1,0 +1,12 @@
+{
+  "base_commit": "90964713a92d5bf9a041fbb0fba97dc9403aa64d",
+  "files": {
+    "rag/vector_store.py": "d5a4edc4dbd83bc5a1db44a72c24c961b48083cb9b2351b84a4e43329d1ac30e",
+    "rag/hybrid.py": "c9b97cf500248b01930bf5721e11d007499ceb604cea968d42b5cde41caf3f25",
+    "rag/security.py": "bcf95967bd58e822d656e2f9c34b4e8c47c3e0b5be7d6b93de191ff2994635ff",
+    "rag/rag_service.py": "015d807df1dcce7c3787dffe54b4e28dbf9bc58dac0f1c58a00592d8c1a45512",
+    "rag/relevance.py": "55e95e83793e8bd01fc057d626161c50513ff3e04632d9cd342ef2ba7af565f0",
+    "config/chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config/knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891"
+  }
+}

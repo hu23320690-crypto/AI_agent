@@ -9,7 +9,10 @@ if __package__ in (None, ''):
     sys.path.insert(0, str(ROOT))
 
 
-def catalog():
+def catalog(kind='legacy'):
+    if kind == 'service':
+        from rag.service_catalog import service_catalog
+        return service_catalog()
     from rag.security import SourceCatalog
     from utils.config_hander import chroma_conf
     from utils.path_tool import get_abs_path
@@ -20,6 +23,7 @@ def catalog():
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description='知识来源管理员：扫描隔离、审核、撤销、索引同步')
+    parser.add_argument('--catalog', choices=('legacy', 'service'), default='legacy')
     commands = parser.add_subparsers(dest='operation', required=True)
     commands.add_parser('scan', help='将新增/变化文件登记为隔离，打印摘要，不批准')
     commands.add_parser('status', help='只读查看当前允许和被隔离的来源')
@@ -33,13 +37,19 @@ def main(argv=None):
     p.add_argument('source_id')
     p.add_argument('--reason', required=True)
     commands.add_parser('sync', help='同步当前允许来源，删除无效/撤销版本的分块')
+    for command in commands.choices.values():
+        command.add_argument('--catalog', choices=('legacy', 'service'), default=argparse.SUPPRESS)
     args = parser.parse_args(argv)
     try:
         if args.operation == 'sync':
-            from rag.vector_store import VectorStoreService
-            result = VectorStoreService().load_document()
+            if args.catalog == 'service':
+                from rag.service_store import ServiceVectorStoreService
+                result = ServiceVectorStoreService().load_document()
+            else:
+                from rag.vector_store import VectorStoreService
+                result = VectorStoreService().load_document()
         else:
-            sources = catalog()
+            sources = catalog() if args.catalog == 'legacy' else catalog('service')
             if args.operation == 'scan':
                 result = sources.scan()
             elif args.operation == 'status':
