@@ -101,6 +101,7 @@ CREATE TABLE service_slots (
     start_at TEXT NOT NULL,
     end_at TEXT NOT NULL CHECK(end_at > start_at),
     capacity INTEGER NOT NULL CHECK(capacity > 0),
+    external_booked INTEGER NOT NULL CHECK(external_booked >= 0),
     booked INTEGER NOT NULL CHECK(booked >= 0 AND booked <= capacity)
 );
 CREATE TABLE appointments (

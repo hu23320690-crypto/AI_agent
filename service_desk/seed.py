@@ -29,15 +29,45 @@ COMPONENT_EXCEPTIONS = (
 )
 COMMON_COMPONENTS = ('main_brush', 'side_brush', 'filter', 'dustbin', 'battery')
 MODEL_SPECS = (
-    ('SV-100', '基础扫地型', COMMON_COMPONENTS, 12, 24),
+    ('SV-100', '基础扫地型', COMMON_COMPONENTS, 12, 6),
     ('SV-200', '扫拖一体型', COMMON_COMPONENTS + ('water_tank',), 24, 12),
-    ('SV-300', '宠物型', COMMON_COMPONENTS + ('rubber_brush', 'pet_hair', 'carpet_boost'), 18, 24),
-    ('SV-400', '自集尘旗舰型', COMMON_COMPONENTS + ('water_tank', 'dust_bag', 'multi_floor', 'mechanical_arm'), 24, 36),
+    ('SV-300', '宠物型', COMMON_COMPONENTS + ('rubber_brush', 'pet_hair', 'carpet_boost'), 18, 12),
+    ('SV-400', '自集尘旗舰型', COMMON_COMPONENTS + ('water_tank', 'dust_bag', 'multi_floor', 'mechanical_arm'), 24, 12),
 )
 CSV_MODEL_CODES = {
     '1001': 'SV-100', '1002': 'SV-200', '1003': 'SV-300', '1004': 'SV-100',
     '1005': 'SV-200', '1006': 'SV-400', '1007': 'SV-100', '1008': 'SV-200',
     '1009': 'SV-300', '1010': 'SV-100',
+}
+# Individually reviewed initial states. Order: (sku, qty, status).
+# Visit: (error_code, description, day offset, appointment status).
+# Applying these explicit rows in a loop does not invent history for other users.
+FIRST_TEN_INITIAL_STATE = {
+    '1001': {'purchase_date': '2025-08-12', 'order': ('SKU-FILTER', 2, 'completed'), 'visit': None},
+    '1002': {'purchase_date': '2024-07-12', 'order': None, 'visit': None},
+    '1003': {'purchase_date': '2024-08-20', 'order': ('SKU-SIDE', 1, 'cancelled'), 'visit': None},
+    '1004': {'purchase_date': '2023-10-05', 'order': None,
+             'visit': ('E09', '设备显示 E09，停止运行和充电后申请电池检查。', 1, 'scheduled')},
+    '1005': {'purchase_date': '2023-11-08', 'order': None,
+             'visit': ('E07', '拖地时显示 E07，水箱正确装回后仍不出水。', 2, 'scheduled')},
+    '1006': {'purchase_date': '2024-10-02', 'order': None, 'visit': None},
+    '1007': {'purchase_date': '2025-10-12', 'order': ('SKU-MAIN', 1, 'processing'), 'visit': None},
+    '1008': {'purchase_date': '2024-07-12', 'order': None,
+             'visit': ('E07', '拖地时显示 E07，暂停后检查外部没有漏液。', 3, 'scheduled')},
+    '1009': {'purchase_date': '2023-09-01', 'order': ('SKU-RUBBER', 1, 'processing'), 'visit': None},
+    '1010': {'purchase_date': '2023-12-03', 'order': ('SKU-SIDE', 2, 'processing'), 'visit': None},
+}
+OTHER_INITIAL_STATE = {
+    '1011': {'order': ('SKU-FILTER', 1, 'completed'),
+             'visit': ('E11', '设备显示 E11，已远离台阶并申请感应器检查。', 4, 'scheduled')},
+    '1012': {'order': None,
+             'visit': ('E12', '设备显示 E12，服务人员已完成控制模块检查。', -3, 'completed')},
+    '1013': {'order': None,
+             'visit': ('E09', '设备显示 E09，用户已取消此次电池检查安排。', -2, 'cancelled')},
+    '1014': {'order': None, 'visit': None,
+             'problem': '设备运行中持续异响，外部清理后仍未改善，等待检查。'},
+    '1016': {'order': ('SKU-BAG', 1, 'cancelled'),
+             'visit': ('E07', '集尘时显示 E07，外部盖板装回后仍漏尘。', 5, 'scheduled')},
 }
 # Codes are deliberately fictional. E07 is model-specific.
 COMMON_ERRORS = (
@@ -98,7 +128,7 @@ def component_evidence(rows):
 
 
 def add_months(value, months):
-    """Calendar anniversary, clamping the day at the destination month end."""
+    """Add months from purchase date, clamping to the destination month end."""
     index = value.year * 12 + value.month - 1 + months
     year, month_index = divmod(index, 12)
     month = month_index + 1
@@ -156,14 +186,17 @@ def assert_consistency(connection, *, business_date, csv_path=None):
             count, first, last = connection.execute(
                 'SELECT count(*),min(date),max(date) FROM telemetry_daily WHERE device_id=?', (device,)).fetchone()
             require((count, first, last) == (365, '2025-01-01', '2025-12-31'), f'year incomplete: {device}')
-    warranties = warranty_examples(connection, business_date)
-    whole = [item for item in warranties if item['component'] == 'whole_machine']
-    require(any(item['in_warranty'] for item in whole) and any(not item['in_warranty'] for item in whole),
-            'both whole-machine warranty states must exist')
+    require(not connection.execute(
+        "SELECT b.model_code FROM warranty_policies b JOIN warranty_policies w USING(model_code) "
+        "WHERE b.component='battery' AND w.component='whole_machine' AND b.months>w.months").fetchall(),
+        'battery warranty exceeds whole-machine warranty')
     states = {}
-    for item in warranties:
-        states.setdefault(item['device_id'], {})[item['component']] = item['in_warranty']
-    require(any(item['whole_machine'] != item['battery'] for item in states.values()), 'component warranty split missing')
+    for item in warranty_examples(connection, business_date):
+        if item['device_id'] in {f'D-{user}-01' for user in CSV_MODEL_CODES}:
+            states.setdefault(item['device_id'], {})[item['component']] = item['in_warranty']
+    combinations = {(item['whole_machine'], item['battery']) for item in states.values()}
+    for pair, label in (((True, True), 'both in'), ((True, False), 'whole only'), ((False, False), 'both expired')):
+        require(pair in combinations, f'first-ten warranty states missing: {label}')
     require(connection.execute("SELECT count(*) FROM error_codes WHERE code='E07'").fetchone()[0] == 4, 'E07 missing')
     require(bool(connection.execute('SELECT code FROM error_codes GROUP BY code HAVING count(DISTINCT title)>1').fetchall()),
             'model-specific error meaning missing')
@@ -178,6 +211,40 @@ def assert_consistency(connection, *, business_date, csv_path=None):
                 'SELECT sum(booked<capacity),sum(booked=capacity) FROM service_slots WHERE region=? AND start_at LIKE ?',
                 (region, day + '%')).fetchone()
             require(bool(available) and bool(full), f'slot coverage missing: {region}/{day}')
+    require(not connection.execute(
+        "SELECT s.slot_id FROM service_slots s WHERE s.booked != s.external_booked + "
+        "(SELECT count(*) FROM appointments a WHERE a.slot_id=s.slot_id AND a.status='scheduled')"
+        ).fetchall(), 'slot booked accounting mismatch')
+    require(not connection.execute('SELECT slot_id FROM service_slots WHERE booked>capacity').fetchall(),
+            'slot capacity exceeded')
+    require(not connection.execute('SELECT slot_id FROM service_slots WHERE external_booked<0').fetchall(),
+            'negative external occupancy')
+    require(not connection.execute(
+        "SELECT t.device_id FROM appointments a JOIN tickets t USING(ticket_id) "
+        "WHERE a.status='scheduled' GROUP BY t.device_id HAVING count(*)>1").fetchall(),
+        'multiple scheduled appointments per device')
+    require(not connection.execute(
+        'SELECT t.ticket_id FROM appointments a JOIN tickets t USING(ticket_id) '
+        'LEFT JOIN error_codes e ON e.model_code=t.model_code AND e.code=t.error_code '
+        'WHERE t.error_code IS NOT NULL AND coalesce(e.requires_visit,0)!=1').fetchall(),
+        'appointment error does not require visit')
+    require(not connection.execute(
+        'SELECT ticket_id FROM tickets WHERE error_code IS NULL AND length(trim(description))<8').fetchall(),
+        'uncoded ticket needs explicit problem description')
+    require(not connection.execute(
+        'SELECT a.appointment_id FROM appointments a JOIN users u USING(user_id) '
+        'JOIN service_slots s USING(slot_id) WHERE s.region!=u.region').fetchall(), 'appointment region mismatch')
+    require(not connection.execute(
+        "SELECT ticket_id FROM tickets WHERE user_id IN ('1001','1002','1003','1006') "
+        "AND status IN ('processing','scheduled')").fetchall() and not connection.execute(
+        "SELECT appointment_id FROM appointments WHERE user_id IN ('1001','1002','1003','1006') "
+        "AND status='scheduled'").fetchall(), 'protected E07 users have active history')
+    require(not connection.execute(
+        'SELECT o.order_id FROM orders o JOIN consumables c USING(sku) WHERE o.amount_cents!=c.price_cents*o.qty'
+        ).fetchall(), 'order amount mismatch')
+    require(not connection.execute(
+        'SELECT o.order_id FROM orders o LEFT JOIN consumable_models c '
+        'ON c.sku=o.sku AND c.model_code=o.model_code WHERE c.sku IS NULL').fetchall(), 'order SKU incompatible')
     require(not connection.execute('PRAGMA foreign_key_check').fetchall(), 'foreign key mismatch')
     for table in ('pending_actions', 'audit_log'):
         require(connection.execute(f'SELECT count(*) FROM {table}').fetchone()[0] == 0, f'{table} seed must be empty')
@@ -200,8 +267,6 @@ def seed_database(connection, *, business_date, csv_path=None):
                                  f'errors.txt#{model}-{code}' if code == 'E07' else f'errors.txt#{code}')
                                 for code, title, severity, fix, visit in errors])
     devices = []
-    old_dates = ('2024-07-12', '2024-07-12', '2024-08-20', '2023-10-05', '2023-11-08',
-                 '2024-10-02', '2024-07-12', '2024-07-12', '2023-09-01', '2023-12-03')
     for index, user_number in enumerate(range(1001, 1051)):
         user = str(user_number)
         region = REGIONS[index % len(REGIONS)]
@@ -209,7 +274,8 @@ def seed_database(connection, *, business_date, csv_path=None):
         count = 2 if user_number > 1010 and user_number % 5 == 0 else 1
         for number in range(1, count + 1):
             model = CSV_MODEL_CODES.get(user, MODEL_SPECS[(index + number - 1) % 4][0])
-            purchase = old_dates[index] if index < 10 else (today - timedelta(days=rng.randint(180, 1100))).isoformat()
+            purchase = (FIRST_TEN_INITIAL_STATE[user]['purchase_date'] if user in FIRST_TEN_INITIAL_STATE
+                        else (today - timedelta(days=rng.randint(180, 1100))).isoformat())
             device = f'D-{user}-{number:02d}'
             connection.execute('INSERT INTO devices VALUES (?,?,?,?,?,?)',
                                (device, user, model, f'SYN-{user}-{number:02d}-0000', purchase, '1.0.0'))
@@ -217,47 +283,45 @@ def seed_database(connection, *, business_date, csv_path=None):
     for sku, name, kind, price, stock, limit, compatible in CONSUMABLE_SPECS:
         connection.execute('INSERT INTO consumables VALUES (?,?,?,?,?,?)', (sku, name, kind, price, stock, limit))
         connection.executemany('INSERT INTO consumable_models VALUES (?,?)', [(sku, model) for model in compatible])
-    for index, (device, user, model, region) in enumerate(devices[:18], 1):
-        status = ('completed', 'processing', 'cancelled')[(index - 1) % 3]
-        connection.execute('INSERT INTO orders VALUES (?,?,?,?,?,?,?,?,NULL)',
-                           (f'O-{index:04d}', user, device, model, 'SKU-FILTER', 1, 3900, status))
-    ticket_number = 0
-    appointment_number = 0
-
-    def appointment(slot, device_row, status):
-        nonlocal ticket_number, appointment_number
-        device, user, model, _ = device_row
-        ticket_number += 1
-        appointment_number += 1
-        ticket = f'T-{ticket_number:04d}'
-        connection.execute('INSERT INTO tickets VALUES (?,?,?,?,?,?,?,?,NULL)',
-                           (ticket, user, device, model, 'E07', '设备显示 E07，申请检查。',
-                            '已记录设备状态，按预约安排处理。', status))
-        connection.execute('INSERT INTO appointments VALUES (?,?,?,?,?,NULL)',
-                           (f'A-{appointment_number:04d}', ticket, slot, user, status))
-
+    # Full slots are supplied by external occupancy, never invented user visits.
     for region in REGIONS:
-        regional_devices = [row for row in devices if row[3] == region]
         for offset in range(1, 15):
             day = (today + timedelta(days=offset)).isoformat()
             for period, hour in enumerate((9, 13, 16), 1):
                 slot = f'S-{region}-{day.replace("-", "")}-{period}'
-                booked = 2 if period == 1 else (1 if period == 2 and offset % 3 == 0 else 0)
-                connection.execute('INSERT INTO service_slots VALUES (?,?,?,?,?,?)',
-                                   (slot, region, f'{day}T{hour:02d}:00:00+08:00', f'{day}T{hour+2:02d}:00:00+08:00', 2, booked))
-                for index in range(booked):
-                    appointment(slot, regional_devices[(offset * 2 + index) % len(regional_devices)], 'scheduled')
-        for status in ('completed', 'cancelled'):
-            day = (today - timedelta(days=3 if status == 'completed' else 2)).isoformat()
+                external = 2 if period == 1 else int(period == 2 and offset % 3 == 0)
+                connection.execute('INSERT INTO service_slots VALUES (?,?,?,?,?,?,?)',
+                                   (slot, region, f'{day}T{hour:02d}:00:00+08:00',
+                                    f'{day}T{hour+2:02d}:00:00+08:00', 2, external, external))
+        for offset in (-3, -2):
+            day = (today + timedelta(days=offset)).isoformat()
             slot = f'S-{region}-{day.replace("-", "")}-H'
-            connection.execute('INSERT INTO service_slots VALUES (?,?,?,?,?,?)',
-                               (slot, region, f'{day}T09:00:00+08:00', f'{day}T11:00:00+08:00', 2, int(status == 'completed')))
-            appointment(slot, regional_devices[0], status)
-    for device, user, model, region in devices[:10]:
-        ticket_number += 1
-        connection.execute('INSERT INTO tickets VALUES (?,?,?,?,?,?,?,?,NULL)',
-                           (f'T-{ticket_number:04d}', user, device, model, 'E06', '回充接触需要检查。',
-                            '已受理，等待安排后续检查。', 'processing'))
+            connection.execute('INSERT INTO service_slots VALUES (?,?,?,?,?,?,?)',
+                               (slot, region, f'{day}T09:00:00+08:00', f'{day}T11:00:00+08:00', 2, 0, 0))
+    for user, initial in {**FIRST_TEN_INITIAL_STATE, **OTHER_INITIAL_STATE}.items():
+        device = f'D-{user}-01'
+        model, region = connection.execute(
+            'SELECT d.model_code,u.region FROM devices d JOIN users u USING(user_id) WHERE device_id=?',
+            (device,)).fetchone()
+        if initial['order']:
+            sku, qty, status = initial['order']
+            price = connection.execute('SELECT price_cents FROM consumables WHERE sku=?', (sku,)).fetchone()[0]
+            connection.execute('INSERT INTO orders VALUES (?,?,?,?,?,?,?,?,NULL)',
+                               (f'O-{user}-01', user, device, model, sku, qty, price * qty, status))
+        if initial['visit'] or initial.get('problem'):
+            visit = initial['visit']
+            error, description, offset, status = visit or (None, initial['problem'], None, 'processing')
+            ticket = f'T-{user}-01'
+            connection.execute('INSERT INTO tickets VALUES (?,?,?,?,?,?,?,?,NULL)',
+                               (ticket, user, device, model, error, description,
+                                '已记录实际现象，按工单状态处理。', status))
+            if visit:
+                day = (today + timedelta(days=offset)).strftime('%Y%m%d')
+                slot = f'S-{region}-{day}-' + ('2' if offset > 0 else 'H')
+                connection.execute('INSERT INTO appointments VALUES (?,?,?,?,?,NULL)',
+                                   (f'A-{user}-01', ticket, slot, user, status))
+                if status == 'scheduled':
+                    connection.execute('UPDATE service_slots SET booked=booked+1 WHERE slot_id=?', (slot,))
     daily_targets = {}
     for row in rows:
         match = re.search(r'日均清扫\s*[:：]\s*(\d+)㎡', row['清洁效率'])

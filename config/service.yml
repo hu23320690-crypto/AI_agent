@@ -2,4 +2,4 @@ business_date: '2026-01-12'
 db_path: service_data/service.db
 kb_dir: service_kb
 pending_action_ttl_seconds: 600
-seed_content_sha256: '330d9dda773f97f8bc72da0561c6e1b5bcde504ff2b01d3920984052262983ef'
+seed_content_sha256: '2a69ec2e077aeff58d46298d0e7e699cc02e88ee6e085fa5ab0b5c2d0ff706d4'
