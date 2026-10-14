@@ -32,7 +32,7 @@ MODEL_SPECS = (
     ('SV-100', '基础扫地型', COMMON_COMPONENTS, 12, 6),
     ('SV-200', '扫拖一体型', COMMON_COMPONENTS + ('water_tank',), 24, 12),
     ('SV-300', '宠物型', COMMON_COMPONENTS + ('rubber_brush', 'pet_hair', 'carpet_boost'), 18, 12),
-    ('SV-400', '自集尘旗舰型', COMMON_COMPONENTS + ('water_tank', 'dust_bag', 'multi_floor', 'mechanical_arm'), 24, 12),
+    ('SV-400', '自集尘旗舰型', COMMON_COMPONENTS + ('water_tank', 'dust_bag', 'multi_floor', 'mechanical_arm'), 36, 24),
 )
 CSV_MODEL_CODES = {
     '1001': 'SV-100', '1002': 'SV-200', '1003': 'SV-300', '1004': 'SV-100',
@@ -43,7 +43,7 @@ CSV_MODEL_CODES = {
 # Visit: (error_code, description, day offset, appointment status).
 # Applying these explicit rows in a loop does not invent history for other users.
 FIRST_TEN_INITIAL_STATE = {
-    '1001': {'purchase_date': '2025-08-12', 'order': ('SKU-FILTER', 2, 'completed'), 'visit': None},
+    '1001': {'purchase_date': '2024-07-12', 'order': ('SKU-FILTER', 2, 'completed'), 'visit': None},
     '1002': {'purchase_date': '2024-07-12', 'order': None, 'visit': None},
     '1003': {'purchase_date': '2024-08-20', 'order': ('SKU-SIDE', 1, 'cancelled'), 'visit': None},
     '1004': {'purchase_date': '2023-10-05', 'order': None,
@@ -51,7 +51,7 @@ FIRST_TEN_INITIAL_STATE = {
     '1005': {'purchase_date': '2023-11-08', 'order': None,
              'visit': ('E07', '拖地时显示 E07，水箱正确装回后仍不出水。', 2, 'scheduled')},
     '1006': {'purchase_date': '2024-10-02', 'order': None, 'visit': None},
-    '1007': {'purchase_date': '2025-10-12', 'order': ('SKU-MAIN', 1, 'processing'), 'visit': None},
+    '1007': {'purchase_date': '2024-07-12', 'order': ('SKU-MAIN', 1, 'processing'), 'visit': None},
     '1008': {'purchase_date': '2024-07-12', 'order': None,
              'visit': ('E07', '拖地时显示 E07，暂停后检查外部没有漏液。', 3, 'scheduled')},
     '1009': {'purchase_date': '2023-09-01', 'order': ('SKU-RUBBER', 1, 'processing'), 'visit': None},
@@ -182,10 +182,16 @@ def assert_consistency(connection, *, business_date, csv_path=None):
             require(int(average.quantize(Decimal('1'), rounding=ROUND_HALF_UP)) == int(match[1]),
                     f'CSV daily area mismatch: {device}/{month}')
     for user in CSV_MODEL_CODES:
-        for (device,) in connection.execute('SELECT device_id FROM devices WHERE user_id=?', (user,)):
+        for device, purchase in connection.execute(
+                'SELECT device_id,purchase_date FROM devices WHERE user_id=?', (user,)):
+            require(purchase <= '2025-01-01', f'purchase after CSV start: {device}/{purchase}')
             count, first, last = connection.execute(
                 'SELECT count(*),min(date),max(date) FROM telemetry_daily WHERE device_id=?', (device,)).fetchone()
             require((count, first, last) == (365, '2025-01-01', '2025-12-31'), f'year incomplete: {device}')
+    for device, purchase, first in connection.execute(
+            'SELECT d.device_id,d.purchase_date,min(t.date) FROM devices d '
+            'JOIN telemetry_daily t USING(device_id) GROUP BY d.device_id,d.purchase_date'):
+        require(purchase <= first, f'purchase after first telemetry date: {device}/{purchase}/{first}')
     require(not connection.execute(
         "SELECT b.model_code FROM warranty_policies b JOIN warranty_policies w USING(model_code) "
         "WHERE b.component='battery' AND w.component='whole_machine' AND b.months>w.months").fetchall(),

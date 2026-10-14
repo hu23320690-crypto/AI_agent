@@ -96,9 +96,57 @@ def test_seed_scale_and_business_consistency(database):
         by_device = {}
         for item in states:
             by_device.setdefault(item['device_id'], {})[item['component']] = item['in_warranty']
-        assert by_device['D-1001-01'] == {'battery': True, 'whole_machine': True}
+        assert by_device['D-1001-01'] == {'battery': False, 'whole_machine': False}
         assert by_device['D-1002-01'] == {'battery': False, 'whole_machine': True}
+        assert by_device['D-1006-01'] == {'battery': True, 'whole_machine': True}
+        assert by_device['D-1007-01'] == {'battery': False, 'whole_machine': False}
+        assert {item['component']: item['expires_at'] for item in states
+                if item['device_id'] == 'D-1006-01'} == {
+            'battery': '2026-10-02', 'whole_machine': '2027-10-02'}
+        assert connection.execute(
+            'SELECT model_code,component,months FROM warranty_policies '
+            "WHERE component!='consumables' ORDER BY model_code,component").fetchall() == [
+                ('SV-100', 'battery', 6), ('SV-100', 'whole_machine', 12),
+                ('SV-200', 'battery', 12), ('SV-200', 'whole_machine', 24),
+                ('SV-300', 'battery', 12), ('SV-300', 'whole_machine', 18),
+                ('SV-400', 'battery', 24), ('SV-400', 'whole_machine', 36)]
         assert connection.execute('SELECT count(*) FROM telemetry_daily WHERE device_id=?', ('D-1011-01',)).fetchone()[0] == 30
+
+
+def test_purchase_dates_precede_csv_and_first_telemetry(database):
+    with closing(sqlite3.connect(database)) as connection:
+        dates = connection.execute(
+            'SELECT d.device_id,d.purchase_date,min(t.date) FROM devices d '
+            'JOIN telemetry_daily t USING(device_id) GROUP BY d.device_id,d.purchase_date').fetchall()
+        assert len(dates) == 58
+        assert all(purchase <= first for _, purchase, first in dates)
+        assert connection.execute(
+            "SELECT user_id,purchase_date FROM devices WHERE user_id IN ('1001','1007') ORDER BY user_id"
+            ).fetchall() == [('1001', '2024-07-12'), ('1007', '2024-07-12')]
+        assert not connection.execute(
+            "SELECT device_id FROM devices WHERE user_id BETWEEN '1001' AND '1010' "
+            "AND purchase_date>'2025-01-01'").fetchall()
+
+
+@pytest.mark.parametrize('device,purchase', [
+    ('D-1001-01', '2025-01-01'), ('D-1011-01', '2025-12-13'),
+])
+def test_purchase_on_first_usage_date_is_allowed(database, device, purchase):
+    with closing(sqlite3.connect(database)) as connection:
+        connection.execute('UPDATE devices SET purchase_date=? WHERE device_id=?', (purchase, device))
+        assert_consistency(connection, business_date='2026-01-12')
+
+
+@pytest.mark.parametrize('device,purchase,needle', [
+    ('D-1001-01', '2025-03-01', 'purchase after CSV start'),
+    ('D-1011-01', '2025-12-14', 'purchase after first telemetry date'),
+    ('D-1015-02', '2025-12-14', 'purchase after first telemetry date'),
+])
+def test_purchase_after_first_usage_is_rejected(database, device, purchase, needle):
+    with closing(sqlite3.connect(database)) as connection:
+        connection.execute('UPDATE devices SET purchase_date=? WHERE device_id=?', (purchase, device))
+        with pytest.raises(AssertionError, match=needle):
+            assert_consistency(connection, business_date='2026-01-12')
 
 
 def test_csv_literal_newlines_and_narrow_suggestion_exception():
@@ -121,7 +169,7 @@ def test_csv_literal_newlines_and_narrow_suggestion_exception():
     ("UPDATE telemetry_daily SET area_m2=1 WHERE device_id='D-1001-01'", 'daily area mismatch'),
     ("DELETE FROM telemetry_daily WHERE device_id='D-1001-01' AND date='2025-01-01'", 'month incomplete'),
     ("DELETE FROM telemetry_daily WHERE device_id='D-1003-01' AND date='2025-01-01'", 'year incomplete'),
-    ("UPDATE devices SET purchase_date='2026-01-01'", 'warranty states'),
+    ("UPDATE warranty_policies SET months=60 WHERE component!='consumables'", 'warranty states'),
     ("UPDATE warranty_policies SET months=0", 'warranty states'),
     ("UPDATE warranty_policies SET months=24 WHERE component!='consumables'", 'warranty states missing: whole only'),
     ("DELETE FROM error_codes WHERE code='E07'", 'E07 missing'),
@@ -223,9 +271,9 @@ def test_curated_first_ten_history_and_global_scheduled_distribution(database):
 
 @pytest.mark.parametrize('statement,needle', [
     ("UPDATE warranty_policies SET months=13 WHERE model_code='SV-100' AND component='battery'", 'battery warranty exceeds'),
-    ("UPDATE devices SET purchase_date='2023-01-01' WHERE user_id IN ('1001','1007')", 'warranty states missing: both in'),
-    ("UPDATE devices SET purchase_date='2025-12-01' WHERE user_id IN ('1002','1003','1006','1008')", 'warranty states missing: whole only'),
-    ("UPDATE devices SET purchase_date='2025-12-01' WHERE user_id IN ('1004','1005','1009','1010')", 'warranty states missing: both expired'),
+    ("UPDATE warranty_policies SET months=12 WHERE model_code='SV-400' AND component='battery'", 'warranty states missing: both in'),
+    ("UPDATE warranty_policies SET months=12 WHERE model_code IN ('SV-200','SV-300') AND component='whole_machine'", 'warranty states missing: whole only'),
+    ("UPDATE warranty_policies SET months=36 WHERE component='whole_machine'", 'warranty states missing: both expired'),
     ("UPDATE service_slots SET booked=booked+1 WHERE slot_id='S-north-20260113-2'", 'slot booked accounting'),
     ("UPDATE service_slots SET external_booked=3,booked=3 WHERE slot_id='S-north-20260113-3'", 'slot capacity exceeded'),
     ("UPDATE service_slots SET external_booked=-1,booked=-1 WHERE slot_id='S-north-20260113-3'", 'negative external occupancy'),
@@ -256,14 +304,19 @@ def test_external_occupancy_column_rejects_negative_and_null(database, value):
                                (value, 'S-north-20260113-3'))
 
 
-def test_review_assertions_are_active_under_python_optimization(database):
+@pytest.mark.parametrize('statement,needle', [
+    ("UPDATE tickets SET description='' WHERE ticket_id='T-1014-01'", 'explicit problem description'),
+    ("UPDATE devices SET purchase_date='2025-03-01' WHERE device_id='D-1001-01'", 'purchase after CSV start'),
+    ("UPDATE devices SET purchase_date='2025-12-14' WHERE device_id='D-1011-01'", 'purchase after first telemetry date'),
+])
+def test_review_assertions_are_active_under_python_optimization(database, statement, needle):
     import subprocess
     import sys
     code = ("import sqlite3; from service_desk.seed import assert_consistency; "
             "c=sqlite3.connect(__import__('sys').argv[1]); "
-            "c.execute(\"UPDATE tickets SET description='' WHERE ticket_id='T-1014-01'\"); "
+            f"c.execute({statement!r}); "
             "assert_consistency(c,business_date='2026-01-12')")
     result = subprocess.run([sys.executable, '-B', '-O', '-c', code, str(database)],
                             cwd=ROOT, capture_output=True, text=True, timeout=30)
     assert result.returncode != 0
-    assert 'explicit problem description' in result.stderr
+    assert needle in result.stderr
