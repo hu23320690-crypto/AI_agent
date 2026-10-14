@@ -7,7 +7,7 @@ from langchain.tools import ToolRuntime
 from langchain_core.tools import StructuredTool
 
 from service_desk.access import connection_for
-from service_desk.evaluation_context import append_kb_overlay, records_path
+from service_desk.evaluation_context import records_path
 from service_desk.contracts import READ_TOOLS, RESULT_MODELS
 from service_desk.db import canonical_json
 from service_desk.policy import authorize_service_tool, validate_arguments
@@ -71,9 +71,9 @@ def _read(name, args, context, connection):
             devices = connection.execute('SELECT model_code FROM devices WHERE user_id=? ORDER BY device_id',
                                          (user,)).fetchall()
             model = devices[0]['model_code'] if len(devices) == 1 else None
-        with service_request(model) as request:
+        with service_request(model, context=context) as request:
             answer = rag_summerize.func(args['query'], SimpleNamespace(context=context))
-            return {'answer': append_kb_overlay(answer, context), 'references': request.references}
+            return {'answer': answer, 'references': request.references}
     if name == 'fetch_external_data':
         from utils.records import load_records
         context.update(report=False, report_data=None, lookup_result=None)

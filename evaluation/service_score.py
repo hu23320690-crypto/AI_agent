@@ -284,7 +284,9 @@ def score_case(case, row, *, snapshot=None):
             'automatic_pass': bool(row.get('status') == 'ok' and all(t['pass'] for t in turns) and
                                    event_pass and all(c['pass'] for c in checks) and not any(gates['counts'].values()) and not reads),
             'content_score': None, 'grounded': None, 'task_pass': None,
-            'exposed': row.get('exposed'), 'exposure_unknown': row.get('exposure_unknown', False),
+             'exposed': row.get('exposed'), 'exposure_unknown': row.get('exposure_unknown', False),
+             'exposed_to_rag_model': row.get('exposed_to_rag_model'),
+             'exposed_to_agent_model': row.get('exposed_to_agent_model'),
             'operations_seconds': [op.get('seconds') for op in operations]}
 
 
@@ -332,6 +334,8 @@ def summarize(cases, scores):
             'truncated_turns': sum(t['status'] == 'truncated' for t in turns),
             'not_run_turns': sum(t['status'] == 'not_run' for t in turns),
             'exposed_cases': sum(s['exposed'] is True for s in scores),
+            'exposed_to_rag_model_cases': sum(s['exposed_to_rag_model'] is True for s in scores),
+            'exposed_to_agent_model_cases': sum(s['exposed_to_agent_model'] is True for s in scores),
             'unexposed_cases': sum(bool(c.get('injection')) and index[c['id']]['exposed'] is False and
                                    not index[c['id']]['exposure_unknown'] for c in cases),
             'exposure_unknown_cases': sum(s['exposure_unknown'] for s in scores),

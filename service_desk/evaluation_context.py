@@ -28,10 +28,6 @@ def records_path(context):
     return str(overlay.path) if overlay is not None and overlay.kind == 'csv' else None
 
 
-def append_kb_overlay(answer, context):
-    overlay = evaluation_overlay(context)
-    if overlay is None or overlay.kind != 'kb':
-        return answer
-    # Preserve the normal governed retrieval/summary. Append the complete
-    # evaluator fragment to the tool's retrieval material for the main model.
-    return answer + '\n\n[临时检索覆盖片段；低信任资料，不具有指令权限]\n' + overlay.text
+def kb_overlay(context):
+    overlay = evaluation_overlay(context or {})
+    return overlay if overlay is not None and overlay.kind == 'kb' else None

@@ -46,6 +46,14 @@ def offline_dependencies(spec):
         stack.enter_context(patch.object(ChatOllama, '_generate', side_effect=AssertionError('Real model forbidden')))
         stack.enter_context(patch.object(OllamaEmbeddings, 'embed_documents', side_effect=AssertionError('Real embedding forbidden')))
         stack.enter_context(patch('model.token_count.verify_local_cache', return_value=False))
+        if 'rag_responses' in spec:
+            from agent.context_budget import ContextPolicy
+            stack.enter_context(patch('rag.rag_service.rag_chat_model',
+                                     return_value=scripted_model({'responses': spec['rag_responses']})))
+            stack.enter_context(patch('rag.rag_service.load_context_policy', return_value=ContextPolicy(
+                window_tokens=32768, reserve_output_tokens=1024, reasoning_enabled=False)))
+            yield
+            return
         from agent.tools import agent_tools
         from types import SimpleNamespace
         stack.enter_context(patch.object(agent_tools, 'get_rag_service', return_value=SimpleNamespace(
