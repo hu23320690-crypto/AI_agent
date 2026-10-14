@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "file": "sv-100_manual.txt",
+      "sha256": "aea9306950647534cc59182e561df7390538bcda2592114cf792676491ad300d",
+      "models": [
+        "SV-100"
+      ],
+      "description": "型号使用边界、部件维护与专属 E07 处理。"
+    },
+    {
+      "file": "sv-200_manual.txt",
+      "sha256": "8af789c71deab156f4f284d328e3c81fd9849d7acb8934b8c3b38ccaf664ac8a",
+      "models": [
+        "SV-200"
+      ],
+      "description": "型号使用边界、部件维护与专属 E07 处理。"
+    },
+    {
+      "file": "sv-300_manual.txt",
+      "sha256": "d74fd72f8564c6a573e814817078591489aa3d6f582bf838d0240bdc3dbdd591",
+      "models": [
+        "SV-300"
+      ],
+      "description": "型号使用边界、部件维护与专属 E07 处理。"
+    },
+    {
+      "file": "sv-400_manual.txt",
+      "sha256": "29305b8963fd5702f29464f3d5f5ce1612797ae25188fd6c7ca108b031ee916d",
+      "models": [
+        "SV-400"
+      ],
+      "description": "型号使用边界、部件维护与专属 E07 处理。"
+    },
+    {
+      "file": "errors.txt",
+      "sha256": "6f7dbb5d7e9f304186fcc91d4404427b5c4b49d1c0533bdb2188d78f4f0fe384",
+      "models": [
+        "all"
+      ],
+      "description": "通用错误码与四型号 E07 的外部处理边界。"
+    },
+    {
+      "file": "warranty_service.txt",
+      "sha256": "8af6ff573dac576023bde960306829af3a36a3452c50ee7985cd1465fdb5e8de",
+      "models": [
+        "all"
+      ],
+      "description": "保修口径、上门、改约取消与两段式确认政策草稿。"
+    },
+    {
+      "file": "consumables.txt",
+      "sha256": "9b8462be087cbcb2fed0d73fdc3633da93c971e926f06a0103f29188f2483d43",
+      "models": [
+        "all"
+      ],
+      "description": "六个 SKU 的兼容范围、维护方法与下单确认规则。"
+    }
+  ]
+}
