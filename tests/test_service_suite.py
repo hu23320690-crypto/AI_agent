@@ -243,3 +243,139 @@ def test_duplicate_json_keys_and_path_escape_are_rejected(tmp_path):
         check.load_jsonl(source)
     with pytest.raises(ValueError, match='escapes'):
         check.safe_path(tmp_path, '../outside')
+
+
+def test_all_nine_reads_are_allowed_even_when_not_required():
+    selected = task('SV-T07')
+    assert check.verify_allowed(selected) == 1
+    assert check.READ_TOOLS <= set(selected.turns[0].allowed_tools)
+    assert 'rag_summarize' not in selected.turns[0].required_tools
+    selected.turns[0].allowed_tools.remove('rag_summarize')
+    with pytest.raises(ValueError, match='all nine reads'):
+        check.verify_allowed(selected)
+
+
+@pytest.mark.parametrize('task_id,mutation', [
+    ('SV-D01', 'add_rag'), ('SV-T01', 'remove_rag'), ('SV-D01', 'add_kb'),
+])
+def test_knowledge_request_gates_required_retrieval(task_id, mutation):
+    selected = task(task_id)
+    if mutation == 'add_rag': selected.turns[0].required_tools.append('rag_summarize')
+    elif mutation == 'remove_rag': selected.turns[0].required_tools.remove('rag_summarize')
+    else: selected.turns[0].evidence.append(next(e for e in task('SV-T01').turns[0].evidence if e.kind == 'kb'))
+    with pytest.raises(ValueError, match='knowledge|KB-only'):
+        check.verify_knowledge(selected)
+
+
+@pytest.mark.parametrize('value', [None, 'false', 0])
+def test_user_knowledge_flag_is_required_and_strict(value):
+    raw = task('SV-D01').model_dump(exclude_none=True)
+    raw['turns'][0]['knowledge_requested'] = value
+    with pytest.raises((ValueError, ValidationError), match='knowledge_requested'):
+        check.verify_structure(check.Task.model_validate(raw))
+
+
+@pytest.mark.parametrize('task_id,missing', [
+    ('SV-T01', 'list_my_devices'), ('SV-T01', 'lookup_error_code'),
+    ('SV-T01', 'check_warranty'), ('SV-T01', 'find_service_slots'),
+    ('SV-T08', 'find_consumables'), ('SV-T08', 'fetch_external_data'),
+    ('SV-T11', 'get_my_orders_and_tickets'), ('SV-T10', 'find_service_slots'),
+])
+def test_proposals_require_prior_service_workflow(task_id, missing):
+    selected = task(task_id)
+    selected.turns[0].required_tools.remove(missing)
+    with pytest.raises(ValueError, match='SOP tools missing'):
+        check.verify_workflow(selected)
+
+
+def test_workflow_can_reuse_prior_facts_but_not_future_reads():
+    selected = task('SV-T22')
+    assert 'lookup_error_code' not in selected.turns[1].required_tools
+    assert check.verify_workflow(selected) == 2
+    selected.turns[0].required_tools.remove('check_warranty')
+    selected.turns[1].required_tools.append('check_warranty')
+    with pytest.raises(ValueError, match='SOP tools missing'):
+        check.verify_workflow(selected)
+
+
+@pytest.mark.parametrize('words', [[], ['漏水', '接口', '水箱'], ['接口一直漏水'], ['E09']])
+def test_description_keywords_reject_count_length_and_wrong_code(words):
+    proposal = task('SV-T01').turns[0].expected_proposals[0]
+    proposal.description_must_include = words
+    with pytest.raises(ValueError, match='description'):
+        check.verify_description(proposal)
+
+
+@pytest.mark.parametrize('task_id,removed_table', [
+    ('SV-D07', 'consumables'), ('SV-T12', 'consumables'), ('SV-T13', 'consumables'),
+    ('SV-T11', 'tickets'), ('SV-T11', 'service_slots'),
+])
+def test_cancellation_gold_cannot_omit_inventory_ticket_or_slot(connection, task_id, removed_table):
+    selected = task(task_id)
+    selected.final_db_checks = [item for item in selected.final_db_checks if item.table != removed_table]
+    with pytest.raises(ValueError, match='cancel .*final checks'):
+        check.verify_cancel_effects(connection, selected)
+
+
+def test_cancellation_gold_applies_independent_business_effects(connection):
+    check.simulate(connection, task('SV-T11'), '2026-01-12')
+    assert connection.execute("SELECT status FROM tickets WHERE ticket_id='T-1008-01'").fetchone()[0] == 'cancelled'
+    check.simulate(connection, task('SV-T12'), '2026-01-12')
+    assert connection.execute("SELECT stock FROM consumables WHERE sku='SKU-RUBBER'").fetchone()[0] == 31
+
+
+def test_expired_visit_is_allowed_unless_user_requires_warranty(connection):
+    selected = task('SV-T05')
+    proposal = selected.turns[0].expected_proposals[0]
+    args = check.proposal_args(proposal)
+    assert check.precondition(connection, selected.user_id, proposal.tool, args, '2026-01-12', proposal.visit_policy) is None
+    proposal.visit_policy.warranty_required = True
+    assert check.precondition(connection, selected.user_id, proposal.tool, args, '2026-01-12', proposal.visit_policy) == 'warranty_expired'
+
+
+def test_self_fixable_visit_needs_reported_failed_self_check(connection):
+    selected = task('SV-T27')
+    user_turns = [turn for turn in selected.turns if turn.type == 'user']
+    assert not user_turns[0].expected_proposals and not user_turns[1].expected_proposals
+    proposal = user_turns[2].expected_proposals[0]
+    args = check.proposal_args(proposal)
+    assert check.precondition(connection, selected.user_id, proposal.tool, args, '2026-01-12') == 'self_fixable'
+    assert check.precondition(connection, selected.user_id, proposal.tool, args, '2026-01-12', proposal.visit_policy) is None
+    assert check.verify_workflow(selected) == 1
+    proposal.visit_policy.self_check_quote = '编造用户已经自查'
+    with pytest.raises(ValueError, match='self-check quote'):
+        check.verify_workflow(selected)
+
+
+def test_scene_overlap_uses_entities_even_with_different_wording():
+    left, right = task('SV-D12'), task('SV-T22')
+    assert check.scenario_pairs([left, right]) == []
+    right.user_id = left.user_id
+    right.turns[0].expected_proposals[0].args['error_code'] = 'E07'
+    pairs = check.scenario_pairs([left, right])
+    assert len(pairs) == 1 and 'error:E07' in pairs[0]['entities']
+
+
+def test_test_user_cap_is_enforced(tmp_path):
+    for directory in ('evaluation/service_v1', 'evaluation/service_injection_v1', 'data/external', 'service_kb'):
+        shutil.copytree(check.ROOT / directory, tmp_path / directory)
+    path = tmp_path / 'evaluation/service_v1/test.jsonl'
+    rows = check.load_jsonl(path)
+    rows[2]['user_id'] = '1006'
+    path.write_text(''.join(json.dumps(row, ensure_ascii=False) + '\n' for row in rows), encoding='utf-8')
+    result = check.check_all(tmp_path)
+    assert not result['ok']
+    assert result['reports']['service_v1']['test_users_over_limit'] == {'1006': 6}
+    assert any(f['check'] == 'test_user_limit' for f in result['failures'])
+
+
+@pytest.mark.parametrize('mutation', ['wrong_field', 'missing_tool', 'wrong_mode', 'claim_exposed', 'absent_status'])
+def test_injection_requires_declared_exposure_path_without_claiming_execution(mutation):
+    selected = task('SI-I10')
+    if mutation == 'wrong_field': selected.injection.exposure_field = 'data.特征'
+    elif mutation == 'missing_tool': selected.turns[0].required_tools.remove('fetch_external_data')
+    elif mutation == 'wrong_mode': selected.injection.exposure_mode = 'retrieval_result'
+    elif mutation == 'claim_exposed': selected.exposed = True
+    else: selected.model_fields_set.remove('exposed')
+    with pytest.raises(ValueError, match='exposure|exposed'):
+        check.verify_exposure(selected)

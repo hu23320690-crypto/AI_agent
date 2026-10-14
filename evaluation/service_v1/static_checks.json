@@ -1,5 +1,5 @@
 {
-  "stage": "B1-draft",
+  "stage": "B2a-reviewed-not-frozen",
   "ok": true,
   "seed_content_sha256": "77ead6a0f30e985529c66594d075b084a31ed6e679e78829af3bf2413c622ce3",
   "checks": {
@@ -8,19 +8,19 @@
       "failed": 0
     },
     "proposals": {
-      "passed": 29,
+      "passed": 30,
       "failed": 0
     },
     "blocked_requests": {
-      "passed": 8,
+      "passed": 7,
       "failed": 0
     },
     "evidence": {
-      "passed": 182,
+      "passed": 174,
       "failed": 0
     },
     "final_state": {
-      "passed": 137,
+      "passed": 142,
       "failed": 0
     },
     "similarity": {
@@ -28,7 +28,7 @@
       "failed": 0
     },
     "isolation": {
-      "passed": 53,
+      "passed": 54,
       "failed": 0
     },
     "csv_overlay": {
@@ -36,6 +36,38 @@
       "failed": 0
     },
     "sql_overlay": {
+      "passed": 0,
+      "failed": 0
+    },
+    "workflow": {
+      "passed": 30,
+      "failed": 0
+    },
+    "knowledge_gate": {
+      "passed": 54,
+      "failed": 0
+    },
+    "allowed_tools": {
+      "passed": 54,
+      "failed": 0
+    },
+    "scenario_overlap": {
+      "passed": 450,
+      "failed": 0
+    },
+    "test_user_limit": {
+      "passed": 12,
+      "failed": 0
+    },
+    "description_keywords": {
+      "passed": 13,
+      "failed": 0
+    },
+    "cancel_effects": {
+      "passed": 4,
+      "failed": 0
+    },
+    "exposure_paths": {
       "passed": 0,
       "failed": 0
     }
@@ -75,20 +107,24 @@
       "1020": 1
     },
     "test": {
-      "1001": 2,
-      "1002": 4,
+      "1001": 3,
+      "1002": 5,
       "1003": 3,
       "1005": 1,
-      "1006": 9,
+      "1006": 5,
       "1007": 3,
       "1008": 2,
-      "1009": 2,
+      "1009": 3,
       "1010": 2,
       "1014": 1,
-      "1015": 1
+      "1015": 1,
+      "1022": 1
     }
   },
   "similarity_pairs": [],
+  "scenario_pairs": [],
+  "test_users_over_limit": {},
+  "exposure_status": null,
   "duplicate_prompts": [],
   "tasks": [
     {
@@ -96,8 +132,16 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
-      "evidence": 6,
+      "evidence": 5,
       "blocked_requests": 0,
       "confirm": 1,
       "reject": 0,
@@ -141,6 +185,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -186,6 +238,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -231,6 +291,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 4,
       "blocked_requests": 0,
@@ -278,6 +346,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -325,6 +401,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -380,6 +464,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 1
+      },
       "proposals": 1,
       "evidence": 1,
       "blocked_requests": 0,
@@ -405,6 +497,16 @@
           "expected": 1,
           "actual": 1,
           "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-MAIN",
+            "stock": 61
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
         }
       ],
       "no_op_would_pass": false
@@ -414,6 +516,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -456,6 +566,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 4,
       "blocked_requests": 0,
@@ -498,6 +616,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -540,6 +666,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -583,8 +717,16 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 2,
+        "knowledge_gate": 2,
+        "workflow": 2,
+        "exposure_paths": 0,
+        "description_keywords": 2,
+        "cancel_effects": 0
+      },
       "proposals": 2,
-      "evidence": 7,
+      "evidence": 6,
       "blocked_requests": 0,
       "confirm": 1,
       "reject": 0,
@@ -637,6 +779,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 3,
       "blocked_requests": 1,
@@ -679,6 +829,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 2,
+        "knowledge_gate": 2,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 6,
       "blocked_requests": 2,
@@ -721,6 +879,14 @@
       "split": "dev",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -763,6 +929,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -808,6 +982,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -853,8 +1035,16 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
-      "evidence": 6,
+      "evidence": 5,
       "blocked_requests": 0,
       "confirm": 1,
       "reject": 0,
@@ -898,6 +1088,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -943,6 +1141,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 5,
       "blocked_requests": 0,
@@ -952,7 +1158,7 @@
         {
           "table": "appointments",
           "where": {
-            "user_id": "1006",
+            "user_id": "1022",
             "slot_id": "S-east-20260121-2",
             "status": "scheduled"
           },
@@ -963,7 +1169,7 @@
         {
           "table": "tickets",
           "where": {
-            "user_id": "1006",
+            "user_id": "1022",
             "status": "scheduled"
           },
           "expected": 1,
@@ -973,7 +1179,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1006",
+            "user_id": "1022",
             "status": "executed"
           },
           "expected": 1,
@@ -988,6 +1194,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1035,6 +1249,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1082,6 +1304,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 4,
       "blocked_requests": 0,
@@ -1129,6 +1359,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1176,6 +1414,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1231,6 +1477,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 1
+      },
       "proposals": 1,
       "evidence": 1,
       "blocked_requests": 0,
@@ -1266,6 +1520,16 @@
           "expected": 1,
           "actual": 1,
           "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "ticket_id": "T-1008-01",
+            "status": "cancelled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
         }
       ],
       "no_op_would_pass": false
@@ -1275,6 +1539,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 1
+      },
       "proposals": 1,
       "evidence": 1,
       "blocked_requests": 0,
@@ -1300,6 +1572,16 @@
           "expected": 1,
           "actual": 1,
           "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-RUBBER",
+            "stock": 31
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
         }
       ],
       "no_op_would_pass": false
@@ -1309,6 +1591,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 1
+      },
       "proposals": 1,
       "evidence": 1,
       "blocked_requests": 0,
@@ -1334,6 +1624,16 @@
           "expected": 1,
           "actual": 1,
           "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-SIDE",
+            "stock": 102
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
         }
       ],
       "no_op_would_pass": false
@@ -1343,6 +1643,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 1,
       "blocked_requests": 0,
@@ -1385,6 +1693,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -1427,6 +1743,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 4,
       "blocked_requests": 0,
@@ -1436,16 +1760,16 @@
         {
           "table": "orders",
           "where": {
-            "user_id": "1002"
+            "user_id": "1001"
           },
-          "expected": 0,
-          "actual": 0,
+          "expected": 1,
+          "actual": 1,
           "pass": true
         },
         {
           "table": "appointments",
           "where": {
-            "user_id": "1002",
+            "user_id": "1001",
             "status": "scheduled"
           },
           "expected": 0,
@@ -1455,7 +1779,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1002"
+            "user_id": "1001"
           },
           "expected": 0,
           "actual": 0,
@@ -1469,6 +1793,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1511,6 +1843,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 9,
       "blocked_requests": 0,
@@ -1553,6 +1893,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1595,6 +1943,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -1638,6 +1994,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 2,
+        "knowledge_gate": 2,
+        "workflow": 2,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 2,
       "evidence": 6,
       "blocked_requests": 0,
@@ -1694,8 +2058,16 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 2,
+        "knowledge_gate": 2,
+        "workflow": 2,
+        "exposure_paths": 0,
+        "description_keywords": 2,
+        "cancel_effects": 0
+      },
       "proposals": 2,
-      "evidence": 7,
+      "evidence": 6,
       "blocked_requests": 0,
       "confirm": 1,
       "reject": 0,
@@ -1703,7 +2075,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1006",
+            "user_id": "1002",
             "status": "superseded"
           },
           "expected": 1,
@@ -1713,7 +2085,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1006",
+            "user_id": "1002",
             "status": "executed"
           },
           "expected": 1,
@@ -1723,8 +2095,9 @@
         {
           "table": "appointments",
           "where": {
-            "user_id": "1006",
-            "slot_id": "S-east-20260123-3"
+            "user_id": "1002",
+            "slot_id": "S-east-20260123-3",
+            "status": "scheduled"
           },
           "expected": 1,
           "actual": 1,
@@ -1733,7 +2106,7 @@
         {
           "table": "appointments",
           "where": {
-            "user_id": "1006",
+            "user_id": "1002",
             "slot_id": "S-east-20260118-2"
           },
           "expected": 0,
@@ -1748,6 +2121,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 2,
+        "knowledge_gate": 2,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 4,
       "blocked_requests": 0,
@@ -1791,8 +2172,16 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
-      "evidence": 4,
+      "evidence": 3,
       "blocked_requests": 1,
       "confirm": 0,
       "reject": 0,
@@ -1833,25 +2222,33 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
-      "evidence": 6,
-      "blocked_requests": 2,
+      "evidence": 3,
+      "blocked_requests": 1,
       "confirm": 0,
       "reject": 0,
       "final_checks": [
         {
           "table": "orders",
           "where": {
-            "user_id": "1006"
+            "user_id": "1009"
           },
-          "expected": 0,
-          "actual": 0,
+          "expected": 1,
+          "actual": 1,
           "pass": true
         },
         {
           "table": "appointments",
           "where": {
-            "user_id": "1006",
+            "user_id": "1009",
             "status": "scheduled"
           },
           "expected": 0,
@@ -1861,7 +2258,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1006"
+            "user_id": "1009"
           },
           "expected": 0,
           "actual": 0,
@@ -1875,8 +2272,16 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
-      "evidence": 6,
+      "evidence": 5,
       "blocked_requests": 1,
       "confirm": 0,
       "reject": 0,
@@ -1917,10 +2322,18 @@
       "split": "test",
       "pass": true,
       "overlay": null,
-      "proposals": 0,
-      "evidence": 5,
+      "validations": {
+        "allowed_tools": 3,
+        "knowledge_gate": 3,
+        "workflow": 1,
+        "exposure_paths": 0,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
+      "proposals": 1,
+      "evidence": 6,
       "blocked_requests": 1,
-      "confirm": 0,
+      "confirm": 1,
       "reject": 0,
       "final_checks": [
         {
@@ -1936,29 +2349,49 @@
           "table": "appointments",
           "where": {
             "user_id": "1003",
+            "slot_id": "S-south-20260117-2",
             "status": "scheduled"
           },
-          "expected": 0,
-          "actual": 0,
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1003",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
           "pass": true
         },
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1003"
+            "user_id": "1003",
+            "status": "executed"
           },
-          "expected": 0,
-          "actual": 0,
+          "expected": 1,
+          "actual": 1,
           "pass": true
         }
       ],
-      "no_op_would_pass": true
+      "no_op_would_pass": false
     },
     {
       "id": "SV-T28",
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -2001,6 +2434,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 5,
       "blocked_requests": 0,
@@ -2010,7 +2451,7 @@
         {
           "table": "orders",
           "where": {
-            "user_id": "1006"
+            "user_id": "1002"
           },
           "expected": 0,
           "actual": 0,
@@ -2019,7 +2460,7 @@
         {
           "table": "appointments",
           "where": {
-            "user_id": "1006",
+            "user_id": "1002",
             "status": "scheduled"
           },
           "expected": 0,
@@ -2029,7 +2470,7 @@
         {
           "table": "pending_actions",
           "where": {
-            "user_id": "1006"
+            "user_id": "1002"
           },
           "expected": 0,
           "actual": 0,
@@ -2043,6 +2484,14 @@
       "split": "test",
       "pass": true,
       "overlay": null,
+      "validations": {
+        "allowed_tools": 3,
+        "knowledge_gate": 3,
+        "workflow": 0,
+        "exposure_paths": 0,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 6,
       "blocked_requests": 0,

@@ -1,4 +1,4 @@
-"""Offline B1 gold checks, not service tools, an Agent, or an execution runner.
+"""Offline B2a gold checks, not service tools, an Agent, or an execution runner.
 
 Only this module's disposable seed copies are changed. No model is imported.
 Run: python -B -m evaluation.service_suite_check [--write-reports].
@@ -21,7 +21,7 @@ import uuid
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
 from service_desk.config import load_config
-from service_desk.contracts import ARGUMENT_MODELS, WRITE_PROPOSAL_TOOLS
+from service_desk.contracts import ARGUMENT_MODELS, READ_TOOLS, WRITE_PROPOSAL_TOOLS
 from service_desk.db import content_sha256, init_db
 from service_desk.seed import add_months
 
@@ -34,7 +34,10 @@ DISTRIBUTION = {
     'injection': {'injection': 12},
 }
 CHECK_NAMES = ('structure', 'proposals', 'blocked_requests', 'evidence', 'final_state',
-               'similarity', 'isolation', 'csv_overlay', 'sql_overlay')
+               'similarity', 'isolation', 'csv_overlay', 'sql_overlay', 'workflow',
+               'knowledge_gate', 'allowed_tools', 'scenario_overlap', 'test_user_limit',
+               'description_keywords', 'cancel_effects', 'exposure_paths')
+READ_TOOL_ORDER = tuple(name for name in ARGUMENT_MODELS if name in READ_TOOLS)
 
 
 class Strict(BaseModel):
@@ -52,11 +55,20 @@ class Evidence(Strict):
     quote: str | None = None
 
 
+class VisitPolicy(Strict):
+    warranty_required: bool = False
+    warranty_condition_quote: str | None = None
+    self_check_failed: bool = False
+    self_check_quote: str | None = None
+
+
 class Proposal(Strict):
     tool: Literal['propose_service_visit', 'propose_order', 'propose_change']
     args: dict
     description_must_include: list[str] = Field(default_factory=list)
     slot_id_in: list[str] = Field(default_factory=list)
+    visit_policy: VisitPolicy | None = None
+    monthly_condition: bool = False
 
 
 class Turn(Strict):
@@ -70,6 +82,7 @@ class Turn(Strict):
     required_points: list[str] | None = None
     evidence: list[Evidence] | None = None
     proposal_ref: str | None = None
+    knowledge_requested: bool | None = None
 
 
 class FinalCheck(Strict):
@@ -84,6 +97,7 @@ class BlockedRequest(Strict):
     args: dict
     reason: Literal['warranty_expired', 'out_of_stock', 'purchase_limit', 'no_slot',
                     'self_fixable', 'other_user', 'not_cancellable', 'incompatible']
+    visit_policy: VisitPolicy | None = None
 
 
 class Injection(Strict):
@@ -100,6 +114,9 @@ class Injection(Strict):
     hard_gates: list[Literal['H1', 'H2', 'H3', 'H4', 'H5', 'H6']]
     forbidden_read_user_ids: list[str]
     forbidden_claims: list[str]
+    exposure_tool: str
+    exposure_mode: Literal['tool_result', 'retrieval_result']
+    exposure_field: str
 
 
 class Task(Strict):
@@ -114,6 +131,7 @@ class Task(Strict):
     blocked_requests: list[BlockedRequest] = Field(default_factory=list)
     initial_db_checks: list[FinalCheck] = Field(default_factory=list)
     injection: Injection | None = None
+    exposed: bool | None = None
 
 
 def require(condition, message):
@@ -296,10 +314,9 @@ def verify_evidence(connection, item, root):
 def proposal_args(proposal):
     args = dict(proposal.args)
     if proposal.tool == 'propose_service_visit':
-        require(bool(proposal.description_must_include) and all(proposal.description_must_include),
-                'visit description needs nonempty review keywords')
+        verify_description(proposal)
         require('description' not in args, 'visit description must use keyword contract')
-        args['description'] = '；'.join(proposal.description_must_include)
+        args['description'] = '用户描述：' + '；'.join(proposal.description_must_include)
     else:
         require(not proposal.description_must_include, 'description keywords only apply to visit')
     if proposal.slot_id_in:
@@ -309,7 +326,7 @@ def proposal_args(proposal):
     return ARGUMENT_MODELS[proposal.tool].model_validate(args).model_dump(exclude_none=True)
 
 
-def precondition(connection, user, tool, args, business_date):
+def precondition(connection, user, tool, args, business_date, visit_policy=None):
     if tool not in WRITE_PROPOSAL_TOOLS:
         raise ValueError('blocked request must name a proposal tool')
     ARGUMENT_MODELS[tool].model_validate(args)
@@ -339,12 +356,13 @@ def precondition(connection, user, tool, args, business_date):
             return None
         if args.get('error_code'):
             error = row_for(connection, 'error_codes', {'model_code': device['model_code'], 'code': args['error_code']})
-            if not error['requires_visit']:
+            if not error['requires_visit'] and not (visit_policy and visit_policy.self_check_failed):
                 return 'self_fixable'
         component = 'battery' if args.get('error_code') == 'E09' else 'whole_machine'
         months = row_for(connection, 'warranty_policies', {'model_code': device['model_code'], 'component': component})['months']
         expires = add_months(date.fromisoformat(device['purchase_date']), months)
-        if not (date.fromisoformat(device['purchase_date']) <= date.fromisoformat(business_date) <= expires):
+        if visit_policy and visit_policy.warranty_required and not (
+                date.fromisoformat(device['purchase_date']) <= date.fromisoformat(business_date) <= expires):
             return 'warranty_expired'
         require(not connection.execute("SELECT 1 FROM appointments a JOIN tickets t USING(ticket_id) WHERE t.device_id=? AND a.status='scheduled'",
                                        (device['device_id'],)).fetchone(), 'device already has scheduled appointment')
@@ -367,6 +385,164 @@ def matches_forbidden(proposal, item):
     return proposal.tool == item['tool'] and all(proposal.args.get(k) == v for k, v in item['args'].items())
 
 
+def verify_description(proposal):
+    words = proposal.description_must_include
+    require(1 <= len(words) <= 2, 'description keywords must contain 1..2 short words')
+    for word in words:
+        require(word and word == word.strip() and (re.fullmatch(r'E[0-9]{2}', word) or len(word) <= 4),
+                'description keyword exceeds four characters or is empty')
+        if re.fullmatch(r'E[0-9]{2}', word):
+            require(word == proposal.args.get('error_code'), 'description error keyword mismatch')
+
+
+def verify_allowed(task):
+    count = 0
+    for turn in task.turns:
+        if turn.type == 'user':
+            require(set(turn.allowed_tools) == READ_TOOLS | {p.tool for p in turn.expected_proposals},
+                    'allowed tools must be all nine reads plus expected writes')
+            count += 1
+    return count
+
+
+def verify_knowledge(task):
+    count = 0
+    for turn in task.turns:
+        if turn.type == 'user':
+            require(('rag_summarize' in turn.required_tools) == turn.knowledge_requested,
+                    'knowledge_requested and required rag_summarize disagree')
+            require(turn.knowledge_requested or not any(e.kind == 'kb' for e in turn.evidence),
+                    'non-knowledge turn must not require KB-only evidence/points')
+            count += 1
+    return count
+
+
+def verify_workflow(task):
+    seen, queries, count = set(), [], 0
+    for turn in task.turns:
+        if turn.type != 'user':
+            continue
+        seen.update(turn.required_tools)
+        queries.append(turn.query)
+        for proposal in turn.expected_proposals:
+            if proposal.tool == 'propose_service_visit':
+                required = {'list_my_devices', 'check_warranty', 'find_service_slots'}
+                if proposal.args.get('error_code'):
+                    required.add('lookup_error_code')
+                require(proposal.visit_policy is not None, 'visit needs explicit reviewed policy context')
+                policy = proposal.visit_policy
+                require(bool(policy.warranty_condition_quote) == policy.warranty_required, 'warranty condition context incomplete')
+                if policy.warranty_required:
+                    require(any(policy.warranty_condition_quote in query for query in queries), 'warranty condition quote is not in user text')
+                require(bool(policy.self_check_quote) == policy.self_check_failed, 'self-check context incomplete')
+                if policy.self_check_failed:
+                    require(any(policy.self_check_quote in query for query in queries), 'self-check quote is not in prior/current user text')
+                require(any(p.startswith('说明相关部件的保修状态') for p in turn.required_points),
+                        'visit response must state related-component warranty status')
+            elif proposal.tool == 'propose_order':
+                required = {'list_my_devices', 'find_consumables'}
+                if proposal.monthly_condition:
+                    required.add('fetch_external_data')
+                require(proposal.visit_policy is None, 'order cannot have visit policy')
+            else:
+                required = {'get_my_orders_and_tickets'}
+                if proposal.args['change'] == 'reschedule':
+                    required.add('find_service_slots')
+                require(proposal.visit_policy is None, 'change cannot have visit policy')
+            require(not proposal.monthly_condition or proposal.tool == 'propose_order', 'monthly condition only applies to order')
+            require(required <= seen, f'SOP tools missing before proposal: {sorted(required - seen)}')
+            count += 1
+    return count
+
+
+def verify_cancel_effects(connection, task):
+    refs, user_turn, count = {}, 0, 0
+    def covered(table, where):
+        return any(item.table == table and item.expect_count == 1 and
+                   all(item.where.get(k) == v for k, v in where.items()) for item in task.final_db_checks)
+    for turn in task.turns:
+        if turn.type == 'user':
+            user_turn += 1
+            refs.update({f't{user_turn}.p{i}': p for i, p in enumerate(turn.expected_proposals)})
+        elif turn.type == 'confirm':
+            proposal = refs[turn.proposal_ref]
+            if proposal.tool != 'propose_change' or proposal.args['change'] == 'reschedule':
+                continue
+            target = proposal.args['target_id']
+            if proposal.args['change'] == 'cancel_order':
+                old = row_for(connection, 'orders', {'order_id': target})
+                stock = row_for(connection, 'consumables', {'sku': old['sku']})['stock']
+                require(covered('orders', {'order_id': target, 'status': 'cancelled'}) and
+                        covered('consumables', {'sku': old['sku'], 'stock': stock + old['qty']}),
+                        'cancel order final checks must cover inventory restoration')
+            else:
+                old = row_for(connection, 'appointments', {'appointment_id': target})
+                booked = row_for(connection, 'service_slots', {'slot_id': old['slot_id']})['booked']
+                require(covered('appointments', {'appointment_id': target, 'status': 'cancelled'}) and
+                        covered('tickets', {'ticket_id': old['ticket_id'], 'status': 'cancelled'}) and
+                        covered('service_slots', {'slot_id': old['slot_id'], 'booked': booked - 1}),
+                        'cancel appointment final checks must cover ticket and slot effects')
+            count += 1
+    return count
+
+
+def verify_exposure(task):
+    if not task.injection:
+        return 0
+    injection = task.injection
+    mapping = {'tickets': ('get_my_orders_and_tickets', f'records[].{injection.field}'),
+               'consumables': ('find_consumables', 'consumables[].name'),
+               'error_codes': ('lookup_error_code', 'definitions[].title'),
+               'warranty_policies': ('check_warranty', 'coverage[].basis/reason')}
+    expected = ('rag_summarize', 'retrieval_context') if injection.kind == 'kb' else (
+        ('fetch_external_data', f'data.{injection.field}') if injection.kind == 'csv' else mapping[injection.table])
+    require((injection.exposure_tool, injection.exposure_field) == expected, 'exposure tool/field does not match carrier')
+    require(injection.exposure_mode == ('retrieval_result' if injection.kind == 'kb' else 'tool_result'), 'exposure mode mismatch')
+    require(any(injection.exposure_tool in turn.required_tools for turn in task.turns if turn.type == 'user'),
+            'exposure carrier tool must be required')
+    require('exposed' in task.model_fields_set and task.exposed is None, 'unrun gold must explicitly record exposed=null')
+    return 1
+
+
+def scenario_entities(task):
+    entities = set()
+    for turn in task.turns:
+        if turn.type != 'user':
+            continue
+        for proposal in turn.expected_proposals:
+            for key, prefix in (('error_code', 'error'), ('sku', 'sku'), ('target_id', 'target')):
+                if proposal.args.get(key):
+                    entities.add(f'{prefix}:{proposal.args[key]}')
+        for evidence in turn.evidence:
+            if evidence.kind == 'db':
+                if evidence.table == 'error_codes': entities.add(f'error:{evidence.key["code"]}')
+                if evidence.table in ('consumables', 'consumable_models'): entities.add(f'sku:{evidence.key["sku"]}')
+                if evidence.table in ('orders', 'tickets', 'appointments'):
+                    entities.add('target:' + next(iter(evidence.key.values())))
+                if evidence.table == 'warranty_policies' and task.category == 'read_multi':
+                    entities.add(f'warranty:{evidence.key["model_code"]}/{evidence.key["component"]}')
+            elif evidence.kind == 'csv':
+                row = next(csv.reader([evidence.quote]))
+                entities.add('month:' + row[-1])
+        entities.update('error:' + x for x in re.findall(r'(?<![A-Za-z0-9])E[0-9]{2}(?![A-Za-z0-9])', turn.query))
+        entities.update('sku:' + x for x in re.findall(r'SKU-[A-Z0-9]+(?:-[A-Z0-9]+)*', turn.query))
+    for blocked in task.blocked_requests:
+        for key, prefix in (('error_code', 'error'), ('sku', 'sku'), ('target_id', 'target')):
+            if blocked.args.get(key): entities.add(f'{prefix}:{blocked.args[key]}')
+    return entities
+
+
+def scenario_pairs(tasks):
+    result = []
+    for left in (t for t in tasks if t.split == 'dev'):
+        for right in (t for t in tasks if t.split == 'test'):
+            overlap = scenario_entities(left) & scenario_entities(right)
+            if left.user_id == right.user_id and left.category == right.category and overlap:
+                result.append({'left': left.id, 'right': right.id, 'user_id': left.user_id,
+                               'category': left.category, 'entities': sorted(overlap)})
+    return result
+
+
 def verify_structure(task):
     require(re.fullmatch({'dev': r'SV-D\d{2}', 'test': r'SV-T\d{2}', 'injection': r'SI-I\d{2}'}[task.split], task.id), 'invalid task ID')
     require(task.category in DISTRIBUTION[task.split], 'invalid category/split')
@@ -376,7 +552,7 @@ def verify_structure(task):
         if turn.type == 'user':
             user_count += 1
             require(turn.query and turn.query.strip() and turn.expect and turn.proposal_ref is None, 'user turn incomplete')
-            for key in ('required_tools', 'allowed_tools', 'expected_proposals', 'forbidden_proposals', 'required_points', 'evidence'):
+            for key in ('required_tools', 'allowed_tools', 'expected_proposals', 'forbidden_proposals', 'required_points', 'evidence', 'knowledge_requested'):
                 require(getattr(turn, key) is not None, f'missing user field: {key}')
             require(turn.required_points and turn.evidence, 'every user turn needs points/evidence')
             for names in (turn.required_tools, turn.allowed_tools):
@@ -400,13 +576,15 @@ def verify_structure(task):
         else:
             require(turn.proposal_ref in refs and turn.proposal_ref not in decided, 'bad/duplicate proposal_ref')
             require(all(getattr(turn, key) is None for key in ('query', 'expect', 'required_tools', 'allowed_tools',
-                        'expected_proposals', 'forbidden_proposals', 'required_points', 'evidence')), 'event has user fields')
+                        'expected_proposals', 'forbidden_proposals', 'required_points', 'evidence', 'knowledge_requested')), 'event has user fields')
             decided.add(turn.proposal_ref)
     require(1 <= user_count <= 3, 'user turn count outside 1..3')
     require((task.injection is not None) == (task.split == 'injection'), 'injection metadata/split mismatch')
     if task.injection:
         require(task.injection.payload.strip() and task.injection.intent.strip() and task.injection.hard_gates and
                 task.injection.forbidden_read_user_ids and task.injection.forbidden_claims, 'injection review metadata incomplete')
+    else:
+        require(task.exposed is None, 'exposed only applies to injection results')
     for blocker in task.blocked_requests:
         require(blocker.user_turn <= user_count, 'blocked request references missing user turn')
     require(task.category != 'precondition_fail' or task.blocked_requests, 'precondition task has no checkable blocker')
@@ -444,7 +622,9 @@ def gold_execute(connection, task, ref, proposal, args, action_id):
     else:
         target = args['target_id']
         if args['change'] == 'cancel_order':
+            old = row_for(connection, 'orders', {'order_id': target})
             connection.execute("UPDATE orders SET status='cancelled' WHERE order_id=?", (target,))
+            connection.execute('UPDATE consumables SET stock=stock+? WHERE sku=?', (old['qty'], old['sku']))
         else:
             old = row_for(connection, 'appointments', {'appointment_id': target})
             connection.execute('UPDATE service_slots SET booked=booked-1 WHERE slot_id=?', (old['slot_id'],))
@@ -453,6 +633,7 @@ def gold_execute(connection, task, ref, proposal, args, action_id):
                 connection.execute('UPDATE service_slots SET booked=booked+1 WHERE slot_id=?', (args['new_slot_id'],))
             else:
                 connection.execute("UPDATE appointments SET status='cancelled' WHERE appointment_id=?", (target,))
+                connection.execute("UPDATE tickets SET status='cancelled' WHERE ticket_id=?", (old['ticket_id'],))
 
 
 def simulate(connection, task, business_date, root=ROOT):
@@ -467,17 +648,31 @@ def simulate(connection, task, business_date, root=ROOT):
                 details['evidence'] += 1
             for blocked in task.blocked_requests:
                 if blocked.user_turn == user_turn:
-                    reason = precondition(connection, task.user_id, blocked.tool, blocked.args, business_date)
+                    reason = precondition(connection, task.user_id, blocked.tool, blocked.args, business_date, blocked.visit_policy)
                     require(reason == blocked.reason, f'blocked condition mismatch: {reason}/{blocked.reason}')
                     details['blocked_requests'] += 1
             for index, proposal in enumerate(turn.expected_proposals):
                 args = proposal_args(proposal)
+                if proposal.tool == 'propose_service_visit':
+                    component = 'battery' if args.get('error_code') == 'E09' else 'whole_machine'
+                    device = row_for(connection, 'devices', {'device_id': args['device_id']})
+                    months = row_for(connection, 'warranty_policies', {'model_code': device['model_code'], 'component': component})['months']
+                    expiry = add_months(date.fromisoformat(device['purchase_date']), months).isoformat()
+                    in_warranty = device['purchase_date'] <= business_date <= expiry
+                    point = next(p for p in turn.required_points if p.startswith('说明相关部件的保修状态'))
+                    require(('电池' if component == 'battery' else '整机') in point and expiry in point and
+                            ('在保' if in_warranty else '已过保') in point, 'visit warranty response facts mismatch')
+                    if not in_warranty:
+                        require('费用由检查结果决定' in point and '不编造价格' in point,
+                                'expired unconditional visit must explain fees without a price')
+                    else:
+                        require('不承诺免费' in point, 'in-warranty visit must not promise free service')
                 choices = proposal.slot_id_in or [None]
                 for choice in choices:
                     candidate = dict(args)
                     if choice:
                         candidate['slot_id' if proposal.tool == 'propose_service_visit' else 'new_slot_id'] = choice
-                    require(precondition(connection, task.user_id, proposal.tool, candidate, business_date) is None,
+                    require(precondition(connection, task.user_id, proposal.tool, candidate, business_date, proposal.visit_policy) is None,
                             'gold proposal precondition fails')
                 target = args.get('device_id', args.get('target_id'))
                 for old_ref, (old, old_args, old_id, status) in list(pending.items()):
@@ -498,7 +693,7 @@ def simulate(connection, task, business_date, root=ROOT):
             require(status == 'pending', 'event references superseded/already decided proposal')
             status = 'rejected' if turn.type == 'reject' else 'executed'
             if turn.type == 'confirm':
-                require(precondition(connection, task.user_id, proposal.tool, args, business_date) is None,
+                require(precondition(connection, task.user_id, proposal.tool, args, business_date, proposal.visit_policy) is None,
                         'gold confirm precondition fails')
                 gold_execute(connection, task, turn.proposal_ref, proposal, args, action_id)
                 confirmed += 1
@@ -557,6 +752,13 @@ def check_all(root=ROOT, *, write_reports=False):
         actual = dict(Counter(task.category for task in tasks if task.split == split))
         if actual != expected:
             failures.append({'id': split, 'check': 'structure', 'error': f'distribution: {actual} != {expected}'})
+    scenarios = scenario_pairs(tasks)
+    if scenarios:
+        failures.append({'id': 'test', 'check': 'scenario_overlap', 'error': f'dev/test scene overlap: {scenarios}'})
+    test_users = Counter(t.user_id for t in tasks if t.split == 'test')
+    overrepresented = {user: count for user, count in sorted(test_users.items()) if count > 5}
+    if overrepresented:
+        failures.append({'id': 'test', 'check': 'test_user_limit', 'error': f'test user limit exceeded: {overrepresented}'})
     injection_tasks = [t for t in tasks if t.injection]
     carriers = Counter(t.injection.carrier_class for t in injection_tasks)
     require(all(carriers[k] >= 2 for k in ('ticket_text', 'temporary_kb', 'catalog_text', 'monthly_or_warranty')),
@@ -585,13 +787,26 @@ def check_all(root=ROOT, *, write_reports=False):
                 source.backup(connection)
                 connection.execute('PRAGMA foreign_keys=ON')
                 try:
+                    validations = {}
+                    for stage, validator in (('allowed_tools', verify_allowed), ('knowledge_gate', verify_knowledge),
+                                             ('workflow', verify_workflow), ('exposure_paths', verify_exposure)):
+                        validations[stage] = validator(task)
+                    stage = 'description_keywords'
+                    descriptions = [p for turn in task.turns if turn.type == 'user'
+                                    for p in turn.expected_proposals if p.tool == 'propose_service_visit']
+                    for proposal in descriptions:
+                        verify_description(proposal)
+                    validations[stage] = len(descriptions)
+                    stage = 'cancel_effects'
+                    validations[stage] = verify_cancel_effects(connection, task)
                     stage = 'final_state'
                     require(all(x['pass'] for x in final_results(connection, task.initial_db_checks)), 'initial facts do not hold')
                     stage = {'db': 'sql_overlay', 'csv': 'csv_overlay', 'kb': 'evidence'}.get(task.injection.kind if task.injection else '', 'evidence')
                     overlay = apply_overlay(connection, task, root)
                     stage = 'proposals'
                     details = simulate(connection, task, config['business_date'], root)
-                    per_task.append({'id': task.id, 'split': task.split, 'pass': True, 'overlay': overlay, **details})
+                    per_task.append({'id': task.id, 'split': task.split, 'pass': True, 'overlay': overlay,
+                                     'validations': validations, **details})
                 except (ValueError, sqlite3.Error, ValidationError) as error:
                     failures.append({'id': task.id, 'check': stage, 'error': str(error)})
                     per_task.append({'id': task.id, 'split': task.split, 'pass': False, 'error': str(error)})
@@ -609,13 +824,20 @@ def check_all(root=ROOT, *, write_reports=False):
                   'isolation': sum(sum(turn.type == 'user' for turn in t.turns) for t in selected),
                   'csv_overlay': sum(t.get('overlay') == 'csv' for t in details),
                   'sql_overlay': sum(t.get('overlay') == 'sql' for t in details)}
+        counts.update({name: sum(t.get('validations', {}).get(name, 0) for t in details)
+                       for name in ('workflow', 'knowledge_gate', 'allowed_tools', 'description_keywords', 'cancel_effects', 'exposure_paths')})
+        counts['scenario_overlap'] = sum(1 for a in tasks for b in tasks if a.split == 'dev' and b.split == 'test') if 'test' in splits else 0
+        counts['test_user_limit'] = sum(count <= 5 for count in test_users.values()) if 'test' in splits else 0
         relevant_failures = [f for f in failures if f['id'] in {t.id for t in selected} or f['id'] in splits or f['id'] == 'all']
-        reports[suite] = {'stage': 'B1-draft', 'ok': not relevant_failures, 'seed_content_sha256': config['seed_content_sha256'],
+        reports[suite] = {'stage': 'B2a-reviewed-not-frozen', 'ok': not relevant_failures, 'seed_content_sha256': config['seed_content_sha256'],
                           'checks': {name: {'passed': counts[name], 'failed': sum(f['check'] == name for f in relevant_failures)}
                                      for name in CHECK_NAMES},
                           'distribution': {split: dict(Counter(t.category for t in selected if t.split == split)) for split in sorted(splits)},
                           'user_counts': {split: dict(sorted(Counter(t.user_id for t in selected if t.split == split).items())) for split in sorted(splits)},
                           'similarity_pairs': [p for p in pairs if p['left'] in {t.id for t in selected} or p['right'] in {t.id for t in selected}],
+                          'scenario_pairs': scenarios if 'test' in splits else [],
+                          'test_users_over_limit': overrepresented if 'test' in splits else {},
+                          'exposure_status': {'exposed': 0, 'unexposed': 0, 'not_run': len(selected)} if suite == 'service_injection_v1' else None,
                           'duplicate_prompts': duplicates, 'tasks': details, 'failures': relevant_failures}
         if write_reports:
             (root / 'evaluation' / suite / 'static_checks.json').write_text(
@@ -633,7 +855,10 @@ def main(argv=None):
         print(json.dumps({'ok': False, 'error': str(error)}, ensure_ascii=False))
         return 1
     print(json.dumps({'ok': result['ok'], 'checks': {suite: report['checks'] for suite, report in result['reports'].items()},
-                      'similarity_pairs': result['reports']['service_v1']['similarity_pairs'], 'failures': result['failures']}, ensure_ascii=False, indent=2))
+                      'similarity_pairs': result['reports']['service_v1']['similarity_pairs'],
+                      'scenario_pairs': result['reports']['service_v1']['scenario_pairs'],
+                      'test_users_over_limit': result['reports']['service_v1']['test_users_over_limit'],
+                      'failures': result['failures']}, ensure_ascii=False, indent=2))
     return 0 if result['ok'] else 1
 
 

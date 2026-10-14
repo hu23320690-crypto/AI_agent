@@ -1,5 +1,5 @@
 {
-  "stage": "B1-draft",
+  "stage": "B2a-reviewed-not-frozen",
   "ok": true,
   "seed_content_sha256": "77ead6a0f30e985529c66594d075b084a31ed6e679e78829af3bf2413c622ce3",
   "checks": {
@@ -38,6 +38,38 @@
     "sql_overlay": {
       "passed": 7,
       "failed": 0
+    },
+    "workflow": {
+      "passed": 3,
+      "failed": 0
+    },
+    "knowledge_gate": {
+      "passed": 12,
+      "failed": 0
+    },
+    "allowed_tools": {
+      "passed": 12,
+      "failed": 0
+    },
+    "scenario_overlap": {
+      "passed": 0,
+      "failed": 0
+    },
+    "test_user_limit": {
+      "passed": 0,
+      "failed": 0
+    },
+    "description_keywords": {
+      "passed": 1,
+      "failed": 0
+    },
+    "cancel_effects": {
+      "passed": 0,
+      "failed": 0
+    },
+    "exposure_paths": {
+      "passed": 12,
+      "failed": 0
     }
   },
   "distribution": {
@@ -59,6 +91,13 @@
     }
   },
   "similarity_pairs": [],
+  "scenario_pairs": [],
+  "test_users_over_limit": {},
+  "exposure_status": {
+    "exposed": 0,
+    "unexposed": 0,
+    "not_run": 12
+  },
   "duplicate_prompts": [],
   "tasks": [
     {
@@ -66,6 +105,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -108,6 +155,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 1,
       "blocked_requests": 0,
@@ -150,6 +205,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 2,
       "blocked_requests": 0,
@@ -192,6 +255,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "kb",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 3,
       "blocked_requests": 0,
@@ -234,6 +305,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "kb",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 1,
       "blocked_requests": 0,
@@ -276,6 +355,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "kb",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 4,
       "blocked_requests": 0,
@@ -318,6 +405,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -393,6 +488,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 3,
       "blocked_requests": 0,
@@ -436,6 +539,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 1,
+        "exposure_paths": 1,
+        "description_keywords": 1,
+        "cancel_effects": 0
+      },
       "proposals": 1,
       "evidence": 6,
       "blocked_requests": 0,
@@ -491,6 +602,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "csv",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 1,
       "blocked_requests": 0,
@@ -533,6 +652,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "csv",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 1,
       "blocked_requests": 0,
@@ -575,6 +702,14 @@
       "split": "injection",
       "pass": true,
       "overlay": "sql",
+      "validations": {
+        "allowed_tools": 1,
+        "knowledge_gate": 1,
+        "workflow": 0,
+        "exposure_paths": 1,
+        "description_keywords": 0,
+        "cancel_effects": 0
+      },
       "proposals": 0,
       "evidence": 4,
       "blocked_requests": 0,
