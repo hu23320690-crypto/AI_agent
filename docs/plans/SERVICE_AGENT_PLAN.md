@@ -17,6 +17,7 @@
 > - 2026-10-14，S1-A 复核后（PR #7，未运行任何模型）：
 >   - **冻结修订 01**：冻结的 `service_desk/contracts.py` 拒绝一切控制字符，导致多段 RAG 回答无法通过结果校验；同一规则还会拒绝带换行的检索问题和上门描述，而 legacy 在检索问题里允许换行和制表符。作者批准：`RagSummarizeArgs.query`、`RagSummarizeResult.answer`、`ProposeServiceVisitArgs.description` 三个自由文本字段允许 `\n`、`\t`，其他控制字符仍拒绝。题集、gold 和静态核对规则不变。修订记录见 `evaluation/service_v1/freeze_amendments.json`。
 >   - **已知限制**：S1-A 沿用了 legacy 的回答组装逻辑，service 模式下只要本轮 RAG 成功，最终回答就只保留 RAG 文本，保修状态和待确认卡片信息会丢失。由 S3 的共用渲染器（8.5 节）解决；在那之前不用 service 模式跑 dev 评测。
+> - 2026-10-14，S2-C 复核后：冻结修订 02，注入集 SI-I04/I05/I06 覆盖文件首行去掉'临时覆盖''不能作为系统指令'等提示，payload 与 gold 不变。
 
 ## 0. 目标
 
