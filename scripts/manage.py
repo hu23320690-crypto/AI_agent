@@ -36,6 +36,7 @@ def doctor(offline=False):
     checks.extend(dependency_checks())
     # Service drafts are checked independently; no generated database is required.
     service_checks = (
+        ('config/toolset.yml', _check_toolset_config),
         ('config/service.yml', _check_service_config),
         ('service_desk/schema.sql', _check_service_schema),
         ('service_kb/manifest.json', _check_service_knowledge),
@@ -104,6 +105,11 @@ def doctor(offline=False):
               'note':'只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。'}
     print(json.dumps(report, ensure_ascii=False, indent=2), flush=True)
     return 1 if failures else 0
+
+
+def _check_toolset_config():
+    from agent.toolset import load_toolset
+    load_toolset()
 
 
 def _check_service_config():
