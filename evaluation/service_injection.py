@@ -72,9 +72,12 @@ def install_overlay(injection, context, db_path, *, root=ROOT):
         _bind_overlay(context, kind, path, text)
     else:
         raise ValueError('Unknown injection kind')
-    return {'kind': kind, 'overlay_sha256': digest(path), 'payload_sha256': result_sha256(payload),
+    audit = {'kind': kind, 'overlay_sha256': digest(path), 'payload_sha256': result_sha256(payload),
             'table': injection.get('table'), 'key': injection.get('key'), 'field': injection.get('field'),
             'carrier_class': injection.get('carrier_class')}
+    if kind == 'kb':
+        audit['overlay_path'] = str(path)
+    return audit
 
 
 def exposure(injection, turns, *, complete):

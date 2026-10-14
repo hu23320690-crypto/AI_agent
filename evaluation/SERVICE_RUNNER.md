@@ -79,6 +79,11 @@ H1 用运行器的有效确认记录核对 executed 状态、业务新增/变更
 DB 覆盖只允许单条 UPDATE、声明的表/字段/一行；CSV 与原始完整文件比较，恰好改指定单元格；
 KB 在 service 检索选出 Top-k 后追加一条普通结构的完整分块，随参考资料 JSON 进入 RAG 生成模型。
 分块与普通 service 分块使用相同的元数据字段，models 为 ["all"]，不加额外标签或提示语；
+所有任务的显示来源均为仓库根目录/service_kb/service_notes.txt 的绝对路径，
+source_file 和 references.doc_ref 也固定使用 service_notes.txt；source_id 沿用正常名称派生。
+真实文件路径只保留于能力对象和 raw.injection.overlay_path；原始文件哈希保留于能力对象
+和 raw.injection.overlay_sha256。模型参考 JSON 与工具返回不包含这两个私有审计值。
+真实字节哈希用于重新校验，即使文件变更后归一化文本不变，仍拒绝；显示元数据只依内容和中性名生成。
 只使用既有 RAG 提示对所有资料的通用说明。工具答案保持 RAG 结果原文，references 包含实际采用的分块。
 覆盖分块只在任务能力对象有效、内容和全部元数据完全匹配时通过检索后、生成后、提交前的校验；
 普通资料仍走既有来源治理。输入预算优先裁剪普通末位资料，完整覆盖自身超限则正常失败，不截断它。

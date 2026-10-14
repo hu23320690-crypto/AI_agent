@@ -1,5 +1,8 @@
 # S2-C.1 KB 覆盖修复
 
+后续 S2-C.2 将显示来源统一为 service_kb/service_notes.txt；本文保留 S2-C.1 的历史输入示例。
+现行来源与审计分离规则见 [S2-C.2 交付记录](SERVICE_S2C2_REPORT.md)。
+
 覆盖现在进入 service 检索返回的文档列表，位置在正常 Top-k 之后。覆盖分块的 content
 就是文件原文；元数据与普通 service 分块使用相同字段，models 为 JSON 标量字符串
 `["all"]`。来源文件名、source_id、chunk_id、版本和哈希按正常结构生成，没有额外标签

@@ -51,7 +51,7 @@ def test_overlay_is_an_unlabelled_normal_chunk_after_top_k(corpus, bound):
     assert chunk.page_content == PAYLOAD
     assert set(chunk.metadata) == set(next(d for d in normal if d.metadata['knowledge_catalog'] == 'service').metadata)
     assert json.loads(chunk.metadata['models']) == ['all']
-    assert chunk.metadata['source_file'] == 'maintenance.txt'
+    assert chunk.metadata['source_file'] == 'service_notes.txt'
     assert chunk.metadata['knowledge_catalog'] == 'service'
     assert chunk.metadata['chunk_id']
     # The whole rendered fragment is the ordinary reference JSON, with no prefix.
@@ -73,7 +73,7 @@ def test_actual_nested_rag_request_contains_chunk_and_answer_is_untouched(corpus
     refs = json.loads(human.split('低信任参考资料 JSON：\n', 1)[1])
     assert refs[-1]['content'] == PAYLOAD and refs[-1]['reference'] == len(refs)
     assert rag.request.references[-1] == {
-        'doc_ref': 'service_kb/maintenance.txt#' + refs[-1]['chunk_id'], 'models': ['all']}
+        'doc_ref': 'service_kb/service_notes.txt#' + refs[-1]['chunk_id'], 'models': ['all']}
     observed = exposure({'kind': 'kb', 'payload': PAYLOAD},
                         [{'user_turn': 1, **bound['turn_trace'].snapshot()}], complete=True)
     assert observed['exposed_to_rag_model'] and not observed['exposed_to_agent_model']
@@ -176,7 +176,7 @@ def test_production_request_cannot_enable_chunk_or_read_only_hook(corpus, untrus
         with scripted_rag():
             assert rag.rag_summarize('说明服务流程') == ANSWER
     assert context['turn_trace'].snapshot()['model_requests'] == []
-    assert all('maintenance.txt' not in r['doc_ref'] for r in request.references)
+    assert all('service_notes.txt' not in r['doc_ref'] for r in request.references)
 
 
 @pytest.mark.parametrize('rag_seen,agent_seen', [(False, False), (True, False), (False, True), (True, True)])
@@ -247,7 +247,7 @@ def test_budget_preserves_complete_carrier_and_prunes_ordinary_chunks(corpus, bo
     with scripted_rag(), patch('rag.rag_service.estimate_request', side_effect=estimate):
         rag.rag_summarize('说明服务流程')
     assert len(rag.request.references) == 1
-    assert 'maintenance.txt' in rag.request.references[0]['doc_ref']
+    assert 'service_notes.txt' in rag.request.references[0]['doc_ref']
     observed = exposure({'kind': 'kb', 'payload': PAYLOAD},
                         [{'user_turn': 1, **bound['turn_trace'].snapshot()}], complete=True)
     assert observed['exposed_to_rag_model'] and observed['exposed']

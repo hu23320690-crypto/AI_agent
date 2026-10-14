@@ -1,6 +1,7 @@
 """Private, process-local evaluator capability; never a tool argument or flag."""
 from dataclasses import dataclass
 from pathlib import Path
+import hashlib
 
 _AUTHORITY = object()
 
@@ -11,11 +12,14 @@ class _EvaluationOverlay:
     kind: str
     path: Path
     text: str | None = None
+    file_sha256: str | None = None
 
 
 def _bind_overlay(context, kind, path, text=None):
     """Trusted runner code only. Python callers are inside the trust boundary."""
-    context['_service_evaluation_overlay'] = _EvaluationOverlay(_AUTHORITY, kind, Path(path), text)
+    path = Path(path)
+    file_sha256 = hashlib.sha256(path.read_bytes()).hexdigest() if kind == 'kb' else None
+    context['_service_evaluation_overlay'] = _EvaluationOverlay(_AUTHORITY, kind, path, text, file_sha256)
 
 
 def evaluation_overlay(context):

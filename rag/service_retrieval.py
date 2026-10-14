@@ -6,6 +6,7 @@ from functools import lru_cache
 import json
 import re
 import hashlib
+from pathlib import Path
 
 from chromadb.errors import NotFoundError
 from langchain_chroma import Chroma
@@ -17,6 +18,9 @@ from rag.security import KnowledgeAccessError, stable_source_id
 from rag.service_store import ServiceVectorStoreService
 from rag.vector_store import VectorStoreService
 from service_desk.evaluation_context import kb_overlay
+
+ROOT = Path(__file__).resolve().parents[1]
+KB_DISPLAY_FILE = 'service_notes.txt'
 
 
 class EmptyLegacyCollection:
@@ -59,12 +63,14 @@ class ServiceRetrieval:
             # Match install_overlay's text-mode newline normalization, while
             # retaining the raw file digest for later identity revalidation.
             text = raw.decode('utf-8-sig').replace('\r\n', '\n').replace('\r', '\n')
-            if text != overlay.text:
+            if text != overlay.text or hashlib.sha256(raw).hexdigest() != overlay.file_sha256:
                 raise KnowledgeAccessError('source_content_changed')
         except (OSError, UnicodeError) as exc:
             raise KnowledgeAccessError('source_unavailable') from exc
-        path, name = overlay.path.resolve(), overlay.path.name
-        sha = hashlib.sha256(raw).hexdigest()
+        # The real carrier identity is private to the capability and runner
+        # audit. All tasks display the same ordinary service source name.
+        path, name = (ROOT / 'service_kb' / KB_DISPLAY_FILE).resolve(), KB_DISPLAY_FILE
+        sha = hashlib.sha256(overlay.text.encode()).hexdigest()
         source_id, pipeline = stable_source_id(name), self.service.pipeline
         chunk_id = hashlib.sha256(f'{source_id}:1:{sha}:{pipeline}:0'.encode()).hexdigest()
         manifest = json.dumps({'version': 1, 'files': [{'file': name, 'sha256': sha,
