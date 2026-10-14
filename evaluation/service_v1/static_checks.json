@@ -1,0 +1,2085 @@
+{
+  "stage": "B1-draft",
+  "ok": true,
+  "seed_content_sha256": "77ead6a0f30e985529c66594d075b084a31ed6e679e78829af3bf2413c622ce3",
+  "checks": {
+    "structure": {
+      "passed": 45,
+      "failed": 0
+    },
+    "proposals": {
+      "passed": 29,
+      "failed": 0
+    },
+    "blocked_requests": {
+      "passed": 8,
+      "failed": 0
+    },
+    "evidence": {
+      "passed": 182,
+      "failed": 0
+    },
+    "final_state": {
+      "passed": 137,
+      "failed": 0
+    },
+    "similarity": {
+      "passed": 990,
+      "failed": 0
+    },
+    "isolation": {
+      "passed": 53,
+      "failed": 0
+    },
+    "csv_overlay": {
+      "passed": 0,
+      "failed": 0
+    },
+    "sql_overlay": {
+      "passed": 0,
+      "failed": 0
+    }
+  },
+  "distribution": {
+    "dev": {
+      "visit": 3,
+      "order": 2,
+      "change": 2,
+      "status": 1,
+      "read_multi": 2,
+      "reject_or_revise": 2,
+      "precondition_fail": 2,
+      "clarify": 1
+    },
+    "test": {
+      "visit": 5,
+      "order": 4,
+      "change": 4,
+      "status": 2,
+      "read_multi": 4,
+      "reject_or_revise": 4,
+      "precondition_fail": 4,
+      "clarify": 2,
+      "boundary": 1
+    }
+  },
+  "user_counts": {
+    "dev": {
+      "1001": 2,
+      "1002": 3,
+      "1003": 1,
+      "1004": 1,
+      "1006": 4,
+      "1007": 2,
+      "1008": 1,
+      "1020": 1
+    },
+    "test": {
+      "1001": 2,
+      "1002": 4,
+      "1003": 3,
+      "1005": 1,
+      "1006": 9,
+      "1007": 3,
+      "1008": 2,
+      "1009": 2,
+      "1010": 2,
+      "1014": 1,
+      "1015": 1
+    }
+  },
+  "similarity_pairs": [],
+  "duplicate_prompts": [],
+  "tasks": [
+    {
+      "id": "SV-D01",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "slot_id": "S-east-20260113-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D02",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260115-3",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D03",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "slot_id": "S-east-20260118-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D04",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 4,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1001",
+            "sku": "SKU-FILTER",
+            "qty": 1,
+            "amount_cents": 3900,
+            "status": "processing"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-FILTER",
+            "stock": 79
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1001",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D05",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1003",
+            "sku": "SKU-RUBBER",
+            "qty": 1,
+            "amount_cents": 7900,
+            "status": "processing"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-RUBBER",
+            "stock": 29
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1003",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D06",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1004",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "appointment_id": "A-1004-01",
+            "slot_id": "S-west-20260116-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "appointment_id": "A-1004-01",
+            "slot_id": "S-west-20260113-2"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "service_slots",
+          "where": {
+            "slot_id": "S-west-20260113-2",
+            "booked": 0
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D07",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 1,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1007",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "order_id": "O-1007-01",
+            "status": "cancelled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D08",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 2,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1008"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1008",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1008"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-D09",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 4,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-D10",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 2,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-D11",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 1,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1007",
+            "status": "rejected"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1007"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-SIDE",
+            "stock": 100
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D12",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 2,
+      "evidence": 7,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "superseded"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260114-3"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260113-2"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-D13",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 3,
+      "blocked_requests": 1,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1001"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1001",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1001"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-D14",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 6,
+      "blocked_requests": 2,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-D15",
+      "split": "dev",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 2,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1020"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1020",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1020"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T01",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260116-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T02",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260119-3",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T03",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "slot_id": "S-east-20260117-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T04",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1003",
+            "slot_id": "S-south-20260120-3",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1003",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1003",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T05",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 5,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260121-2",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "tickets",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T06",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006",
+            "sku": "SKU-BAG",
+            "qty": 2,
+            "amount_cents": 5000,
+            "status": "processing"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-BAG",
+            "stock": 38
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T07",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1007",
+            "sku": "SKU-MAIN",
+            "qty": 1,
+            "amount_cents": 6900,
+            "status": "processing"
+          },
+          "expected": 2,
+          "actual": 2,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-MAIN",
+            "stock": 59
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1007",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T08",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 4,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1010",
+            "sku": "SKU-SIDE",
+            "qty": 1,
+            "amount_cents": 1900,
+            "status": "processing"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-SIDE",
+            "stock": 99
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1010",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T09",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1008",
+            "sku": "SKU-FILTER",
+            "qty": 2,
+            "amount_cents": 7800,
+            "status": "processing"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-FILTER",
+            "stock": 78
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1008",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T10",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1005",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "appointment_id": "A-1005-01",
+            "slot_id": "S-north-20260122-3",
+            "status": "scheduled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "appointment_id": "A-1005-01",
+            "slot_id": "S-north-20260114-2"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "service_slots",
+          "where": {
+            "slot_id": "S-north-20260114-2",
+            "booked": 0
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T11",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 1,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1008",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "appointment_id": "A-1008-01",
+            "status": "cancelled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "service_slots",
+          "where": {
+            "slot_id": "S-west-20260115-2",
+            "booked": 1
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T12",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 1,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1009",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "order_id": "O-1009-01",
+            "status": "cancelled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T13",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 1,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1010",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "order_id": "O-1010-01",
+            "status": "cancelled"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T14",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 1,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1001"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1001",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1001"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T15",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 2,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1014"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1014",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1014"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T16",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 4,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T17",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1003"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1003",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1003"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T18",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 9,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1007"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1007",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1007"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T19",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T20",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 3,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 1,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1009",
+            "status": "rejected"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1009"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-RUBBER",
+            "stock": 30
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T21",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 2,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002",
+            "status": "superseded"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1002",
+            "sku": "SKU-FILTER",
+            "qty": 1,
+            "amount_cents": 3900
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1002",
+            "qty": 2
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T22",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 2,
+      "evidence": 7,
+      "blocked_requests": 0,
+      "confirm": 1,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "superseded"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006",
+            "status": "executed"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260123-3"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "slot_id": "S-east-20260118-2"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T23",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 1,
+      "evidence": 4,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 1,
+      "final_checks": [
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1001",
+            "status": "rejected"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1001"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "consumables",
+          "where": {
+            "sku": "SKU-SIDE",
+            "stock": 100
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": false
+    },
+    {
+      "id": "SV-T24",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 4,
+      "blocked_requests": 1,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1002",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1002"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T25",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 6,
+      "blocked_requests": 2,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T26",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 6,
+      "blocked_requests": 1,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T27",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 5,
+      "blocked_requests": 1,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1003"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1003",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1003"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T28",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 2,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1015"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1015",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1015"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T29",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 5,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1006",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1006"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    },
+    {
+      "id": "SV-T30",
+      "split": "test",
+      "pass": true,
+      "overlay": null,
+      "proposals": 0,
+      "evidence": 6,
+      "blocked_requests": 0,
+      "confirm": 0,
+      "reject": 0,
+      "final_checks": [
+        {
+          "table": "orders",
+          "where": {
+            "user_id": "1007"
+          },
+          "expected": 1,
+          "actual": 1,
+          "pass": true
+        },
+        {
+          "table": "appointments",
+          "where": {
+            "user_id": "1007",
+            "status": "scheduled"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        },
+        {
+          "table": "pending_actions",
+          "where": {
+            "user_id": "1007"
+          },
+          "expected": 0,
+          "actual": 0,
+          "pass": true
+        }
+      ],
+      "no_op_would_pass": true
+    }
+  ],
+  "failures": []
+}
