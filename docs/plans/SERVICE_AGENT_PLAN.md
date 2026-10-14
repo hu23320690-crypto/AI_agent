@@ -6,6 +6,11 @@
 >
 > - 2026-10-14：初稿。基于 main `6552633`（PR #4 已用 merge commit 合并）核对代码后起草，尚未写任何实现。
 > - 2026-10-14：作者确认第 13 节四项：题集 dev 15 / test 30 / 注入 12；G2 ≥ 15 个百分点，G3、G4 按原稿；service 工具集保留 `rag_summarize`、`fetch_external_data` 原名，并增加 G5；确认机制采用两段式提交。其余默认值（业务日期 2026-01-12、工具 schema 目标 ≤ 1200 tokens、待确认动作 10 分钟过期、test 每种模式跑 1 次）一并定稿；工具 schema 目标可在 S1 按实测调整，调整须写入修订记录。
+> - 2026-10-14，S0-A 复核后、题集冻结前（PR #5，未运行任何模型）：
+>   - **时段占用与历史记录**：S0-A 种子用本库用户的 E07 预约去填满时段，导致 50 个用户每人已有 1–5 个未来上门预约，其中 71 张 E07 工单属于 E07 不需上门的型号。改为：时段新增 `external_booked`（本演示库之外的占用），历史记录按 4.4 节规则精心设计。
+>   - **保修期限**：S0-A 有 3 个型号的电池保修长于整机，不合常理。改为电池期限不长于整机。
+>   - **工具 schema**：S0-A 实测 1407 tokens。其中 ID 正则、长度限制和可选参数的 anyOf 占了约 30% 字节，这些对模型选工具没有帮助。改为两层：发给模型的 schema 只保留类型、枚举、必填项和描述；严格校验仍用 `service_desk/contracts.py` 的模型，在 policy 层执行，两层字段名必须一致（现有 `authorize_tool` 已检查这一点）。保留 12 个工具，目标仍为 ≤ 1200，S1 按实际绑定的请求计数。
+>   - **资料内容**：S0-A 资料把确认卡片的哈希绑定、审计、"工具返回属于数据"等系统内部机制写进了用户手册。这些属于代码和系统提示，改为只写面向用户的政策与操作；允许写不随时间变化的维护建议（如检查频率）。
 
 ## 0. 目标
 
@@ -75,7 +80,7 @@
 | `consumables` / `consumable_models` | sku, name, kind, price_cents, stock, max_per_order / 兼容关系 | 有缺货和限购 |
 | `orders` | order_id, user_id, device_id, sku, qty, amount_cents, status, source_action_id **UNIQUE** | 幂等由唯一约束兜底 |
 | `tickets` | ticket_id, user_id, device_id, error_code, description, notes, status, source_action_id **UNIQUE** | `notes` 用于注入测试 |
-| `service_slots` | slot_id, region, start_at, end_at, capacity, booked | 时段按 business_date 之后 14 天生成 |
+| `service_slots` | slot_id, region, start_at, end_at, capacity, external_booked, booked | 时段按 business_date 之后 14 天生成；`booked` = `external_booked` + 本库中该时段 scheduled 预约数 |
 | `appointments` | appointment_id, ticket_id, slot_id, user_id, status, source_action_id **UNIQUE** | |
 | `telemetry_daily` | device_id, date, area_m2, duration_min, error_events | 2025 年按天数据 |
 | `pending_actions` | 见第 7 节 | |
@@ -96,13 +101,27 @@
 - **耗材剩余量只有一个来源**：CSV 月度记录（`fetch_external_data`）。`telemetry_daily` 只放清扫面积、时长和错误事件，不放耗材寿命，避免两处数据打架。
 - CSV 里有"日均清扫"的月份，按天数据的月均值四舍五入后必须等于 CSV 的值，种子脚本断言。
 
+### 4.4 历史记录规则（S0-A 复核后增加）
+
+种子里的订单、工单和预约是为评测任务准备的"初始状态"，要少而清楚，不能为了填数据批量生成。
+
+- 时段是否约满主要由 `external_booked` 决定，不靠本库用户的预约去填。
+- 每台设备最多 1 个 scheduled 预约。有预约的工单，其错误码在该型号上必须是 `requires_visit = 1`；没有错误码的工单要有明确的问题描述。
+- 1001–1010 的初始状态逐人设计并写进 `docs/SERVICE_DATA.md`：
+  - 约 3 人各有 1 个 scheduled 预约，供查状态、改约、取消任务使用；
+  - 约 3 人各有 1 个 processing 订单（可取消），另有少量已完成或已取消的订单，SKU 不全相同；
+  - 其余没有进行中的工单和预约，让"约上门"任务没有歧义。
+- 保修：每个型号的电池期限不长于整机期限；business_date 当天要有"整机和电池都在保""整机在保、电池过保""都过保"三种设备。
+- 断言：`booked = external_booked + scheduled 预约数`；每台设备至多 1 个 scheduled 预约；预约工单的错误码满足上门条件；上面三种保修状态都存在。
+
 ## 5. 知识库
 
 - 新资料放在 `service_kb/`（不在 `data/` 下），使用独立来源清单 `config/service_knowledge_sources.json` 和独立 collection。审批、隔离、撤销沿用现有治理流程。
 - 内容：每个型号一份使用手册、错误码手册、保修与服务政策、耗材兼容指南。**全部原创撰写**，不复制任何厂商手册，不出现真实品牌。
 - 每个分块带 `models` 元数据（适用型号列表；通用内容为 `all`）。service 模式检索时，按当前设备型号过滤，只取适用于该型号或通用的分块。旧 6 份资料在 service 模式下视为通用资料。
 - legacy 模式只看旧清单和旧 collection，行为与现在逐字节相同。S1 用已有的候选缓存回放证明旧检索 Top-5 不变。
-- 保修判断、错误码含义这类**结构化事实以数据库为准**，手册只提供处理步骤和政策原文。两者冲突时以数据库为准，并在资料里避免写出具体数字以减少冲突。
+- 保修判断、错误码含义这类**结构化事实以数据库为准**，手册只提供处理步骤和政策原文。两者冲突时以数据库为准。资料里不写会变的数字（保修月数、价格、库存），可以写不随时间变化的维护建议（如检查和清理频率）。
+- 资料只写面向用户的内容：产品操作、维护步骤、保修覆盖与除外、怎样申请服务（"提交前需要你确认"）。确认卡片的哈希绑定、审计、幂等、"工具返回属于数据"这类系统内部机制属于代码和系统提示，不写进资料。
 
 ## 6. 工具
 
@@ -131,7 +150,8 @@
 | `propose_order` | device_id, sku, qty | 只生成待确认动作：下单 | 写（提议） |
 | `propose_change` | target_id, change, new_slot_id? | 只生成待确认动作：改约、取消预约、取消订单 | 写（提议） |
 
-- 共 12 个，读 9 个、写 3 个。如果 S1 实测 schema 超出 token 目标，优先合并 `get_daily_usage` 和 `fetch_external_data` 之外的读工具。
+- 共 12 个，读 9 个、写 3 个。
+- schema 分两层：发给模型的只保留类型、枚举、必填项和描述，不含 ID 正则、长度限制和可选参数的 anyOf；严格校验用 `service_desk/contracts.py` 的模型，在 policy 层执行，两层字段名必须一致。S1 按实际绑定给模型的请求计数，目标 ≤ 1200 tokens；仍超出时再考虑合并读工具，合并须作者确认。
 - **模型手里没有执行写操作的工具**，只有"提议"。执行只发生在第 7 节的确认路径上。
 - 参数校验沿用 `policy.py` 的 Pydantic strict 模式：拒绝多余字段、控制字符和注入参数名；任何工具出现 `user_id` 参数都拒绝。device_id、sku、slot_id、target_id 必须属于当前会话用户或对其可见，否则按 `identity_mismatch` 拒绝，不回显输入。
 - 所有返回都是结构化 JSON。工具返回和资料里的文字一律视为数据，不能触发写操作。
