@@ -167,7 +167,7 @@ def careful_event(agent, case, row, event):
     return entry
 
 
-def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None):
+def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None, overlay_root=ROOT):
     """Trusted in-process entry used only with synthetic cases in tests."""
     from evaluation.service_trace import TurnTrace
     from service_desk.db import content_sha256
@@ -191,7 +191,7 @@ def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None
             raise ValueError('Runner requires service toolset')
         if case.get('injection'):
             from evaluation.service_injection import install_overlay
-            row['injection'] = install_overlay(case['injection'], agent.service_state, db_path)
+            row['injection'] = install_overlay(case['injection'], agent.service_state, db_path, root=overlay_root)
         # Baseline for gates follows the intended injection overlay.
         row['initial_db'] = database_snapshot(db_path)
         user_turn = 0

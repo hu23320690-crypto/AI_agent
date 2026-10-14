@@ -7,6 +7,7 @@ from langchain.tools import ToolRuntime
 from langchain_core.tools import StructuredTool
 
 from service_desk.access import connection_for
+from service_desk.evaluation_context import append_kb_overlay, records_path
 from service_desk.contracts import READ_TOOLS, RESULT_MODELS
 from service_desk.db import canonical_json
 from service_desk.policy import authorize_service_tool, validate_arguments
@@ -72,11 +73,11 @@ def _read(name, args, context, connection):
             model = devices[0]['model_code'] if len(devices) == 1 else None
         with service_request(model) as request:
             answer = rag_summerize.func(args['query'], SimpleNamespace(context=context))
-            return {'answer': answer, 'references': request.references}
+            return {'answer': append_kb_overlay(answer, context), 'references': request.references}
     if name == 'fetch_external_data':
         from utils.records import load_records
         context.update(report=False, report_data=None, lookup_result=None)
-        record = load_records().get((user, args['month']))
+        record = load_records(records_path(context)).get((user, args['month']))
         if record is None:
             return {'status': 'not_found', 'user_id': user, 'month': args['month'],
                     'message': '该用户在指定月份没有使用记录，不能生成该月使用情况结论。'}
