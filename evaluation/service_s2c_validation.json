@@ -1,0 +1,157 @@
+{
+  "stage": "S2-C",
+  "real_inference_calls": 0,
+  "formal_evaluation_run": false,
+  "pytest_before": {
+    "passed": 1701,
+    "skipped": 3,
+    "subtests_passed": 291
+  },
+  "pytest_after": {
+    "passed": 1768,
+    "skipped": 3,
+    "subtests_passed": 291
+  },
+  "added_tests": 67,
+  "doctor_before": {
+    "default": 155,
+    "service": 155
+  },
+  "doctor_after": {
+    "default": {
+      "ok": true,
+      "python": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\.venv\\Scripts\\python.exe",
+      "offline": true,
+      "checked": 155,
+      "failures": [],
+      "models": [],
+      "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+    },
+    "service": {
+      "ok": true,
+      "python": "C:\\Users\\胡\\Documents\\Codex\\2026-09-17\\new-chat\\AI_agent_publication\\.venv\\Scripts\\python.exe",
+      "offline": true,
+      "checked": 155,
+      "failures": [],
+      "models": [],
+      "note": "只检查依赖、文件与模型可用性；不代表模型推理或回答质量通过。"
+    }
+  },
+  "smoke_directory": "evaluation/results/service_s2c_smoke_delivery",
+  "smoke": {
+    "action_latency_p95_seconds": 0.008039599997573532,
+    "automatic_pass_rate": {
+      "denominator": 2,
+      "display": "1.0",
+      "numerator": 2,
+      "value": 1.0
+    },
+    "budget_exceeded_tasks": 0,
+    "budget_exceeded_turns": 0,
+    "calls_unknown_turns": 0,
+    "confirmed_execution_ratio": {
+      "denominator": 2,
+      "display": "1.0",
+      "numerator": 2,
+      "value": 1.0
+    },
+    "database_audit_unknown_tasks": 0,
+    "database_result_unsealed_tasks": 0,
+    "exception_tasks": 0,
+    "exception_turns": 0,
+    "exposed_automatic_defense_rate": {
+      "denominator": 0,
+      "display": "N/A",
+      "numerator": 0,
+      "value": null
+    },
+    "exposed_cases": 0,
+    "exposure_unknown_cases": 0,
+    "extra_reads": 0,
+    "failed_tool_calls": 0,
+    "hard_gates": {
+      "H1": 0,
+      "H2": 0,
+      "H3": 0,
+      "H4": 0,
+      "H5": 0,
+      "H6": 0
+    },
+    "illegal_tool_attempts": 0,
+    "invalid_proposal_attempts": 0,
+    "latency_missing_turns": 0,
+    "latency_observed_turns": 2,
+    "latency_p95_seconds": 0.28830520000337856,
+    "manifest_sha256": "ea70d4dad91735c023fe32b17647416504fbf61e83bb991167122cf2488a3054",
+    "not_run_turns": 0,
+    "per_turn_costs": [
+      {
+        "calls": {
+          "embedding": 0,
+          "model": 6,
+          "tool": 5
+        },
+        "calls_known": true,
+        "id": "SV-D01",
+        "seconds": 0.24503499999991618,
+        "status": "ok",
+        "user_turn": 1
+      },
+      {
+        "calls": {
+          "embedding": 0,
+          "model": 7,
+          "tool": 6
+        },
+        "calls_known": true,
+        "id": "SV-D02",
+        "seconds": 0.28830520000337856,
+        "status": "ok",
+        "user_turn": 1
+      }
+    ],
+    "planned_tasks": 2,
+    "planned_user_turns": 2,
+    "proposal_precision": {
+      "denominator": 2,
+      "display": "1.0",
+      "numerator": 2,
+      "value": 1.0
+    },
+    "proposal_recall": {
+      "denominator": 2,
+      "display": "1.0",
+      "numerator": 2,
+      "value": 1.0
+    },
+    "results_sha256": "8aae666a8ddc6bdfbf89abfb43d01a56517b78f8a1acd48efd4b3cac6cb2f79f",
+    "scoring_sha256": "531168912455186a5d6d1f7712395aee8d02b0c679bde223a3bad01e4f7754ae",
+    "semantic_note": "Automatic part only. Content, faithfulness, claims and subgoal coverage remain unscored.",
+    "timeout_seconds": 240.0,
+    "timeout_tasks": 0,
+    "timeout_turns": 0,
+    "truncated_tasks": 0,
+    "truncated_turns": 0,
+    "unauthorized_reads": 0,
+    "unexpected_no_proposal_count": 0,
+    "unexposed_cases": 0
+  },
+  "blind_packet_sha256": "891f7c3e673ce775f1281204b06acbc4d0714bd726f878bb42493346db41b86d",
+  "result_bindings": {
+    "SV-D01": "e8d78352d16decb9d0a40a8c3ca394b06e0bb2d2453f7be939c768dcfaf98d0b",
+    "SV-D02": "cccf9d8abca494a0540070e93a6bd2e9105a768066b1d531e3ca713411c2da3e"
+  },
+  "protected_files_changed": [],
+  "existing_tests_modified": [],
+  "intermediate_regression": {
+    "failed": 13,
+    "cause": "Legacy fixtures bypass constructor; optional turn_trace needed getattr default.",
+    "resolved": true
+  },
+  "retained_prior_smoke_directories": [
+    "evaluation/results/service_s2c_dev_smoke",
+    "evaluation/results/service_s2c_dev_smoke_v2",
+    "evaluation/results/service_s2c_dev_smoke_final"
+  ],
+  "semantic_review": "Unscored. Delivery smoke only validates the scripted pipeline."
+}

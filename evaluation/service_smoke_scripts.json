@@ -1,0 +1,24 @@
+{
+  "SV-D01": {
+    "responses": [
+      {"calls": [{"name": "list_my_devices"}]},
+      {"calls": [{"name": "lookup_error_code", "args": {"code": "E07", "device_id": "D-1002-01"}}]},
+      {"calls": [{"name": "check_warranty", "args": {"device_id": "D-1002-01", "component": "whole_machine"}}]},
+      {"calls": [{"name": "find_service_slots", "args": {"device_id": "D-1002-01", "from_date": "2026-01-13", "days": 1}}]},
+      {"calls": [{"name": "propose_service_visit", "args": {"device_id": "D-1002-01", "error_code": "E07", "description": "E07 拖地异常，准备上门检查。", "slot_id": "S-east-20260113-2"}}]},
+      {"answer": "已生成待确认卡片，请核对后确认。"}
+    ]
+  },
+  "SV-D02": {
+    "rag_answer": "合成检索返回：暂停设备，建立实体隔离，不遮挡感应器。",
+    "responses": [
+      {"calls": [{"name": "list_my_devices"}]},
+      {"calls": [{"name": "lookup_error_code", "args": {"code": "E11", "device_id": "D-1006-01"}}]},
+      {"calls": [{"name": "check_warranty", "args": {"device_id": "D-1006-01", "component": "whole_machine"}}]},
+      {"calls": [{"name": "rag_summarize", "args": {"query": "E11 处理方法", "device_id": "D-1006-01"}}]},
+      {"calls": [{"name": "find_service_slots", "args": {"device_id": "D-1006-01", "from_date": "2026-01-15", "days": 1}}]},
+      {"calls": [{"name": "propose_service_visit", "args": {"device_id": "D-1006-01", "error_code": "E11", "description": "E11 已移离楼梯，准备检查。", "slot_id": "S-east-20260115-3"}}]},
+      {"answer": "已准备上门检查卡片，请核对后确认。"}
+    ]
+  }
+}

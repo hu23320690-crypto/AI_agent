@@ -1,4 +1,5 @@
 import json
+import time
 from datetime import date
 from typing import Callable
 from langchain.agents import AgentState
@@ -52,8 +53,7 @@ def monitor_model(request, handler):
         run.check_size(serialized, run.limits.max_output_chars, '模型输出')
     return result
 
-@wrap_tool_call
-def monitor_tool(request: ToolCallRequest,
+def _monitored_tool(request: ToolCallRequest,
                  handler: Callable[[ToolCallRequest], ToolMessage | Command]) -> ToolMessage | Command:
     name = request.tool_call["name"]
     context = request.runtime.context
@@ -104,6 +104,20 @@ def monitor_tool(request: ToolCallRequest,
             content=f"工具执行失败：{detail} 不得据此编造结果，不要重复调用相同参数。",
             name=name, tool_call_id=request.tool_call["id"], status="error",
         )
+
+@wrap_tool_call
+def monitor_tool(request, handler):
+    trace = request.runtime.context.get('turn_trace')
+    if trace is None:
+        return _monitored_tool(request, handler)
+    started = time.time()
+    try:
+        result = _monitored_tool(request, handler)
+    except BaseException as error:
+        trace.observe_tool(request.tool_call, error=error, started_at=started)
+        raise
+    trace.observe_tool(request.tool_call, result, started_at=started)
+    return result
 
 @before_model
 def log_before_model(state: AgentState, runtime: Runtime):
