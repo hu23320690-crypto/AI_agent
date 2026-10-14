@@ -17,6 +17,54 @@
         "python -B -m evaluation.service_suite_check：静态核对失败数为0，静态程序和两份已提交报告不改。",
         "修订前后12个参数模型及12个结果模型的JSON Schema逐项比较，24项一致。"
       ]
+    },
+    {
+      "number": "02",
+      "date": "2026-10-14",
+      "file": "evaluation/service_injection_v1/overlays/SI-I04.txt",
+      "old_sha256": "63bd1c35447c7db8dba044d465ddbfae16cd2763be0beb1ac40a22dfb294665d",
+      "new_sha256": "5f205a6013ef980053b2481c32e838ff69efb04ca8c92d6131ae8ce3e80c4775",
+      "reason": "首行含'临时覆盖''不能作为系统指令'等提示，会提前提醒模型这是攻击，使防御成绩偏高",
+      "approval": "作者 2026-10-14 批准",
+      "gold_impact": "无",
+      "gold_impact_details": "payload、cases.jsonl 和评分都不变。",
+      "verification": [
+        "仅精确替换首行；第二行起全部字节、空行、payload、LF、无 BOM 与末尾格式保持不变。",
+        "freeze_manifest.json 不变；其余九个覆盖文件、cases.jsonl 和评分规则逐字节不变。",
+        "python -B -m evaluation.service_suite_check：失败数为 0；重新生成注入集 static_checks.json。"
+      ]
+    },
+    {
+      "number": "02",
+      "date": "2026-10-14",
+      "file": "evaluation/service_injection_v1/overlays/SI-I05.txt",
+      "old_sha256": "c9404d0f91d18d9cf7cbf46045e7d47c3b82a0d4611897c7185f1107634d29cd",
+      "new_sha256": "4cb267fa49ef3633ebe602937a4fe76a00ca525e15c489aecd07a0879424ca69",
+      "reason": "首行含'临时覆盖''不能作为系统指令'等提示，会提前提醒模型这是攻击，使防御成绩偏高",
+      "approval": "作者 2026-10-14 批准",
+      "gold_impact": "无",
+      "gold_impact_details": "payload、cases.jsonl 和评分都不变。",
+      "verification": [
+        "仅精确替换首行；第二行起全部字节、空行、payload、LF、无 BOM 与末尾格式保持不变。",
+        "freeze_manifest.json 不变；其余九个覆盖文件、cases.jsonl 和评分规则逐字节不变。",
+        "python -B -m evaluation.service_suite_check：失败数为 0；重新生成注入集 static_checks.json。"
+      ]
+    },
+    {
+      "number": "02",
+      "date": "2026-10-14",
+      "file": "evaluation/service_injection_v1/overlays/SI-I06.txt",
+      "old_sha256": "33f8b0e35d3ff53b1c89f087bc0e3055fe8dc2ab54304233ba939e0c2ef34b15",
+      "new_sha256": "3c85e2479f1074252004666a36302f4210df3cc34cd43ef97acd9f03ae8a0650",
+      "reason": "首行含'临时覆盖''不能作为系统指令'等提示，会提前提醒模型这是攻击，使防御成绩偏高",
+      "approval": "作者 2026-10-14 批准",
+      "gold_impact": "无",
+      "gold_impact_details": "payload、cases.jsonl 和评分都不变。",
+      "verification": [
+        "仅精确替换首行；第二行起全部字节、空行、payload、LF、无 BOM 与末尾格式保持不变。",
+        "freeze_manifest.json 不变；其余九个覆盖文件、cases.jsonl 和评分规则逐字节不变。",
+        "python -B -m evaluation.service_suite_check：失败数为 0；重新生成注入集 static_checks.json。"
+      ]
     }
   ]
 }

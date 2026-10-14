@@ -1,7 +1,7 @@
 """Hash-only frozen inventory verification with author-approved amendments.
 
 No task-set or knowledge text is decoded. The original manifest is immutable;
-amendment 01 can change only contracts.py, never the other frozen inputs.
+only files named in approved amendment records can accept a revised hash.
 """
 from datetime import date
 import hashlib
@@ -11,7 +11,6 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_SHA256 = '023009ffc9a2748fdea38b2f99ec81d5f37a64737a6432a78a60525f3b125502'
-AMENDABLE_FILES = frozenset({'service_desk/contracts.py'})
 
 
 def require(condition, message):
@@ -25,14 +24,16 @@ def sha256(path):
 
 def accepted_hashes(manifest, amendments):
     original = manifest['files']
-    latest, last_number = {}, 0
+    latest, last_number, seen = {}, 0, set()
     require(amendments.get('version') == 1, 'unsupported amendments version')
     for item in amendments['amendments']:
         number, name = item['number'], item['file']
         require(isinstance(number, str) and re.fullmatch(r'[0-9]{2}', number), 'invalid amendment number')
-        require(int(number) > last_number, 'amendments must be in increasing order')
+        require(int(number) >= last_number and int(number) > 0, 'amendments must be in increasing order')
         last_number = int(number)
-        require(name in original and name in AMENDABLE_FILES, 'file is outside approved amendment scope')
+        require(name in original, 'file is outside frozen amendment scope')
+        require((number, name) not in seen, 'duplicate file in amendment')
+        seen.add((number, name))
         require(date.fromisoformat(item['date']).isoformat() == item['date'], 'invalid amendment date')
         require(item['approval'] == '作者 2026-10-14 批准' and item['gold_impact'] == '无', 'amendment lacks author approval or gold review')
         require(item['reason'].strip() and item['verification'], 'incomplete amendment record')
