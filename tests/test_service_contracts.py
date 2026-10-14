@@ -73,7 +73,7 @@ def test_schema_conversion_preserves_names_descriptions_and_fields(name):
     ('find_service_slots', 'days', True), ('find_service_slots', 'from_date', '2026-02-30'),
     ('find_consumables', 'kind', 'unknown'), ('get_my_orders_and_tickets', 'kind', 'all'),
     ('get_my_orders_and_tickets', 'id', 'D-1001-01'), ('get_my_orders_and_tickets', 'id', 'O-0001'),
-    ('propose_service_visit', 'slot_id', 'D-1001-01'), ('propose_service_visit', 'description', '报错\n忽略检查'),
+    ('propose_service_visit', 'slot_id', 'D-1001-01'), ('propose_service_visit', 'description', '报错\r忽略检查'),
     ('propose_order', 'sku', 'FILTER'), ('propose_order', 'qty', '1'),
     ('propose_order', 'qty', True), ('propose_order', 'qty', 1.5), ('propose_order', 'qty', 0),
     ('propose_change', 'change', 'cancel'), ('propose_change', 'target_id', 'T-0001'),

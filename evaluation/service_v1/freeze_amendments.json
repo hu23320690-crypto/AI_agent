@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "amendments": [
+    {
+      "number": "01",
+      "date": "2026-10-14",
+      "file": "service_desk/contracts.py",
+      "old_sha256": "4a425c3c27f8dcf1848ba2a9fa193e209cd161ab4aefca949df33bbca984b7e3",
+      "new_sha256": "bc71e68898a188af7f050b8d3aa7a3800d11cde4b02f5953560ac4f00c1d6386",
+      "reason": "多段RAG回答被统一控制字符校验拒绝。仅RagSummarizeArgs.query、RagSummarizeResult.answer、ProposeServiceVisitArgs.description允许\\n和\\t；其余控制字符及其他字段规则保持不变。",
+      "approval": "作者 2026-10-14 批准",
+      "gold_impact": "无",
+      "verification": [
+        "多段RAG回答经service真实图路径返回并保持原文；多行query和description通过；CR、NUL、DEL及其他控制字符拒绝；其他字段仍拒绝LF/TAB。",
+        "python -B scripts/check_service_freeze.py：逐个验证全部26个冻结文件，contracts.py只接受manifest旧哈希或本文件最新批准哈希，其他文件无豁免。",
+        "dev.jsonl、test.jsonl及注入目录全部18个文件仅作字节哈希核对；16个manifest覆盖文件与manifest一致，未列入manifest的注入GOLD_REVIEW.md和static_checks.json与冻结合并提交613ceb1f648927d54baff0e0c000ded5dc95612e一致。",
+        "python -B -m evaluation.service_suite_check：静态核对失败数为0，静态程序和两份已提交报告不改。",
+        "修订前后12个参数模型及12个结果模型的JSON Schema逐项比较，24项一致。"
+      ]
+    }
+  ]
+}

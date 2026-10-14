@@ -138,6 +138,24 @@ def test_service_rag_keeps_verified_text(monkeypatch, db):
     assert result == {'answer': text, 'references': []}
 
 
+def test_service_rag_roundtrips_multiline_query_and_answer(monkeypatch, db):
+    query = '水箱如何清理？\n\t装回后如何检查？'
+    expected = '先暂停，再取下水箱。\n\n装回后检查是否安装到位。\n\t不要拆内部结构。'
+    agent, _ = graph(monkeypatch, db, [
+        call('rag_summarize', query=query, device_id='D-1002-01'), answer('主模型乱改')])
+    with patch('agent.tools.agent_tools.get_rag_service') as rag:
+        rag.return_value.rag_summarize.return_value = expected
+        text = ''.join(agent.execute_stream(query))
+        rag.return_value.rag_summarize.assert_called_once()
+        assert rag.return_value.rag_summarize.call_args.args == (query,)
+        assert rag.return_value.rag_summarize.call_args.kwargs['question'] == query
+    assert text == expected
+    item = observations(agent)[0]
+    assert item.status == 'success'
+    assert json.loads(item.content) == {'answer': expected, 'references': []}
+    assert agent.last_run['status'] == 'succeeded'
+
+
 def test_service_report_with_rag_uses_existing_assembly(monkeypatch, db):
     agent, _ = graph(monkeypatch, db, [
         call('fetch_external_data', month='2025-12'),

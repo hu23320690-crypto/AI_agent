@@ -4,7 +4,7 @@ Dates are strict ISO strings so both Python dicts and JSON validate identically.
 Ownership, availability and business state checks belong to S1, not this module.
 """
 from datetime import date, datetime
-from typing import Annotated, Literal
+from typing import Annotated, ClassVar, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
@@ -28,12 +28,15 @@ Change = Literal['reschedule', 'cancel_appointment', 'cancel_order']
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(strict=True, extra='forbid')
+    _multiline_fields: ClassVar[frozenset[str]] = frozenset()
 
     @field_validator('*')
     @classmethod
     def validate_text(cls, value, info):
         if isinstance(value, str):
-            if not value.strip() or any(ord(char) < 32 or ord(char) == 127 for char in value):
+            allowed_controls = '\n\t' if info.field_name in cls._multiline_fields else ''
+            if not value.strip() or any((ord(char) < 32 and char not in allowed_controls)
+                                       or ord(char) == 127 for char in value):
                 raise ValueError('empty text or control character')
             if info.field_name in ('start', 'end', 'from_date', 'purchase_date', 'expires_date', 'date', 'business_date'):
                 if date.fromisoformat(value).isoformat() != value:
@@ -68,6 +71,7 @@ class CheckWarrantyArgs(StrictModel):
 class RagSummarizeArgs(StrictModel):
     """检索并总结维护资料。"""
     model_config = ConfigDict(title='rag_summarize')
+    _multiline_fields: ClassVar[frozenset[str]] = frozenset({'query'})
     query: str = Field(min_length=1, max_length=3000)
     device_id: DeviceId | None = None
 
@@ -125,6 +129,7 @@ class GetMyOrdersAndTicketsArgs(StrictModel):
 class ProposeServiceVisitArgs(StrictModel):
     """提议上门，等待确认。"""
     model_config = ConfigDict(title='propose_service_visit')
+    _multiline_fields: ClassVar[frozenset[str]] = frozenset({'description'})
     device_id: DeviceId
     error_code: ErrorCode | None = None
     description: str = Field(min_length=1, max_length=1000)
@@ -208,6 +213,7 @@ class KnowledgeReference(StrictModel):
 
 class RagSummarizeResult(StrictModel):
     # The legacy text is preserved verbatim inside this structured envelope.
+    _multiline_fields: ClassVar[frozenset[str]] = frozenset({'answer'})
     answer: str
     references: list[KnowledgeReference] = Field(default_factory=list)
 

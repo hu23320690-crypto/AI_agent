@@ -89,6 +89,21 @@ def test_success_adds_only_pending_and_audit(db, name, user, args):
         assert '已过保' in result['summary'] and '费用由检查结果决定' in result['summary']
 
 
+def test_multiline_visit_description_stays_in_pending_arguments(db):
+    description = '水箱正确装回后仍不出水。\n\t已检查外部接口。'
+    before = snapshot(db)
+    result = call(db, 'propose_service_visit', device_id='D-1002-01', error_code='E07',
+                  description=description, slot_id='S-east-20260113-2')
+    assert result['status'] == 'pending' and result['args']['description'] == description
+    with sqlite3.connect(db) as connection:
+        args_json = connection.execute('SELECT args_json FROM pending_actions').fetchone()[0]
+    assert json.loads(args_json)['description'] == description
+    assert hashlib.sha256(args_json.encode('utf-8')).hexdigest() == result['args_sha256']
+    after = snapshot(db)
+    for table in before.keys() - {'pending_actions', 'audit_log'}:
+        assert after[table] == before[table], table
+
+
 FAILURES = [
     ('propose_service_visit', '1002', {'device_id': 'D-1002-01', 'error_code': 'E99',
         'description': '设备异常', 'slot_id': 'S-east-20260113-2'}, 'error_code_not_found'),
