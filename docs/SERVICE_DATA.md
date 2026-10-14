@@ -121,9 +121,11 @@ SQL 还拒绝 external_booked 负数与 NULL；反例测试可临时关闭约束
 
 `fetch_external_data` 返回模型保留旧 ok/not_found 字段和月度数据的中文键；序列化使用 `model_dump(by_alias=True, exclude_none=True)`。旧 rag_summarize 实际返回字符串，与计划的“所有返回结构化 JSON”存在包装层差别，因此结果模型以 `answer` 字段原样保留文本，外带 references；本阶段不改旧工具或返回路径。三个 propose 返回只允许 pending 状态，没有执行结果。
 
-用 `langchain_core.utils.function_calling.convert_to_openai_tool` 转换 12 个参数模型，保留简短中文描述和完整校验 schema；按上述规范 JSON 序列化，UTF-8 长度 5052 字节。项目 `model/token_count.py` 的本地 Qwen 缓存计数为 **1407 tokens**，方法 `local_qwen2_bpe`，无需 Ollama 或网络，不含聊天模板边界开销。模型摘要为 `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`。
+`service_desk/tool_schema.py` 的 `model_tool_schemas()` 生成 12 个 OpenAI tool 格式的模型侧 schema，只包含参数名、类型、枚举、必填项与描述。工具名、字段与枚举从严格参数模型获取，不复制签名；可选参数以非必填表示，省略 null 分支。没有 pattern、anyOf、长度限制、title、default 或数值边界，也没有 user_id。严格的 contracts.py 保持原样，校验与工具绑定由后续 policy 层实现，本阶段仅提供元数据。
 
-该值超过 1200 的目标 207 tokens；本阶段保留全部 12 个工具，没有修改计划或合并工具。S1 可先压缩 schema 的冗余 title/default 元信息；若仍需要合并，建议将 find_service_slots 与 find_consumables 组合为带查询类别的设备资源查询，再评估总 schema 和模型调用行为，不保证简单相减即可达到目标。所有签名变动需作者确认和计划修订。
+采用 S0-A 同一计数方法：严格层用 `langchain_core.utils.function_calling.convert_to_openai_tool` 转换，两个列表均以 `sort_keys=True`、`ensure_ascii=False`、`separators=(',', ':')`、`allow_nan=False` 序列化，再用项目 `model/token_count.py` 的离线 Qwen tokenizer 计数。严格层复测为 **1407 tokens / 5052 UTF-8 字节**；精简层为 **1017 tokens / 4762 UTF-8 字节**，减少 390 tokens，低于 1200 目标 183。计数方法是 `local_qwen2_bpe`，模型摘要 `359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7`；仅读取本地缓存，没有调用 Ollama或下载模型，不包含聊天模板边界开销。S1 仍需按实际绑定请求复测。
+
+工具描述说明使用场景，并将三个写工具明确为待确认提议；描述为 20–40 汉字。保留全部 12 个工具、原参数名和原枚举。新增测试检查完整列表、字段/类型/枚举/必填集合一致、禁止冗余关键词、无 user_id、可选参数无 null，以及 schema 生成不修改严格模型。
 
 ## 知识资料与检查
 
