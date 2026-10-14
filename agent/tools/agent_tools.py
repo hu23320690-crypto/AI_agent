@@ -6,10 +6,23 @@ from utils.records import load_records, normalize_month
 from rag.query_context import build_query_context
 
 @lru_cache(maxsize=1)
-def get_rag_service():
+def _legacy_rag_service():
     # Reports and greetings do not need a running embedding service.
     from rag.rag_service import RagSummarizeService
     return RagSummarizeService()
+
+
+def get_rag_service():
+    from rag.service_context import current_request
+    if current_request() is not None:
+        from rag.service_rag import get_service_rag_service
+        return get_service_rag_service()
+    return _legacy_rag_service()
+
+
+get_rag_service.cache_clear = _legacy_rag_service.cache_clear
+get_rag_service.cache_info = _legacy_rag_service.cache_info
+get_rag_service.cache_parameters = _legacy_rag_service.cache_parameters
 
 @tool("rag_summarize", description="检索机器人知识库并回答产品、故障、保养问题。")
 def rag_summerize(query: str, runtime: ToolRuntime[dict]) -> str:
