@@ -40,6 +40,8 @@ def doctor(offline=False):
         ('config/service.yml', _check_service_config),
         ('service_desk/schema.sql', _check_service_schema),
         ('service_kb/manifest.json', _check_service_knowledge),
+        ('config/service_knowledge_sources.json', _check_service_source_catalog),
+        ('service approved source hashes', _check_service_approved_sources),
     )
     for name, check in service_checks:
         try:
@@ -126,6 +128,16 @@ def _check_service_knowledge():
     from service_desk.config import load_config
     from service_desk.knowledge import validate_manifest
     validate_manifest(ROOT/load_config()['kb_dir'])
+
+
+def _check_service_source_catalog():
+    from rag.service_catalog import service_catalog
+    service_catalog()._read_ledger()
+
+
+def _check_service_approved_sources():
+    from rag.service_catalog import service_catalog
+    service_catalog().validate_approved_hashes()
 
 
 def service_db(args):
