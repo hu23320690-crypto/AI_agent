@@ -130,3 +130,6 @@ evaluation/results/*/workers/
 
 
 .git-init-backup/
+
+# Locally generated synthetic service databases are never published.
+/service_data/

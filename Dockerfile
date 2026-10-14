@@ -25,9 +25,11 @@ COPY --chown=10001:10001 model ./model
 COPY --chown=10001:10001 prompts ./prompts
 COPY --chown=10001:10001 rag ./rag
 COPY --chown=10001:10001 scripts ./scripts
+COPY --chown=10001:10001 service_desk ./service_desk
+COPY --chown=10001:10001 service_kb ./service_kb
 COPY --chown=10001:10001 utils ./utils
-RUN mkdir -p /app/rag/chroma_db /app/logs \
-    && chown -R 10001:10001 /app/rag/chroma_db /app/logs
+RUN mkdir -p /app/rag/chroma_db /app/logs /app/service_data \
+    && chown -R 10001:10001 /app/rag/chroma_db /app/logs /app/service_data
 
 USER 10001:10001
 EXPOSE 8000
