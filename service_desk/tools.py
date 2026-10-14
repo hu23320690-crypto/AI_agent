@@ -122,7 +122,8 @@ def execute_service_tool(name, arguments, context):
     """Defensive checks also apply when a trusted caller bypasses LangGraph."""
     validate_arguments(name, arguments)
     if name not in READ_TOOLS:
-        raise ValueError('proposal tools are not implemented in this stage')
+        from service_desk.proposals import propose
+        return propose(name, arguments, context)
     with connection_for(context) as connection:
         args = authorize_service_tool(name, arguments, context, connection=connection)
         result = RESULT_MODELS[name].model_validate(_read(name, args, context, connection), strict=True)
