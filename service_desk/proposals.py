@@ -63,7 +63,7 @@ def _prepare(name, args, context, connection):
         covered = policy['months'] > 0 and purchase <= today <= expires
         label = '电池' if component == 'battery' else '整机'
         summary = (f"预约上门：设备{device['device_id']}，时段{slot['slot_id']}，"
-                   f"{slot['start_at']}至{slot['end_at']}；数量1；"
+                   f"{slot['start_at']}至{slot['end_at']}；"
                    f"{label}{'在保' if covered else '已过保'}（到期日{expires.isoformat()}）；"
                    "费用由检查结果决定，在保也不承诺免费；等待卡片确认。")
         return summary, {}
@@ -80,11 +80,11 @@ def _prepare(name, args, context, connection):
     if args['change'] == 'reschedule':
         new = _slot(connection, args['new_slot_id'], context)
         summary = (f"改约：预约{appointment['appointment_id']}，原时段{old['slot_id']}（{old['start_at']}）；"
-                   f"新时段{new['slot_id']}，{new['start_at']}至{new['end_at']}；数量1；"
+                   f"新时段{new['slot_id']}，{new['start_at']}至{new['end_at']}；"
                    "费用由检查结果决定；等待卡片确认。")
     else:
         summary = (f"取消预约：{appointment['appointment_id']}及关联工单{appointment['ticket_id']}，"
-                   f"时段{old['slot_id']}，{old['start_at']}至{old['end_at']}；数量1；"
+                   f"时段{old['slot_id']}，{old['start_at']}至{old['end_at']}；"
                    "费用由检查结果决定；等待卡片确认。")
     return summary, {}
 

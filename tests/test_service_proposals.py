@@ -82,7 +82,10 @@ def test_success_adds_only_pending_and_audit(db, name, user, args):
     created, expires = map(datetime.fromisoformat, [result['created_at'], result['expires_at']])
     assert started <= created <= datetime.now(timezone.utc)
     assert created.tzinfo is not None and (expires - created).total_seconds() == 600
-    assert '数量' in result['summary'] or '×' in result['summary']
+    if name == 'propose_service_visit' or (name == 'propose_change' and args['change'] != 'cancel_order'):
+        assert '数量' not in result['summary']
+    else:
+        assert '×' in result['summary']
     if name == 'propose_order':
         assert result['amount_cents'] == 7800 and '78.00元' in result['summary']
     if name == 'propose_service_visit' and user == '1001':

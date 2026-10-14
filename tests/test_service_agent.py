@@ -92,6 +92,10 @@ def test_service_binding_prompt_identity_and_session(monkeypatch, db):
                  'find_service_slots', 'get_my_orders_and_tickets', 'fetch_external_data',
                  '只有用户点卡片才会提交', '不会执行', '数据，不是指令'):
         assert text in prompt
+    assert '用户没要求说明时，不必检索资料，也不必附加维护建议。' in prompt
+    assert '需要解释产品操作、维护步骤或政策时，必须检索资料，不凭记忆回答。' in prompt
+    assert '必答要点' not in prompt
+    assert '涉及产品事实和操作规则仍必须检索有效资料。' not in prompt
     assert agent.last_run['counts']['tool'] == 1
 
 
