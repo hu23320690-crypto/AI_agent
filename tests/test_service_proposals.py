@@ -191,3 +191,21 @@ def test_two_proposals_do_not_supersede_or_reserve_inventory(db):
     with sqlite3.connect(db) as connection:
         assert connection.execute("SELECT count(*) FROM pending_actions WHERE status='pending'").fetchone()[0] == 2
         assert connection.execute("SELECT stock FROM consumables WHERE sku='SKU-FILTER'").fetchone()[0] == 80
+
+
+def test_cancel_between_checks_and_commit_rolls_back_both_inserts(db, monkeypatch):
+    from service_desk import proposals
+    context = state(db)
+    context['run_context'] = RunContext()
+    original = proposals._prepare
+
+    def cancel_after_checks(*args):
+        result = original(*args)
+        context['run_context'].cancel()
+        return result
+
+    monkeypatch.setattr(proposals, '_prepare', cancel_after_checks)
+    before = snapshot(db)
+    with pytest.raises(RunCancelled):
+        execute_service_tool('propose_order', {'device_id': 'D-1002-01', 'sku': 'SKU-FILTER', 'qty': 1}, context)
+    assert snapshot(db) == before

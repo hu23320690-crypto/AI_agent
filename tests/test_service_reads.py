@@ -197,3 +197,25 @@ def test_readonly_connection_cannot_write(seed_path):
         with connection_for(context(missing)):
             pass
     assert not missing.exists()
+
+
+def test_default_database_path_comes_from_service_config():
+    from service_desk.config import ROOT, load_config
+    assert session_context('1002', 's')['service_db_path'] == ROOT / load_config()['db_path']
+
+
+def test_warranty_result_clamps_purchase_leap_day(seed_path, tmp_path):
+    import shutil
+    path = tmp_path / 'leap-purchase.db'
+    shutil.copyfile(seed_path, path)
+    with sqlite3.connect(path) as connection:
+        connection.execute("UPDATE devices SET purchase_date='2024-02-29' WHERE device_id='D-1002-01'")
+    state = context(path)
+    state['business_date'] = '2026-02-28'
+    coverage = json.loads(execute_service_tool('check_warranty',
+                         {'device_id': 'D-1002-01', 'component': 'whole_machine'}, state))['coverage'][0]
+    assert coverage['expires_date'] == '2026-02-28' and coverage['in_warranty']
+    state['business_date'] = '2026-03-01'
+    coverage = json.loads(execute_service_tool('check_warranty',
+                         {'device_id': 'D-1002-01', 'component': 'whole_machine'}, state))['coverage'][0]
+    assert not coverage['in_warranty']
