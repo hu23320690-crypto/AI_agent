@@ -16,6 +16,8 @@ from service_desk.knowledge import validate_manifest
 BRANDS = ('石头', '科沃斯', '追觅', '云鲸', '小米', '米家', '戴森', '美的', '海尔', '松下',
           'iRobot', 'Roomba', 'Roborock', 'Ecovacs', 'Dreame', 'Narwal', 'Dyson')
 KB = ROOT / 'service_kb'
+INTERNAL_TERMS = ('哈希', 'SHA', '审计', '幂等', '事务', '工具返回', '系统提示', '策略层',
+                  '参数绑定', '提示词', '种子规则', '数据库')
 
 
 @pytest.fixture(scope='module')
@@ -52,6 +54,18 @@ def test_draft_length_brand_free_and_no_dynamic_numeric_facts(filename):
     assert all(brand.casefold() not in text.casefold() for brand in BRANDS)
     assert '以系统查询结果为准' in text
     assert not re.search(r'\d+\s*(?:个月|月保修|元|分/件|件库存|个库存|件限购)', text)
+
+
+@pytest.mark.parametrize('filename', [
+    'sv-100_manual.txt', 'sv-200_manual.txt', 'sv-300_manual.txt', 'sv-400_manual.txt',
+    'errors.txt', 'warranty_service.txt', 'consumables.txt',
+])
+def test_user_material_excludes_internal_mechanisms_and_has_maintenance_advice(filename):
+    text = (KB / filename).read_text(encoding='utf-8')
+    assert all(word.casefold() not in text.casefold() for word in INTERNAL_TERMS)
+    assert text.count('预约和下单在提交前需要你在确认卡片上确认；只在聊天里说“确认”不会提交。') == 1
+    assert '每周' in text and '每次' in text
+    assert '日历周年' not in text
 
 
 def test_all_error_and_sku_mentions_exist_with_matching_model_scope(facts):

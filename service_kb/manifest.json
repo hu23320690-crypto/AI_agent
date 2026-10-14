@@ -3,7 +3,7 @@
   "files": [
     {
       "file": "sv-100_manual.txt",
-      "sha256": "aea9306950647534cc59182e561df7390538bcda2592114cf792676491ad300d",
+      "sha256": "fdc2733705160eb9f4eb4f5881ad960450eda0c15ae204667ae170e635b3e230",
       "models": [
         "SV-100"
       ],
@@ -11,7 +11,7 @@
     },
     {
       "file": "sv-200_manual.txt",
-      "sha256": "8af789c71deab156f4f284d328e3c81fd9849d7acb8934b8c3b38ccaf664ac8a",
+      "sha256": "09fa6d85fbd8a621b821f472eb3a68b049595f0b91184702e41f262c52f7337c",
       "models": [
         "SV-200"
       ],
@@ -19,7 +19,7 @@
     },
     {
       "file": "sv-300_manual.txt",
-      "sha256": "d74fd72f8564c6a573e814817078591489aa3d6f582bf838d0240bdc3dbdd591",
+      "sha256": "85e051a1abb7a31e66a66f4920f64ddd0ea9368102d5bc9ec2b06f735a247c1e",
       "models": [
         "SV-300"
       ],
@@ -27,7 +27,7 @@
     },
     {
       "file": "sv-400_manual.txt",
-      "sha256": "29305b8963fd5702f29464f3d5f5ce1612797ae25188fd6c7ca108b031ee916d",
+      "sha256": "4c61344c17e2b827c443032aeb9cf590f26c204640bd0937240e4ff1dfa2af01",
       "models": [
         "SV-400"
       ],
@@ -35,7 +35,7 @@
     },
     {
       "file": "errors.txt",
-      "sha256": "6f7dbb5d7e9f304186fcc91d4404427b5c4b49d1c0533bdb2188d78f4f0fe384",
+      "sha256": "70fc95ecf3f887223bd04d96168e14d235d6fda2e0868efe6761396069aaabaf",
       "models": [
         "all"
       ],
@@ -43,15 +43,15 @@
     },
     {
       "file": "warranty_service.txt",
-      "sha256": "8af6ff573dac576023bde960306829af3a36a3452c50ee7985cd1465fdb5e8de",
+      "sha256": "5b9cd0c441c3a4768938cf7d07bce5b0f3dc1626b5308ef3446e18ba22ee1469",
       "models": [
         "all"
       ],
-      "description": "保修口径、上门、改约取消与两段式确认政策草稿。"
+      "description": "保修覆盖与除外、上门申请和改约取消说明。"
     },
     {
       "file": "consumables.txt",
-      "sha256": "9b8462be087cbcb2fed0d73fdc3633da93c971e926f06a0103f29188f2483d43",
+      "sha256": "8ef54aa8b8cd05ffe93d0d31ffd55fa13c1e260fbdb4a6f40c806cfd8b33275f",
       "models": [
         "all"
       ],
