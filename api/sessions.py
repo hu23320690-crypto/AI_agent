@@ -27,6 +27,7 @@ class Session:
     touched: float
     agent: object = None
     job: Job | None = None
+    service_state: dict | None = None
 
 
 @dataclass
@@ -84,6 +85,63 @@ class SessionManager:
 
     def submit(self, session_id, query):
         session = self.get(session_id)
+
+        def turn(agent, run):
+            answers = list(agent.execute_stream(query, run_context=run))
+            if not answers or run.snapshot()['status'] != 'succeeded':
+                raise RuntimeError('Agent did not complete the supplied run')
+            if session.service_state is not None:
+                from service_desk.actions import list_actions
+                run.service_actions = [card for card in list_actions(session.service_state)
+                                       if card['status'] == 'pending']
+            return ''.join(answers)
+
+        return self._schedule(session, turn, query=query)
+
+    def submit_action(self, session_id, operation, action_id=None):
+        session = self.get(session_id)
+        if operation not in ('list', 'confirm', 'reject'):
+            raise ValueError('unsupported action operation')
+
+        def decide(agent, run):
+            from service_desk.actions import confirm_action, list_actions, reject_action
+            if session.service_state is None:
+                raise ServiceError('service_disabled', '当前会话未启用售后服务工具集。', 409)
+            # Model startup and card decisions share the state lock, so a round
+            # cannot start between the DB decision and the history append.
+            with agent._state_lock, run.lock:
+                if agent._active_run is not None:
+                    raise ServiceError('session_busy', '当前会话已有请求运行。', 409)
+                run.check()
+                if operation == 'list':
+                    result = list_actions(session.service_state)
+                else:
+                    execute = confirm_action if operation == 'confirm' else reject_action
+                    result = execute(session.service_state, action_id)
+                    if result['status'] == 'denied':
+                        raise ServiceError('action_not_found', '动作不存在或不属于当前会话。', 404)
+                    agent.record_action_event(result | {'operation': operation})
+                run.complete()
+                return result
+
+        return self._schedule(session, decide)
+
+    def _agent_for(self, session):
+        if session.agent is None:
+            agent = self.factory(user_id=session.user_id, city=session.city,
+                                 limits=self.limits, executor=self.executor)
+            if getattr(agent, 'toolset', None) == 'service':
+                from service_desk.access import session_context
+                state = dict(agent.service_state or session_context(session.user_id, session.session_id))
+                state.update(user_id=session.user_id, session_id=session.session_id)
+                session.service_state = state
+                agent.user_id = session.user_id
+                agent.session_id = session.session_id
+                agent.service_state = dict(state)
+            session.agent = agent
+        return session.agent
+
+    def _schedule(self, session, operation, *, query=None):
         if self.closing:
             raise ServiceError('service_closing', '服务正在关闭。', 503)
         if session.job is not None:
@@ -92,21 +150,16 @@ class SessionManager:
             raise ServiceError('service_busy', '服务容量已满，请稍后重试。', 429, retry_after=1)
         # No await between admission and registration. The event loop serializes it.
         run = RunContext(self.limits, self.executor)
-        if len(query) > self.limits.max_query_chars:
+        if query is not None and len(query) > self.limits.max_query_chars:
             raise ServiceError('query_too_long', '问题超过长度上限。', 422)
         loop = asyncio.get_running_loop()
 
         def execute():
             try:
                 run.check()
-                if session.agent is None:
-                    session.agent = self.factory(user_id=session.user_id, city=session.city,
-                                                 limits=self.limits, executor=self.executor)
+                agent = self._agent_for(session)
                 run.check()
-                answers = list(session.agent.execute_stream(query, run_context=run))
-                if not answers or run.snapshot()['status'] != 'succeeded':
-                    raise RuntimeError('Agent did not complete the supplied run')
-                return ''.join(answers)
+                return operation(agent, run)
             except BaseException as exc:
                 run.fail(exc)
                 raise

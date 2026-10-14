@@ -34,6 +34,10 @@ class MessageInput(BaseModel):
     query: str = Field(min_length=1, max_length=8000)
 
 
+class ActionInput(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+
+
 class BoundaryMiddleware:
     """Check auth before buffering; cap actual streamed bytes, not just the header."""
     def __init__(self, app, settings_getter):
@@ -163,8 +167,12 @@ def create_app(*, settings=None, agent_factory=production_agent, readiness=None,
     @app.exception_handler(ServiceError)
     async def service_error(request, exc):
         headers = {'Retry-After': str(exc.retry_after)} if exc.retry_after is not None else None
-        return JSONResponse({'error': {'code': exc.code, 'message': exc.message},
-                             'request_id': request.state.request_id}, status_code=exc.status, headers=headers)
+        content = {'error': {'code': exc.code, 'message': exc.message}}
+        # Unknown and foreign action bodies must be identical. Their trace IDs
+        # remain in X-Request-ID; other errors retain the existing envelope.
+        if exc.code != 'action_not_found':
+            content['request_id'] = request.state.request_id
+        return JSONResponse(content, status_code=exc.status, headers=headers)
 
     @app.exception_handler(RequestValidationError)
     async def validation_error(request, exc):
@@ -197,8 +205,32 @@ def create_app(*, settings=None, agent_factory=production_agent, readiness=None,
                 log.exception('agent_error run_id=%s', job.run.run_id)
             raise map_failure(exc) from exc
         snap = job.run.snapshot()
-        return {'session_id': session_id, 'answer': answer, 'run_id': snap['run_id'],
-                'status': snap['status'], 'seconds': snap['seconds'], 'counts': snap['counts']}
+        result = {'session_id': session_id, 'answer': answer, 'run_id': snap['run_id'],
+                  'status': snap['status'], 'seconds': snap['seconds'], 'counts': snap['counts']}
+        if hasattr(job.run, 'service_actions'):
+            result['actions'] = job.run.service_actions
+        return result
+
+    async def action_response(session_id, operation, request, action_id=None):
+        job = app.state.manager.submit_action(session_id, operation, action_id)
+        try:
+            return await wait_answer(request, job, app.state.settings.request_timeout_seconds)
+        except ServiceError:
+            raise
+        except Exception as exc:
+            raise map_failure(exc) from exc
+
+    @app.get('/v1/sessions/{session_id}/actions')
+    async def get_actions(session_id: str, request: Request):
+        return await action_response(session_id, 'list', request)
+
+    @app.post('/v1/sessions/{session_id}/actions/{action_id}/confirm')
+    async def confirm(session_id: str, action_id: str, request: Request, body: ActionInput | None = None):
+        return await action_response(session_id, 'confirm', request, action_id)
+
+    @app.post('/v1/sessions/{session_id}/actions/{action_id}/reject')
+    async def reject(session_id: str, action_id: str, request: Request, body: ActionInput | None = None):
+        return await action_response(session_id, 'reject', request, action_id)
 
     @app.post('/v1/sessions/{session_id}/cancel')
     async def cancel_session(session_id: str):
