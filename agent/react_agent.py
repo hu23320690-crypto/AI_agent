@@ -88,6 +88,7 @@ class ReactAgent:
         self.limits = limits or load_limits()
         self.executor = executor or default_runtime()
         self.last_run = None
+        self.turn_trace = None  # Optional trusted, read-only evaluation observer.
         self._active_run = None
         self._turn_lock = Lock()
         self._state_lock = RLock()
@@ -249,9 +250,12 @@ class ReactAgent:
                    "context_policy": self.context_policy, "memory_plan": plan}
         if service_state is not None:
             context.update(service_state)
+        if self.turn_trace is not None:
+            context["turn_trace"] = self.turn_trace
         result = self.agent.invoke(
             {"messages": [*history, HumanMessage(content=query)]},
-            config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency},
+            config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency,
+                    **({"callbacks": [self.turn_trace]} if self.turn_trace is not None else {})},
             context=context,
         )
         final = result["messages"][-1]
