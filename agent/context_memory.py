@@ -172,7 +172,8 @@ def _limit(request, policy):
 
 
 def _reference_text(message):
-    if isinstance(message, HumanMessage) and isinstance(message.content, str):
+    if (isinstance(message, HumanMessage) and isinstance(message.content, str)
+            and message.name not in ('conversation_memory', 'action_event')):
         return message.content.strip()
     return ''
 
@@ -301,6 +302,11 @@ class TurnMemoryPlan:
                    'task_references': self._references,
                    'completed_turns': [[_message_data(message) for message in sanitize_messages(turn)]
                                        for turn in old_turns]}
+        # A card operation is program state, not a quoted user request. Keep its
+        # AI result available as a reported result, without the synthetic human text.
+        payload['completed_turns'] = [
+            [message for message in turn if message.get('name') != 'action_event']
+            for turn in payload['completed_turns']]
         byte_limit = max(64, self.policy.summary_max_tokens - 128)
         prompt = (_SUMMARY_PROMPT + f'\n完整 JSON 的 UTF-8 文本尽量不超过 {byte_limit} 字节。'
                   '优先保留主题对象及最关键的条件、用户要求和未解决问题；合并重复条目，允许空列表。')
