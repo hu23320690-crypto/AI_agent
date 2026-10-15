@@ -259,6 +259,13 @@ class ReactAgent:
                     **({"callbacks": [turn_trace]} if turn_trace is not None else {})},
             context=context,
         )
+        return self._finish_turn(query, history, run, plan, context, result,
+                                 lookup_records, report_intent)
+
+    def _finish_turn(self, query, history, run, plan, context, result,
+                     lookup_records, report_intent, *, mode='react', outcomes=None, ask=None):
+        service_state = getattr(self, 'service_state', None)
+        report_text = None
         final = result["messages"][-1]
         if not isinstance(final, AIMessage) or final.tool_calls:
             raise RuntimeError("模型没有生成完整回答，请重试。")
@@ -325,6 +332,7 @@ class ReactAgent:
             text = render_lookup(context["lookup_result"], query=query,
                                  lookup_results=lookups, intent=report_intent,
                                  current_results=context['lookup_results'])
+            report_text = text
             # Field selection controls the numeric report, not separate user
             # questions about knowledge or what these measurements establish.
             # Preserve successful RAG subtask answers, and answer a requested
@@ -365,7 +373,17 @@ class ReactAgent:
                 text = "\n\n".join(observations)
             else:
                 text = final_answer(final.text)
-        result["messages"][-1] = final.model_copy(update={"content": text})
+        if service_state is not None:
+            from service_desk.render import compose_answer
+            text = compose_answer(
+                mode=mode, results=context.get('service_results', []),
+                model_text=text if context.get('policy_denied') else final_answer(final.text),
+                report_text=report_text, outcomes=outcomes, ask=ask,
+                sources=[query, *[m.content for m in history if isinstance(m, AIMessage)
+                                  and isinstance(m.content, str)]])
+            result['messages'] = [*history, HumanMessage(content=query), AIMessage(content=text)]
+        else:
+            result["messages"][-1] = final.model_copy(update={"content": text})
         return result["messages"], text, ([] if context.get('policy_denied') else context['lookup_results']), report_intent
 
 if __name__ == "__main__":

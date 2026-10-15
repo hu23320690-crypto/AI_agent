@@ -105,19 +105,35 @@ def _monitored_tool(request: ToolCallRequest,
             name=name, tool_call_id=request.tool_call["id"], status="error",
         )
 
-@wrap_tool_call
-def monitor_tool(request, handler):
+def monitored_tool_call(request, handler):
+    """Shared policy/budget/error/trace path for ReAct and planned steps."""
     trace = request.runtime.context.get('turn_trace')
-    if trace is None:
-        return _monitored_tool(request, handler)
     started = time.time()
     try:
         result = _monitored_tool(request, handler)
     except BaseException as error:
-        trace.observe_tool(request.tool_call, error=error, started_at=started)
+        if trace is not None:
+            trace.observe_tool(request.tool_call, error=error, started_at=started)
         raise
-    trace.observe_tool(request.tool_call, result, started_at=started)
+    if trace is not None:
+        trace.observe_tool(request.tool_call, result, started_at=started)
+    context = request.runtime.context
+    if context.get('toolset') == 'service' and isinstance(result, ToolMessage):
+        try:
+            payload = json.loads(result.content)
+            if not isinstance(payload, dict):
+                raise ValueError('Tool payload must be an object')
+        except (ValueError, TypeError):
+            payload = {'status': 'blocked', 'reason_code': 'tool_error',
+                       'message': context['tool_errors'].get(request.tool_call['name'], '工具执行失败。')}
+        context.setdefault('service_results', []).append({
+            'tool': request.tool_call['name'], 'args': request.tool_call['args'], 'payload': payload})
     return result
+
+
+@wrap_tool_call
+def monitor_tool(request, handler):
+    return monitored_tool_call(request, handler)
 
 @before_model
 def log_before_model(state: AgentState, runtime: Runtime):
