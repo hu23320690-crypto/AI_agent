@@ -12,6 +12,9 @@ def recognize(query):
             continue
         if re.search(r'(?:说明|步骤|注意事项|处理方法|政策解释|解释.*政策)', clause):
             knowledge = True
+        if (re.search(r'(?:这台|设备|机器|机器人|产品|型号).*(?:能|会|支持|可以).*(?:吗|么|？|\?)', clause)
+                and not re.search(r'(?:能|会|可以)(?:安排|预约|取消|下单|查询|查看)', clause)):
+            knowledge = True
     conditions = []
     for clause in re.split(r'[。；;！？?\n]', query):
         if re.search(r'(?:如果|若|只有)[^。；;！？?]*?(?:还)?(?<!不)在保|(?<!不)在保\s*(?:才|的话|就)', clause):

@@ -89,3 +89,11 @@ def test_p9_p10_reach_planner_feedback_before_any_proposal(monkeypatch, db):
     errors = json.loads(model.seen[1][-1].content)['feedback']['validation_errors']
     assert {'P9', 'P10'} <= {e['code'] for e in errors}
     assert agent.last_run['plan_fallback']
+
+
+@pytest.mark.parametrize('query,expected', [
+    ('这台机器能自己越过台阶吗？', True), ('这个型号会自动识别地毯吗？', True),
+    ('设备支持多地图吗？', True), ('明天能安排检查吗？', False),
+    ('设备能预约吗？', False)])
+def test_product_capability_questions_are_knowledge(query, expected):
+    assert recognize(query)['knowledge_requested'] is expected
