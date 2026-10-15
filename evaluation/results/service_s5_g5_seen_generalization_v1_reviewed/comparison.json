@@ -1,0 +1,1484 @@
+{
+  "before_run": "service_s5_g5_seen_generalization_v1_legacy_react",
+  "after_run": "service_s5_g5_seen_generalization_v1_service_react",
+  "dataset_sha256": "7308f8f52bbf3320b450848687a104baeabcfeb358f02b393bf13d202966a619",
+  "before_manifest_sha256": "442f680736877f7088eb656da95f28f853bc99bc5ca848d77bd9f5998487a5e7",
+  "after_manifest_sha256": "7ffb2dc39d1c9c8ea00c4786793a8eea2ee5b0501603f3120299b3cb12a23ccc",
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  },
+  "groups": {
+    "knowledge": {
+      "planned": 28,
+      "improved": 0,
+      "regressed": 0,
+      "stable_pass": 0,
+      "stable_fail": 0,
+      "unknown": 28
+    },
+    "unanswerable": {
+      "planned": 6,
+      "improved": 0,
+      "regressed": 0,
+      "stable_pass": 0,
+      "stable_fail": 0,
+      "unknown": 6
+    },
+    "agent": {
+      "planned": 6,
+      "improved": 0,
+      "regressed": 4,
+      "stable_pass": 1,
+      "stable_fail": 1,
+      "unknown": 0
+    }
+  },
+  "before": {
+    "planned": 40,
+    "completed": 6,
+    "statuses": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 34
+    },
+    "reviewed": 6,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 34
+    },
+    "retrieval": {
+      "evaluated": 0,
+      "planned": 28,
+      "hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_metrics_observed": 0,
+      "policy_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "mrr_at_5": null,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 28,
+      "unknown": 28,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 6,
+      "unknown": 6,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "task_pass": 5,
+      "task_fail": 1,
+      "unknown": 0,
+      "tool_selection_pass": 5,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 64,
+      "observed_model_requests": 27
+    },
+    "latency": {
+      "retrieval": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "rag_generation": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "agent_turn": {
+        "count": 11,
+        "median_seconds": 22.328976499993587,
+        "p95_seconds": 52.66503229999944
+      },
+      "case_wall_all_statuses": {
+        "count": 6,
+        "median_seconds": 45.939825699999346,
+        "p95_seconds": 99.36460719999741
+      }
+    },
+    "model_usage": {
+      "observed_requests": 27,
+      "requests_by_status": {
+        "ok": 27,
+        "error": 0,
+        "running": 0
+      },
+      "usage_records": 27,
+      "input_tokens": 44866,
+      "output_tokens": 15767,
+      "request_input_message_counts": {
+        "count": 27,
+        "median_messages": 4,
+        "p95_messages": 11
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "G1K01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K07",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K08",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K09",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K10",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K11",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K12",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K13",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K14",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K15",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K16",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K17",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K18",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K19",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K20",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K21",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K22",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K23",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K24",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K25",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K26",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K27",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K28",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1A05",
+        "status": "ok",
+        "review": {
+          "answer_score": 0,
+          "grounded": false,
+          "id": "G1A05",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮同样未回忆出目标部件和要求，转述无关的主刷/边刷参数；第2轮“每日清理清洁刷、挑出毛发杂物”正确，但把水箱柠檬酸除垢当作清洁刷水洗、把主刷胶条打滑当作磨损依据，未分章节给出每周/每月/3-6个月要求。",
+          "per_turn": [
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "a6c62561be89a9e0580d691b54c7e73537748459366c2c57c3e64ecb658639c4",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      }
+    ]
+  },
+  "after": {
+    "planned": 40,
+    "completed": 6,
+    "statuses": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 34
+    },
+    "reviewed": 6,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 34
+    },
+    "retrieval": {
+      "evaluated": 0,
+      "planned": 28,
+      "hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_metrics_observed": 0,
+      "policy_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "mrr_at_5": null,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 28,
+      "unknown": 28,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 6,
+      "unknown": 6,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "task_pass": 1,
+      "task_fail": 5,
+      "unknown": 0,
+      "tool_selection_pass": 1,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 64,
+      "observed_model_requests": 35
+    },
+    "latency": {
+      "retrieval": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "rag_generation": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "agent_turn": {
+        "count": 11,
+        "median_seconds": 32.48994949999906,
+        "p95_seconds": 102.47390209999867
+      },
+      "case_wall_all_statuses": {
+        "count": 6,
+        "median_seconds": 66.01083829999698,
+        "p95_seconds": 147.82807760000287
+      }
+    },
+    "model_usage": {
+      "observed_requests": 35,
+      "requests_by_status": {
+        "ok": 35,
+        "error": 0,
+        "running": 0
+      },
+      "usage_records": 35,
+      "input_tokens": 78783,
+      "output_tokens": 24731,
+      "request_input_message_counts": {
+        "count": 35,
+        "median_messages": 4,
+        "p95_messages": 11
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "G1K01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K07",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K08",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K09",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K10",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K11",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K12",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K13",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K14",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K15",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K16",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K17",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K18",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K19",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K20",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K21",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K22",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K23",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K24",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K25",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K26",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K27",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1K28",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1N06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "G1A01",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": false,
+          "id": "G1A01",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "两项本身正确，但用户要求只答这两项，回答另列定时清扫、电池衰减等字段，并新增“电池衰减较高，建议定期检查电池健康”等无依据建议。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": false,
+              "turn": 1
+            }
+          ],
+          "result_sha256": "03e3ce6f4a915dc7be89fe9afcd361dd3697224c3166e3ca46e6c202d7ac967f",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "G1A02",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": true,
+          "id": "G1A02",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮模型文字列出整份月报（只要求两项）；第2轮模型文字把差值写成“+1%”（应为百分点）、方向按5月相对4月，与事实块的“减少1个百分点/增加5天”相互矛盾。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "e70fb558e55aa00a8c47e2b137d421cd3482fa50d81a5e41566261cdbbbe7836",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "G1A04",
+        "status": "ok",
+        "review": {
+          "answer_score": 0,
+          "grounded": false,
+          "id": "G1A04",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮检索到其他条目，回答“1-2年更换”“单次清洁面积减少50%以上”“频繁报错或异常发热”，与维护保养电池条目不符且部分无资料依据；第2轮断言“未达到续航更换门槛”，并把120㎡户型面积写成“单次清洁面积”，另列未请求字段。",
+          "per_turn": [
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 1
+            },
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "45206086ebc5e9e127b8f5dbf9bafb4cea1df134c1147895887fa03ef4039868",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "G1A05",
+        "status": "ok",
+        "review": {
+          "answer_score": 0,
+          "grounded": false,
+          "id": "G1A05",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮未能从会话历史回忆目标部件和三项要求，反称“无法确认最初选的具体清洁刷”；第2轮把清洁仓清洁刷说成“每周清理”（资料为每日），水洗和更换套用拖布的“1-2个月更换”，用了别的部件周期。",
+          "per_turn": [
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 1
+            },
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "cffb20dc56ef32c1be79f8e3518b1ac34c16a02b0b6505fcbc983163f38a75ce",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "G1A06",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": true,
+          "id": "G1A06",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮要点齐全（另把存放前的清空尘盒、消毒等说成重新使用注意事项，属宽松转述）；第2轮给出充电30分钟、删图重建且未编造建图时长，但漏了“激活电池、校准电量显示”和“校准扫拖、避障、回充功能”。",
+          "per_turn": [
+            {
+              "answer_score": 2,
+              "grounded": true,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "51fa916077da91642471fdb9fc51fa22f4955af8f1c272b24c038e1eea6f80ee",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      }
+    ]
+  },
+  "transitions": [
+    {
+      "id": "G1K01",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K02",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K03",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K04",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K05",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K06",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K07",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K08",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K09",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K10",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K11",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K12",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K13",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K14",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K15",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K16",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K17",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K18",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K19",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K20",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K21",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K22",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K23",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K24",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K25",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K26",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K27",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1K28",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N01",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N02",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N03",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N04",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N05",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1N06",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "G1A01",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "68fc88ba2d90d6b69a469295035611534bcbbc11d25d1667ad93b57689a7d833",
+      "after_result_sha256": "03e3ce6f4a915dc7be89fe9afcd361dd3697224c3166e3ca46e6c202d7ac967f"
+    },
+    {
+      "id": "G1A02",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "70371988a40289d369d7c6290368b4bf1731ea47ad0e00e106729f5a343070a3",
+      "after_result_sha256": "e70fb558e55aa00a8c47e2b137d421cd3482fa50d81a5e41566261cdbbbe7836"
+    },
+    {
+      "id": "G1A03",
+      "kind": "agent",
+      "before": "pass",
+      "after": "pass",
+      "transition": "stable_pass",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "27c1618b296f5d1be51ee812c93f98ba4e9963c810cf04dc2153a2413dae0e98",
+      "after_result_sha256": "206005f2b352f3f48dbe75bbf7cf037f4b28eb4b908607598c409f1a82614284"
+    },
+    {
+      "id": "G1A04",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "cce23fdc003b73b1a0d067ad42f8fa0ea3495d119606d00d91879870c55cabf1",
+      "after_result_sha256": "45206086ebc5e9e127b8f5dbf9bafb4cea1df134c1147895887fa03ef4039868"
+    },
+    {
+      "id": "G1A05",
+      "kind": "agent",
+      "before": "fail",
+      "after": "fail",
+      "transition": "stable_fail",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "a6c62561be89a9e0580d691b54c7e73537748459366c2c57c3e64ecb658639c4",
+      "after_result_sha256": "cffb20dc56ef32c1be79f8e3518b1ac34c16a02b0b6505fcbc983163f38a75ce"
+    },
+    {
+      "id": "G1A06",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "7c3190b7431ec7ebfc6c2afd847f7b69887d44830cf663213b454842d8c00cbf",
+      "after_result_sha256": "51fa916077da91642471fdb9fc51fa22f4955af8f1c272b24c038e1eea6f80ee"
+    }
+  ],
+  "latency_note": "Sequential local runs; successful QA/turn latency and all-status wall time are separate. No statistical significance or isolated algorithm attribution is claimed.",
+  "blinding_note": "Only labels/order are hidden. Request prompts may reveal version behavior; this is assistant-assisted auxiliary review, not independent human blind evaluation."
+}
