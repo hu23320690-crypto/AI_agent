@@ -18,6 +18,7 @@ from agent.runtime import BudgetExceeded, ExecutionRuntime, RunCancelled, RunLim
 from service_desk.contracts import SERVICE_TOOL_NAMES
 from service_desk.db import init_db
 from service_desk.tool_schema import model_tool_schemas
+from evaluation.service_trace import TurnTrace
 from test_core_flows import ScriptedModel, answer, call
 from utils.prompt_loader import load_system_prompts
 
@@ -50,11 +51,14 @@ def graph(monkeypatch, db, responses, *, user='1002', toolset='service', **kwarg
     kwargs.setdefault('context_policy', ContextPolicy(window_tokens=32768, reserve_output_tokens=1024,
                                                      reasoning_enabled=False))
     agent = ReactAgent(user, '悉尼', model=model, service_db_path=db, **kwargs)
+    agent.turn_trace = TurnTrace()
     return agent, model
 
 
 def observations(agent):
-    return [m for m in agent.messages if isinstance(m, ToolMessage)]
+    return [ToolMessage(content=json.dumps(c['content'], ensure_ascii=False),
+                        name=c['name'], tool_call_id=c['id'], status=c['status'])
+            for c in agent.turn_trace.snapshot()['tool_calls']]
 
 
 @pytest.mark.parametrize('explicit', [False, True])
@@ -84,7 +88,8 @@ def test_legacy_tools_and_prompt_exactly_unchanged(monkeypatch, db, explicit):
 
 def test_service_binding_prompt_identity_and_session(monkeypatch, db):
     agent, model = graph(monkeypatch, db, [call('list_my_devices'), answer('设备已查询')], session_id='fixed-session')
-    assert ''.join(agent.execute_stream('有哪些设备')) == '设备已查询'
+    text = ''.join(agent.execute_stream('有哪些设备'))
+    assert text.startswith('设备已查询\n\n') and '你的设备：D-1002-01' in text
     assert model.bound[0] == model_tool_schemas()
     assert agent.session_id == 'fixed-session'
     prompt = model.seen[0][0].content
@@ -133,27 +138,27 @@ def test_service_monthly_report_uses_business_clock(monkeypatch, db):
 
 def test_service_rag_keeps_verified_text(monkeypatch, db):
     agent, _ = graph(monkeypatch, db, [
-        call('rag_summarize', query='水箱如何清理', device_id='D-1002-01'), answer('主模型乱改')])
+        call('rag_summarize', query='水箱如何清理', device_id='D-1002-01'), answer('虚构99999天。')])
     with patch('agent.tools.agent_tools.get_rag_service') as rag:
         rag.return_value.rag_summarize.return_value = '先暂停，再取下水箱。'
         text = ''.join(agent.execute_stream('水箱如何清理'))
-    assert text == '先暂停，再取下水箱。'
+    assert text == '资料说明：先暂停，再取下水箱。'
     result = json.loads(observations(agent)[0].content)
-    assert result == {'answer': text, 'references': []}
+    assert result == {'answer': '先暂停，再取下水箱。', 'references': []}
 
 
 def test_service_rag_roundtrips_multiline_query_and_answer(monkeypatch, db):
     query = '水箱如何清理？\n\t装回后如何检查？'
     expected = '先暂停，再取下水箱。\n\n装回后检查是否安装到位。\n\t不要拆内部结构。'
     agent, _ = graph(monkeypatch, db, [
-        call('rag_summarize', query=query, device_id='D-1002-01'), answer('主模型乱改')])
+        call('rag_summarize', query=query, device_id='D-1002-01'), answer('虚构99999天。')])
     with patch('agent.tools.agent_tools.get_rag_service') as rag:
         rag.return_value.rag_summarize.return_value = expected
         text = ''.join(agent.execute_stream(query))
         rag.return_value.rag_summarize.assert_called_once()
         assert rag.return_value.rag_summarize.call_args.args == (query,)
         assert rag.return_value.rag_summarize.call_args.kwargs['question'] == query
-    assert text == expected
+    assert text == '资料说明：' + expected
     item = observations(agent)[0]
     assert item.status == 'success'
     assert json.loads(item.content) == {'answer': expected, 'references': []}
@@ -164,7 +169,7 @@ def test_service_report_with_rag_uses_existing_assembly(monkeypatch, db):
     agent, _ = graph(monkeypatch, db, [
         call('fetch_external_data', month='2025-12'),
         call('rag_summarize', query='主刷如何清理', device_id='D-1001-01'),
-        answer('虚构报告和步骤')], user='1001')
+        answer('虚构99999天。')], user='1001')
     with patch('agent.tools.agent_tools.get_rag_service') as rag:
         rag.return_value.rag_summarize.return_value = '主刷清理前关闭电源。'
         text = ''.join(agent.execute_stream('生成2025-12报告，并说明主刷如何清理'))
@@ -188,7 +193,7 @@ def test_graph_precondition_failure_returns_structured_reason(monkeypatch, db):
     agent, _ = graph(monkeypatch, db, [
         call('propose_order', device_id='D-1002-01', sku='SKU-MOP', qty=1), answer('拖布缺货，无法下单')])
     text = ''.join(agent.execute_stream('买拖布'))
-    assert text == '拖布缺货，无法下单'
+    assert text == '拖布缺货，无法下单\n\n库存不足，未生成订单提议。'
     assert json.loads(observations(agent)[0].content)['reason_code'] == 'out_of_stock'
     with sqlite3.connect(db) as connection:
         assert connection.execute('SELECT count(*) FROM pending_actions').fetchone()[0] == 0
@@ -266,7 +271,7 @@ def test_token_count_uses_actual_binding_offline():
 
 def test_first_relative_request_cannot_use_wrong_model_month(monkeypatch, db):
     agent, _ = graph(monkeypatch, db, [
-        call('fetch_external_data', month='2025-11'), answer('错误月份报告')], user='1001')
+        call('fetch_external_data', month='2025-11'), answer('错误月份报告99999天。')], user='1001')
     text = ''.join(agent.execute_stream('生成上个月的完整报告'))
     assert '本次未查询到所要求的 2025-12' in text
     assert '错误月份报告' not in text

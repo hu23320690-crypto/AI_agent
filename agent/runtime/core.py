@@ -195,6 +195,10 @@ class RunContext:
             return {'run_id': self.run_id, 'status': self.status,
                     'seconds': round(self.clock()-self.started, 6),
                     'counts': dict(self.counts),
+                    'planner_calls': self.counts['planner_calls'],
+                    'replans': self.counts['replans'],
+                    'plan_fallback': bool(self.counts['plan_fallback']),
+                    'skipped_steps': self.counts['skipped_steps'],
                     'error_type': type(self.error).__name__ if self.error else None,
                     'events': [dict(event) for event in self.events]}
 

@@ -18,7 +18,10 @@ S2-C 禁止真实推理。离线验证给运行器传 `--script <JSON>`，内容
 
 默认只接受仓库中准确路径的 dev.jsonl，并校验冻结哈希。test 和注入集需同时显式
 `--formal`、`SERVICE_EVAL_FORMAL=1`，以及当前冻结/批准修订的题集与覆盖文件哈希匹配。
-S2-C 没有使用正式开关。plan 参数预留，当前报“S3 实现”。
+S2-C 没有使用正式开关。S3-C 起支持 `--mode plan`；manifest、任务、worker 都记录并传递有效 mode，
+覆盖宿主的 `AGENT_MODE`。离线脚本的 planner 响应用 `{"plan": {"goals": [...], "steps": [...], "ask_user": null}}`，
+也可用 `answer` 返回原始 JSON；需要校验回退时，后续 responses 继续提供 react 的 calls/answer。
+S3-C 不做 dev 调优，也不使用正式开关。
 
 manifest 绑定代码、评测代码、资料/CSV、配置、业务时钟、种子规范化哈希、模型 digest、
 脚本 digest、选择的 ID、种子、超时、Python 和依赖。续跑重新核对这些身份及 cases；每个任务

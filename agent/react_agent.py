@@ -69,6 +69,9 @@ class ReactAgent:
         self.user_id = user_id.strip()
         self.city = city.strip()
         self.toolset = load_toolset()
+        from agent.mode import load_agent_mode, check_agent_mode
+        self.mode = load_agent_mode()
+        check_agent_mode()
         self.session_id = str(uuid4()) if session_id is None else session_id
         if not isinstance(self.session_id, str) or not self.session_id.strip():
             raise ValueError("session_id must be a nonempty string")
@@ -84,6 +87,7 @@ class ReactAgent:
         self.summary = None
         self.context_policy = context_policy or load_context_policy()
         selected_model = model if model is not None else chat_model
+        self.selected_model = selected_model
         self.summary_model = summary_model if summary_model is not None else selected_model
         self.limits = limits or load_limits()
         self.executor = executor or default_runtime()
@@ -97,6 +101,7 @@ class ReactAgent:
         if self.toolset == "service":
             from service_desk.tools import build_service_tools
             tools = build_service_tools()
+            self.service_tools = {tool.name: tool for tool in tools}
         self.agent = create_agent(
             context_schema=dict,
             model=selected_model,
@@ -253,12 +258,31 @@ class ReactAgent:
         turn_trace = getattr(self, "turn_trace", None)
         if turn_trace is not None:
             context["turn_trace"] = turn_trace
+        if getattr(self, 'mode', 'react') == 'plan':
+            from service_desk.plan_agent import PlanTurn
+            return PlanTurn(self, query, history, run, plan, context, lookup_records, report_intent).invoke()
+        return self._invoke_react(query, history, run, plan, context, lookup_records, report_intent)
+
+    def _invoke_react(self, query, history, run, plan, context, lookup_records, report_intent):
+        turn_trace = context.get('turn_trace')
         result = self.agent.invoke(
-            {"messages": [*history, HumanMessage(content=query)]},
+            {"messages": [*history, HumanMessage(content=query), *context.get('plan_tool_messages', [])]},
             config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency,
                     **({"callbacks": [turn_trace]} if turn_trace is not None else {})},
             context=context,
         )
+        if context.get('toolset') == 'service':
+            observations = context.get('service_results_by_id', {})
+            context['service_results'] = [observations[m.tool_call_id] for m in
+                result['messages'][len(history) + 1:] if isinstance(m, ToolMessage)
+                and m.tool_call_id in observations]
+        return self._finish_turn(query, history, run, plan, context, result,
+                                 lookup_records, report_intent)
+
+    def _finish_turn(self, query, history, run, plan, context, result,
+                     lookup_records, report_intent, *, mode='react', outcomes=None, ask=None):
+        service_state = getattr(self, 'service_state', None)
+        report_text = None
         final = result["messages"][-1]
         if not isinstance(final, AIMessage) or final.tool_calls:
             raise RuntimeError("模型没有生成完整回答，请重试。")
@@ -325,6 +349,7 @@ class ReactAgent:
             text = render_lookup(context["lookup_result"], query=query,
                                  lookup_results=lookups, intent=report_intent,
                                  current_results=context['lookup_results'])
+            report_text = text
             # Field selection controls the numeric report, not separate user
             # questions about knowledge or what these measurements establish.
             # Preserve successful RAG subtask answers, and answer a requested
@@ -365,7 +390,17 @@ class ReactAgent:
                 text = "\n\n".join(observations)
             else:
                 text = final_answer(final.text)
-        result["messages"][-1] = final.model_copy(update={"content": text})
+        if service_state is not None:
+            from service_desk.render import compose_answer
+            text = compose_answer(
+                mode=mode, results=context.get('service_results', []),
+                model_text=text if context.get('policy_denied') else final_answer(final.text),
+                report_text=report_text, outcomes=outcomes, ask=ask,
+                sources=[query, *[m.content for m in history if isinstance(m, AIMessage)
+                                  and isinstance(m.content, str)]])
+            result['messages'] = [*history, HumanMessage(content=query), AIMessage(content=text)]
+        else:
+            result["messages"][-1] = final.model_copy(update={"content": text})
         return result["messages"], text, ([] if context.get('policy_denied') else context['lookup_results']), report_intent
 
 if __name__ == "__main__":
