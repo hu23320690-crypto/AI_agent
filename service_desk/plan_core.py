@@ -1098,6 +1098,8 @@ def validate_plan(plan: dict, ctx: dict) -> dict:
     if remaining_tool_calls is not None and len(steps) > remaining_tool_calls:
         errors.append(_error("P8", None, "步骤总数超出剩余工具调用预算"))
 
+    from service_desk.signals import recognize, validate_signals
+    errors.extend(validate_signals(plan_dict, ctx.get("service_signals") or recognize(ctx.get("user_text", ""))))
     return {"ok": not errors, "errors": errors, "plan": plan_dict}
 
 

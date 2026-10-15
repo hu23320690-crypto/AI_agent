@@ -104,6 +104,7 @@ class PlanTurn:
         # Completed evidence is virtual for validation; it consumes no new calls.
         return {'user_text': self.query, 'history_user_texts': self.context['rag_user_history'],
                 'business_date': self.context['business_date'], 'pending_cards': self.cards,
+                'service_signals': self.context.get('service_signals'),
                 'remaining_model_calls': self.run.remaining_calls('model') + sum(s['tool'] == 'rag_summarize' for s in completed),
                 'remaining_tool_calls': self.run.remaining_calls('tool') + len(completed)}
 

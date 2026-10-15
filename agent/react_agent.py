@@ -255,6 +255,8 @@ class ReactAgent:
                    "context_policy": self.context_policy, "memory_plan": plan}
         if service_state is not None:
             context.update(service_state)
+            from service_desk.signals import recognize
+            context["service_signals"] = recognize(query)
         turn_trace = getattr(self, "turn_trace", None)
         if turn_trace is not None:
             context["turn_trace"] = turn_trace

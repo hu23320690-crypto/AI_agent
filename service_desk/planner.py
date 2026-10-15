@@ -48,6 +48,8 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
                           'answer': str(history[index + 1].content)[-512:]})
     data = {'query': query, 'history': turns[-2:], 'pending_cards': [dict(c) for c in cards],
             'business_date': context['business_date'], 'feedback': feedback}
+    from service_desk.signals import recognize
+    data['service_signals'] = context.get('service_signals') or recognize(query)
     prompt = (ROOT / 'prompts/service_planner.txt').read_text(encoding='utf-8')
     while True:
         messages = sanitize_messages([SystemMessage(content=prompt),
