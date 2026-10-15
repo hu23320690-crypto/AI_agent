@@ -211,6 +211,14 @@ class PlanTurn:
                     self.ask = {'type': kind or 'other', 'text': '请明确要处理的对象。'}
                 continue
             arguments = resolved['args']
+            if step['tool'] == 'find_service_slots':
+                targets = [source['date']['value'] for later in self.current['steps']
+                           for source in later.get('args', {}).values()
+                           if isinstance(source, dict) and source.get('pick') == 'slot_at'
+                           and source.get('from_step') == key]
+                if targets:
+                    arguments['from_date'] = min(targets)
+                    self.run.note('plan_slot_from_date', step_id=key, from_date=arguments['from_date'])
             if self.repair and step['tool'] not in plan_core.WRITE_TOOLS:
                 reused = next((r for k, r in self.results.items() if self.states[k]['status'] == 'done'
                                and r['tool'] == step['tool'] and r['args'] == arguments), None)
