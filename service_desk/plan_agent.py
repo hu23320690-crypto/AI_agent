@@ -109,7 +109,11 @@ class PlanTurn:
 
     def validate(self, state):
         proposal = state['proposal']
-        candidate = deepcopy(proposal)
+        candidate, corrections = plan_core.normalize_plan(proposal, self._validation_context())
+        for correction in corrections:
+            with self.run.lock:
+                self.run.counts["plan_normalizations"] += 1
+            self.run.note("plan_normalization", **correction)
         completed = []
         extra_errors = []
         if self.repair and isinstance(candidate, dict):
