@@ -1,0 +1,955 @@
+{
+  "version": 1,
+  "stage": "S3-D",
+  "recorded_at": "2026-10-15T05:13:46.196664+00:00",
+  "implementation_commit": "e857290acf99c6300886150e23ad2bf1321b131c",
+  "implementation_tree": "167c105ff00c1041270f6844a5aa6bda2c622e89",
+  "commit_basis": "Implementation commit precedes this metadata-only freeze commit, avoiding a self-referential hash.",
+  "tuning_rounds": 2,
+  "selected_prompt_round": 1,
+  "last_trial_round": 2,
+  "final_validation_label": "verify",
+  "stop_reason": "Round 2 regressed from 19/30 to 17/30 automatic tasks. Stop tuning and restore round 1 prompts. Subsequently fix only the generic denied-card-context crash discovered in legacy smoke and rerun dev for final validation.",
+  "behavior_change_policy": "此后到S5结束前不再修改Agent行为。",
+  "ollama_version": "0.40.1",
+  "ollama_host": "http://127.0.0.1:11434",
+  "models": {
+    "chat": {
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "name": "qwen3:4b"
+    },
+    "embedding": {
+      "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+      "name": "qwen3-embedding:4b"
+    }
+  },
+  "preflight": {
+    "online_doctor": {
+      "ok": true,
+      "checked": 159,
+      "failures": []
+    },
+    "collections": {
+      "agent_chunks_qwen3_governed_v1": 326,
+      "service_chunks_qwen3_governed_v1": 102
+    }
+  },
+  "runner": {
+    "seed": 20261014,
+    "timeout_seconds": 240.0,
+    "inference_concurrency": 1,
+    "toolset": "service",
+    "business_date": "2026-01-12",
+    "dev_dataset_sha256": "a9412021c6c778fdc60355b917bb10f0e7e9c4e735b52e9ed9dcc09a361d91ef"
+  },
+  "config_sha256": {
+    "config/agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+    "config/agent_mode.yml": "d9418b26cbc1375f1f2f0233d5661a380d4156ae3c2b4229e2eafd429742fcf6",
+    "config/chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+    "config/context.yml": "d47801f0b784c6e2760619258b1ebf767e6b33d0f38c3682d81590736139900b",
+    "config/context_tokenizer.json": "5c9cdb944a7148eb129448f57f9bf90fd2fa362abf0e702b4e4bc414d9e9f24b",
+    "config/intent.yml": "48a03052c3a63a5a123dbf855a68af8ec69637519995f1279626a4a0b7c07097",
+    "config/knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+    "config/prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+    "config/rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+    "config/resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+    "config/runtime.yml": "1d817f14949b2f66d9e42990ca693a35f5e4f2b78fc3a0f2d3c0bb2756119068",
+    "config/security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+    "config/service.yml": "c10292f4bf911ff3671668f666dd383b06952332561de57a384fc03d51466317",
+    "config/service_knowledge_sources.json": "c953abb74efa220927f989f0d67c1c87faf6dabbb79fe4869d2776ac4493669d",
+    "config/service_rag.yml": "a1eb0f6984177567f442b40e588fb5a4f22f3a87ca2de5964ac55a7d344b3616",
+    "config/tokenizers/qwen3_4b.json.gz": "d30dc492069cafaf138fc0f671a116bc02496c445c1abab7a01919c42a7b18fc",
+    "config/toolset.yml": "251aab8765d087afdde9be82df6fd8d649c02a761eb8c201ca1d7ee97364a950"
+  },
+  "prompt_sha256": {
+    "prompts/service_prompt.txt": "7aafae8427da40b6b94ecd7c4349eaae13f735b6d45da22e8e3e88ed7cf11229",
+    "prompts/service_planner.txt": "05d27d821557ffa4c845d3120528ebc4b0fc1ff16a0b3542759663cdab064574"
+  },
+  "round1_restoration_equivalence_before_crash_fix": {
+    "react": {
+      "behavior_inputs_checked": 92,
+      "mismatches": [],
+      "model_identity": {
+        "chat": {
+          "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "name": "qwen3:4b"
+        },
+        "embedding": {
+          "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+          "name": "qwen3-embedding:4b"
+        }
+      }
+    },
+    "plan": {
+      "behavior_inputs_checked": 92,
+      "mismatches": [],
+      "model_identity": {
+        "chat": {
+          "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "name": "qwen3:4b"
+        },
+        "embedding": {
+          "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+          "name": "qwen3-embedding:4b"
+        }
+      }
+    }
+  },
+  "final_run_input_equivalence": {
+    "react": {
+      "behavior_inputs_checked": 92,
+      "mismatches": [],
+      "model_identity": {
+        "chat": {
+          "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "name": "qwen3:4b"
+        },
+        "embedding": {
+          "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+          "name": "qwen3-embedding:4b"
+        }
+      }
+    },
+    "plan": {
+      "behavior_inputs_checked": 92,
+      "mismatches": [],
+      "model_identity": {
+        "chat": {
+          "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+          "name": "qwen3:4b"
+        },
+        "embedding": {
+          "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+          "name": "qwen3-embedding:4b"
+        }
+      }
+    }
+  },
+  "dev_selected_before_crash_fix": {
+    "react": {
+      "run": "evaluation/results/service_s3d_r1_react",
+      "summary_sha256": "f068834cd222f63932c68ba3f40fe5451316bb7d2c9c5fd875c40d6a4e781ecc",
+      "scores_sha256": "d17503cd7a492a492fbfb84b95209bb7ac76dc8c9209c33323593406338baf4a",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.6666666666666666",
+        "numerator": 10,
+        "value": 0.6666666666666666
+      },
+      "proposal_precision": {
+        "denominator": 9,
+        "display": "1.0",
+        "numerator": 9,
+        "value": 1.0
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "0.9",
+        "numerator": 9,
+        "value": 0.9
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 110.75407669999913,
+      "latency_observed_turns": 17,
+      "latency_missing_turns": 0,
+      "budget_exceeded_turns": 1,
+      "timeout_turns": 0,
+      "timeout_tasks": 0,
+      "exception_turns": 1,
+      "truncated_turns": 1,
+      "not_run_turns": 0,
+      "calls_unknown_turns": 0,
+      "invalid_proposal_attempts": 1,
+      "failed_tool_calls": 1,
+      "tool_path_pass_turns": 13,
+      "calls_total_known": {
+        "embedding": 4,
+        "model": 74,
+        "tool": 55
+      },
+      "plan_counts": {
+        "planner_calls": 0,
+        "replans": 0,
+        "plan_fallback": 0,
+        "skipped_steps": 0
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0,
+        "P6": 0,
+        "P7": 0,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 4,
+        "1": 8,
+        "2": 5
+      },
+      "coarse_grounded_counts": {
+        "yes": 7,
+        "no": 8,
+        "no_answer": 2
+      }
+    },
+    "plan": {
+      "run": "evaluation/results/service_s3d_r1_plan",
+      "summary_sha256": "49f70532cab1a573253dc2540090ec1ec94c80a1fff1987d3c07424cb0858d48",
+      "scores_sha256": "86e8d34d8fc8daa2adfa72275c8759764bc4b1b14a8594289b513ef2b3b2b9f3",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.6",
+        "numerator": 9,
+        "value": 0.6
+      },
+      "proposal_precision": {
+        "denominator": 11,
+        "display": "0.9090909090909091",
+        "numerator": 10,
+        "value": 0.9090909090909091
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "1.0",
+        "numerator": 10,
+        "value": 1.0
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 89.95545510000011,
+      "latency_observed_turns": 17,
+      "latency_missing_turns": 0,
+      "budget_exceeded_turns": 1,
+      "timeout_turns": 0,
+      "timeout_tasks": 0,
+      "exception_turns": 1,
+      "truncated_turns": 0,
+      "not_run_turns": 0,
+      "calls_unknown_turns": 0,
+      "invalid_proposal_attempts": 0,
+      "failed_tool_calls": 0,
+      "tool_path_pass_turns": 12,
+      "calls_total_known": {
+        "embedding": 4,
+        "model": 79,
+        "tool": 57
+      },
+      "plan_counts": {
+        "planner_calls": 29,
+        "replans": 12,
+        "plan_fallback": 12,
+        "skipped_steps": 1
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 5,
+        "P3": 63,
+        "P4": 2,
+        "P5": 4,
+        "P6": 0,
+        "P7": 10,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 3,
+        "1": 8,
+        "2": 6
+      },
+      "coarse_grounded_counts": {
+        "yes": 8,
+        "no": 8,
+        "no_answer": 1
+      }
+    }
+  },
+  "dev_final": {
+    "react": {
+      "run": "evaluation/results/service_s3d_verify_react",
+      "summary_sha256": "b5838312d50d99bc5cdb60b31cf2446372c6ce315c1966c6f0016cdd01bd2f63",
+      "scores_sha256": "4a83cb001d6432ca8e7797e88e7c4360c97d8967fe02c370fcf87e097a7be133",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.6666666666666666",
+        "numerator": 10,
+        "value": 0.6666666666666666
+      },
+      "proposal_precision": {
+        "denominator": 8,
+        "display": "1.0",
+        "numerator": 8,
+        "value": 1.0
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "0.8",
+        "numerator": 8,
+        "value": 0.8
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 105.47938240000076,
+      "latency_observed_turns": 17,
+      "latency_missing_turns": 0,
+      "budget_exceeded_turns": 3,
+      "timeout_turns": 0,
+      "timeout_tasks": 0,
+      "exception_turns": 3,
+      "truncated_turns": 0,
+      "not_run_turns": 0,
+      "calls_unknown_turns": 0,
+      "invalid_proposal_attempts": 0,
+      "failed_tool_calls": 0,
+      "tool_path_pass_turns": 13,
+      "calls_total_known": {
+        "embedding": 6,
+        "model": 72,
+        "tool": 55
+      },
+      "plan_counts": {
+        "planner_calls": 0,
+        "replans": 0,
+        "plan_fallback": 0,
+        "skipped_steps": 0
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0,
+        "P6": 0,
+        "P7": 0,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 5,
+        "1": 9,
+        "2": 3
+      },
+      "coarse_grounded_counts": {
+        "yes": 4,
+        "no": 10,
+        "no_answer": 3
+      }
+    },
+    "plan": {
+      "run": "evaluation/results/service_s3d_verify_plan",
+      "summary_sha256": "f6037e438f8f297be39b05acbe9e9aff5ff1253ff1899d3d87b1c9a0d2b5c34a",
+      "scores_sha256": "da6089e0f08047e8177e6d4f1268cf9aa45f5e692ef4cdbe10d90f118d0143fc",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.5333333333333333",
+        "numerator": 8,
+        "value": 0.5333333333333333
+      },
+      "proposal_precision": {
+        "denominator": 10,
+        "display": "0.9",
+        "numerator": 9,
+        "value": 0.9
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "0.9",
+        "numerator": 9,
+        "value": 0.9
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 120.12945029999901,
+      "latency_observed_turns": 17,
+      "latency_missing_turns": 0,
+      "budget_exceeded_turns": 1,
+      "timeout_turns": 1,
+      "timeout_tasks": 1,
+      "exception_turns": 1,
+      "truncated_turns": 0,
+      "not_run_turns": 0,
+      "calls_unknown_turns": 0,
+      "invalid_proposal_attempts": 1,
+      "failed_tool_calls": 1,
+      "tool_path_pass_turns": 11,
+      "calls_total_known": {
+        "embedding": 4,
+        "model": 79,
+        "tool": 56
+      },
+      "plan_counts": {
+        "planner_calls": 29,
+        "replans": 12,
+        "plan_fallback": 12,
+        "skipped_steps": 1
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 5,
+        "P3": 61,
+        "P4": 1,
+        "P5": 9,
+        "P6": 0,
+        "P7": 10,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 4,
+        "1": 9,
+        "2": 4
+      },
+      "coarse_grounded_counts": {
+        "yes": 8,
+        "no": 7,
+        "no_answer": 2
+      }
+    }
+  },
+  "dev_last_trial": {
+    "react": {
+      "run": "evaluation/results/service_s3d_r2_react",
+      "summary_sha256": "74d9e41d806e50bbc40edceb84feebc563ae9c540ebb1935334c66b54ce7dd79",
+      "scores_sha256": "031dda205e43c738fe97c5e2bfffd83515fcfbe36eb7427bd232f73298f077a3",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.6",
+        "numerator": 9,
+        "value": 0.6
+      },
+      "proposal_precision": {
+        "denominator": 8,
+        "display": "1.0",
+        "numerator": 8,
+        "value": 1.0
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "0.8",
+        "numerator": 8,
+        "value": 0.8
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 73.10012319999805,
+      "latency_observed_turns": 16,
+      "latency_missing_turns": 1,
+      "budget_exceeded_turns": 3,
+      "timeout_turns": 0,
+      "timeout_tasks": 0,
+      "exception_turns": 3,
+      "truncated_turns": 0,
+      "not_run_turns": 1,
+      "calls_unknown_turns": 1,
+      "invalid_proposal_attempts": 0,
+      "failed_tool_calls": 0,
+      "tool_path_pass_turns": 11,
+      "calls_total_known": {
+        "embedding": 4,
+        "model": 63,
+        "tool": 48
+      },
+      "plan_counts": {
+        "planner_calls": 0,
+        "replans": 0,
+        "plan_fallback": 0,
+        "skipped_steps": 0
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 0,
+        "P3": 0,
+        "P4": 0,
+        "P5": 0,
+        "P6": 0,
+        "P7": 0,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 6,
+        "1": 7,
+        "2": 4
+      },
+      "coarse_grounded_counts": {
+        "yes": 7,
+        "no": 6,
+        "no_answer": 4
+      }
+    },
+    "plan": {
+      "run": "evaluation/results/service_s3d_r2_plan",
+      "summary_sha256": "f22ee173ec331a4b241904ee49add5503dbe5ebf6ec18bc68b43afe85976f656",
+      "scores_sha256": "58d26772a3f11a19622b45e09ef0af0687adf2b30f144f5f853761f84fd49882",
+      "planned_tasks": 15,
+      "planned_user_turns": 17,
+      "automatic_pass_rate": {
+        "denominator": 15,
+        "display": "0.5333333333333333",
+        "numerator": 8,
+        "value": 0.5333333333333333
+      },
+      "proposal_precision": {
+        "denominator": 9,
+        "display": "0.7777777777777778",
+        "numerator": 7,
+        "value": 0.7777777777777778
+      },
+      "proposal_recall": {
+        "denominator": 10,
+        "display": "0.7",
+        "numerator": 7,
+        "value": 0.7
+      },
+      "hard_gates": {
+        "H1": 0,
+        "H2": 0,
+        "H3": 0,
+        "H4": 0,
+        "H5": 0,
+        "H6": 0
+      },
+      "unauthorized_reads": 0,
+      "latency_p95_seconds": 93.10800609999933,
+      "latency_observed_turns": 16,
+      "latency_missing_turns": 1,
+      "budget_exceeded_turns": 4,
+      "timeout_turns": 0,
+      "timeout_tasks": 0,
+      "exception_turns": 4,
+      "truncated_turns": 0,
+      "not_run_turns": 1,
+      "calls_unknown_turns": 1,
+      "invalid_proposal_attempts": 0,
+      "failed_tool_calls": 0,
+      "tool_path_pass_turns": 12,
+      "calls_total_known": {
+        "embedding": 6,
+        "model": 72,
+        "tool": 51
+      },
+      "plan_counts": {
+        "planner_calls": 27,
+        "replans": 12,
+        "plan_fallback": 11,
+        "skipped_steps": 1
+      },
+      "plan_error_counts": {
+        "P1": 0,
+        "P2": 20,
+        "P3": 60,
+        "P4": 10,
+        "P5": 14,
+        "P6": 0,
+        "P7": 14,
+        "P8": 0
+      },
+      "coarse_content_counts": {
+        "0": 7,
+        "1": 7,
+        "2": 3
+      },
+      "coarse_grounded_counts": {
+        "yes": 7,
+        "no": 5,
+        "no_answer": 5
+      }
+    }
+  },
+  "legacy_smoke": {
+    "react": {
+      "tasks": 12,
+      "planned_user_turns": 14,
+      "observed_user_turns": 14,
+      "ok_tasks": 12,
+      "timeout_tasks": 0,
+      "exception_tasks": 0,
+      "monthly_reports_expected": 4,
+      "monthly_reports_rendered": 4,
+      "reports": [
+        {
+          "id": "A02",
+          "turn": 1,
+          "expected_month": "2025-08",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A03",
+          "turn": 1,
+          "expected_month": "2025-01",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A10",
+          "turn": 1,
+          "expected_month": "2025-08",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A10",
+          "turn": 2,
+          "expected_month": "2025-09",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        }
+      ],
+      "cases": [
+        {
+          "id": "A01",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A02",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A03",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A04",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A05",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A06",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 1
+        },
+        {
+          "id": "A07",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 1
+        },
+        {
+          "id": "A08",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A09",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A10",
+          "status": "ok",
+          "observed_turns": 2,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A11",
+          "status": "ok",
+          "observed_turns": 2,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A12",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 3
+        }
+      ]
+    },
+    "plan": {
+      "tasks": 12,
+      "planned_user_turns": 14,
+      "observed_user_turns": 14,
+      "ok_tasks": 10,
+      "timeout_tasks": 0,
+      "exception_tasks": 2,
+      "monthly_reports_expected": 4,
+      "monthly_reports_rendered": 4,
+      "reports": [
+        {
+          "id": "A02",
+          "turn": 1,
+          "expected_month": "2025-08",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A03",
+          "turn": 1,
+          "expected_month": "2025-01",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A10",
+          "turn": 1,
+          "expected_month": "2025-08",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        },
+        {
+          "id": "A10",
+          "turn": 2,
+          "expected_month": "2025-09",
+          "record_lookup_ok": true,
+          "rendered": true,
+          "status": "ok"
+        }
+      ],
+      "cases": [
+        {
+          "id": "A01",
+          "status": "error",
+          "observed_turns": 1,
+          "error_type": "ToolPolicyDenied",
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A02",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A03",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A04",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A05",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A06",
+          "status": "error",
+          "observed_turns": 1,
+          "error_type": "ToolPolicyDenied",
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A07",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 2
+        },
+        {
+          "id": "A08",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A09",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A10",
+          "status": "ok",
+          "observed_turns": 2,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A11",
+          "status": "ok",
+          "observed_turns": 2,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 0
+        },
+        {
+          "id": "A12",
+          "status": "ok",
+          "observed_turns": 1,
+          "error_type": null,
+          "timeout": false,
+          "tool_error_calls": 2
+        }
+      ]
+    }
+  },
+  "legacy_crash_fix_retest": [
+    {
+      "id": "A01",
+      "mode": "plan",
+      "status": "ok",
+      "error_type": null
+    },
+    {
+      "id": "A06",
+      "mode": "plan",
+      "status": "ok",
+      "error_type": null
+    }
+  ],
+  "verification": {
+    "pytest": {
+      "exit_code": 0,
+      "passed": 2112,
+      "skipped": 3,
+      "subtests": 291,
+      "seconds": 180.082
+    },
+    "doctor": {
+      "default": {
+        "exit_code": 0,
+        "expected_ok": true,
+        "ok": true,
+        "checked": 156,
+        "failures": []
+      },
+      "service_react": {
+        "exit_code": 0,
+        "expected_ok": true,
+        "ok": true,
+        "checked": 156,
+        "failures": []
+      },
+      "legacy_plan": {
+        "exit_code": 1,
+        "expected_ok": false,
+        "ok": false,
+        "checked": 156,
+        "failures": [
+          {
+            "name": "config/agent_mode.yml",
+            "ok": false,
+            "error": "plan mode requires service toolset"
+          }
+        ]
+      },
+      "service_plan": {
+        "exit_code": 0,
+        "expected_ok": true,
+        "ok": true,
+        "checked": 156,
+        "failures": []
+      }
+    },
+    "frozen_file_modifications": []
+  },
+  "limitations": [
+    "Automatic scores exclude formal content and faithfulness. Coarse dev reviews are tuning references only.",
+    "Measured dev plans omitted an explicit warranty condition in SV-D13 (rounds 1 and 2) and proposed a forbidden card; no confirmation or business execution occurred. This known model-level failure is retained in the record.",
+    "Missing knowledge goals, conflicting generic RAG warranty terms and unsupported model prose remain. H1-H6 zero counts on dev do not establish injection robustness.",
+    "An unhandled ToolPolicyDenied while loading plan card context was found in legacy smoke. A general fallback fix was tested, the two failed legacy tasks were rechecked, and both dev modes were rerun for final validation. Prompts were not retuned.",
+    "The last tuning trial summaries are retained separately from final validation. No third tuning round was run."
+  ]
+}
