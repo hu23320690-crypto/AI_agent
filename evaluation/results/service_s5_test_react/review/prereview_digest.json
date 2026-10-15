@@ -1,0 +1,21 @@
+{
+  "files": [
+    {
+      "path": "blind_cases.jsonl",
+      "sha256": "b1d047422dcdee2976f038f8ee3daa2629e9460318ac6d591363d32cb5868114"
+    },
+    {
+      "path": "blind_manifest.json",
+      "sha256": "2207dde0e74e5525952cc3ee46769251cd9d742cfa3ca57bec236d88462dfef9"
+    },
+    {
+      "path": "private_key.jsonl",
+      "sha256": "88df6b43bb1256691d7b495b0e9d5625032e63e3109a8293eaeacb1dc04ab66b"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "purpose": "Pre-review digest; semantic scores and final archive seal remain pending.",
+  "total_hash_input": "UTF-8 encoding of the files array serialized with ensure_ascii=false, sort_keys=true, separators=(comma,colon), no trailing newline.",
+  "total_sha256": "c5aded8e8a8788c87102e12adeb3cac4ee76f19c0a8275ea6fc449109c8bb0dc",
+  "version": 1
+}
