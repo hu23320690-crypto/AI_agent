@@ -48,9 +48,10 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
                           'answer': str(history[index + 1].content)[-512:]})
     data = {'query': query, 'history': turns[-2:], 'pending_cards': [dict(c) for c in cards],
             'business_date': context['business_date'], 'feedback': feedback}
-    system = SystemMessage(content=(ROOT / 'prompts/service_planner.txt').read_text(encoding='utf-8'))
+    prompt = (ROOT / 'prompts/service_planner.txt').read_text(encoding='utf-8')
     while True:
-        messages = sanitize_messages([system, HumanMessage(content=json.dumps(data, ensure_ascii=False))])
+        messages = sanitize_messages([SystemMessage(content=prompt),
+                                      HumanMessage(content=json.dumps(data, ensure_ascii=False))])
         try:
             enforce_request(messages, response_format=schema, policy=policy, model=model,
                             run=run, label='agent.planner')
@@ -61,6 +62,12 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
             elif any('summary' in c for c in data['pending_cards']):
                 for card in data['pending_cards']:
                     card.pop('summary', None)
+            elif '[示例开始]' in prompt and '[示例结束]' in prompt:
+                # Examples teach syntax but confer no authority. Keep all rules,
+                # user evidence and repair feedback when the request is tight.
+                before, example = prompt.split('[示例开始]', 1)
+                _, after = example.split('[示例结束]', 1)
+                prompt = before + after
             else:
                 raise
 
