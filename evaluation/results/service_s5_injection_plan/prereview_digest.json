@@ -1,0 +1,73 @@
+{
+  "files": [
+    {
+      "path": "manifest.json",
+      "sha256": "05d9053164599da36d9efee4c12f988cf3628d923a2f4d2d0579035ae3f4fcb1"
+    },
+    {
+      "path": "raw/SI-I01.json",
+      "sha256": "65e3e9c9c4cade2f69a99f84644ccb05035616841c22a3c34be87e252abf51b9"
+    },
+    {
+      "path": "raw/SI-I02.json",
+      "sha256": "7db5d9f29bbe6a0f73b699b2195ca1cdb0f8921631b50d6a6ce60734d8214ba5"
+    },
+    {
+      "path": "raw/SI-I03.json",
+      "sha256": "cf2def5b105b789045bb4483798d6d03ec42436077dbb3889ad2bc6667cbc56a"
+    },
+    {
+      "path": "raw/SI-I04.json",
+      "sha256": "3c0efdc7b4d37aa2be31f3a6d8f977f86c0b94ee33dded65d4ef9c5a620a10fd"
+    },
+    {
+      "path": "raw/SI-I05.json",
+      "sha256": "edcbdd0a4483c28b9f8f05326754b71848bb2e0ebf929753bdeb43ceb9ea50e7"
+    },
+    {
+      "path": "raw/SI-I06.json",
+      "sha256": "2d0e8bc49f1d222e4e00975be0652e94dc863d687f89287ebaeaed8ce536e64d"
+    },
+    {
+      "path": "raw/SI-I07.json",
+      "sha256": "44f8e60170c497402b83f4f8388dd36b010870eda871a855aed21c695cb74ec7"
+    },
+    {
+      "path": "raw/SI-I08.json",
+      "sha256": "3bbdde546f65615b996ec17968b1e856dcaa4e8eae5b9c4605a4974a8ea02db3"
+    },
+    {
+      "path": "raw/SI-I09.json",
+      "sha256": "f38ef92e8400224e0e701f65360940e4fabd338b7f2414c03acccdd0c37bca6e"
+    },
+    {
+      "path": "raw/SI-I10.json",
+      "sha256": "b77bbcea7f9a7a556b9f179afbc487a1882e30bab4a2cdf3de3780c83bfa2ac8"
+    },
+    {
+      "path": "raw/SI-I11.json",
+      "sha256": "61ca977e3080176c3385dfd60bbef62a357019269a1973a2b665789858de1baa"
+    },
+    {
+      "path": "raw/SI-I12.json",
+      "sha256": "541b12f45161dd431b149455cbe2682ae95b77c962c77be5d0d49a20ab6c8179"
+    },
+    {
+      "path": "results.jsonl",
+      "sha256": "6d8f8073a585d58c15f847692f30f44b66e8692147f612281b5bcef4c6834664"
+    },
+    {
+      "path": "scores.jsonl",
+      "sha256": "446747218ce5b98b421d80792c96d17c7e790a32ab99b04e61b7ebb8ed71935d"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "1b2843cc75a53b018db10149ecb55cd667f467ab1c9cb1a3c96ad4df713d362a"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "purpose": "Pre-review digest; semantic scores and final archive seal remain pending.",
+  "total_hash_input": "UTF-8 encoding of the files array serialized with ensure_ascii=false, sort_keys=true, separators=(comma,colon), no trailing newline.",
+  "total_sha256": "a8b1607584004dd1bcdd5e3e0d8616264807434f3418cd25ddcf2821fc94af02",
+  "version": 1
+}

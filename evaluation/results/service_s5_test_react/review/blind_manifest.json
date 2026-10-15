@@ -1,0 +1,1 @@
+{"blind_cases_sha256":"b1d047422dcdee2976f038f8ee3daa2629e9460318ac6d591363d32cb5868114","blinding_note":"Assistant-assisted, hidden labels. Only blind_cases.jsonl goes to the reviewer; private_key.jsonl is separate. Behavior may reveal a variant.","private_key_sha256":"88df6b43bb1256691d7b495b0e9d5625032e63e3109a8293eaeacb1dc04ab66b","samples":74,"seed":20261014,"version":1}
