@@ -126,8 +126,9 @@ def monitored_tool_call(request, handler):
         except (ValueError, TypeError):
             payload = {'status': 'blocked', 'reason_code': 'tool_error',
                        'message': context['tool_errors'].get(request.tool_call['name'], '工具执行失败。')}
-        context.setdefault('service_results', []).append({
-            'tool': request.tool_call['name'], 'args': request.tool_call['args'], 'payload': payload})
+        entry = {'tool': request.tool_call['name'], 'args': request.tool_call['args'], 'payload': payload}
+        context.setdefault('service_results', []).append(entry)
+        context.setdefault('service_results_by_id', {})[request.tool_call['id']] = entry
     return result
 
 

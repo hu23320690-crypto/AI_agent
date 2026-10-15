@@ -37,6 +37,7 @@ def doctor(offline=False):
     # Service drafts are checked independently; no generated database is required.
     service_checks = (
         ('config/toolset.yml', _check_toolset_config),
+        ('config/agent_mode.yml', _check_agent_mode_config),
         ('config/service.yml', _check_service_config),
         ('service_desk/schema.sql', _check_service_schema),
         ('service_kb/manifest.json', _check_service_knowledge),
@@ -112,6 +113,11 @@ def doctor(offline=False):
 def _check_toolset_config():
     from agent.toolset import load_toolset
     load_toolset()
+
+
+def _check_agent_mode_config():
+    from agent.mode import check_agent_mode
+    check_agent_mode()
 
 
 def _check_service_config():

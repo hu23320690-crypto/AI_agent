@@ -69,6 +69,9 @@ class ReactAgent:
         self.user_id = user_id.strip()
         self.city = city.strip()
         self.toolset = load_toolset()
+        from agent.mode import load_agent_mode, check_agent_mode
+        self.mode = load_agent_mode()
+        check_agent_mode()
         self.session_id = str(uuid4()) if session_id is None else session_id
         if not isinstance(self.session_id, str) or not self.session_id.strip():
             raise ValueError("session_id must be a nonempty string")
@@ -84,6 +87,7 @@ class ReactAgent:
         self.summary = None
         self.context_policy = context_policy or load_context_policy()
         selected_model = model if model is not None else chat_model
+        self.selected_model = selected_model
         self.summary_model = summary_model if summary_model is not None else selected_model
         self.limits = limits or load_limits()
         self.executor = executor or default_runtime()
@@ -97,6 +101,7 @@ class ReactAgent:
         if self.toolset == "service":
             from service_desk.tools import build_service_tools
             tools = build_service_tools()
+            self.service_tools = {tool.name: tool for tool in tools}
         self.agent = create_agent(
             context_schema=dict,
             model=selected_model,
@@ -253,12 +258,24 @@ class ReactAgent:
         turn_trace = getattr(self, "turn_trace", None)
         if turn_trace is not None:
             context["turn_trace"] = turn_trace
+        if getattr(self, 'mode', 'react') == 'plan':
+            from service_desk.plan_agent import PlanTurn
+            return PlanTurn(self, query, history, run, plan, context, lookup_records, report_intent).invoke()
+        return self._invoke_react(query, history, run, plan, context, lookup_records, report_intent)
+
+    def _invoke_react(self, query, history, run, plan, context, lookup_records, report_intent):
+        turn_trace = context.get('turn_trace')
         result = self.agent.invoke(
-            {"messages": [*history, HumanMessage(content=query)]},
+            {"messages": [*history, HumanMessage(content=query), *context.get('plan_tool_messages', [])]},
             config={"recursion_limit": 100, "max_concurrency": self.limits.tool_concurrency,
                     **({"callbacks": [turn_trace]} if turn_trace is not None else {})},
             context=context,
         )
+        if context.get('toolset') == 'service':
+            observations = context.get('service_results_by_id', {})
+            context['service_results'] = [observations[m.tool_call_id] for m in
+                result['messages'][len(history) + 1:] if isinstance(m, ToolMessage)
+                and m.tool_call_id in observations]
         return self._finish_turn(query, history, run, plan, context, result,
                                  lookup_records, report_intent)
 
