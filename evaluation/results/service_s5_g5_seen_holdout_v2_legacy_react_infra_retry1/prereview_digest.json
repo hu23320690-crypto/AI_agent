@@ -1,0 +1,25 @@
+{
+  "files": [
+    {
+      "path": "manifest.json",
+      "sha256": "5d8810029950e89af6957d07abec8b6e97b825649c371dd8ee918a826d109a1d"
+    },
+    {
+      "path": "results.jsonl",
+      "sha256": "874e3056c558d5e7d68021556c9e8703a52aec03445b6aa3741410d3b966e0bf"
+    },
+    {
+      "path": "scores.jsonl",
+      "sha256": "516a8b3828f6c9c946f1d77cbaf9b0c6e47b5685f199a15f9640aca281805576"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "e9ec7070d9e17584bfd51c37e9e1b07667c6beb8d38d05ce5e30c3673716f7cb"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "purpose": "Pre-review digest; semantic scores and final archive seal remain pending.",
+  "total_hash_input": "UTF-8 encoding of the files array serialized with ensure_ascii=false, sort_keys=true, separators=(comma,colon), no trailing newline.",
+  "total_sha256": "db219c63f37a8a38be961738f137e1ecde8ff021397e66b05f94cad2dfce7af0",
+  "version": 1
+}

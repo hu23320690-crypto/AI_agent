@@ -1,0 +1,595 @@
+{
+  "planned": 60,
+  "completed": 12,
+  "statuses": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 48
+  },
+  "reviewed": 0,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 12,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 48
+  },
+  "retrieval": {
+    "evaluated": 0,
+    "planned": 40,
+    "hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "all_required_metrics_observed": 0,
+    "policy_hit_counts": {
+      "1": 0,
+      "3": 0,
+      "5": 0
+    },
+    "mrr_at_5": null,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 40,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 40,
+    "unknown": 40,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 0.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 8,
+    "completed": 0,
+    "reviewed": 0,
+    "errors": 0,
+    "execution_complete": 0,
+    "not_run": 8,
+    "unknown": 8,
+    "full_correct": 0,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 0,
+    "strict_pass": 0,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 0.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 12,
+    "completed": 12,
+    "reviewed": 0,
+    "task_pass": 0,
+    "task_fail": 0,
+    "unknown": 12,
+    "tool_selection_pass": 9,
+    "planned_real_turns": 14,
+    "synthetic_seeded_turns": 0,
+    "observed_model_requests": 31
+  },
+  "latency": {
+    "retrieval": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "rag_generation": {
+      "count": 0,
+      "median_seconds": null,
+      "p95_seconds": null
+    },
+    "agent_turn": {
+      "count": 14,
+      "median_seconds": 17.53442554999856,
+      "p95_seconds": 59.85354179999558
+    },
+    "case_wall_all_statuses": {
+      "count": 12,
+      "median_seconds": 24.176251999997476,
+      "p95_seconds": 91.45049299999664
+    }
+  },
+  "model_usage": {
+    "observed_requests": 31,
+    "requests_by_status": {
+      "ok": 31,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 31,
+    "input_tokens": 59474,
+    "output_tokens": 20545,
+    "request_input_message_counts": {
+      "count": 31,
+      "median_messages": 4,
+      "p95_messages": 8
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "K01",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K02",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K03",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K04",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K05",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K06",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K07",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K08",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K09",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K10",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K11",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K12",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K13",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K14",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K15",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K16",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K17",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K18",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K19",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K20",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K21",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K22",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K23",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K24",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K25",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K26",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K27",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K28",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K29",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K30",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K31",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K32",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K33",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K34",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K35",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K36",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K37",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K38",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K39",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "K40",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N01",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N02",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N03",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N04",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N05",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N06",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N07",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "N08",
+      "status": "not_run",
+      "review": null,
+      "execution_outcome": "not_run",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A01",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A02",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A03",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A04",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A05",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A06",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A07",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A08",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A09",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A10",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A11",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    },
+    {
+      "id": "A12",
+      "status": "ok",
+      "review": null,
+      "execution_outcome": "ok",
+      "outcome": "unknown"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  },
+  "g5_seen_regression": {
+    "label": "已见回归，不作为未见成绩",
+    "selected_agent_ids": [
+      "A01",
+      "A02",
+      "A03",
+      "A04",
+      "A05",
+      "A06",
+      "A07",
+      "A08",
+      "A09",
+      "A10",
+      "A11",
+      "A12"
+    ],
+    "planned_agent_tasks": 12,
+    "planned_real_user_turns": 14,
+    "toolset": "service",
+    "agent_mode": "react",
+    "semantic_grading": "pending blinded grading",
+    "note": "Top-level planned includes the full frozen source dataset; only the Agent subset was selected for G5."
+  }
+}
