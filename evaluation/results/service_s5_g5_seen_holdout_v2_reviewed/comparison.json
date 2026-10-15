@@ -1,0 +1,1484 @@
+{
+  "before_run": "service_s5_g5_seen_holdout_v2_legacy_react_infra_retry1",
+  "after_run": "service_s5_g5_seen_holdout_v2_service_react",
+  "dataset_sha256": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9",
+  "before_manifest_sha256": "5d8810029950e89af6957d07abec8b6e97b825649c371dd8ee918a826d109a1d",
+  "after_manifest_sha256": "a7c7f3ccf011d917a52bf5d2985e8b4c10dd113afe64560c325b0cdbe0b1305a",
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  },
+  "groups": {
+    "knowledge": {
+      "planned": 28,
+      "improved": 0,
+      "regressed": 0,
+      "stable_pass": 0,
+      "stable_fail": 0,
+      "unknown": 28
+    },
+    "unanswerable": {
+      "planned": 6,
+      "improved": 0,
+      "regressed": 0,
+      "stable_pass": 0,
+      "stable_fail": 0,
+      "unknown": 6
+    },
+    "agent": {
+      "planned": 6,
+      "improved": 0,
+      "regressed": 5,
+      "stable_pass": 0,
+      "stable_fail": 0,
+      "unknown": 1
+    }
+  },
+  "before": {
+    "planned": 40,
+    "completed": 6,
+    "statuses": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 34
+    },
+    "reviewed": 6,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 6,
+      "error": 0,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 34
+    },
+    "retrieval": {
+      "evaluated": 0,
+      "planned": 28,
+      "hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_metrics_observed": 0,
+      "policy_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "mrr_at_5": null,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 28,
+      "unknown": 28,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 6,
+      "unknown": 6,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 6,
+      "task_pass": 6,
+      "task_fail": 0,
+      "unknown": 0,
+      "tool_selection_pass": 6,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 128,
+      "observed_model_requests": 25
+    },
+    "latency": {
+      "retrieval": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "rag_generation": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "agent_turn": {
+        "count": 11,
+        "median_seconds": 21.484602900000027,
+        "p95_seconds": 34.23300320000004
+      },
+      "case_wall_all_statuses": {
+        "count": 6,
+        "median_seconds": 45.11561505000003,
+        "p95_seconds": 56.49808210000003
+      }
+    },
+    "model_usage": {
+      "observed_requests": 25,
+      "requests_by_status": {
+        "ok": 25,
+        "error": 0,
+        "running": 0
+      },
+      "usage_records": 25,
+      "input_tokens": 45864,
+      "output_tokens": 12431,
+      "request_input_message_counts": {
+        "count": 25,
+        "median_messages": 4,
+        "p95_messages": 11
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "V2K01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K07",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K08",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K09",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K10",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K11",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K12",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K13",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K14",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K15",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K16",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K17",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K18",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K19",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K20",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K21",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K22",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K23",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K24",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K25",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K26",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K27",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K28",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      }
+    ]
+  },
+  "after": {
+    "planned": 40,
+    "completed": 6,
+    "statuses": {
+      "ok": 5,
+      "error": 1,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "not_run": 34
+    },
+    "reviewed": 6,
+    "review_binding": "required",
+    "execution_outcomes": {
+      "ok": 5,
+      "error": 1,
+      "timeout": 0,
+      "truncated": 0,
+      "running": 0,
+      "unknown": 0,
+      "not_run": 34
+    },
+    "retrieval": {
+      "evaluated": 0,
+      "planned": 28,
+      "hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "all_required_metrics_observed": 0,
+      "policy_hit_counts": {
+        "1": 0,
+        "3": 0,
+        "5": 0
+      },
+      "mrr_at_5": null,
+      "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+    },
+    "knowledge_answers": {
+      "planned": 28,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 28,
+      "unknown": 28,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "unanswerable_answers": {
+      "planned": 6,
+      "completed": 0,
+      "reviewed": 0,
+      "errors": 0,
+      "execution_complete": 0,
+      "not_run": 6,
+      "unknown": 6,
+      "full_correct": 0,
+      "partial": 0,
+      "incorrect": 0,
+      "grounded": 0,
+      "strict_pass": 0,
+      "strict_fail": 0,
+      "strict_pass_fraction_planned": 0.0,
+      "actual_input_evidence": {
+        "observed": 0,
+        "any_hit": 0,
+        "all_required_hit": 0,
+        "policy_hit": 0
+      }
+    },
+    "agent": {
+      "planned": 6,
+      "completed": 6,
+      "reviewed": 5,
+      "task_pass": 0,
+      "task_fail": 5,
+      "unknown": 1,
+      "tool_selection_pass": 0,
+      "planned_real_turns": 11,
+      "synthetic_seeded_turns": 128,
+      "observed_model_requests": 33
+    },
+    "latency": {
+      "retrieval": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "rag_generation": {
+        "count": 0,
+        "median_seconds": null,
+        "p95_seconds": null
+      },
+      "agent_turn": {
+        "count": 9,
+        "median_seconds": 31.134127000000035,
+        "p95_seconds": 60.01348089999999
+      },
+      "case_wall_all_statuses": {
+        "count": 6,
+        "median_seconds": 73.94056340000003,
+        "p95_seconds": 126.67833180000002
+      }
+    },
+    "model_usage": {
+      "observed_requests": 33,
+      "requests_by_status": {
+        "ok": 32,
+        "error": 0,
+        "running": 1
+      },
+      "usage_records": 32,
+      "input_tokens": 74191,
+      "output_tokens": 27096,
+      "request_input_message_counts": {
+        "count": 33,
+        "median_messages": 4,
+        "p95_messages": 13
+      },
+      "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+    },
+    "failures": [
+      {
+        "id": "V2K01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K07",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K08",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K09",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K10",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K11",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K12",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K13",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K14",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K15",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K16",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K17",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K18",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K19",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K20",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K21",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K22",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K23",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K24",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K25",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K26",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K27",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2K28",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N01",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N02",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N03",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N04",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N05",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2N06",
+        "status": "not_run",
+        "review": null,
+        "execution_outcome": "not_run",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2A01",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": true,
+          "id": "V2A01",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "三项数值正确，但用户明确“只列”三项，模型文字仍列出整份月报（场景、型号、对比等）。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 1
+            }
+          ],
+          "result_sha256": "af2bca853ab749ce6017b88f11e183ebac83a3a4d4ec2a63e97d6b24100503c0",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2A02",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": true,
+          "id": "V2A02",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "两轮都改用逐日遥测查日均面积（38/40㎡及+2㎡正确），没有查月度记录，称“工具未提供覆盖率”，漏掉覆盖率93%/95%及其差值。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "129cfd1499bb6224eaabd1cc898d158957f45207659c0d9588d48eacb3e79c4d",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2A03",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": false,
+          "id": "V2A03",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮资料说明正确，但开头称“本次查询未完成…请重试”，与内容矛盾；第2轮虽说无法保证，但编造“设备手册（SV-100）：定时任务需持续联网，断网后暂停调度”“已确认必须保持WiFi”，资料中没有。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": true,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "3f300e62ad0c8ab5797879be5347fdab9819cd21f47488e7ec1f329978891a78",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2A04",
+        "status": "ok",
+        "review": {
+          "answer_score": 1,
+          "grounded": false,
+          "id": "V2A04",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮结论“不能用”正确，但理由编造为“SV-100兼容性说明：拖地需专用拖布垫”，混淆污水滤网与拖布并建议买拖布；第2轮把更换周期说成“3-6个月”（应为6个月，取自其他滤网条目），模型文字漏了每周冲洗、晾干，并编造“当前滤网状态正常（无破损记录）”。",
+          "per_turn": [
+            {
+              "answer_score": 1,
+              "grounded": false,
+              "turn": 1
+            },
+            {
+              "answer_score": 1,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "5c66808aa8eccb3e8fae5bbd41ae043261276c3e2ece90cb1dc2cc002096d3ba",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      },
+      {
+        "id": "V2A05",
+        "status": "error",
+        "review": {
+          "answer_score": 0,
+          "grounded": false,
+          "id": "V2A05",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮运行异常、回答为空（三次以无效设备号调用检索）；第2轮未执行。均留在分母，不计通过。",
+          "per_turn": [
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 1
+            },
+            {
+              "answer_score": 0,
+              "grounded": false,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "5c626a56a990400e6391504088e5dccf02ef1262f95cf4be8797a400f8671704",
+          "task_pass": false
+        },
+        "execution_outcome": "error",
+        "outcome": "unknown"
+      },
+      {
+        "id": "V2A06",
+        "status": "ok",
+        "review": {
+          "answer_score": 0,
+          "grounded": true,
+          "id": "V2A06",
+          "method": "Claude assistant blind review (hidden before/after labels) against frozen question, references, actual tool results and model input; not independent expert review",
+          "note": "第1轮回忆正确；第2轮没有查月度记录，改查逐日错误事件，回答两个字段“未找到对应数据”，与记录中的8次/月、88%不符。",
+          "per_turn": [
+            {
+              "answer_score": 2,
+              "grounded": true,
+              "turn": 1
+            },
+            {
+              "answer_score": 0,
+              "grounded": true,
+              "turn": 2
+            }
+          ],
+          "result_sha256": "03dff2ec837c31df479f8182b29020c43db2138c300bcdf63c6b754efb12fd8c",
+          "task_pass": false
+        },
+        "execution_outcome": "ok",
+        "outcome": "fail"
+      }
+    ]
+  },
+  "transitions": [
+    {
+      "id": "V2K01",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K02",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K03",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K04",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K05",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K06",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K07",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K08",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K09",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K10",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K11",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K12",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K13",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K14",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K15",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K16",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K17",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K18",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K19",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K20",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K21",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K22",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K23",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K24",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K25",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K26",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K27",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2K28",
+      "kind": "knowledge",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N01",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N02",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N03",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N04",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N05",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2N06",
+      "kind": "unanswerable",
+      "before": "unknown",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "not_run",
+      "after_status": "not_run",
+      "before_execution_outcome": "not_run",
+      "after_execution_outcome": "not_run",
+      "before_result_sha256": null,
+      "after_result_sha256": null
+    },
+    {
+      "id": "V2A01",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "f1bc3b746251f5c44204577a1299f282766f2e86e0a94e9fe6ff3dfaeb7dc25d",
+      "after_result_sha256": "af2bca853ab749ce6017b88f11e183ebac83a3a4d4ec2a63e97d6b24100503c0"
+    },
+    {
+      "id": "V2A02",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "ea606972abd21a0ab6bd81cb88dead1e643fa64df45f72fb14ce8092e01032a6",
+      "after_result_sha256": "129cfd1499bb6224eaabd1cc898d158957f45207659c0d9588d48eacb3e79c4d"
+    },
+    {
+      "id": "V2A03",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "7d2dbd7bf5b2239ea3027073efe700ee42cb7ab7ef11830bb48107fd36b2b7a0",
+      "after_result_sha256": "3f300e62ad0c8ab5797879be5347fdab9819cd21f47488e7ec1f329978891a78"
+    },
+    {
+      "id": "V2A04",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "514fd54cf2fae0fa93136f38eb164e3b92ab64caaa9781dbeb445825650f1555",
+      "after_result_sha256": "5c66808aa8eccb3e8fae5bbd41ae043261276c3e2ece90cb1dc2cc002096d3ba"
+    },
+    {
+      "id": "V2A05",
+      "kind": "agent",
+      "before": "pass",
+      "after": "unknown",
+      "transition": "unknown",
+      "before_status": "ok",
+      "after_status": "error",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "error",
+      "before_result_sha256": "dc7a498a4becba624fd218cb07a47a327231f2acd384e1bb6739b84840ba586a",
+      "after_result_sha256": "5c626a56a990400e6391504088e5dccf02ef1262f95cf4be8797a400f8671704"
+    },
+    {
+      "id": "V2A06",
+      "kind": "agent",
+      "before": "pass",
+      "after": "fail",
+      "transition": "regressed",
+      "before_status": "ok",
+      "after_status": "ok",
+      "before_execution_outcome": "ok",
+      "after_execution_outcome": "ok",
+      "before_result_sha256": "63c3f3cae578dbe2e7b02d03931eee591d1ec6dd3519faead5992eb269a7e06c",
+      "after_result_sha256": "03dff2ec837c31df479f8182b29020c43db2138c300bcdf63c6b754efb12fd8c"
+    }
+  ],
+  "latency_note": "Sequential local runs; successful QA/turn latency and all-status wall time are separate. No statistical significance or isolated algorithm attribution is claimed.",
+  "blinding_note": "Only labels/order are hidden. Request prompts may reveal version behavior; this is assistant-assisted auxiliary review, not independent human blind evaluation."
+}
