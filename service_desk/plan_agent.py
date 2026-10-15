@@ -12,6 +12,7 @@ from pydantic import ValidationError
 
 from agent.runtime import RuntimeControlError
 from agent.tools.middleware import monitored_tool_call
+from agent.tools.policy import ToolPolicyDenied
 from service_desk import plan_core
 from service_desk.access import connection_for
 from service_desk.actions import list_actions
@@ -48,7 +49,14 @@ class PlanTurn:
         self.agent, self.query, self.history, self.run = agent, query, history, run
         self.memory, self.context = memory, context
         self.lookup_records, self.report_intent = lookup_records, report_intent
-        self.cards = pending_cards(context)
+        self.card_context_denied = False
+        try:
+            self.cards = pending_cards(context)
+        except ToolPolicyDenied:
+            # Card metadata is optional context. A missing/invalid identity must
+            # not crash greetings or clarification before model/tool handling.
+            self.cards = []
+            self.card_context_denied = True
         self.goals, self.steps, self.results, self.states = [], {}, {}, {}
         self.current = None
         self.ask = None
@@ -74,6 +82,9 @@ class PlanTurn:
         return graph.compile()
 
     def invoke(self):
+        if self.card_context_denied:
+            self.run.note('plan_card_context_denied')
+            return self.fallback({})['result']
         return self.graph.invoke({}, config={'recursion_limit': 40})['result']
 
     def plan(self, state):
