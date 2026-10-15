@@ -30,5 +30,3 @@ def test_executor_auto_target_date(monkeypatch, db):
     assert next(c for c in calls if c['name'] == 'find_service_slots')['args']['from_date'] == '2026-01-18'
     assert calls[-1]['name'] == 'propose_service_visit'
     assert '确认卡片' in answer
-
-

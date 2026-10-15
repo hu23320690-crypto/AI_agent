@@ -27,5 +27,3 @@ def test_compact_schema_semantics_and_named_description_property():
         'required': ['description'], 'additionalProperties': False}
     assert planner.compact_schema(custom) == {'type': 'object', 'properties': {
         'description': {'type': 'string', 'minLength': 2}}, 'required': ['description'], 'additionalProperties': False}
-
-

@@ -16,5 +16,3 @@ def test_guard_duration_drop_and_preserve(unit):
     assert not kept and removed == [text]
     kept, removed = guard_text(text, [text])
     assert kept == text and not removed
-
-

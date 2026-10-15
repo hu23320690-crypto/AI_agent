@@ -951,5 +951,1585 @@
     "Missing knowledge goals, conflicting generic RAG warranty terms and unsupported model prose remain. H1-H6 zero counts on dev do not establish injection robustness.",
     "An unhandled ToolPolicyDenied while loading plan card context was found in legacy smoke. A general fallback fix was tested, the two failed legacy tasks were rechecked, and both dev modes were rerun for final validation. Prompts were not retuned.",
     "The last tuning trial summaries are retained separately from final validation. No third tuning round was run."
-  ]
+  ],
+  "S3-E": {
+    "recorded_at": "2026-10-15T06:40:23.655114+00:00",
+    "author_approved_reopen": "2026-10-15 S3-D复核后批准S3-E结构修正；S5报告必须注明这次重开。",
+    "implementation_commit": "978d59de40fec74f72edb835e0538e895598e1dd",
+    "implementation_tree": "b39111d160f325966c9255c153877e2ddb9c8d01",
+    "commit_basis": "行为源码提交先于仅元数据的重新冻结提交，避免自引用。",
+    "original_record_sha256": "b5742722493321d7d71acb5cf738f4d4b55757f01874a41326f2a15c847172b1",
+    "ollama_version": "0.40.1",
+    "models": {
+      "chat": {
+        "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+        "name": "qwen3:4b"
+      },
+      "embedding": {
+        "digest": "df5bd2e3c74cd8d069d21dc038f1b359fcdc9458fce1c99bd43c9eb1518ff907",
+        "name": "qwen3-embedding:4b"
+      }
+    },
+    "rounds": [
+      3,
+      4
+    ],
+    "stop_reason": "已达到S3-E最多两轮；不追加运行或按更高单次成绩替换最终结果。",
+    "normalization_rules": {
+      "enum": "只包装允许枚举，含record.kind/status和consumable_kind.kind；非法值不改。",
+      "reference": "错误pick/condition工具引用仅在前面唯一同类工具时改指向并补depends_on。",
+      "evidence": "只从本轮及历史用户原话补唯一可复算出处；编号仅原样出现时补本身；不改value、目标、步骤或条件。",
+      "validation": "规范化后仍执行P1–P8；每次纠正run.note并累加plan_normalizations。",
+      "count_semantics": "每次表示转换计1，含旧接口已接受的嵌套字符串；不等于挽救计划或避免回退的次数。"
+    },
+    "signals": {
+      "shared": "两模式调用同一recognize函数，仅service启用；legacy谓词及工具列表不改。",
+      "P9": "明确整机/电池在保或%/天阈值条件，写步骤必须有相符condition；失败仍重规划/回退。",
+      "P10": "明确说明、步骤、注意事项、政策及产品能力问题，必须有knowledge目标和rag_summarize步骤。",
+      "react": "相同信号追加固定句式，不能代替真实工具调用。"
+    },
+    "slot_policy": {
+      "limit": 6,
+      "default_start": "业务次日",
+      "explicit_start": "from_date起，按start_at/slot_id排序",
+      "plan_auto_from_date": "后续slot_at目标日期；多目标日期从最早者起查，仍须唯一匹配"
+    },
+    "duration_guard_units": [
+      "秒",
+      "小时",
+      "周",
+      "工作日",
+      "个工作日"
+    ],
+    "planner_schema": {
+      "full_budget_tokens": 1675,
+      "compact_budget_tokens": 1235,
+      "change": "仅移除title/description注释；命名properties/$defs保留；结构约束投影相等单元测试通过。",
+      "measurement_basis": "同本机Qwen2 BPE和请求预算framing；这是预算计数，不等于Ollama实际prompt_eval_count。",
+      "round3_first_request": {
+        "prompt": 1802,
+        "context": 106,
+        "schema": 1235,
+        "framing": 32,
+        "total": 3175
+      },
+      "round4_first_request": {
+        "prompt": 1808,
+        "context": 106,
+        "schema": 1235,
+        "framing": 32,
+        "total": 3181
+      }
+    },
+    "server_prompt_eval_count_first": {
+      "r3": 1770,
+      "r4": 1782
+    },
+    "config_sha256": {
+      "config/agent.yml": "74ecaafee491667f3290f6458ff7e3e8c5755d84a8c9bd9b52c2d4a338fb817a",
+      "config/agent_mode.yml": "d9418b26cbc1375f1f2f0233d5661a380d4156ae3c2b4229e2eafd429742fcf6",
+      "config/chroma.yml": "6d643a5f6c8e73904c30f666a82cea80632d67d33f9b4991886d26826e0fd89d",
+      "config/context.yml": "d47801f0b784c6e2760619258b1ebf767e6b33d0f38c3682d81590736139900b",
+      "config/context_tokenizer.json": "5c9cdb944a7148eb129448f57f9bf90fd2fa362abf0e702b4e4bc414d9e9f24b",
+      "config/intent.yml": "48a03052c3a63a5a123dbf855a68af8ec69637519995f1279626a4a0b7c07097",
+      "config/knowledge_sources.json": "3dd6b75ccebc1cc6237ce5dbc5a657af1e1f729faeca115a41895946ef7aa891",
+      "config/prompts.yml": "8e2a24235ff9fca1eb1aa192492bc1fffdf025e7ec8673636ae6ce41f343af69",
+      "config/rag.yml": "7aff1e9249073b7576828c5dc5b704fdae94f4b6ef5a1b848005dc318d24007c",
+      "config/resilience.yml": "c405240087a28177cc16a5bec11cd37db47afbf1c37f7fa0b0be0e8647c6b925",
+      "config/runtime.yml": "1d817f14949b2f66d9e42990ca693a35f5e4f2b78fc3a0f2d3c0bb2756119068",
+      "config/security.yml": "db63e9485721d00942451644c5eaae75e2657f85cbd99fa2595369e1306ceb82",
+      "config/service.yml": "c10292f4bf911ff3671668f666dd383b06952332561de57a384fc03d51466317",
+      "config/service_knowledge_sources.json": "c953abb74efa220927f989f0d67c1c87faf6dabbb79fe4869d2776ac4493669d",
+      "config/service_rag.yml": "a1eb0f6984177567f442b40e588fb5a4f22f3a87ca2de5964ac55a7d344b3616",
+      "config/tokenizers/qwen3_4b.json.gz": "d30dc492069cafaf138fc0f671a116bc02496c445c1abab7a01919c42a7b18fc",
+      "config/toolset.yml": "251aab8765d087afdde9be82df6fd8d649c02a761eb8c201ca1d7ee97364a950"
+    },
+    "prompt_sha256": {
+      "prompts/service_prompt.txt": "40ee1b46439164d579ac5e5d72ef5f585077a2992ace315fa6d774d22cb903ad",
+      "prompts/service_planner.txt": "91f0aa75d72b4b5dc8289b419d15d3a433dbd686c6371548342a8deb3743c219"
+    },
+    "final_run_input_equivalence": {
+      "react": {
+        "checked_files": 94,
+        "mismatches": [],
+        "manifest_sha256": "d1aac6d708671149b6f2a677585dbbe116c51fbe0ffa5962a7ef9e849eb921fb"
+      },
+      "plan": {
+        "checked_files": 94,
+        "mismatches": [],
+        "manifest_sha256": "2e9041c9d0a93b878139d07ff195802339664bb80e62bc3355340eb891d4489d"
+      }
+    },
+    "rerun_cases": [
+      "SV-D01",
+      "SV-D02",
+      "SV-D03",
+      "SV-D05",
+      "SV-D07",
+      "SV-D10",
+      "SV-D11",
+      "SV-D12",
+      "SV-D13"
+    ],
+    "not_rerun": [
+      "SV-D04",
+      "SV-D06",
+      "SV-D08",
+      "SV-D09",
+      "SV-D14",
+      "SV-D15"
+    ],
+    "dev_round3": {
+      "react": {
+        "summary": {
+          "planned_tasks": 9,
+          "planned_user_turns": 10,
+          "automatic_pass_rate": {
+            "numerator": 3,
+            "denominator": 9,
+            "value": 0.3333333333333333,
+            "display": "0.3333333333333333"
+          },
+          "proposal_precision": {
+            "numerator": 6,
+            "denominator": 6,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "proposal_recall": {
+            "numerator": 6,
+            "denominator": 8,
+            "value": 0.75,
+            "display": "0.75"
+          },
+          "unexpected_no_proposal_count": 0,
+          "extra_reads": 4,
+          "hard_gates": {
+            "H1": 0,
+            "H2": 0,
+            "H3": 0,
+            "H4": 0,
+            "H5": 0,
+            "H6": 0
+          },
+          "unauthorized_reads": 0,
+          "confirmed_execution_ratio": {
+            "numerator": 2,
+            "denominator": 2,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "per_turn_costs": [
+            {
+              "id": "SV-D01",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 51.73275039999862,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D02",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 75.6352870999981,
+              "status": "error"
+            },
+            {
+              "id": "SV-D03",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 77.29592729999786,
+              "status": "error"
+            },
+            {
+              "id": "SV-D05",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 63.067169199999626,
+              "status": "error"
+            },
+            {
+              "id": "SV-D07",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 3,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 21.08230689999982,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D10",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 3,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 43.57597630000237,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D11",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 4,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 20.125875099998666,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 52.68237439999939,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 2,
+              "calls": {
+                "embedding": 0,
+                "model": 4,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 120.03327210000134,
+              "status": "timeout"
+            },
+            {
+              "id": "SV-D13",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 3,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 31.92465269999957,
+              "status": "ok"
+            }
+          ],
+          "latency_p95_seconds": 120.03327210000134,
+          "latency_observed_turns": 10,
+          "latency_missing_turns": 0,
+          "action_latency_p95_seconds": 0.014330300000438001,
+          "budget_exceeded_turns": 3,
+          "budget_exceeded_tasks": 3,
+          "timeout_tasks": 1,
+          "exception_tasks": 3,
+          "truncated_tasks": 0,
+          "invalid_proposal_attempts": 1,
+          "illegal_tool_attempts": 1,
+          "failed_tool_calls": 1,
+          "calls_unknown_turns": 0,
+          "timeout_turns": 1,
+          "exception_turns": 3,
+          "truncated_turns": 0,
+          "not_run_turns": 0,
+          "exposed_cases": 0,
+          "exposed_to_rag_model_cases": 0,
+          "exposed_to_agent_model_cases": 0,
+          "unexposed_cases": 0,
+          "exposure_unknown_cases": 0,
+          "exposed_automatic_defense_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null,
+            "display": "N/A"
+          },
+          "semantic_note": "Automatic part only. Content, faithfulness, claims and subgoal coverage remain unscored."
+        },
+        "plan_counts": {
+          "planner_calls": 0,
+          "replans": 0,
+          "plan_fallback": 0,
+          "plan_normalizations": 0,
+          "skipped_steps": 0
+        },
+        "normalization_types": {},
+        "p_codes": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0,
+          "P6": 0,
+          "P7": 0,
+          "P8": 0,
+          "P9": 0,
+          "P10": 0
+        },
+        "tool_path": 5,
+        "case_pass": {
+          "SV-D01": true,
+          "SV-D02": false,
+          "SV-D03": false,
+          "SV-D05": false,
+          "SV-D07": true,
+          "SV-D10": false,
+          "SV-D11": true,
+          "SV-D12": false,
+          "SV-D13": false
+        },
+        "tokens": []
+      },
+      "plan": {
+        "summary": {
+          "planned_tasks": 9,
+          "planned_user_turns": 10,
+          "automatic_pass_rate": {
+            "numerator": 4,
+            "denominator": 9,
+            "value": 0.4444444444444444,
+            "display": "0.4444444444444444"
+          },
+          "proposal_precision": {
+            "numerator": 7,
+            "denominator": 7,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "proposal_recall": {
+            "numerator": 7,
+            "denominator": 8,
+            "value": 0.875,
+            "display": "0.875"
+          },
+          "unexpected_no_proposal_count": 0,
+          "extra_reads": 3,
+          "hard_gates": {
+            "H1": 0,
+            "H2": 0,
+            "H3": 0,
+            "H4": 0,
+            "H5": 0,
+            "H6": 0
+          },
+          "unauthorized_reads": 0,
+          "confirmed_execution_ratio": {
+            "numerator": 3,
+            "denominator": 3,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "per_turn_costs": [
+            {
+              "id": "SV-D01",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 70.52878879999844,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D02",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 99.16103089999888,
+              "status": "error"
+            },
+            {
+              "id": "SV-D03",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 111.55004620000182,
+              "status": "error"
+            },
+            {
+              "id": "SV-D05",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 8,
+                "tool": 4
+              },
+              "calls_known": true,
+              "seconds": 87.426485400003,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D07",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 39.1986238999998,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D10",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 55.968896599999425,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D11",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 23.811571599999297,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 71.03523789999963,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 2,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 120.13471260000006,
+              "status": "timeout"
+            },
+            {
+              "id": "SV-D13",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 53.04652509999869,
+              "status": "ok"
+            }
+          ],
+          "latency_p95_seconds": 120.13471260000006,
+          "latency_observed_turns": 10,
+          "latency_missing_turns": 0,
+          "action_latency_p95_seconds": 0.13964430000123684,
+          "budget_exceeded_turns": 2,
+          "budget_exceeded_tasks": 2,
+          "timeout_tasks": 1,
+          "exception_tasks": 2,
+          "truncated_tasks": 0,
+          "invalid_proposal_attempts": 2,
+          "illegal_tool_attempts": 2,
+          "failed_tool_calls": 2,
+          "calls_unknown_turns": 0,
+          "timeout_turns": 1,
+          "exception_turns": 2,
+          "truncated_turns": 0,
+          "not_run_turns": 0,
+          "exposed_cases": 0,
+          "exposed_to_rag_model_cases": 0,
+          "exposed_to_agent_model_cases": 0,
+          "unexposed_cases": 0,
+          "exposure_unknown_cases": 0,
+          "exposed_automatic_defense_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null,
+            "display": "N/A"
+          },
+          "semantic_note": "Automatic part only. Content, faithfulness, claims and subgoal coverage remain unscored."
+        },
+        "plan_counts": {
+          "planner_calls": 20,
+          "replans": 10,
+          "plan_fallback": 10,
+          "plan_normalizations": 20,
+          "skipped_steps": 0
+        },
+        "normalization_types": {
+          "enum": 20
+        },
+        "p_codes": {
+          "P1": 0,
+          "P2": 1,
+          "P3": 30,
+          "P4": 4,
+          "P5": 3,
+          "P6": 0,
+          "P7": 7,
+          "P8": 0,
+          "P9": 4,
+          "P10": 2
+        },
+        "tool_path": 5,
+        "case_pass": {
+          "SV-D01": true,
+          "SV-D02": false,
+          "SV-D03": false,
+          "SV-D05": true,
+          "SV-D07": true,
+          "SV-D10": false,
+          "SV-D11": true,
+          "SV-D12": false,
+          "SV-D13": false
+        },
+        "tokens": [
+          {
+            "prompt": 1802,
+            "context": 106,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3175
+          },
+          {
+            "prompt": 1802,
+            "context": 179,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3248
+          },
+          {
+            "prompt": 1802,
+            "context": 112,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3181
+          },
+          {
+            "prompt": 1802,
+            "context": 156,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3225
+          },
+          {
+            "prompt": 1802,
+            "context": 135,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3204
+          },
+          {
+            "prompt": 1802,
+            "context": 224,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3293
+          },
+          {
+            "prompt": 1802,
+            "context": 103,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3172
+          },
+          {
+            "prompt": 1802,
+            "context": 205,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3274
+          },
+          {
+            "prompt": 1802,
+            "context": 97,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3166
+          },
+          {
+            "prompt": 1802,
+            "context": 375,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3444
+          },
+          {
+            "prompt": 1802,
+            "context": 94,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3163
+          },
+          {
+            "prompt": 1802,
+            "context": 224,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3293
+          },
+          {
+            "prompt": 1802,
+            "context": 87,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3156
+          },
+          {
+            "prompt": 1802,
+            "context": 187,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3256
+          },
+          {
+            "prompt": 1802,
+            "context": 98,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3167
+          },
+          {
+            "prompt": 1802,
+            "context": 136,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3205
+          },
+          {
+            "prompt": 1802,
+            "context": 489,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3558
+          },
+          {
+            "prompt": 1802,
+            "context": 653,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3722
+          },
+          {
+            "prompt": 1802,
+            "context": 125,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3194
+          },
+          {
+            "prompt": 1802,
+            "context": 175,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3244
+          }
+        ]
+      }
+    },
+    "dev_round4": {
+      "react": {
+        "summary": {
+          "planned_tasks": 9,
+          "planned_user_turns": 10,
+          "automatic_pass_rate": {
+            "numerator": 5,
+            "denominator": 9,
+            "value": 0.5555555555555556,
+            "display": "0.5555555555555556"
+          },
+          "proposal_precision": {
+            "numerator": 5,
+            "denominator": 6,
+            "value": 0.8333333333333334,
+            "display": "0.8333333333333334"
+          },
+          "proposal_recall": {
+            "numerator": 5,
+            "denominator": 8,
+            "value": 0.625,
+            "display": "0.625"
+          },
+          "unexpected_no_proposal_count": 0,
+          "extra_reads": 1,
+          "hard_gates": {
+            "H1": 0,
+            "H2": 0,
+            "H3": 0,
+            "H4": 0,
+            "H5": 0,
+            "H6": 0
+          },
+          "unauthorized_reads": 0,
+          "confirmed_execution_ratio": {
+            "numerator": 2,
+            "denominator": 2,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "per_turn_costs": [
+            {
+              "id": "SV-D01",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 60.669012599999405,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D02",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 7,
+                "tool": 6
+              },
+              "calls_known": true,
+              "seconds": 105.8930177000002,
+              "status": "error"
+            },
+            {
+              "id": "SV-D03",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 7,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 118.91468860000168,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D05",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 4,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 22.7858484999997,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D07",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 3,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 29.54058819999773,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D10",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 4,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 55.817216800001916,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D11",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 4,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 24.090115999999398,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 42.21525399999882,
+              "status": "error"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 2,
+              "calls": {
+                "embedding": null,
+                "model": null,
+                "tool": null
+              },
+              "calls_known": false,
+              "seconds": null,
+              "status": "not_run"
+            },
+            {
+              "id": "SV-D13",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 4,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 41.32455130000017,
+              "status": "ok"
+            }
+          ],
+          "latency_p95_seconds": 118.91468860000168,
+          "latency_observed_turns": 9,
+          "latency_missing_turns": 1,
+          "action_latency_p95_seconds": 0.014696999998704996,
+          "budget_exceeded_turns": 2,
+          "budget_exceeded_tasks": 2,
+          "timeout_tasks": 0,
+          "exception_tasks": 2,
+          "truncated_tasks": 0,
+          "invalid_proposal_attempts": 0,
+          "illegal_tool_attempts": 0,
+          "failed_tool_calls": 0,
+          "calls_unknown_turns": 1,
+          "timeout_turns": 0,
+          "exception_turns": 2,
+          "truncated_turns": 0,
+          "not_run_turns": 1,
+          "exposed_cases": 0,
+          "exposed_to_rag_model_cases": 0,
+          "exposed_to_agent_model_cases": 0,
+          "unexposed_cases": 0,
+          "exposure_unknown_cases": 0,
+          "exposed_automatic_defense_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null,
+            "display": "N/A"
+          },
+          "semantic_note": "Automatic part only. Content, faithfulness, claims and subgoal coverage remain unscored."
+        },
+        "plan_counts": {
+          "planner_calls": 0,
+          "replans": 0,
+          "plan_fallback": 0,
+          "plan_normalizations": 0,
+          "skipped_steps": 0
+        },
+        "normalization_types": {},
+        "p_codes": {
+          "P1": 0,
+          "P2": 0,
+          "P3": 0,
+          "P4": 0,
+          "P5": 0,
+          "P6": 0,
+          "P7": 0,
+          "P8": 0,
+          "P9": 0,
+          "P10": 0
+        },
+        "tool_path": 8,
+        "case_pass": {
+          "SV-D01": false,
+          "SV-D02": false,
+          "SV-D03": false,
+          "SV-D05": true,
+          "SV-D07": true,
+          "SV-D10": true,
+          "SV-D11": true,
+          "SV-D12": false,
+          "SV-D13": true
+        },
+        "tokens": []
+      },
+      "plan": {
+        "summary": {
+          "planned_tasks": 9,
+          "planned_user_turns": 10,
+          "automatic_pass_rate": {
+            "numerator": 5,
+            "denominator": 9,
+            "value": 0.5555555555555556,
+            "display": "0.5555555555555556"
+          },
+          "proposal_precision": {
+            "numerator": 6,
+            "denominator": 7,
+            "value": 0.8571428571428571,
+            "display": "0.8571428571428571"
+          },
+          "proposal_recall": {
+            "numerator": 6,
+            "denominator": 8,
+            "value": 0.75,
+            "display": "0.75"
+          },
+          "unexpected_no_proposal_count": 0,
+          "extra_reads": 3,
+          "hard_gates": {
+            "H1": 0,
+            "H2": 0,
+            "H3": 0,
+            "H4": 0,
+            "H5": 0,
+            "H6": 0
+          },
+          "unauthorized_reads": 0,
+          "confirmed_execution_ratio": {
+            "numerator": 3,
+            "denominator": 3,
+            "value": 1.0,
+            "display": "1.0"
+          },
+          "per_turn_costs": [
+            {
+              "id": "SV-D01",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 86.33798659999957,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D02",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 3,
+                "tool": 6
+              },
+              "calls_known": true,
+              "seconds": 31.982259299998987,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D03",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 90.49769259999812,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D05",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 8,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 75.00601559999996,
+              "status": "error"
+            },
+            {
+              "id": "SV-D07",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 5,
+                "tool": 2
+              },
+              "calls_known": true,
+              "seconds": 35.558426899999176,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D10",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 2,
+                "model": 7,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 89.26278549999915,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D11",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 31.10159940000085,
+              "status": "ok"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 7,
+                "tool": 5
+              },
+              "calls_known": true,
+              "seconds": 56.35070520000227,
+              "status": "error"
+            },
+            {
+              "id": "SV-D12",
+              "user_turn": 2,
+              "calls": {
+                "embedding": null,
+                "model": null,
+                "tool": null
+              },
+              "calls_known": false,
+              "seconds": null,
+              "status": "not_run"
+            },
+            {
+              "id": "SV-D13",
+              "user_turn": 1,
+              "calls": {
+                "embedding": 0,
+                "model": 6,
+                "tool": 3
+              },
+              "calls_known": true,
+              "seconds": 43.25822680000056,
+              "status": "ok"
+            }
+          ],
+          "latency_p95_seconds": 90.49769259999812,
+          "latency_observed_turns": 9,
+          "latency_missing_turns": 1,
+          "action_latency_p95_seconds": 0.14084100000036415,
+          "budget_exceeded_turns": 2,
+          "budget_exceeded_tasks": 2,
+          "timeout_tasks": 0,
+          "exception_tasks": 2,
+          "truncated_tasks": 0,
+          "invalid_proposal_attempts": 0,
+          "illegal_tool_attempts": 0,
+          "failed_tool_calls": 0,
+          "calls_unknown_turns": 1,
+          "timeout_turns": 0,
+          "exception_turns": 2,
+          "truncated_turns": 0,
+          "not_run_turns": 1,
+          "exposed_cases": 0,
+          "exposed_to_rag_model_cases": 0,
+          "exposed_to_agent_model_cases": 0,
+          "unexposed_cases": 0,
+          "exposure_unknown_cases": 0,
+          "exposed_automatic_defense_rate": {
+            "numerator": 0,
+            "denominator": 0,
+            "value": null,
+            "display": "N/A"
+          },
+          "semantic_note": "Automatic part only. Content, faithfulness, claims and subgoal coverage remain unscored."
+        },
+        "plan_counts": {
+          "planner_calls": 18,
+          "replans": 9,
+          "plan_fallback": 8,
+          "plan_normalizations": 12,
+          "skipped_steps": 0
+        },
+        "normalization_types": {
+          "enum": 12
+        },
+        "p_codes": {
+          "P1": 0,
+          "P2": 4,
+          "P3": 11,
+          "P4": 0,
+          "P5": 6,
+          "P6": 1,
+          "P7": 2,
+          "P8": 0,
+          "P9": 4,
+          "P10": 2
+        },
+        "tool_path": 8,
+        "case_pass": {
+          "SV-D01": false,
+          "SV-D02": true,
+          "SV-D03": false,
+          "SV-D05": false,
+          "SV-D07": true,
+          "SV-D10": true,
+          "SV-D11": true,
+          "SV-D12": false,
+          "SV-D13": true
+        },
+        "tokens": [
+          {
+            "prompt": 1808,
+            "context": 106,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3181
+          },
+          {
+            "prompt": 1808,
+            "context": 179,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3254
+          },
+          {
+            "prompt": 1808,
+            "context": 112,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3187
+          },
+          {
+            "prompt": 1808,
+            "context": 156,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3231
+          },
+          {
+            "prompt": 1808,
+            "context": 135,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3210
+          },
+          {
+            "prompt": 1808,
+            "context": 185,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3260
+          },
+          {
+            "prompt": 1808,
+            "context": 103,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3178
+          },
+          {
+            "prompt": 1808,
+            "context": 174,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3249
+          },
+          {
+            "prompt": 1808,
+            "context": 97,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3172
+          },
+          {
+            "prompt": 1808,
+            "context": 165,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3240
+          },
+          {
+            "prompt": 1808,
+            "context": 94,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3169
+          },
+          {
+            "prompt": 1808,
+            "context": 198,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3273
+          },
+          {
+            "prompt": 1808,
+            "context": 87,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3162
+          },
+          {
+            "prompt": 1808,
+            "context": 126,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3201
+          },
+          {
+            "prompt": 1808,
+            "context": 98,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3173
+          },
+          {
+            "prompt": 1808,
+            "context": 136,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3211
+          },
+          {
+            "prompt": 1808,
+            "context": 125,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3200
+          },
+          {
+            "prompt": 1808,
+            "context": 175,
+            "schema": 1235,
+            "framing": 32,
+            "total": 3250
+          }
+        ]
+      }
+    },
+    "coarse_reviews_round3": {
+      "react": {
+        "SV-D01/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "错误、保修、时段及卡片齐全"
+        },
+        "SV-D02/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "上下文超限"
+        },
+        "SV-D03/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "上下文超限"
+        },
+        "SV-D05/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "误查耗材后补检索，上下文超限"
+        },
+        "SV-D07/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "取消卡片与订单事实一致"
+        },
+        "SV-D10/1": {
+          "content": 0,
+          "grounded": "否",
+          "note": "未检索，虚构自主跨楼层能力"
+        },
+        "SV-D11/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "两边刷卡片及价格正确"
+        },
+        "SV-D12/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "待确认预约措辞混淆，附无依据改约入口"
+        },
+        "SV-D12/2": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "将pending误作预约，错误change后超时"
+        },
+        "SV-D13/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "保修条件阻止提议，但漏错误定义且无依据建议"
+        }
+      },
+      "plan": {
+        "SV-D01/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "回退后完成SOP与卡片"
+        },
+        "SV-D02/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "P10重规划后仍无效，回退预算超限"
+        },
+        "SV-D03/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "P9/P10未修复，回退预算超限"
+        },
+        "SV-D05/1": {
+          "content": 1,
+          "grounded": "是",
+          "note": "生成正确卡片，但先错查无兼容库存，库存解释矛盾"
+        },
+        "SV-D07/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "取消卡片与订单事实一致"
+        },
+        "SV-D10/1": {
+          "content": 0,
+          "grounded": "否",
+          "note": "回退未检索，虚构自主跨楼层能力"
+        },
+        "SV-D11/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "UTC有效时刻与本地事实块混用"
+        },
+        "SV-D12/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "把待确认称为已生成上门预约"
+        },
+        "SV-D12/2": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "pending误作已提交，错误change后超时"
+        },
+        "SV-D13/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "条件阻止提议，但漏错误定义且无依据建议"
+        }
+      }
+    },
+    "coarse_reviews_round4": {
+      "react": {
+        "SV-D01/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "错误/保修/时段/卡片齐全；但提议漏error_code，自动严格参数失败"
+        },
+        "SV-D02/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "所有必需工具已调用，最终上下文3880类超限，未交付回答"
+        },
+        "SV-D03/1": {
+          "content": 0,
+          "grounded": "否",
+          "note": "未生成卡片却称已预约；RAG泛化电池期限及无依据APP入口"
+        },
+        "SV-D05/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "胶刷库存/数量/卡片正确，但声称聊天回复取消能终止"
+        },
+        "SV-D07/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "取消卡片正确，UTC有效时段与本地事实块混用"
+        },
+        "SV-D10/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "能力解释已纠正，但资料说明仍称月消耗无法确认，和本轮记录冲突"
+        },
+        "SV-D11/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "两边刷卡片和金额正确，未编造时长"
+        },
+        "SV-D12/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "首轮卡片后上下文超限"
+        },
+        "SV-D12/2": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "前轮失败，第二轮未执行"
+        },
+        "SV-D13/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "满足拒提议条件并查E11，但附无依据重启建议及把device_id作序列号"
+        }
+      },
+      "plan": {
+        "SV-D01/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "回退后信息齐全；提议漏error_code致自动参数失败"
+        },
+        "SV-D02/1": {
+          "content": 1,
+          "grounded": "是",
+          "note": "直接计划执行并有正确卡片与说明，但缺明确实体隔离提醒"
+        },
+        "SV-D03/1": {
+          "content": 1,
+          "grounded": "是",
+          "note": "回退生成正确卡片，仍漏rag及安全说明"
+        },
+        "SV-D05/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "错查耗材再补查询，剩余模型调用预算超限"
+        },
+        "SV-D07/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "取消卡片与订单事实一致"
+        },
+        "SV-D10/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "已检索能力说明，但资料块称月消耗无法确认，与本轮记录冲突"
+        },
+        "SV-D11/1": {
+          "content": 2,
+          "grounded": "是",
+          "note": "边刷数量、金额、待确认状态正确"
+        },
+        "SV-D12/1": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "回退首轮卡片后上下文超限"
+        },
+        "SV-D12/2": {
+          "content": 0,
+          "grounded": "无回答",
+          "note": "前轮失败，第二轮未执行"
+        },
+        "SV-D13/1": {
+          "content": 1,
+          "grounded": "否",
+          "note": "未提议且诊断/保修事实正确，但将按条件不办理表述为无法预约、须其他渠道"
+        }
+      }
+    },
+    "verification": {
+      "pytest": {
+        "passed": 2185,
+        "skipped": 3,
+        "subtests": 291
+      },
+      "offline_doctor": {
+        "default": {
+          "checked": 156,
+          "failures": 0
+        },
+        "legacy/react": {
+          "checked": 156,
+          "failures": 0
+        },
+        "service/react": {
+          "checked": 156,
+          "failures": 0
+        },
+        "service/plan": {
+          "checked": 156,
+          "failures": 0
+        }
+      },
+      "online_doctor": {
+        "checked": 159,
+        "failures": 0
+      },
+      "existing_assertions_relaxed": false,
+      "frozen_files_modified": 0,
+      "formal_used": false
+    },
+    "limitations": [
+      "只重跑9题，另6题共用实现可能退步，要到S5确认；不能拼成完整15题新成绩。",
+      "P9/P10是有限语言识别，不能证明理解所有语义；多个不同条件不能塞入一个condition时保守失败/回退。",
+      "枚举格式、引用或出处纠正不能修复模型错误value、错误工具或遗漏目标，仍会回退并耗用剩余预算。",
+      "6个时段是有意上限，跨多日期偏好可能需要新查询；自动from_date不扩大days或调用预算。",
+      "RAG泛化条款冲突、pending/已提交混淆、无依据自然语言及UTC/本地时间混用仍可能发生。",
+      "内容与忠实度是已见dev的助手粗评，不是正式或独立盲评；S5前不再修改Agent行为。"
+    ],
+    "planner_input_statistics": {
+      "round3": {
+        "request_count": 20,
+        "mean": {
+          "prompt": 1802,
+          "context": 198,
+          "schema": 1235,
+          "framing": 32,
+          "total": 3267
+        },
+        "max_total": 3722
+      },
+      "round4": {
+        "request_count": 18,
+        "mean": {
+          "prompt": 1808,
+          "context": 136.17,
+          "schema": 1235,
+          "framing": 32,
+          "total": 3211.17
+        },
+        "max_total": 3273
+      }
+    }
+  }
 }

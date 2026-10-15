@@ -21,5 +21,3 @@ def test_legacy_does_not_import_service_signals(monkeypatch):
     model = ScriptedModel(responses=[answer('30秒内有效。')])
     agent = ReactAgent(model=model, context_policy=scripted_context_policy())
     assert ''.join(agent.execute_stream('如果还在保才预约，并说明步骤')) == '30秒内有效。'
-
-
