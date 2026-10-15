@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1170" viewBox="0 0 1440 1170" role="img" aria-labelledby="title desc">
+<title id="title">真实 dev SV-D02 plan 轨迹：P10、重规划、六次工具调用和待确认</title>
+<desc id="desc">源自 service_s3e_r4_plan 的 SV-D02 第一个用户轮。首次计划缺知识目标触发 P10，第二次校验通过，生成 pending 提议后验证目标并回答，没有自动确认。</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="#688295"/></marker></defs>
+<style>text{font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif;fill:#19374c}.small{font-size:17px}.body{font-size:20px}.label{font-size:23px;font-weight:700}.mono{font-family:Consolas,monospace;font-size:17px}.muted{fill:#587284}.line{fill:none;stroke:#688295;stroke-width:2.5;marker-end:url(#arrow)}</style>
+<rect width="1440" height="1170" fill="#edf2f5"/><rect width="1440" height="8" fill="#087f83"/>
+<text x="48" y="68" font-size="34" font-weight="700">一轮真实 plan：校验失败 → 重规划 → 待确认</text>
+<text x="48" y="104" class="body muted">dev SV-D02 · 第一个用户轮 · 已见开发样本，不是正式成绩</text>
+<text x="48" y="146" class="body">用户：旗舰机 E11，已移离楼梯；查询处理方法与保障，1 月 15 日 16–18 点能否安排检查？</text>
+
+<rect x="48" y="180" width="408" height="176" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="68" y="216" class="label">plan · 首次计划</text>
+<text x="68" y="252" class="mono">diagnose / warranty / book</text>
+<text x="68" y="285" class="body">查设备 → 错误码 → 保修</text>
+<text x="68" y="317" class="body">→ 时段 → 上门提议（未含 RAG）</text>
+<rect x="510" y="180" width="390" height="176" rx="14" fill="#fff0eb" stroke="#e6b5a5"/>
+<text x="530" y="216" class="label" style="fill:#a64c34">validate · P10</text>
+<text x="530" y="252" class="mono">7.344 s · ok=false</text>
+<text x="530" y="285" class="body">用户要求处理方法，缺 knowledge</text>
+<text x="530" y="317" class="body">目标及 rag_summarize 步骤</text>
+<rect x="954" y="180" width="438" height="176" rx="14" fill="#e3f2ef" stroke="#9ecbc3"/>
+<text x="974" y="216" class="label">replan → validate</text>
+<text x="974" y="252" class="body">增加知识目标与 RAG 步骤</text>
+<text x="974" y="285" class="mono">17.609 s · ok=true · codes=[]</text>
+<text x="974" y="317" class="mono">g1 knowledge / g2 diagnose / g3 book</text>
+<path d="M456 268H507" class="line"/>
+<path d="M900 268H951" class="line"/>
+<path d="M1173 356V371H28V505H45" class="line"/>
+<text x="48" y="398" class="label">execute · 按实际执行顺序（全部工具返回 success）</text>
+<rect x="48" y="422" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="66" y="457" class="label">s1 · list_my_devices</text>
+<text x="66" y="496" class="small">args = {}</text>
+<text x="66" y="527" class="small">D-1006-01 · SV-400 自集尘旗舰型</text>
+<text x="66" y="558" class="small">购买日期：2024-10-02</text>
+<rect x="510" y="422" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="528" y="457" class="label">s2 · lookup_error_code</text>
+<text x="528" y="496" class="small">code=E11 · device=D-1006-01</text>
+<text x="528" y="527" class="small">跌落感应异常 · requires_visit=true</text>
+<text x="528" y="558" class="small">self_fixable=false</text>
+<rect x="972" y="422" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="990" y="457" class="label">s3 · check_warranty</text>
+<text x="990" y="496" class="small">component=whole_machine</text>
+<text x="990" y="527" class="small">in_warranty=true · 到期 2027-10-02</text>
+<text x="990" y="558" class="small">业务日期：2026-01-12</text>
+<rect x="48" y="631" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="66" y="666" class="label">s4 · rag_summarize</text>
+<text x="66" y="705" class="small">query=E11错误的处理方法</text>
+<text x="66" y="736" class="small">返回：远离台阶、清洁外部感应窗口</text>
+<text x="66" y="767" class="small">不遮挡、不在高处试验；需人员检查</text>
+<rect x="510" y="631" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="528" y="666" class="label">s5 · find_service_slots</text>
+<text x="528" y="705" class="small">from_date=2026-01-15</text>
+<text x="528" y="736" class="small">返回 6 个可选时段</text>
+<text x="528" y="767" class="small">选中 S-east-20260115-3 · 16–18 点</text>
+<rect x="972" y="631" width="420" height="166" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="990" y="666" class="label">s6 · propose_service_visit</text>
+<text x="990" y="705" class="small">device=D-1006-01 · error_code=E11</text>
+<text x="990" y="736" class="small">slot_id=S-east-20260115-3</text>
+<text x="990" y="767" class="small">返回 status=pending；不执行业务写入</text>
+<path d="M468 505H507" class="line"/>
+<path d="M930 505H969" class="line"/>
+<path d="M1182 588V610H258V628" class="line"/>
+<path d="M468 714H507" class="line"/>
+<path d="M930 714H969" class="line"/>
+<path d="M1182 797V826H1172V850" class="line"/>
+<rect x="48" y="855" width="420" height="182" rx="14" fill="#e3f2ef" stroke="#9ecbc3"/>
+<text x="68" y="895" class="label">respond · 共用事实块</text>
+<text x="68" y="933" class="body">“已为你准备预约的确认卡片。”</text>
+<text x="68" y="971" class="body">“确认前不会提交。”</text>
+<text x="68" y="1008" class="mono">本轮 plan_fallback=false</text>
+<rect x="510" y="855" width="390" height="182" rx="14" fill="#ffffff" stroke="#ccd9e1"/>
+<text x="530" y="895" class="label">verify · 目标覆盖</text>
+<text x="530" y="933" class="mono">31.781 s</text>
+<text x="530" y="971" class="mono">missing_goals=[]</text>
+<text x="530" y="1008" class="small">结构覆盖检查不等于语义评分</text>
+<rect x="954" y="855" width="438" height="182" rx="14" fill="#fff7df" stroke="#dbc98b"/>
+<text x="974" y="895" class="label">pending · 等待用户确认</text>
+<text x="974" y="933" class="mono">propose_service_visit → t1.p0</text>
+<text x="974" y="971" class="body">参数哈希绑定 · 有效期随记录保存</text>
+<text x="974" y="1008" class="small">此轨迹止于待确认，未点击确认</text>
+<path d="M954 948H903" class="line"/>
+<path d="M510 948H471" class="line"/>
+<text x="48" y="1081" class="small">来源：evaluation/results/service_s3e_r4_plan/raw/SV-D02.json</text>
+<text x="48" y="1115" class="mono">raw SHA256: 556e3990c8762eeefec9e93fb3e303196a969260a351009560c793e1dac3b27e</text>
+<text x="48" y="1145" class="small">图中时间、P 码、计划、工具参数和观察均摘自原始记录；GIF 另为 S7 的 service + react 真实交互。</text>
+</svg>

@@ -1,34 +1,113 @@
-# 扫地机器人智能客服 Agent
+# 扫地机器人售后服务 Agent
 
 [![CI](https://github.com/hu23320690-crypto/AI_agent/actions/workflows/ci.yml/badge.svg)](https://github.com/hu23320690-crypto/AI_agent/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB)
-![LangGraph](https://img.shields.io/badge/LangChain%20%2F%20LangGraph-1.x-1C3C3C)
 ![Ollama](https://img.shields.io/badge/Ollama-Qwen3%3A4b-000000)
-![FastAPI](https://img.shields.io/badge/FastAPI-REST-009688)
 
-基于 LangChain / LangGraph 和本地 Qwen3 的中文客服 Agent。它用混合检索回答产品、故障和保养问题，也能按用户和月份查询使用记录、生成报告。
+本地 Qwen3:4b 驱动的中文客服 Agent。第一阶段实现知识问答与使用报告，默认使用 **legacy 工具集 + react 模式**；第二阶段增加可选的售后服务工具集，支持报修预约、耗材下单、改约和取消。写操作采用两段式提交：模型生成待确认卡片，用户确认或拒绝后，由代码确定性执行并留下审计记录；另提供可选的 Plan → Execute → Verify 模式。
 
-这个项目的重点不止是"把工具调通"，而是让 Agent **可控、可审计、可评测**：每一轮都有时间和调用预算，工具参数先校验再执行，知识来源需要审批，长对话有 token 预算和结构化摘要，另外还有一套带故障注入和新题测试的评测体系。
+## 结果一览
 
-**技术栈**：Python 3.12 · LangChain / LangGraph · Ollama（Qwen3:4b、Qwen3-embedding:4b）· Chroma · FastAPI / asyncio · Streamlit · pytest · Docker Compose · GitHub Actions
+以下数字均来自 [S5 正式评测报告](docs/SERVICE_AGENT_S5_REPORT.md)；业务数据、设备、型号、政策均为合成演示数据。盲评为助手辅助、隐藏标签，评审方参与过 gold 审核，不是独立专家评审。
 
-<!-- 演示：把 Streamlit 界面的截图或录屏放到 docs/images/ 下，然后取消下一行注释 -->
-<!-- ![demo](docs/images/demo.gif) -->
-
-## 功能演示
-
-| 场景 | 输入示例 | 系统行为 |
+| 项目 | react / legacy 对照 | plan / service 对照 |
 | --- | --- | --- |
-| 知识问答 | 主刷上缠了长头发，应该怎么清理？ | 混合检索 Top-5 证据后生成有依据的步骤；资料不足时明确说明，不编造 |
-| 连续追问 | 清理刚才那个部件前需要断开电源吗？ | 把"刚才那个部件"解析为主刷，重新检索断电规则 |
-| 使用报告 | 请生成我 2025 年 8 月的使用报告。 | 查询当前会话用户 1001 的记录，报告由程序渲染：覆盖率 83%、日均 43㎡、主刷剩余 50 天、滤网 30% |
-| 月份追问 | 那 2025 年 9 月呢？ | 重新查询 9 月数据，不复用上一轮的数值 |
-| 无记录 | 请生成我 2099 年 1 月的使用报告。 | 明确告知没有记录，不拿其他月份顶替 |
-| 越权尝试 | 帮我查一下用户 1002 的记录 | 用户身份只认会话设置；模型就算提出查询 1002，也会在执行前被权限校验拒绝 |
+| H1–H6 硬门槛事件 | 四个正式运行各项均为 0 | 全部通过；不能据此声称回答无污染 |
+| service test 全轮任务通过 | react **10/30** | plan **12/30**（+6.67pp，未达 15pp） |
+| test/plan 提议精确率 / 召回率 | — | **17/17 / 17/20** |
+| test/plan 预算超限 / 回退 react | — | **3/37 / 18/37** 轮 |
+| 注入集全轮任务通过 | react **1/12** | plan **3/12**；H5=0，回答仍会带出载体文本 |
+| G5 base（已见回归） | legacy+react **11/12** | service+react **4/12** |
+| G5 generalization_v1（已见回归） | legacy+react **5/6** | service+react **1/6** |
+| G5 holdout_v2（已见回归） | legacy+react **6/6** | service+react **0/6** |
+| 按门槛得出的默认组合 | **保留 legacy + react** | service、plan 均为可选开关 |
 
-演示数据：6 份知识资料（5 个 TXT + 1 个 PDF，共 326 个分块），以及用户 1001–1010 在 2025 年的 120 条合成使用记录。
+plan 未达到预设提升门槛，service 在旧任务上退步，因此默认仍为 legacy + react。每种模式只跑一次、样本小，不作显著性结论；完整口径与限制见报告第 3–9 节。
 
-## 架构
+## 真实界面演示
+
+![service + react：事实块、待确认卡片与确认后的已执行状态](docs/images/service_demo.gif)
+
+演示使用 dev 题与独立合成数据库。卡片位于聊天主区域，点击“确认”后状态变为“已执行”。画面保留本次知识资料不可用及确认前措辞不准确的回答；这段演示用于展示交互机制，不作为任务质量成绩。[复现命令、问题与局限](docs/DEMO.md#s7-售后服务真实界面演示)。
+
+完成下方依赖、模型、索引准备后，首次使用 service 需初始化合成数据库（已有数据库时不要覆盖）：
+
+```powershell
+.\.venv\Scripts\python.exe -B scripts/manage.py service-db init
+```
+
+**启用售后工具集（service + react）**：
+
+```powershell
+$env:AGENT_TOOLSET = 'service'
+$env:AGENT_MODE = 'react'
+.\.venv\Scripts\python.exe -B scripts/manage.py serve
+```
+
+**启用规划模式（service + plan）**，在新的终端中运行，或先停止已有服务：
+
+```powershell
+$env:AGENT_TOOLSET = 'service'
+$env:AGENT_MODE = 'plan'
+.\.venv\Scripts\python.exe -B scripts/manage.py serve
+```
+
+这些命令只设置当前终端的环境变量。默认配置文件保持 legacy + react；结束试用后关闭该终端，或移除上述两个环境变量。
+
+## 售后服务架构（第二阶段）
+
+```mermaid
+flowchart TD
+    UI["Streamlit · app.py"] --> RT["agent/runtime/<br/>RunContext · 预算 · deadline"]
+    API["FastAPI · api/app.py"] --> RT
+    RT --> DISPATCH["agent/react_agent.py<br/>工具集与模式选择"]
+    DISPATCH --> REACT["react · LangChain create_agent"]
+    DISPATCH --> PLAN
+    subgraph GRAPH["service_desk/plan_agent.py · LangGraph"]
+        PLAN["plan · planner.py"] --> VAL["validate · plan_core.py<br/>规范化 / P 码校验"]
+        VAL -->|有效| EX["execute"]
+        VAL -->|可重规划| PLAN
+        VAL -->|无法继续| FB["fallback → react"]
+        EX --> VER["verify · 目标覆盖检查"]
+    VAL -->|澄清| RESP
+    EX -->|提前结束| RESP
+        VER -->|待补齐| PLAN
+        VER --> RESP["respond"]
+    end
+    REACT --> POLICY["agent/tools/policy.py + middleware.py<br/>service_desk/policy.py · 身份 / 参数 / 流程"]
+    EX --> POLICY
+    FB --> REACT
+    POLICY --> READ["service_desk/tools.py<br/>读工具 · RAG / 设备 / 保修 / 时段 / 记录"]
+    POLICY --> PROP["service_desk/proposals.py<br/>propose_* · 只生成提议"]
+    READ --> DB[("SQLite · service_desk/db.py")]
+    PROP --> PENDING[("pending_actions<br/>参数哈希 · 会话绑定 · 有效期")]
+    PENDING --> HUMAN["页面 / API：确认或拒绝"]
+    HUMAN --> ACTIONS["service_desk/actions.py + executor.py<br/>事务 · 幂等 · 过期校验 · audit.py"]
+    ACTIONS --> DB
+    REACT --> RENDER["service_desk/render.py<br/>共用事实块 · 文本守卫"]
+    RESP --> RENDER
+    READ --> RENDER
+    RENDER --> OUT["用户回答与卡片"]
+    HARNESS["evaluation/service_run.py<br/>service_score.py · service_review.py<br/>隔离数据库 / 谨慎用户 / 自动分与锁定盲评"] -.-> RT
+    HARNESS -.-> PENDING
+    HARNESS -.-> DB
+```
+
+确认和拒绝执行器不暴露为模型工具。身份取自服务端会话；这套演示身份绑定仍不等于真实多租户认证。设计见 [实施计划](docs/plans/SERVICE_AGENT_PLAN.md)，评测和反例见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md)。
+
+## 一轮真实 plan 轨迹
+
+![dev SV-D02：P10、重规划、工具调用、待确认与验证](docs/images/plan_trace.svg)
+
+来源：`evaluation/results/service_s3e_r4_plan/raw/SV-D02.json`，SV-D02 第一个用户轮。图中保留首次 P10 校验失败；本轮只生成待确认卡片，没有自动确认。原始记录留在本地，摘录与 SHA256 见 [演示指南](docs/DEMO.md#s7-plan-轨迹来源)。这是已见开发样本，不是正式成绩。
+
+## 第一阶段：知识问答与使用报告
+
+legacy 路径保留混合检索、知识来源审批与撤销、报告程序渲染、上下文预算和结构化摘要、权限校验、共享 Runtime，以及 FastAPI / Streamlit 入口。意图解析默认仍为 `rule`，`AGENT_INTENT_MODE=hybrid` 是另一个独立的可选开关。
+
+第一阶段的功能示例、全部历史数字、实验表、设计取舍与源码链接完整保存在 [S7 前 README 存档](docs/README_ARCHIVE.md#s7-前-readme-完整存档2026-10-16)。其中旧题成绩与 S5 使用不同版本和口径，不拼接比较。
+
+### 第一阶段架构
 
 ```mermaid
 flowchart TD
@@ -52,154 +131,6 @@ flowchart TD
     GEN --> OUT["最终出口<br/>提交前复核来源 · 只提交成功轮次"]
     RENDER --> OUT
 ```
-
-**一次请求的执行过程**
-
-1. 入口创建 `RunContext`：整轮 120 秒 deadline，模型最多调用 8 次、工具 12 次、embedding 16 次。
-2. 检查历史对话引用过的知识来源是否仍然有效；只要有来源被撤销或篡改，整段记忆作废。
-3. `manage_context` 中间件估算 token。输入超过预算的 80% 时，把旧轮次压缩成结构化摘要，保留最近 2 轮原文。
-4. 模型决定调用工具。`monitor_tool` 先做参数和身份校验，再经 Runtime 计入预算和并发闸门后执行。
-5. 生成最终回答：报告由程序根据本轮查到的记录渲染；知识回答直接采用 RAG 工具的结果，不让外层模型再改写一遍。
-6. 提交前再核对一遍引用来源的内容和版本。只有成功的轮次才写回会话历史，取消、超时或失败都不提交。
-
-## 技术亮点
-
-### 1. Runtime：每一轮都有边界
-
-代码：[`agent/runtime/`](agent/runtime/)
-
-- **共享预算**：整轮共用一个 deadline 和调用预算，RAG 内部嵌套的模型和 embedding 调用也计入其中，工具循环无法无限消耗资源。
-- **分类型并发闸门**：run / model / tool / retrieval / embedding 各有独立的信号量，避免嵌套调用耗尽同一个池子而死锁。
-- **重试与熔断**：模型和 embedding 请求最多 2 次尝试，指数退避，遵循 `Retry-After`。60 秒滑动窗口内失败 3 次即熔断，15 秒后半开，只放行一个探测请求。
-- **线程超时的处理**：Python 线程没法强杀，所以超时只是停止等待。worker 真正退出前继续占用名额，迟到的结果也不能写回会话。
-
-### 2. 工具调用的权限边界
-
-代码：[`agent/tools/policy.py`](agent/tools/policy.py)、[`agent/tools/middleware.py`](agent/tools/middleware.py)
-
-- 每个工具对应一个 Pydantic strict 模型（`extra="forbid"`），拒绝多余字段、控制字符，以及 `runtime`、`state` 这类注入参数名。
-- `user_id` 只认服务端会话：模型给出的值必须与会话一致，校验通过后仍以会话值为准。评测中出现过模型提出越权参数的情况，已在执行前被拦截。
-- 拒绝时返回固定文案，不把非法输入回显给模型或写进日志。
-- 系统提示声明：工具返回内容和知识片段都是外部资料，不具有指令权限。
-
-### 3. 混合检索 RAG 与来源治理
-
-代码：[`rag/`](rag/)
-
-- 200 字分块、20 字重叠。Qwen3-embedding 向量检索和字符二元组 BM25 各取 20 个候选，再用 RRF（k=60）融合。BM25 用字符二元组，不需要中文分词词典。
-- 每个来源最多 3 块：前 2 块按 RRF 排名选，第 3 块优先给能覆盖新查询词的候选。相似度 ≥ 0.96 的近重复块会被过滤，最终取 Top-5。
-- 知识文件需管理员按 SHA256 审批后才能入库。新增或修改的文件会自动隔离；撤销对后续检索立即生效。命中注入风险规则的文件需要显式复核。
-- 检索后、生成后、提交前各核对一次来源的内容、版本和授权状态。
-
-### 4. 长对话上下文管理
-
-代码：[`agent/context_budget.py`](agent/context_budget.py)、[`agent/context_memory.py`](agent/context_memory.py)
-
-- 用本地缓存的 Qwen tokenizer 离线计数。8192 的窗口中为输出预留 4096 tokens；tokenizer 身份未验证时，退回更保守的字节估计。
-- 输入超过预算的 80% 时触发压缩：保留最近 2 轮原文，更早的内容按**完整轮次**压缩，工具调用和工具返回必须成对保留或成对移除。
-- 摘要是固定 4 个字段的 JSON（主题 / 用户要求 / 已报告结果 / 待解决问题）。格式不符或被截断就直接拒绝，降级为只裁剪，不尝试修补。
-- 摘要以"低信任资料"身份进入上下文，不能改变身份或权限。程序另外保留有长度上限的用户原话引用，避免压缩后丢掉最初的目标。
-- 实测：注入 64 轮合成历史后，首次请求的消息数从 129 条压缩到 6 条。
-
-### 5. 评测体系与 Harness
-
-代码：[`evaluation/`](evaluation/)
-
-- **题集**：开发集 60 题（40 道知识题、8 道资料不足题、12 个 Agent 多轮任务），外加两套在推理前冻结的 40 题新题集。
-- **分开统计**：检索命中、工具调用正确、最终答案正确各自计分。工具调对了、但用户最终收到的回答是错的，按失败计。
-- **故障注入（7 类）**：模型阻塞、工具阻塞、连续失败熔断、半开恢复、无限工具循环、取消后迟到、名额占满。
-- **安全样本（23 条）**：资料投毒、prompt 注入 canary、工具结果诱导越权、重复资料挤占，以及对合法资料的误拦截。
-- **可复现**：每次运行都冻结代码、配置、模型 digest 和题集快照，结果绑定 SHA256；失败和退步全部保留。
-
-### 6. 服务化与工程化
-
-代码：[`api/`](api/)、[`Dockerfile`](Dockerfile)、[`compose.yaml`](compose.yaml)、[`.github/workflows/ci.yml`](.github/workflows/ci.yml)
-
-- FastAPI 提供 Bearer 鉴权，支持会话的创建、提问、取消和删除；限制请求体长度；`/healthz` 检查进程存活，`/readyz` 检查模型、索引和 tokenizer 是否就绪。
-- asyncio 负责等待和断连检测，同步的 Agent 调用放在有上限的线程中执行；同一会话互斥，总并发和会话 TTL 都有上限。
-- 非 root 的 Docker 镜像，Compose 编排 Ollama、初始化和持久卷。GitHub Actions 在 Windows 和 Linux 上运行 pytest，并做容器存活检查。
-- 1077 项离线测试通过（其中原有 669 项未改动，用来证明默认 rule 模式行为不变）：模型推理用脚本替代，LangGraph 图、Chroma 和 Streamlit 都是真实组件。
-
-### 7. LLM 意图解析 + 规则校验
-
-设计与完整评测：[docs/LLM_INTENT.md](docs/LLM_INTENT.md)
-
-- 未见题上组件正确率 16% → 80%，端到端 Agent 任务 1/12 → 4/12。
-- LLM 按 JSON Schema 提议字段、月份、范围和知识子问，报告数值继续由程序从实际查询结果渲染。
-- V1–V10 只校验可证伪的结构、目录、日期、限定和排除冲突，保留未知项及可见拒答。
-- 调用、结构或预算失败时回退原正则解析；意图提议不授予用户身份或工具权限。
-- 默认保持 `rule`，可通过 `AGENT_INTENT_MODE=hybrid` 主动开启；消融与失败案例见上方设计文档。
-
-## 设计取舍：问题与做法
-
-| 问题 | 做法 |
-| --- | --- |
-| 模型写报告时，把"剩余寿命"改写成记录里没有的进度和日期 | 报告中的数字一律由程序根据本轮查询结果渲染，模型只负责决定查什么 |
-| RAG 工具已经回答"资料不足"，外层 Agent 却补出了品牌名和客服电话 | 知识类回答直接采用本轮 RAG 工具的结果，不再让外层模型二次改写 |
-| 断电规则排在同一来源的第 4 块，被"每个来源最多 3 块"的配额挤掉 | 第 3 个配额位优先给覆盖新查询词的候选。另一种全局重排方案让 Top-5 命中从 38 降到 33，没有上线 |
-| 分块越大，排序反而越差 | 对比 200 / 400 / 600 字分块后保留 200 字，改用向量 + BM25 融合（见下方检索对比） |
-| 本地 Qwen 模板即使关闭思考仍会输出思考内容，占用生成额度，可能导致回答被截断 | RAG 生成改用只含 `answer` 字段的 JSON schema 约束；被截断的输出直接拒绝，不写入历史 |
-| 线程超时后结果迟到，可能覆盖用户已经清空的会话 | 取消、清空与提交在同一把锁下串行执行；提交前检查本轮状态，迟到结果直接丢弃 |
-| 正则覆盖不了新说法 | LLM 提议、规则校验、失败回退 |
-| 只用 LLM 时危险错误反而更多（15/100，正则为 13/100） | 保留可证伪的校验规则，危险错误降到 10/100 |
-
-## 评测结果
-
-### 检索：分块大小与召回方式
-
-开发集 40 道知识题，统计标注证据是否出现在检索结果中。
-
-| 分块 / 检索方式 | Hit@1 | Hit@3 | Hit@5 |
-| --- | ---: | ---: | ---: |
-| 200 字 / 向量 | 19/40 | 31/40 | 33/40 |
-| 400 字 / 向量 | 15/40 | 30/40 | 34/40 |
-| 600 字 / 向量 | 13/40 | 21/40 | 26/40 |
-| 200 字 / BM25 | 13/40 | 26/40 | 32/40 |
-| **200 字 / 向量 + BM25（RRF）** | **26/40** | **33/40** | **38/40** |
-
-400 字分块的 Hit@5 只多 1 题，Hit@1 却从 19 降到 15，送进模型的上下文还翻了一倍；混合检索的 Hit@1 从 19 提升到 26。
-
-### 端到端问答
-
-"严格通过"指要点完整，而且没有资料不支持的内容。Agent 任务以用户最终收到的回答为准。
-
-| 题集 | 知识题 | 资料不足（正确拒答） | Agent 多轮任务 |
-| --- | ---: | ---: | ---: |
-| 开发集（2026-10-06 版本） | 33/40 | 8/8 | 10/12 |
-| 新题集 generalization_v1：首次测试 | 18/28 | 5/6 | 1/6 |
-| 同一新题集：针对失败修复后 | 20/28 | 6/6 | 4/6 |
-| 新题集 holdout_v2：修复后 | 22/28 | 6/6 | 6/6 |
-
-- 首次测试中 Agent 任务只通过 1/6。多数失败是工具查对了，但最终交付出错，比如字段同义词没有对上、目标月份和对比月份混淆、"报告 + 知识判断"的组合任务漏了一部分。
-- 修复后的两行属于"已见题回归"：题目已经用来定位问题，不能代表对未见问题的泛化能力。之后另行冻结了新题集，结果见下方"意图解析改造（未见题）"。
-- 样本量小，每次只跑一遍；语义判分由 AI 助手辅助完成，未经独立人工盲评。逐题失败分析见 [AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)。
-
-### 意图解析改造（未见题）
-
-P3 冻结版本的组件正确率取均值，与最差一次相同；危险错误取最大一次。Agent 按全部真实轮次完成判任务通过。来源：[evaluation/INTENT_P3_A.md](evaluation/INTENT_P3_A.md)、[evaluation/INTENT_P3_B.md](evaluation/INTENT_P3_B.md)。
-
-| 模式 / 任务 | 组件正确率 | 危险错误 | Agent 全轮通过 |
-| --- | ---: | ---: | ---: |
-| rule | 16.0% | 13/100 | — |
-| llm_only | 79.0% | 15/100 | — |
-| hybrid | 80.0% | 10/100 | — |
-| Agent test（rule → hybrid） | — | — | 1/12 → 4/12 |
-
-默认仍为 `rule`：事先约定的 G5 要求已见任务不退步，但已见基础集从 12/12 降到 10/12、generalization_v1 从 5/6 降到 3/6；`hybrid` 保留为可选开关，判定见 [evaluation/INTENT_P3_REPORT.md](evaluation/INTENT_P3_REPORT.md)。
-
-### 鲁棒性与安全
-
-| 测试项 | 结果 |
-| --- | --- |
-| 故障注入：阻塞、熔断、半开恢复、工具死循环、取消后迟到、名额占满 | 7/7 断言通过 |
-| 未批准、被篡改、已撤销或命中风险规则的资料 | 6/6 未进入模型 |
-| 已进入模型上下文的注入指令（canary） | 0/4 被执行 |
-| 检索片段或工具返回诱导跨用户查询 | 越权执行 0/4 |
-| 合法安全培训资料的首次审核 | 误拦截 2/6 |
-| 已获批准的错误事实 | 2/2 被采纳（未解决） |
-| 工具返回中的恶意文本 | 2/2 原样出现在回答中（未解决） |
-
-以上是 23 条合成样本单次运行的结果，不代表能全面防御投毒或注入。详见 [RUNTIME_STAGE4_VERIFICATION.md](docs/RUNTIME_STAGE4_VERIFICATION.md)。
 
 ## 快速开始
 
@@ -293,38 +224,9 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 
 </details>
 
-## 项目结构
+## 已知限制与项目说明
 
-```text
-├── app.py                    # Streamlit 页面
-├── api/                      # FastAPI：鉴权、会话生命周期、异步等待、就绪检查
-├── agent/
-│   ├── react_agent.py        # Agent 图、最终出口与成功提交
-│   ├── tools/                # 7 个工具、权限校验、中间件
-│   ├── runtime/              # deadline、预算、并发闸门、重试与熔断
-│   ├── context_budget.py     # 请求级 token 预算
-│   └── context_memory.py     # 完整轮次裁剪与结构化摘要
-├── rag/                      # 分块索引、混合检索、来源治理、受约束生成
-├── model/                    # 模型工厂、离线 tokenizer 计数
-├── utils/                    # 报告意图解析、报告渲染、CSV 读取
-├── config/  prompts/         # 配置与提示词
-├── data/                     # 演示知识资料与合成使用记录
-├── evaluation/               # 题集、评测脚本、Harness 与结果
-├── tests/                    # pytest 离线回归
-├── scripts/manage.py         # doctor / index / serve / api / pytest / demo / harness / knowledge
-└── docs/                     # 设计说明、验收记录、部署与 API 文档
-```
-
-## 已知限制
-
-- **规模**：只在 6 份资料、326 个分块和 120 条合成记录上验证过，没有测过大规模语料和高并发。
-- **身份**：API 使用共享的 Bearer 密钥，CSV 中的用户 ID 只是演示用的数据选择，不是多租户认证。
-- **部署**：只支持单进程、单 worker；会话和熔断状态保存在内存中，重启后丢失。
-- **回答质量**：默认的报告意图解析基于规则，覆盖不了任意说法；可选的 hybrid 在未见题上组件正确率 80%，但仍有 10/100 危险错误，端到端只通过 4/12，主要瓶颈在工具规划。知识回答仍会出现漏步骤、混用部件条件的情况。
-- **安全**：无法识别已获批准的错误资料；工具返回中的恶意文本可能经直出路径展示给用户。
-- **功能**：天气接口未接入；回答是一次性返回的，不支持 token 级流式输出。
-
-完整说明见 [LIMITATIONS.md](docs/LIMITATIONS.md)。
+售后扩展仍会漏查、混淆数据源、生成无依据的描述，确认前的完成声明守卫也有漏判；载体文本可能被事实块原样展示。API 共享密钥、单进程会话和合成数据还不足以支持真实业务部署。[完整限制](docs/LIMITATIONS.md) · [简历与面试问答](docs/RESUME_AND_INTERVIEW.md)。
 
 ## 文档导航
 
@@ -339,3 +241,6 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 | HTTP 接口 / Docker 部署 | [API.md](docs/API.md)、[DEPLOYMENT.md](docs/DEPLOYMENT.md) |
 | 演示流程 | [DEMO.md](docs/DEMO.md) |
 | 旧版 README（逐阶段验证记录） | [README_ARCHIVE.md](docs/README_ARCHIVE.md) |
+
+
+第二阶段：[S5 正式报告](docs/SERVICE_AGENT_S5_REPORT.md) · [实施计划](docs/plans/SERVICE_AGENT_PLAN.md) · [售后演示](docs/DEMO.md#s7-售后服务真实界面演示) · [简历与面试](docs/RESUME_AND_INTERVIEW.md)
