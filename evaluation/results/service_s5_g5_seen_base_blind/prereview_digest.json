@@ -1,0 +1,29 @@
+{
+  "files": [
+    {
+      "path": "blind_cases.jsonl",
+      "sha256": "946a24a10372b8bccde1d4971df22fe62647ab70a467c0a7d14cf2c29c0ed605"
+    },
+    {
+      "path": "blind_key.jsonl",
+      "sha256": "263bff0389724f114630b9d79c868acd50569a3425a101ab134e2450646f02d3"
+    },
+    {
+      "path": "blind_manifest.json",
+      "sha256": "ebd4843a3ddf3002dd4960833e321bfe47e7176d34cd891eed409317472fffe6"
+    },
+    {
+      "path": "comparison.json",
+      "sha256": "2666b5d38b358c994c624c07a903614465da5c57b38de1e72617f2ae0fda5d27"
+    },
+    {
+      "path": "comparison.md",
+      "sha256": "14b20a2ba117bca30a136b6355c8b4798d7c342b5cd219456148a4f68cccf2a7"
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "purpose": "Pre-review digest; semantic scores and final archive seal remain pending.",
+  "total_hash_input": "UTF-8 encoding of the files array serialized with ensure_ascii=false, sort_keys=true, separators=(comma,colon), no trailing newline.",
+  "total_sha256": "e4f6c6672b7c7c8533cbdfe1ca5066bdff08b8f8dd7ce10977e45bd1d83976e4",
+  "version": 1
+}
