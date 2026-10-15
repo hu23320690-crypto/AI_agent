@@ -29,7 +29,9 @@ def scripted_model(spec):
             if 'error' in response:
                 raise RuntimeError(response['error'])
             calls = response.get('calls', [])
-            message = AIMessage(content=response.get('answer', ''), tool_calls=[
+            import json
+            content = json.dumps(response['plan'], ensure_ascii=False) if 'plan' in response else response.get('answer', '')
+            message = AIMessage(content=content, tool_calls=[
                 {'name': row['name'], 'args': row.get('args', {}), 'id': f'script-{len(self.script)}-{i}'}
                 for i, row in enumerate(calls)],
                 response_metadata={'done_reason': 'length' if response.get('truncated') else 'stop'})

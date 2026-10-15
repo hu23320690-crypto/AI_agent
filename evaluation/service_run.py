@@ -216,18 +216,21 @@ def careful_event(agent, case, row, event):
     return entry
 
 
-def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None, overlay_root=ROOT, seed=20261014):
+def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None, overlay_root=ROOT, seed=20261014, mode='react'):
     """Trusted in-process entry used only with synthetic cases in tests."""
     from evaluation.service_trace import TurnTrace
     from service_desk.db import content_sha256
     from evaluation.service_fake import scripted_model
     random.seed(seed)
     on_change = on_change or (lambda row: None)
-    row = {'id': case['id'], 'user_id': case['user_id'], 'mode': 'react', 'status': 'running',
+    if mode not in ('react', 'plan'):
+        raise ValueError('mode must be react or plan')
+    row = {'id': case['id'], 'user_id': case['user_id'], 'mode': mode, 'status': 'running',
            'session_id': str(uuid4()), 'turns': [], 'operations': [], 'db_path': str(db_path),
            'initial_db': database_snapshot(db_path)}
     on_change(row)
-    with model_scope(spec, seed):
+    from unittest.mock import patch
+    with model_scope(spec, seed), patch.dict(os.environ, {'AGENT_MODE': mode}):
         from agent.react_agent import ReactAgent
         kwargs = {'user_id': case['user_id'], 'session_id': row['session_id'], 'service_db_path': db_path}
         if spec is not None:
@@ -293,7 +296,7 @@ def execute_case(case, db_path, *, spec=None, on_change=None, agent_factory=None
     return row
 
 
-def run_task(case, run, *, timeout=240, script=None, validate_identity=None):
+def run_task(case, run, *, timeout=240, script=None, validate_identity=None, mode='react'):
     """Claim BEFORE dispatch: an interrupted/failed/timed-out case never reruns."""
     raw = run / 'raw' / (case['id'] + '.json')
     if raw.exists():
@@ -305,7 +308,7 @@ def run_task(case, run, *, timeout=240, script=None, validate_identity=None):
                 raise ValueError('Stored task database changed')
         return existing
     db = run / 'databases' / (case['id'] + '.db')
-    claim = {'id': case['id'], 'user_id': case['user_id'], 'mode': 'react', 'status': 'error',
+    claim = {'id': case['id'], 'user_id': case['user_id'], 'mode': mode, 'status': 'error',
              'error_type': 'InterruptedRun', 'error': 'Claimed task without terminal worker result',
              'turns': [], 'operations': [], 'db_path': str(db),
              'initial_db': database_snapshot(run / 'seed.db')}
@@ -313,14 +316,14 @@ def run_task(case, run, *, timeout=240, script=None, validate_identity=None):
         handle.write(canonical(claim) + '\n')
     shutil.copyfile(run / 'seed.db', db)
     partial = run / 'workers' / (case['id'] + '.json')
-    command = [sys.executable, '-B', '-m', 'evaluation.service_run', '--worker', '--run', str(run), '--case', case['id']]
+    command = [sys.executable, '-B', '-m', 'evaluation.service_run', '--worker', '--run', str(run), '--case', case['id'], '--mode', mode]
     if script:
         command += ['--script', str(script)]
     started = time.perf_counter()
     with (run / 'logs' / (case['id'] + '.log')).open('w', encoding='utf-8') as log:
         try:
             subprocess.run(command, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=timeout,
-                           check=True, env={**os.environ, 'AGENT_TOOLSET': 'service', 'PYTHONUTF8': '1'})
+                           check=True, env={**os.environ, 'AGENT_TOOLSET': 'service', 'AGENT_MODE': mode, 'PYTHONUTF8': '1'})
             row = json.loads(partial.read_text(encoding='utf-8'))
         except Exception as error:
             try:
@@ -363,8 +366,6 @@ def main(argv=None):
     parser.add_argument('--worker', action='store_true', help=argparse.SUPPRESS)
     parser.add_argument('--case', help=argparse.SUPPRESS)
     args = parser.parse_args(argv)
-    if args.mode == 'plan':
-        parser.error('plan 模式由 S3 实现')
     if not math.isfinite(args.timeout) or args.timeout <= 0:
         parser.error('--timeout must be positive')
     run = Path(args.run).resolve()
@@ -377,7 +378,7 @@ def main(argv=None):
         case = next(case for case in cases if case['id'] == args.case)
         spec = json.loads(Path(args.script).read_text(encoding='utf-8'))[case['id']] if args.script else None
         execute_case(case, run / 'databases' / (case['id'] + '.db'), spec=spec,
-                     seed=manifest['seed'],
+                     seed=manifest['seed'], mode=manifest['mode'],
                      on_change=lambda row: dump(run / 'workers' / (case['id'] + '.json'), row))
         return 0
     dataset = Path(args.dataset)
@@ -428,7 +429,7 @@ def main(argv=None):
     for case in selected:
         assert_resume_identity(identity, environment_identity(dataset, timeout=args.timeout, mode=args.mode,
             seed=args.seed, ids=args.ids, script=args.script))
-        row = run_task(case, run, timeout=args.timeout, script=args.script,
+        row = run_task(case, run, timeout=args.timeout, script=args.script, mode=args.mode,
                        validate_identity=lambda: assert_resume_identity(identity, environment_identity(dataset,
                            timeout=args.timeout, mode=args.mode, seed=args.seed, ids=args.ids, script=args.script)))
         rows.append(row)

@@ -181,12 +181,14 @@ def test_formal_approved_amendment_hash_chain(tmp_path):
     assert verify_dataset(dataset, root=tmp_path, formal=True, environ={'SERVICE_EVAL_FORMAL': '1'})
 
 
-def test_plan_placeholder_rejects_before_reading_a_dataset(tmp_path, monkeypatch, capsys):
+def test_plan_mode_reaches_normal_dataset_gate(tmp_path, monkeypatch):
     from evaluation.service_run import main
-    monkeypatch.setattr('evaluation.service_run.verify_dataset', lambda *a, **k: pytest.fail('must not read dataset'))
-    with pytest.raises(SystemExit) as error:
+    def dataset_gate(*args, **kwargs):
+        raise ValueError('synthetic dataset gate')
+    monkeypatch.setattr('evaluation.service_run.verify_dataset', dataset_gate)
+    with pytest.raises(ValueError, match='synthetic dataset gate') as error:
         main(['--run', str(tmp_path / 'run'), '--mode', 'plan'])
-    assert error.value.code == 2 and 'S3 实现' in capsys.readouterr().err
+    assert str(error.value) == 'synthetic dataset gate'
 
 
 def test_proposal_order_uses_committed_generation_sequence(db):
