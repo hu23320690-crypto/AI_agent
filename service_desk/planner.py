@@ -5,7 +5,7 @@ from pathlib import Path
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_ollama import ChatOllama
 
-from agent.context_budget import ContextBudgetExceeded, enforce_request, sanitize_messages
+from agent.context_budget import ContextBudgetExceeded, enforce_request, sanitize_messages, estimate_request
 from agent.runtime import dependency_call, dependency_key
 from model.factory import budgeted_chat_model
 from service_desk import plan_core
@@ -48,6 +48,8 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
                           'answer': str(history[index + 1].content)[-512:]})
     data = {'query': query, 'history': turns[-2:], 'pending_cards': [dict(c) for c in cards],
             'business_date': context['business_date'], 'feedback': feedback}
+    from service_desk.signals import recognize
+    data['service_signals'] = context.get('service_signals') or recognize(query)
     prompt = (ROOT / 'prompts/service_planner.txt').read_text(encoding='utf-8')
     while True:
         messages = sanitize_messages([SystemMessage(content=prompt),
@@ -55,6 +57,14 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
         try:
             enforce_request(messages, response_format=schema, policy=policy, model=model,
                             run=run, label='agent.planner')
+            if run is not None:
+                base = estimate_request([], model=model)
+                prompt_tokens = estimate_request(messages[:1], model=model) - base
+                context_tokens = estimate_request(messages[1:], model=model) - base
+                schema_tokens = estimate_request([], response_format=schema, model=model) - base
+                run.note('planner_input_tokens', prompt=prompt_tokens, context=context_tokens,
+                         schema=schema_tokens, framing=base,
+                         total=prompt_tokens + context_tokens + schema_tokens + base)
             return messages
         except ContextBudgetExceeded:
             if data['history']:
@@ -75,7 +85,7 @@ def planner_messages(query, history, cards, context, feedback, *, model, policy,
 def request_plan(query, history, cards, context, feedback, *, model, policy):
     run = context['run_context']
     run.check_budget('model')
-    schema = plan_core.plan_json_schema()
+    schema = compact_schema(plan_core.plan_json_schema())
     selected = budgeted_chat_model(model, policy)
     if isinstance(selected, ChatOllama):
         selected = selected.model_copy(update={'format': schema, 'reasoning': False, 'temperature': 0})
@@ -93,3 +103,20 @@ def request_plan(query, history, cards, context, feedback, *, model, policy):
                               ensure_ascii=False), run.limits.max_output_chars, '模型输出')
     run.validate_commit_checks()
     return parse_plan(response)
+
+
+def compact_schema(node):
+    """Remove annotation-only metadata, preserving all named properties/defs."""
+    if isinstance(node, list):
+        return [compact_schema(value) for value in node]
+    if not isinstance(node, dict):
+        return node
+    result = {}
+    for key, value in node.items():
+        if key in ('title', 'description'):
+            continue
+        if key in ('properties', '$defs', 'patternProperties', 'dependentSchemas'):
+            result[key] = {name: compact_schema(schema) for name, schema in value.items()}
+        else:
+            result[key] = compact_schema(value)
+    return result

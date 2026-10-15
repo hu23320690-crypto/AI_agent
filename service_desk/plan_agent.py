@@ -104,12 +104,17 @@ class PlanTurn:
         # Completed evidence is virtual for validation; it consumes no new calls.
         return {'user_text': self.query, 'history_user_texts': self.context['rag_user_history'],
                 'business_date': self.context['business_date'], 'pending_cards': self.cards,
+                'service_signals': self.context.get('service_signals'),
                 'remaining_model_calls': self.run.remaining_calls('model') + sum(s['tool'] == 'rag_summarize' for s in completed),
                 'remaining_tool_calls': self.run.remaining_calls('tool') + len(completed)}
 
     def validate(self, state):
         proposal = state['proposal']
-        candidate = deepcopy(proposal)
+        candidate, corrections = plan_core.normalize_plan(proposal, self._validation_context())
+        for correction in corrections:
+            with self.run.lock:
+                self.run.counts["plan_normalizations"] += 1
+            self.run.note("plan_normalization", **correction)
         completed = []
         extra_errors = []
         if self.repair and isinstance(candidate, dict):
@@ -206,6 +211,14 @@ class PlanTurn:
                     self.ask = {'type': kind or 'other', 'text': '请明确要处理的对象。'}
                 continue
             arguments = resolved['args']
+            if step['tool'] == 'find_service_slots':
+                targets = [source['date']['value'] for later in self.current['steps']
+                           for source in later.get('args', {}).values()
+                           if isinstance(source, dict) and source.get('pick') == 'slot_at'
+                           and source.get('from_step') == key]
+                if targets:
+                    arguments['from_date'] = min(targets)
+                    self.run.note('plan_slot_from_date', step_id=key, from_date=arguments['from_date'])
             if self.repair and step['tool'] not in plan_core.WRITE_TOOLS:
                 reused = next((r for k, r in self.results.items() if self.states[k]['status'] == 'done'
                                and r['tool'] == step['tool'] and r['args'] == arguments), None)

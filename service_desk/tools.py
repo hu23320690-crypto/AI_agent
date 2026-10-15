@@ -100,7 +100,7 @@ def _read(name, args, context, connection):
             'SELECT s.slot_id,s.region,s.start_at,s.end_at,s.capacity-s.booked AS available '
             'FROM service_slots s JOIN users u ON u.region=s.region '
             'WHERE u.user_id=? AND s.booked<s.capacity AND substr(s.start_at,1,10)>=? '
-            'AND substr(s.start_at,1,10)<? AND substr(s.start_at,1,10)>? ORDER BY s.start_at,s.slot_id',
+            'AND substr(s.start_at,1,10)<? AND substr(s.start_at,1,10)>? ORDER BY s.start_at,s.slot_id LIMIT 6',
             (user, start.isoformat(), end.isoformat(), today.isoformat()))
         return {'device_id': args['device_id'], 'slots': [dict(row) for row in rows]}
     if name == 'find_consumables':

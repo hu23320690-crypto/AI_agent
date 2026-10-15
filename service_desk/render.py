@@ -38,7 +38,7 @@ TOKEN_PATTERNS = (
     re.compile(r"[0-9]{1,2}:[0-9]{2}"),
     re.compile(AMOUNT_PATTERN),
     re.compile(r"[0-9]+(?:\.[0-9]+)?\s*%"),
-    re.compile(r"[0-9]+(?:\.[0-9]+)?\s*(?:天|个|件|次|㎡|分钟)"),
+    re.compile(r"[0-9]+(?:\.[0-9]+)?\s*(?:个工作日|工作日|小时|分钟|秒|周|天|个|件|次|㎡)"),
 )
 
 CLAIM_RE = re.compile(r"已(?:为你|帮你)?(?:预约|下单|取消|提交|创建|改约)")
@@ -222,7 +222,7 @@ def _is_failure(payload: object) -> bool:
     return payload.get("ok") is False
 
 
-NUMBER_UNIT_RE = re.compile(r"([0-9]+(?:\.[0-9]+)?)(天|个|件|次|㎡|分钟|元|分|%)")
+NUMBER_UNIT_RE = re.compile(r"([0-9]+(?:\.[0-9]+)?)(个工作日|工作日|小时|分钟|秒|周|天|个|件|次|㎡|元|分|%)")
 
 AMOUNT_RE = re.compile(r"([0-9]+(?:\.[0-9]+)?)(元|分)")
 

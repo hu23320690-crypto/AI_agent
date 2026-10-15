@@ -27,6 +27,7 @@ __all__ = [
     "parse_time",
     "parse_number",
     "validate_plan",
+    "normalize_plan",
     "resolve_args",
     "evaluate_condition",
     "precheck",
@@ -451,7 +452,15 @@ class ConsumablePickArg(BaseModel):
 
     from_step: str
     pick: Literal["consumable_kind"]
-    kind: str
+    kind: Union[str, EnumArg]
+
+
+class RecordKindEnum(EnumArg):
+    enum: Literal["order", "appointment"]
+
+
+class RecordStatusEnum(EnumArg):
+    enum: Literal["processing", "scheduled"]
 
 
 class RecordPickArg(BaseModel):
@@ -461,9 +470,9 @@ class RecordPickArg(BaseModel):
 
     from_step: str
     pick: Literal["record"]
-    kind: Literal["order", "appointment"]
+    kind: Union[Literal["order", "appointment"], RecordKindEnum]
     id: ValueArg | None = None
-    status: Literal["processing", "scheduled"] | None = None
+    status: Union[Literal["processing", "scheduled"], RecordStatusEnum] | None = None
     hint: str | None = None
 
 
@@ -633,6 +642,10 @@ def _error(code: str, step_id: str | None, detail: str) -> dict:
 
 def _normalize(text: Any) -> str:
     """校验用的文本规范化。"""
+    if isinstance(text, EnumArg):
+        text = text.enum
+    elif isinstance(text, dict) and set(text) == {"enum"}:
+        text = text["enum"]
     return normalize_text(text)
 
 
@@ -852,6 +865,12 @@ def _validate_value_source(
     return _recompute_errors(
         step_id, name, raw, None, business_date, f"参数 {name} 的取值必须原样出现在 evidence 里"
     )
+
+
+def normalize_plan(plan: dict, ctx: dict) -> tuple[dict, list[dict]]:
+    """Repair unambiguous syntax without conferring execution authority."""
+    from service_desk.normalization import normalize_plan as normalize
+    return normalize(plan, ctx)
 
 
 def validate_plan(plan: dict, ctx: dict) -> dict:
@@ -1079,6 +1098,8 @@ def validate_plan(plan: dict, ctx: dict) -> dict:
     if remaining_tool_calls is not None and len(steps) > remaining_tool_calls:
         errors.append(_error("P8", None, "步骤总数超出剩余工具调用预算"))
 
+    from service_desk.signals import recognize, validate_signals
+    errors.extend(validate_signals(plan_dict, ctx.get("service_signals") or recognize(ctx.get("user_text", ""))))
     return {"ok": not errors, "errors": errors, "plan": plan_dict}
 
 

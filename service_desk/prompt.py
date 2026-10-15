@@ -14,6 +14,8 @@ def service_prompt(context):
     if context.get('report') and context.get('report_data'):
         prompt += '\n' + load_report_prompts()
         prompt += '\n本轮已查询的报告资料：' + json.dumps(context['report_data'], ensure_ascii=False)
+    from service_desk.signals import recognize, prompt_hints
+    prompt += "\n" + prompt_hints(context.get("service_signals") or recognize(context.get("user_query", "")))
     return prompt
 
 

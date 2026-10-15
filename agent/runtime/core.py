@@ -199,6 +199,7 @@ class RunContext:
                     'replans': self.counts['replans'],
                     'plan_fallback': bool(self.counts['plan_fallback']),
                     'skipped_steps': self.counts['skipped_steps'],
+                    'plan_normalizations': self.counts['plan_normalizations'],
                     'error_type': type(self.error).__name__ if self.error else None,
                     'events': [dict(event) for event in self.events]}
 
