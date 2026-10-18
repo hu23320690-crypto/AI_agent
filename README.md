@@ -4,11 +4,38 @@
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB)
 ![Ollama](https://img.shields.io/badge/Ollama-Qwen3%3A4b-000000)
 
-本地 Qwen3:4b 驱动的中文客服 Agent。第一阶段实现知识问答与使用报告，默认使用 **legacy 工具集 + react 模式**；第二阶段增加可选的售后服务工具集，支持报修预约、耗材下单、改约和取消。写操作采用两段式提交：模型生成待确认卡片，用户确认或拒绝后，由代码确定性执行并留下审计记录；另提供可选的 Plan → Execute → Verify 模式。
+本地 Qwen3:4b 驱动的中文客服 Agent：知识问答、使用报告、报修预约、耗材下单、改约/取消。默认 `legacy + react`；`service` 工具集和 `plan` 模式为可选扩展。
 
-## 结果一览
+> 重点不是让 4B 模型“更聪明”，而是在模型会出错的前提下，用权限、事务、预算和评测把系统兜住。
 
-以下数字均来自 [S5 正式评测报告](docs/SERVICE_AGENT_S5_REPORT.md)；业务数据、设备、型号、政策均为合成演示数据。盲评为助手辅助、隐藏标签，评审方参与过 gold 审核，不是独立专家评审。
+![service + react：事实块、待确认卡片与确认后的已执行状态](docs/images/service_demo.gif)
+
+> 演示为真实界面截取，使用合成数据；画面保留了一次“知识资料不可用”和确认前措辞不准确，只展示交互机制，不作为任务质量成绩。[复现步骤](docs/DEMO.md#s7-售后服务真实界面演示)
+
+## 30 秒了解
+
+- **能做什么**：多轮知识问答、月度使用报告、设备/保修/时段查询，以及报修、耗材下单、改约/取消。
+- **怎么写操作**：模型只能生成 `pending_actions` 待确认卡片；确认/拒绝入口不注册为工具，由代码重新校验会话、用户、参数哈希、状态和有效期，在事务内执行并写审计。
+- **怎么证明**：离线 pytest + Ubuntu/Windows CI + Docker smoke；冻结题集、自动评分和失败留存。以下数字均为小样本，不构成生产结论。
+
+## 核心设计
+
+| 设计 | 实现 | 解决什么 |
+| --- | --- | --- |
+| 两段式写操作 | `pending_actions` · 参数 SHA256 · 事务 · 幂等 · 审计 | 模型不能直接下单/预约；重复确认、跨用户、篡改参数会被拒绝 |
+| 双 Agent 路径 | `react`：LangChain `create_agent`；`plan`：LangGraph Plan → Validate → Execute → Verify | 同一套工具/权限层下比较“自由 ReAct”与“结构化计划” |
+| 可治理运行时 | deadline · 调用预算 · 并发闸门 · 取消 · 重试/熔断 · 上下文预算与摘要 | 模型卡住、超预算、丢历史时，系统可中止、回退、留痕 |
+
+## 结果（带分母）
+
+- **写操作安全**：H1–H6 硬门槛事件在四个正式运行中均为 **0**；离线对抗测试另覆盖参数篡改、重放、跨用户、过期和并发确认。
+- **工具提议**：test/plan 提议精确率 **17/17**、召回率 **17/20**；工具调对不等于任务完成。
+- **端到端任务**：test 上 react **10/30**、plan **12/30**（+6.67pp，未达预设 15pp），因此默认仍保留 `legacy + react`。
+
+> 评测为小样本、每种模式只跑一次；盲评为助手辅助、隐藏标签，不是独立专家评审。完整数字、失败案例与限制见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 和 [LIMITATIONS.md](docs/LIMITATIONS.md)。
+
+<details>
+<summary>完整结果与口径</summary>
 
 | 项目 | react / legacy 对照 | plan / service 对照 |
 | --- | --- | --- |
@@ -24,35 +51,15 @@
 
 plan 未达到预设提升门槛，service 在旧任务上退步，因此默认仍为 legacy + react。每种模式只跑一次、样本小，不作显著性结论；完整口径与限制见报告第 3–9 节。
 
-## 真实界面演示
+</details>
 
-![service + react：事实块、待确认卡片与确认后的已执行状态](docs/images/service_demo.gif)
+## 项目来源与个人贡献
 
-演示使用 dev 题与独立合成数据库。卡片位于聊天主区域，点击“确认”后状态变为“已执行”。画面保留本次知识资料不可用及确认前措辞不准确的回答；这段演示用于展示交互机制，不作为任务质量成绩。[复现命令、问题与局限](docs/DEMO.md#s7-售后服务真实界面演示)。
+- 第一阶段的 RAG/工具骨架参考公开课程项目“智扫通”，并在此基础上做了运行时、上下文、来源治理和评测扩展；第二阶段的 `service` 工具集、两段式写入、Plan/Execute/Verify、SQLite 业务数据和 S5 评测为新增。
+- 代码与文档在 AI 辅助下完成；作者负责问题定义、设计取舍、规格、集成、测试与评测复核。
+- 所有数字均可在仓库内复核；建议先按 [DEMO.md](docs/DEMO.md) 复现，再读 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 的口径与限制。
 
-完成下方依赖、模型、索引准备后，首次使用 service 需初始化合成数据库（已有数据库时不要覆盖）：
-
-```powershell
-.\.venv\Scripts\python.exe -B scripts/manage.py service-db init
-```
-
-**启用售后工具集（service + react）**：
-
-```powershell
-$env:AGENT_TOOLSET = 'service'
-$env:AGENT_MODE = 'react'
-.\.venv\Scripts\python.exe -B scripts/manage.py serve
-```
-
-**启用规划模式（service + plan）**，在新的终端中运行，或先停止已有服务：
-
-```powershell
-$env:AGENT_TOOLSET = 'service'
-$env:AGENT_MODE = 'plan'
-.\.venv\Scripts\python.exe -B scripts/manage.py serve
-```
-
-这些命令只设置当前终端的环境变量。默认配置文件保持 legacy + react；结束试用后关闭该终端，或移除上述两个环境变量。
+**最快路径**：Python 3.12 + `pip install -r requirements-lock.txt` + `ollama pull qwen3:4b` / `qwen3-embedding:4b`，然后 `doctor` → `index` → `serve`；完整命令见 [快速开始](#快速开始)。
 
 ## 售后服务架构（第二阶段）
 
@@ -153,6 +160,32 @@ ollama pull qwen3-embedding:4b
 
 页面侧栏默认的演示用户是 1001。
 
+**试用售后服务（可选）**
+
+首次使用 service 需初始化合成数据库（已有数据库时不要覆盖）：
+
+```powershell
+.\.venv\Scripts\python.exe -B scripts/manage.py service-db init
+```
+
+启用售后工具集（service + react）：
+
+```powershell
+$env:AGENT_TOOLSET = 'service'
+$env:AGENT_MODE = 'react'
+.\.venv\Scripts\python.exe -B scripts/manage.py serve
+```
+
+启用规划模式（service + plan），在新的终端中运行，或先停止已有服务：
+
+```powershell
+$env:AGENT_TOOLSET = 'service'
+$env:AGENT_MODE = 'plan'
+.\.venv\Scripts\python.exe -B scripts/manage.py serve
+```
+
+这些命令只设置当前终端的环境变量。默认配置文件保持 legacy + react；结束试用后关闭该终端，或移除上述两个环境变量。
+
 **可选 hybrid 模式**
 
 默认意图模式为 `rule`。要开启 `hybrid`，在启动页面或 API 前设置环境变量，并重启已有服务进程：
@@ -226,7 +259,7 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 
 ## 已知限制与项目说明
 
-售后扩展仍会漏查、混淆数据源、生成无依据的描述，确认前的完成声明守卫也有漏判；载体文本可能被事实块原样展示。API 共享密钥、单进程会话和合成数据还不足以支持真实业务部署。[完整限制](docs/LIMITATIONS.md) · [简历与面试问答](docs/RESUME_AND_INTERVIEW.md)。
+售后扩展仍会漏查、混淆数据源、生成无依据的描述，确认前的完成声明守卫也有漏判；载体文本可能被事实块原样展示。API 共享密钥、单进程会话和合成数据还不足以支持真实业务部署。[完整限制](docs/LIMITATIONS.md)。
 
 ## 文档导航
 
@@ -243,4 +276,4 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 | 旧版 README（逐阶段验证记录） | [README_ARCHIVE.md](docs/README_ARCHIVE.md) |
 
 
-第二阶段：[S5 正式报告](docs/SERVICE_AGENT_S5_REPORT.md) · [实施计划](docs/plans/SERVICE_AGENT_PLAN.md) · [售后演示](docs/DEMO.md#s7-售后服务真实界面演示) · [简历与面试](docs/RESUME_AND_INTERVIEW.md)
+第二阶段：[S5 正式报告](docs/SERVICE_AGENT_S5_REPORT.md) · [实施计划](docs/plans/SERVICE_AGENT_PLAN.md) · [售后演示](docs/DEMO.md#s7-售后服务真实界面演示)
