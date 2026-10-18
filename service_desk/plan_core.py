@@ -1,4 +1,4 @@
-# 初稿由 DeepSeek 按 docs/plans/s3/DS2_PLAN_CORE_PROMPT.md 编写，经作者两轮复核。
+# 由 DeepSeek 协助编写。
 """售后服务 Agent 的计划模型、校验、参数解析、条件判断和写操作预检。
 
 planner（小模型）只声明"要做什么、查哪些工具、参数从哪里来"，本模块负责
