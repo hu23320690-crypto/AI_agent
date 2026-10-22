@@ -35,6 +35,8 @@ powershell -ExecutionPolicy Bypass -File scripts/run_model_comparison.ps1
 
 默认依次用 qwen3:4b、gemma4:12b 跑 generalization_v1 与 holdout_v2（各 40 题：28 知识、6 资料不足、6 Agent），每个组合写入新目录 `evaluation/results/model_cmp_<日期>_<题集>_<模型>`，并生成 report/export。中断后用同一 `-Tag` 重跑即可续跑。脚本只改 `config/rag.yml` 的 chat_model_name，结束时恢复原文件。
 
+加 `-Suite service` 则对每个模型跑 S5 service test 集的 react 与 plan 端到端任务（`evaluation.service_run` + `service_score`），写入 `model_cmp_<日期>_service_test_<模式>_<模型>`；该题集已在 S5 正式使用，运行器的正式开关只在这次调用中打开。语义复核用 `evaluation.service_review create --automatic-pass-only`，结果见[对照报告](../../docs/MODEL_COMPARISON_GEMMA4.md#端到端售后任务s5-test-集)。
+
 2026-10-22 的 3 题冒烟（V2K01、V2N01、V2A02）两模型均 3/3 执行完成；gemma4 的 34 次请求全部使用 `local_gemma4_bpe` 计数且 0 次预算超限。冒烟目录在临时文件夹，不计成绩。
 
 ## 对照基准与解读限制

@@ -31,7 +31,7 @@
 - **写操作安全**：H1–H6 硬门槛事件在四个正式运行中均为 **0**；离线对抗测试另覆盖参数篡改、重放、跨用户、过期和并发确认。
 - **工具提议**：test/plan 提议精确率 **17/17**、召回率 **17/20**；工具调对不等于任务完成。
 - **端到端任务**：test 上 react **10/30**、plan **12/30**（+6.67pp，未达预设 15pp），因此默认仍保留 `legacy + react`。
-- **换模型对照**：同代码、同索引、同机器只把聊天模型换成 gemma4:12b，两套已见题知识严格通过 qwen3:4b **40/56** → gemma4:12b **48/56**，资料不足 **11/12 → 12/12**，Agent 全轮均为 **11/12**；差距主要来自忠实度（无据补充 10 次对 2 次）。默认模型仍为 qwen3:4b，见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
+- **换模型对照**：同代码、同索引、同机器只把聊天模型换成 gemma4:12b，两套已见题知识严格通过 qwen3:4b **40/56** → gemma4:12b **48/56**，资料不足 **11/12 → 12/12**，Agent 全轮均为 **11/12**；差距主要来自忠实度（无据补充 10 次对 2 次）。端到端售后任务（service test 已见重跑）全轮通过 react **10/30 → 14/30**、plan **9/30 → 14/30**，H1–H6 仍均为 0。默认模型仍为 qwen3:4b，见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
 
 > 评测为小样本、每种模式只跑一次；盲评为助手辅助、隐藏标签，不是独立专家评审。完整数字、失败案例与限制见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 和 [LIMITATIONS.md](docs/LIMITATIONS.md)。
 
@@ -58,8 +58,12 @@ plan 未达到预设提升门槛，service 在旧任务上退步，因此默认�
 | --- | --- | --- | --- |
 | generalization_v1（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 19/28 · 6/6 · 5/6 | **24/28** · 6/6 · 5/6 |
 | holdout_v2（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 21/28 · 5/6 · 6/6 | **24/28** · **6/6** · 6/6 |
+| service test 端到端（已见重跑） | 全轮任务 react / plan | 10/30 · 9/30 | **14/30** · **14/30** |
+| | 自动部分通过 react / plan | 15/30 · 15/30 | 19/30 · **22/30** |
+| | 提议精确率 / 召回率 react | 16/20 · 16/20 | 8/8 · 8/20 |
+| | 提议精确率 / 召回率 plan | 15/17 · 15/20 | 14/14 · 14/20 |
 
-两模型共用检索结果与 8192 上下文；为此给 gemma4 加了与 Ollama 计数逐条一致的离线 tokenizer。Agent 层多为程序渲染，几乎不区分模型；单次运行、已见题、助手评审，不作显著性结论，详见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
+两模型共用检索结果与 8192 上下文；为此给 gemma4 加了与 Ollama 计数逐条一致的离线 tokenizer。问答 Agent 层多为程序渲染，几乎不区分模型。端到端任务中 qwen3 多在确认前声称已改约/已取消，gemma4 react 常不生成卡片、plan 能补上；S5 后 plan_core/render 有改动，qwen3 在当前代码上重跑，S5 原成绩只作参照。单次运行、已见题、助手评审，不作显著性结论，详见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md#端到端售后任务s5-test-集)。
 
 </details>
 
@@ -248,7 +252,7 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 .\.venv\Scripts\python.exe -B scripts/manage.py doctor
 ```
 
-改用 gemma4:12b 时加 `--model gemma4:12b`；同机两模型对照用 `scripts/run_model_comparison.ps1`，见 [对照说明](artifacts/gemma4_comparison/README.md)。
+改用 gemma4:12b 时加 `--model gemma4:12b`；同机两模型对照用 `scripts/run_model_comparison.ps1`（加 `-Suite service` 跑售后端到端），见 [对照说明](artifacts/gemma4_comparison/README.md)。
 
 新增或修改知识资料（UTF-8 TXT 或可提取文字的 PDF）时，需要先审核再入库：
 
