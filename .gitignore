@@ -23,6 +23,15 @@ dist/
 evaluation/results/*/logs/
 evaluation/results/*/workers/
 
+# Service end-to-end model comparison: raw records, task databases and code
+# snapshots (~359 MB) stay local, as for the S5 service runs; scores, reviews,
+# manifests and the locked blind review are published.
+/evaluation/results/model_cmp_*_service_test_*/raw/
+/evaluation/results/model_cmp_*_service_test_*/databases/
+/evaluation/results/model_cmp_*_service_test_*/snapshot/
+/evaluation/results/model_cmp_*_service_test_*/results.jsonl
+/evaluation/results/model_cmp_*_service_test_*/seed.db
+
 # Local repair trials remain available for diagnosis; publish the final run.
 /evaluation/results/agent_task_repair_trial_v1/
 /evaluation/results/agent_task_repair_v1/
