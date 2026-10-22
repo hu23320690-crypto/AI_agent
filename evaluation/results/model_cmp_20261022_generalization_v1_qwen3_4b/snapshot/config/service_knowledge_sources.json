@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "path": "sv-100_manual.txt",
+      "source_id": "src_439b6e152f51188ee42139a1",
+      "version": 1,
+      "sha256": "fdc2733705160eb9f4eb4f5881ad960450eda0c15ae204667ae170e635b3e230",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "sv-200_manual.txt",
+      "source_id": "src_b5613463f7cfda0858b54090",
+      "version": 1,
+      "sha256": "09fa6d85fbd8a621b821f472eb3a68b049595f0b91184702e41f262c52f7337c",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "sv-300_manual.txt",
+      "source_id": "src_68e6eb65f1a52a8d3411cc7e",
+      "version": 1,
+      "sha256": "85e051a1abb7a31e66a66f4920f64ddd0ea9368102d5bc9ec2b06f735a247c1e",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "sv-400_manual.txt",
+      "source_id": "src_8c8c6653b1b2a219dba1a19e",
+      "version": 1,
+      "sha256": "4c61344c17e2b827c443032aeb9cf590f26c204640bd0937240e4ff1dfa2af01",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "errors.txt",
+      "source_id": "src_754318cc0a8c4496145dccc2",
+      "version": 1,
+      "sha256": "70fc95ecf3f887223bd04d96168e14d235d6fda2e0868efe6761396069aaabaf",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "warranty_service.txt",
+      "source_id": "src_74c2d35fdcb24b8d0e86180c",
+      "version": 1,
+      "sha256": "5b9cd0c441c3a4768938cf7d07bce5b0f3dc1626b5308ef3446e18ba22ee1469",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    },
+    {
+      "path": "consumables.txt",
+      "source_id": "src_f3f46ca77ac55413f6d497b2",
+      "version": 1,
+      "sha256": "8ef54aa8b8cd05ffe93d0d31ffd55fa13c1e260fbdb4a6f40c806cfd8b33275f",
+      "status": "approved",
+      "allow_risk": false,
+      "review_note": "S0 作者审核通过的合成资料（PR #5）"
+    }
+  ]
+}

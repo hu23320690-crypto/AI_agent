@@ -1,0 +1,15 @@
+# Service knowledge has its own catalog and collection; legacy stays unchanged.
+collection_name: service_chunks_qwen3_governed_v1
+persist_directory: rag/chroma_db
+k: 5
+retrieval_mode: hybrid
+candidate_k: 20
+rrf_constant: 60
+data_path: service_kb
+source_catalog: config/service_knowledge_sources.json
+manifest_path: service_kb/manifest.json
+security_policy: config/security.yml
+allow_knowledge_file_type: ['txt']
+chunk_size: 200
+chunk_overlap: 20
+separators: ["\n\n", "\n", "。", "！", "？", "，", " ", ""]

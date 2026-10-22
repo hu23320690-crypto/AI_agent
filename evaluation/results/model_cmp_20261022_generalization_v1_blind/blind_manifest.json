@@ -1,0 +1,21 @@
+{
+  "seed": 2026102201,
+  "cases": 40,
+  "samples": 80,
+  "left_manifest_sha256": "8a000618e5b8d03d81b32a5a6be1ab32731cb74c591b6bb35128c0fda8c112b8",
+  "right_manifest_sha256": "d00eade3bcca65eb2b0e290f1c24dbf331297481dfd46708cdba23ecebc5f3f3",
+  "blind_cases_md_sha256": "c1fd3b5a3a4a57d9608b34a8ca0c5a59e547f9b70a24610e0d7e83b028b69d1d",
+  "blind_evidence_sha256": "f159e43d8d2535a1ffe656402024bb97f4852ff5270ec1d4425b0c44875ad681",
+  "blind_key_sha256": "d7908978816a1b1965a8ba1c126a166abcef756faabebb168f770b1f81a01394",
+  "key_location": "separate directory, unopened until scores locked",
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}
