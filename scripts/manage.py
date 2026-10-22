@@ -68,16 +68,19 @@ def doctor(offline=False):
         load_intent_config()
         checks.append({'name':'intent configuration', 'ok':True})
         rag = yaml.safe_load((ROOT/'config/rag.yml').read_text(encoding='utf-8'))
-        if rag['chat_model_name'] == 'qwen3:4b':
+        from model.token_count import PINNED_MODELS
+        if rag['chat_model_name'] in PINNED_MODELS:
             from types import SimpleNamespace
-            from model.token_count import get_text_counter, verify_local_cache
-            tokenizer_manifest = json.loads((ROOT/'config/context_tokenizer.json').read_text(encoding='utf-8'))
-            counter = get_text_counter(SimpleNamespace(model=rag['chat_model_name']),
+            from model.token_count import default_manifest_path, get_text_counter, verify_local_cache
+            name = rag['chat_model_name']
+            tokenizer_manifest = json.loads(default_manifest_path(name).read_text(encoding='utf-8'))
+            counter = get_text_counter(SimpleNamespace(model=name),
                                        expected_digest=tokenizer_manifest['model_digest'])
             checks.append({'name':'offline tokenizer cache', 'ok':counter is not None})
             if not offline:
                 checks.append({'name':'local tokenizer model/template identity',
-                               'ok':verify_local_cache(host=os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434'))})
+                               'ok':verify_local_cache(host=os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434'),
+                                                       model_name=name)})
         chroma = yaml.safe_load((ROOT/'config/chroma.yml').read_text(encoding='utf-8'))
         files = [p for p in (ROOT/chroma['data_path']).iterdir() if p.is_file() and p.suffix.lstrip('.') in chroma['allow_knowledge_file_type']]
         checks.append({'name':'knowledge files', 'ok':bool(files), 'actual':len(files)})

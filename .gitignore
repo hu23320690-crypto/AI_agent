@@ -51,6 +51,8 @@ evaluation/results/*/workers/
 !/artifacts/runtime_stage4_retrieval_holdout/
 !/artifacts/runtime_stage4_retrieval_trials/
 !/artifacts/step4_verified_demo/
+!/artifacts/gemma4_comparison/
+!/artifacts/gemma4_comparison/**
 !/artifacts/context_management_v1/delivery.json
 !/artifacts/context_management_v1/doctor_final.json
 !/artifacts/context_management_v1/regression_final.log

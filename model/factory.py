@@ -35,13 +35,14 @@ class ChatmodelFactory(BaseModelFactory):
     def generator(self) -> Optional[Embeddings | BaseChatModel]:
         # Tags are mutable. Verify the pinned cache once at model construction,
         # before requests can use its counter; dispatch itself remains offline.
-        from model.token_count import MODEL_NAME, load_cache_identity, verify_local_cache
+        from model.token_count import PINNED_MODELS, load_cache_identity, verify_local_cache
         host = os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434')
         metadata = {}
-        if rag_conf['chat_model_name'] == MODEL_NAME:
+        name = rag_conf['chat_model_name']
+        if name in PINNED_MODELS:
             try:
-                identity = load_cache_identity()
-                if identity and verify_local_cache(host=host):
+                identity = load_cache_identity(model_name=name)
+                if identity and verify_local_cache(host=host, model_name=name):
                     metadata['tokenizer_model_digest'] = identity['model_digest']
             except Exception:
                 pass

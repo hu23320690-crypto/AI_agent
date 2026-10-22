@@ -1,0 +1,566 @@
+{
+  "model": "qwen3:4b",
+  "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+  "method": "local_qwen2_bpe",
+  "samples": 79,
+  "exact_matches": 79,
+  "ollama_total": 54079,
+  "offline_total": 54079,
+  "utf8_bytes_total": 201375,
+  "mismatched": [],
+  "rows": [
+    {
+      "sample": "prompts/intent_parser.txt",
+      "chars": 7042,
+      "utf8_bytes": 8148,
+      "ollama": 1859,
+      "offline": 1859
+    },
+    {
+      "sample": "prompts/main_prompt.txt",
+      "chars": 898,
+      "utf8_bytes": 2274,
+      "ollama": 487,
+      "offline": 487
+    },
+    {
+      "sample": "prompts/rag_summarize.txt",
+      "chars": 880,
+      "utf8_bytes": 2448,
+      "ollama": 528,
+      "offline": 528
+    },
+    {
+      "sample": "prompts/report_prompt.txt",
+      "chars": 347,
+      "utf8_bytes": 981,
+      "ollama": 201,
+      "offline": 201
+    },
+    {
+      "sample": "prompts/service_planner.txt",
+      "chars": 4551,
+      "utf8_bytes": 6605,
+      "ollama": 1685,
+      "offline": 1685
+    },
+    {
+      "sample": "prompts/service_prompt.txt",
+      "chars": 1024,
+      "utf8_bytes": 2434,
+      "ollama": 559,
+      "offline": 559
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#0",
+      "chars": 120,
+      "utf8_bytes": 308,
+      "ollama": 73,
+      "offline": 73
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#1",
+      "chars": 2400,
+      "utf8_bytes": 6228,
+      "ollama": 1567,
+      "offline": 1567
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#2",
+      "chars": 120,
+      "utf8_bytes": 326,
+      "ollama": 74,
+      "offline": 74
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#3",
+      "chars": 120,
+      "utf8_bytes": 324,
+      "ollama": 80,
+      "offline": 80
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#4",
+      "chars": 400,
+      "utf8_bytes": 1050,
+      "ollama": 253,
+      "offline": 253
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#5",
+      "chars": 2400,
+      "utf8_bytes": 6290,
+      "ollama": 1545,
+      "offline": 1545
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#6",
+      "chars": 2400,
+      "utf8_bytes": 6226,
+      "ollama": 1583,
+      "offline": 1583
+    },
+    {
+      "sample": "data/扫地机器人100问2.txt#7",
+      "chars": 120,
+      "utf8_bytes": 322,
+      "ollama": 82,
+      "offline": 82
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#0",
+      "chars": 1200,
+      "utf8_bytes": 3158,
+      "ollama": 831,
+      "offline": 831
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#1",
+      "chars": 1200,
+      "utf8_bytes": 3168,
+      "ollama": 788,
+      "offline": 788
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#2",
+      "chars": 2400,
+      "utf8_bytes": 6366,
+      "ollama": 1637,
+      "offline": 1637
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#3",
+      "chars": 400,
+      "utf8_bytes": 1062,
+      "ollama": 272,
+      "offline": 272
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#4",
+      "chars": 2400,
+      "utf8_bytes": 6394,
+      "ollama": 1674,
+      "offline": 1674
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#5",
+      "chars": 1200,
+      "utf8_bytes": 3190,
+      "ollama": 830,
+      "offline": 830
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#6",
+      "chars": 400,
+      "utf8_bytes": 1074,
+      "ollama": 277,
+      "offline": 277
+    },
+    {
+      "sample": "data/扫拖一体机器人100问.txt#7",
+      "chars": 400,
+      "utf8_bytes": 1066,
+      "ollama": 289,
+      "offline": 289
+    },
+    {
+      "sample": "data/故障排除.txt#0",
+      "chars": 400,
+      "utf8_bytes": 1106,
+      "ollama": 274,
+      "offline": 274
+    },
+    {
+      "sample": "data/故障排除.txt#1",
+      "chars": 400,
+      "utf8_bytes": 1132,
+      "ollama": 262,
+      "offline": 262
+    },
+    {
+      "sample": "data/故障排除.txt#2",
+      "chars": 1200,
+      "utf8_bytes": 3362,
+      "ollama": 805,
+      "offline": 805
+    },
+    {
+      "sample": "data/故障排除.txt#3",
+      "chars": 120,
+      "utf8_bytes": 346,
+      "ollama": 80,
+      "offline": 80
+    },
+    {
+      "sample": "data/故障排除.txt#4",
+      "chars": 400,
+      "utf8_bytes": 1110,
+      "ollama": 285,
+      "offline": 285
+    },
+    {
+      "sample": "data/故障排除.txt#5",
+      "chars": 2400,
+      "utf8_bytes": 6726,
+      "ollama": 1634,
+      "offline": 1634
+    },
+    {
+      "sample": "data/故障排除.txt#6",
+      "chars": 120,
+      "utf8_bytes": 342,
+      "ollama": 79,
+      "offline": 79
+    },
+    {
+      "sample": "data/故障排除.txt#7",
+      "chars": 2400,
+      "utf8_bytes": 6726,
+      "ollama": 1632,
+      "offline": 1632
+    },
+    {
+      "sample": "data/维护保养.txt#0",
+      "chars": 2400,
+      "utf8_bytes": 6570,
+      "ollama": 1771,
+      "offline": 1771
+    },
+    {
+      "sample": "data/维护保养.txt#1",
+      "chars": 1200,
+      "utf8_bytes": 3190,
+      "ollama": 910,
+      "offline": 910
+    },
+    {
+      "sample": "data/维护保养.txt#2",
+      "chars": 2400,
+      "utf8_bytes": 6582,
+      "ollama": 1825,
+      "offline": 1825
+    },
+    {
+      "sample": "data/维护保养.txt#3",
+      "chars": 120,
+      "utf8_bytes": 328,
+      "ollama": 92,
+      "offline": 92
+    },
+    {
+      "sample": "data/维护保养.txt#4",
+      "chars": 1200,
+      "utf8_bytes": 3290,
+      "ollama": 916,
+      "offline": 916
+    },
+    {
+      "sample": "data/维护保养.txt#5",
+      "chars": 2400,
+      "utf8_bytes": 6574,
+      "ollama": 1816,
+      "offline": 1816
+    },
+    {
+      "sample": "data/维护保养.txt#6",
+      "chars": 120,
+      "utf8_bytes": 330,
+      "ollama": 92,
+      "offline": 92
+    },
+    {
+      "sample": "data/维护保养.txt#7",
+      "chars": 400,
+      "utf8_bytes": 1098,
+      "ollama": 301,
+      "offline": 301
+    },
+    {
+      "sample": "data/选购指南.txt#0",
+      "chars": 1200,
+      "utf8_bytes": 3085,
+      "ollama": 858,
+      "offline": 858
+    },
+    {
+      "sample": "data/选购指南.txt#1",
+      "chars": 120,
+      "utf8_bytes": 304,
+      "ollama": 85,
+      "offline": 85
+    },
+    {
+      "sample": "data/选购指南.txt#2",
+      "chars": 2400,
+      "utf8_bytes": 6351,
+      "ollama": 1672,
+      "offline": 1672
+    },
+    {
+      "sample": "data/选购指南.txt#3",
+      "chars": 400,
+      "utf8_bytes": 1034,
+      "ollama": 298,
+      "offline": 298
+    },
+    {
+      "sample": "data/选购指南.txt#4",
+      "chars": 120,
+      "utf8_bytes": 302,
+      "ollama": 94,
+      "offline": 94
+    },
+    {
+      "sample": "data/选购指南.txt#5",
+      "chars": 2400,
+      "utf8_bytes": 6232,
+      "ollama": 1683,
+      "offline": 1683
+    },
+    {
+      "sample": "data/选购指南.txt#6",
+      "chars": 2400,
+      "utf8_bytes": 6175,
+      "ollama": 1738,
+      "offline": 1738
+    },
+    {
+      "sample": "data/选购指南.txt#7",
+      "chars": 400,
+      "utf8_bytes": 1040,
+      "ollama": 261,
+      "offline": 261
+    },
+    {
+      "sample": "data/external/records.csv#0",
+      "chars": 120,
+      "utf8_bytes": 212,
+      "ollama": 88,
+      "offline": 88
+    },
+    {
+      "sample": "data/external/records.csv#1",
+      "chars": 2400,
+      "utf8_bytes": 4540,
+      "ollama": 1754,
+      "offline": 1754
+    },
+    {
+      "sample": "data/external/records.csv#2",
+      "chars": 120,
+      "utf8_bytes": 230,
+      "ollama": 87,
+      "offline": 87
+    },
+    {
+      "sample": "data/external/records.csv#3",
+      "chars": 120,
+      "utf8_bytes": 228,
+      "ollama": 83,
+      "offline": 83
+    },
+    {
+      "sample": "data/external/records.csv#4",
+      "chars": 120,
+      "utf8_bytes": 226,
+      "ollama": 89,
+      "offline": 89
+    },
+    {
+      "sample": "data/external/records.csv#5",
+      "chars": 2400,
+      "utf8_bytes": 4580,
+      "ollama": 1756,
+      "offline": 1756
+    },
+    {
+      "sample": "data/external/records.csv#6",
+      "chars": 120,
+      "utf8_bytes": 228,
+      "ollama": 88,
+      "offline": 88
+    },
+    {
+      "sample": "data/external/records.csv#7",
+      "chars": 2400,
+      "utf8_bytes": 4576,
+      "ollama": 1747,
+      "offline": 1747
+    },
+    {
+      "sample": "evaluation/cases.jsonl:K06",
+      "chars": 477,
+      "utf8_bytes": 795,
+      "ollama": 232,
+      "offline": 232
+    },
+    {
+      "sample": "evaluation/cases.jsonl:K31",
+      "chars": 537,
+      "utf8_bytes": 1003,
+      "ollama": 269,
+      "offline": 269
+    },
+    {
+      "sample": "evaluation/cases.jsonl:K04",
+      "chars": 430,
+      "utf8_bytes": 690,
+      "ollama": 199,
+      "offline": 199
+    },
+    {
+      "sample": "evaluation/cases.jsonl:K20",
+      "chars": 473,
+      "utf8_bytes": 803,
+      "ollama": 218,
+      "offline": 218
+    },
+    {
+      "sample": "evaluation/cases.jsonl:A10",
+      "chars": 947,
+      "utf8_bytes": 1117,
+      "ollama": 322,
+      "offline": 322
+    },
+    {
+      "sample": "evaluation/cases.jsonl:N01",
+      "chars": 380,
+      "utf8_bytes": 604,
+      "ollama": 168,
+      "offline": 168
+    },
+    {
+      "sample": "evaluation/cases.jsonl:K07",
+      "chars": 471,
+      "utf8_bytes": 795,
+      "ollama": 228,
+      "offline": 228
+    },
+    {
+      "sample": "evaluation/cases.jsonl:A11",
+      "chars": 773,
+      "utf8_bytes": 975,
+      "ollama": 273,
+      "offline": 273
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1A04",
+      "chars": 3461,
+      "utf8_bytes": 5635,
+      "ollama": 1558,
+      "offline": 1558
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1N06",
+      "chars": 957,
+      "utf8_bytes": 1943,
+      "ollama": 455,
+      "offline": 455
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1K10",
+      "chars": 800,
+      "utf8_bytes": 1610,
+      "ollama": 441,
+      "offline": 441
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1A06",
+      "chars": 3567,
+      "utf8_bytes": 6069,
+      "ollama": 1606,
+      "offline": 1606
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1K13",
+      "chars": 797,
+      "utf8_bytes": 1585,
+      "ollama": 422,
+      "offline": 422
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1K02",
+      "chars": 828,
+      "utf8_bytes": 1560,
+      "ollama": 457,
+      "offline": 457
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1N05",
+      "chars": 888,
+      "utf8_bytes": 1866,
+      "ollama": 456,
+      "offline": 456
+    },
+    {
+      "sample": "evaluation/generalization_v1/cases.jsonl:G1A05",
+      "chars": 3768,
+      "utf8_bytes": 6948,
+      "ollama": 1726,
+      "offline": 1726
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K17",
+      "chars": 660,
+      "utf8_bytes": 1208,
+      "ollama": 330,
+      "offline": 330
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K27",
+      "chars": 734,
+      "utf8_bytes": 1430,
+      "ollama": 385,
+      "offline": 385
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K06",
+      "chars": 649,
+      "utf8_bytes": 1173,
+      "ollama": 323,
+      "offline": 323
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K11",
+      "chars": 636,
+      "utf8_bytes": 1132,
+      "ollama": 325,
+      "offline": 325
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K25",
+      "chars": 658,
+      "utf8_bytes": 1220,
+      "ollama": 344,
+      "offline": 344
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K15",
+      "chars": 604,
+      "utf8_bytes": 1080,
+      "ollama": 308,
+      "offline": 308
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K05",
+      "chars": 666,
+      "utf8_bytes": 1228,
+      "ollama": 345,
+      "offline": 345
+    },
+    {
+      "sample": "evaluation/holdout_v2/cases.jsonl:V2K13",
+      "chars": 665,
+      "utf8_bytes": 1221,
+      "ollama": 328,
+      "offline": 328
+    },
+    {
+      "sample": "mixed-whitespace",
+      "chars": 65,
+      "utf8_bytes": 88,
+      "ollama": 32,
+      "offline": 32
+    }
+  ]
+}
