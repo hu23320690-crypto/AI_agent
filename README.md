@@ -31,6 +31,7 @@
 - **写操作安全**：H1–H6 硬门槛事件在四个正式运行中均为 **0**；离线对抗测试另覆盖参数篡改、重放、跨用户、过期和并发确认。
 - **工具提议**：test/plan 提议精确率 **17/17**、召回率 **17/20**；工具调对不等于任务完成。
 - **端到端任务**：test 上 react **10/30**、plan **12/30**（+6.67pp，未达预设 15pp），因此默认仍保留 `legacy + react`。
+- **换模型对照**：同代码、同索引、同机器只把聊天模型换成 gemma4:12b，两套已见题知识严格通过 qwen3:4b **40/56** → gemma4:12b **48/56**，资料不足 **11/12 → 12/12**，Agent 全轮均为 **11/12**；差距主要来自忠实度（无据补充 10 次对 2 次）。默认模型仍为 qwen3:4b，见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
 
 > 评测为小样本、每种模式只跑一次；盲评为助手辅助、隐藏标签，不是独立专家评审。完整数字、失败案例与限制见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 和 [LIMITATIONS.md](docs/LIMITATIONS.md)。
 
@@ -50,6 +51,15 @@
 | 按门槛得出的默认组合 | **保留 legacy + react** | service、plan 均为可选开关 |
 
 plan 未达到预设提升门槛，service 在旧任务上退步，因此默认仍为 legacy + react。每种模式只跑一次、样本小，不作显著性结论；完整口径与限制见报告第 3–9 节。
+
+**换聊天模型对照**（2026-10-22，legacy + react，标签隐藏配对复核）
+
+| 题集 | 层 | qwen3:4b | gemma4:12b |
+| --- | --- | --- | --- |
+| generalization_v1（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 19/28 · 6/6 · 5/6 | **24/28** · 6/6 · 5/6 |
+| holdout_v2（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 21/28 · 5/6 · 6/6 | **24/28** · **6/6** · 6/6 |
+
+两模型共用检索结果与 8192 上下文；为此给 gemma4 加了与 Ollama 计数逐条一致的离线 tokenizer。Agent 层多为程序渲染，几乎不区分模型；单次运行、已见题、助手评审，不作显著性结论，详见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
 
 </details>
 
@@ -238,6 +248,8 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 .\.venv\Scripts\python.exe -B scripts/manage.py doctor
 ```
 
+改用 gemma4:12b 时加 `--model gemma4:12b`；同机两模型对照用 `scripts/run_model_comparison.ps1`，见 [对照说明](artifacts/gemma4_comparison/README.md)。
+
 新增或修改知识资料（UTF-8 TXT 或可提取文字的 PDF）时，需要先审核再入库：
 
 ```powershell
@@ -270,6 +282,7 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 | 上下文预算与摘要 | [CONTEXT_MANAGEMENT.md](docs/CONTEXT_MANAGEMENT.md)、[验收记录](docs/CONTEXT_MANAGEMENT_VERIFICATION.md) |
 | 评测方法与命令 | [evaluation/README.md](evaluation/README.md)、[EXPERIMENTS.md](evaluation/EXPERIMENTS.md) |
 | 新题测试与修复 | [GENERALIZATION_EVALUATION.md](docs/GENERALIZATION_EVALUATION.md)、[AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)、[EVALUATION_V2.md](docs/EVALUATION_V2.md) |
+| qwen3:4b 与 gemma4:12b 换模型对照 | [MODEL_COMPARISON_GEMMA4.md](docs/MODEL_COMPARISON_GEMMA4.md) |
 | 安装排查与环境复现 | [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) |
 | HTTP 接口 / Docker 部署 | [API.md](docs/API.md)、[DEPLOYMENT.md](docs/DEPLOYMENT.md) |
 | 演示流程 | [DEMO.md](docs/DEMO.md) |
