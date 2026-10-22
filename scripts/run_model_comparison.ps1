@@ -9,12 +9,20 @@ evaluation.run keeps committed records and refuses changed inputs.
 
 Scores still need semantic review (reviews.jsonl); report does not grade answers.
 
+-Suite service runs the frozen service_v1 test set end to end (service toolset)
+in each of -Modes via evaluation.service_run, then service_score. That set was
+already used formally in S5, so these runs are seen-set reruns; the runner's
+formal gate (--formal plus SERVICE_EVAL_FORMAL=1) is set only for this call.
+
   powershell -ExecutionPolicy Bypass -File scripts/run_model_comparison.ps1
   powershell -ExecutionPolicy Bypass -File scripts/run_model_comparison.ps1 -Ids V2K01,V2N01,V2A01 -Datasets holdout_v2 -RunRoot $env:TEMP\smoke
+  powershell -ExecutionPolicy Bypass -File scripts/run_model_comparison.ps1 -Suite service
 #>
 param(
     [string[]]$Models = @('qwen3:4b', 'gemma4:12b'),
+    [ValidateSet('qa', 'service')][string]$Suite = 'qa',
     [string[]]$Datasets = @('generalization_v1', 'holdout_v2'),
+    [string[]]$Modes = @('react', 'plan'),
     [string]$Tag = (Get-Date -Format 'yyyyMMdd'),
     [string[]]$Ids = @(),
     [string]$RunRoot = 'evaluation/results',
@@ -28,8 +36,9 @@ $env:PYTHONUTF8 = '1'
 $ragPath = Join-Path $root 'config\rag.yml'
 $original = [IO.File]::ReadAllBytes($ragPath)
 $utf8 = New-Object Text.UTF8Encoding($false)
-# Comma-joined ids survive powershell -File, which passes arrays as one string.
+# Comma-joined values survive powershell -File, which passes arrays as one string.
 $Ids = @($Ids | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
+$Modes = @($Modes | ForEach-Object { $_ -split ',' } | Where-Object { $_ })
 
 function Invoke-Checked([string[]]$Arguments) {
     & $python -B @Arguments
@@ -44,6 +53,23 @@ try {
         Write-Host "=== $model : doctor ==="
         Invoke-Checked @('scripts/manage.py', 'doctor')
         $slug = $model -replace '[^A-Za-z0-9]+', '_'
+        if ($Suite -eq 'service') {
+            foreach ($mode in $Modes) {
+                $run = Join-Path $RunRoot "model_cmp_${Tag}_service_test_${mode}_${slug}"
+                $arguments = @('-m', 'evaluation.service_run', '--dataset', 'evaluation/service_v1/test.jsonl', '--formal',
+                               '--run', $run, '--mode', $mode, '--timeout', $Timeout)
+                if ($Ids.Count) { $arguments += @('--ids') + $Ids }
+                Write-Host "=== $model : service $mode -> $run ==="
+                $started = Get-Date
+                $env:SERVICE_EVAL_FORMAL = '1'
+                try { & $python -B @arguments } finally { Remove-Item Env:SERVICE_EVAL_FORMAL -ErrorAction SilentlyContinue }
+                # Exit 1 only means some task did not finish ok; those stay in the denominator.
+                if ($LASTEXITCODE -gt 1) { throw "service_run exited $LASTEXITCODE" }
+                Invoke-Checked @('-m', 'evaluation.service_score', '--run', $run)
+                Write-Host ("=== {0} : service {1} done in {2:N0} min ===" -f $model, $mode, ((Get-Date) - $started).TotalMinutes)
+            }
+            continue
+        }
         foreach ($set in $Datasets) {
             $run = Join-Path $RunRoot "model_cmp_${Tag}_${set}_${slug}"
             $arguments = @('-m', 'evaluation.run', '--dataset', "evaluation/$set/cases.jsonl", '--run', $run,
