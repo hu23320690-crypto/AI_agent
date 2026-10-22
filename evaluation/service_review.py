@@ -24,11 +24,19 @@ def load_run(run):
     return manifest, cases, index
 
 
-def blind_bundle(runs, seed=20261014):
+def automatic_passes(run):
+    return {row['id'] for row in read_rows(Path(run) / 'scores.jsonl') if row['automatic_pass'] is True}
+
+
+def blind_bundle(runs, seed=20261014, *, automatic_pass_only=False):
     candidates = []
     for run in runs:
         manifest, cases, rows = load_run(run)
+        # A task failing automatic checks cannot pass, so its turns may be left unscored.
+        selected = automatic_passes(run) if automatic_pass_only else None
         for case in cases:
+            if selected is not None and case['id'] not in selected:
+                continue
             row = rows[case['id']]
             actual = {turn['user_turn']: turn for turn in row['turns']}
             queries, prior_evidence = [], []
@@ -58,20 +66,24 @@ def blind_bundle(runs, seed=20261014):
     return packets, keys
 
 
-def create_packets(runs, output, *, seed=20261014):
+def create_packets(runs, output, *, seed=20261014, automatic_pass_only=False):
     output = Path(output)
     if len({str(Path(run).resolve()) for run in runs}) != len(runs):
         raise ValueError('Duplicate runs')
     if output.exists() and any(output.iterdir()):
         raise ValueError('Review output must be new/empty')
-    packets, keys = blind_bundle(runs, seed)
+    packets, keys = blind_bundle(runs, seed, automatic_pass_only=automatic_pass_only)
     output.mkdir(parents=True, exist_ok=True)
     write_rows(output / 'blind_cases.jsonl', packets)
     write_rows(output / 'private_key.jsonl', keys)
-    dump(output / 'blind_manifest.json', {'version': 1, 'seed': seed, 'samples': len(packets),
+    manifest = {'version': 1, 'seed': seed, 'samples': len(packets),
         'blind_cases_sha256': digest(output / 'blind_cases.jsonl'),
         'private_key_sha256': digest(output / 'private_key.jsonl'),
-        'blinding_note': 'Assistant-assisted, hidden labels. Only blind_cases.jsonl goes to the reviewer; private_key.jsonl is separate. Behavior may reveal a variant.'})
+        'blinding_note': 'Assistant-assisted, hidden labels. Only blind_cases.jsonl goes to the reviewer; private_key.jsonl is separate. Behavior may reveal a variant.'}
+    if automatic_pass_only:
+        manifest['selection'] = {'automatic_pass_only': True, 'runs': {
+            str(Path(run).resolve()): sorted(automatic_passes(run)) for run in runs}}
+    dump(output / 'blind_manifest.json', manifest)
     return {'samples': len(packets), 'output': str(output)}
 
 
@@ -148,7 +160,8 @@ def reveal(output):
     output = Path(output)
     scores = {r['sample_id']: r for r in verify_score_lock(output)}
     packets, keys = validate_packet(output)
-    grouped = {}
+    selection = json.loads((output / 'blind_manifest.json').read_text(encoding='utf-8')).get('selection')
+    grouped = {run: [] for run in (selection or {}).get('runs', {})}
     for key in keys:
         grouped.setdefault(key['run'], []).append(key)
     all_reviews = []
@@ -161,9 +174,18 @@ def reveal(output):
                 raise ValueError('Original results changed after blinding')
         score_run(run)
         automatic = {s['id']: s for s in read_rows(run / 'scores.jsonl')}
+        if selection is not None and automatic_passes(run) != set(selection['runs'][run_name]):
+            raise ValueError('Automatic passes changed since packet selection')
         reviews = []
         for case in cases:
             bound = [key for key in selections if key['id'] == case['id']]
+            if not bound and selection is not None:
+                # Not packed because automatic checks already failed; never a pass.
+                reviews.append({'id': case['id'], 'answer_score': None, 'grounded': None, 'turns': [],
+                                'task_pass': False, 'semantic_review': 'not_reviewed_automatic_fail',
+                                'result_sha256': result_sha256(rows[case['id']]),
+                                'score_lock_sha256': digest(output / 'score_lock.json')})
+                continue
             turns = [{'user_turn': key['user_turn'], 'content_score': scores[key['sample_id']]['content_score'],
                       'grounded': scores[key['sample_id']]['grounded'], 'result_sha256': key['result_sha256'],
                       'sample_id': key['sample_id'], 'notes': scores[key['sample_id']].get('notes', '')}
@@ -199,13 +221,16 @@ def main(argv=None):
     create.add_argument('--runs', nargs='+', required=True)
     create.add_argument('--output', required=True)
     create.add_argument('--seed', type=int, default=20261014)
+    create.add_argument('--automatic-pass-only', action='store_true',
+                        help='Pack only tasks that passed service_score; others reveal as unreviewed failures')
     lock = commands.add_parser('lock')
     lock.add_argument('--output', required=True)
     lock.add_argument('--scores', required=True)
     unblind = commands.add_parser('reveal')
     unblind.add_argument('--output', required=True)
     args = parser.parse_args(argv)
-    result = (create_packets(args.runs, args.output, seed=args.seed) if args.command == 'create' else
+    result = (create_packets(args.runs, args.output, seed=args.seed, automatic_pass_only=args.automatic_pass_only)
+              if args.command == 'create' else
               lock_scores(args.output, args.scores) if args.command == 'lock' else reveal(args.output))
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
