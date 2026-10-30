@@ -1,0 +1,10 @@
+{
+  "case_count": 40,
+  "dataset_sha256": "e125b0ea4e4ae8e519384515fa8cc24bc3e96f0d071f797c5ad0b870ea42f34c",
+  "description": "Derived per-repeat execution plan; not the frozen gold manifest.",
+  "files": {
+    "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "input_dataset_sha256": "f8f1a0cdddd717438b607007b2fe215591e8f4258c81e5042f38eec14312828a",
+  "version": 1
+}

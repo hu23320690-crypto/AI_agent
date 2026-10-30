@@ -31,10 +31,16 @@ class IntentConfig:
     # None keeps the shared chat model; a name selects a dedicated (e.g. SFT) model.
     model_name: str | None = None
     prompt: str = DEFAULT_PROMPT
+    # Grammar-constrained decoding splits tokens differently from a model
+    # fine-tuned on compact JSON; such a model may opt out. V1 still parses
+    # strictly, so a malformed answer falls back to the rule baseline.
+    schema_constrained: bool = True
 
     def __post_init__(self):
         if not isinstance(self.mode, str) or self.mode not in MODES:
             raise ValueError('intent.mode must be rule, hybrid or llm_only')
+        if not isinstance(self.schema_constrained, bool):
+            raise ValueError('intent.schema_constrained must be a boolean')
         if self.model_name is not None and (not isinstance(self.model_name, str)
                                             or not self.model_name.strip()):
             raise ValueError('intent.model_name must be null or a nonempty string')
@@ -76,6 +82,11 @@ def load_intent_config(path=None):
                       ('AGENT_INTENT_PROMPT', 'prompt')):
         if name in os.environ:
             values[key] = os.environ[name]
+    if 'AGENT_INTENT_SCHEMA' in os.environ:
+        flag = os.environ['AGENT_INTENT_SCHEMA'].strip().lower()
+        if flag not in ('0', '1', 'true', 'false'):
+            raise ValueError('AGENT_INTENT_SCHEMA must be 0, 1, true or false')
+        values['schema_constrained'] = flag in ('1', 'true')
     return IntentConfig(**values)
 
 
@@ -131,15 +142,22 @@ def parse_proposal(message):
         raise InvalidIntentProposal('Intent proposal failed structural validation') from exc
 
 
-def intent_model(model_name=None):
+def intent_model(model_name=None, schema_constrained=True):
     # Lazy construction/import keeps rule mode free of optional model work.
     from model.factory import budgeted_chat_model, chat_model
+    dedicated = model_name is not None and model_name != chat_model.model
     model = chat_model
-    if model_name is not None and model_name != chat_model.model:
+    if dedicated:
         # Pinned tokenizer metadata belongs to the shared model only; a
         # dedicated model falls back to the conservative UTF-8 estimate.
         model = chat_model.model_copy(update={'model': model_name, 'metadata': {}})
-    return budgeted_chat_model(model, load_context_policy(), purpose='intent')
+    model = budgeted_chat_model(model, load_context_policy(), purpose='intent')
+    updates = {} if schema_constrained else {'format': None}
+    if dedicated:
+        # A dedicated model's Modelfile already renders its training format.
+        # Sending think=false makes Ollama alter that prompt, so omit it.
+        updates['reasoning'] = None
+    return model.model_copy(update=updates) if updates else model
 
 
 def build_messages(query, *, history_queries, previous_intent, known_fields,
@@ -160,7 +178,8 @@ def build_messages(query, *, history_queries, previous_intent, known_fields,
 
 def parse_turn_intent(query, *, history_queries, previous_intent, known_fields,
                       today, fallback_month, run, cfg):
-    model = intent_model() if cfg.model_name is None else intent_model(cfg.model_name)
+    model = (intent_model() if cfg.model_name is None and cfg.schema_constrained
+             else intent_model(cfg.model_name, cfg.schema_constrained))
     policy = load_context_policy()
     messages = build_messages(query, history_queries=history_queries,
                               previous_intent=previous_intent, known_fields=known_fields,

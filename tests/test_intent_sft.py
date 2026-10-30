@@ -59,7 +59,64 @@ def test_dedicated_model_copies_shared_settings_without_pinned_tokenizer():
     assert model.model == 'fictional-sft:latest'
     assert model.metadata == {}
     assert model.temperature == 0 and model.format is not None
+    # Ollama rewrites the prompt when think=false is sent; a dedicated model omits it.
+    assert model.reasoning is None
     assert chat_model.model != 'fictional-sft:latest'
+
+
+def test_shared_model_keeps_reasoning_off_and_schema_by_default():
+    model = llm_parser.intent_model()
+    assert model.reasoning is False and model.format is not None
+
+
+def test_schema_constraint_can_be_disabled_for_a_dedicated_model():
+    model = llm_parser.intent_model('fictional-sft:latest', schema_constrained=False)
+    assert model.format is None and model.reasoning is None
+
+
+@pytest.mark.parametrize('raw, expected', [('0', False), ('false', False), ('1', True), ('TRUE', True)])
+def test_schema_environment_flag(monkeypatch, tmp_path, raw, expected):
+    path = tmp_path / 'fictional-intent.yml'
+    path.write_text('mode: rule\n', encoding='utf-8')
+    monkeypatch.setenv('AGENT_INTENT_SCHEMA', raw)
+    assert load_intent_config(path).schema_constrained is expected
+
+
+def test_schema_environment_flag_rejects_other_values(monkeypatch, tmp_path):
+    path = tmp_path / 'fictional-intent.yml'
+    path.write_text('mode: rule\n', encoding='utf-8')
+    monkeypatch.setenv('AGENT_INTENT_SCHEMA', 'off')
+    with pytest.raises(ValueError):
+        load_intent_config(path)
+
+
+def test_parse_turn_intent_passes_dedicated_model_and_schema_choice(monkeypatch):
+    from dataclasses import replace
+    from langchain_core.messages import AIMessage
+    from agent.runtime import RunContext
+    seen = {}
+
+    class Scripted:
+        def invoke(self, messages):
+            seen['system'] = messages[0].content
+            return AIMessage(content=json.dumps({
+                'task_type': 'report', 'fields': [], 'scope': 'unspecified', 'target_month': None,
+                'target_mention': '', 'target_anchor': 'none', 'compare': False, 'baseline_month': None,
+                'baseline_mention': '', 'excluded_fields': [], 'knowledge_question': '', 'unresolved': False}))
+
+    def fake_model(name=None, schema_constrained=True):
+        seen.update(name=name, schema=schema_constrained)
+        return Scripted()
+
+    monkeypatch.setattr(llm_parser, 'intent_model', fake_model)
+    monkeypatch.setattr(llm_parser, 'enforce_request', lambda *args, **kwargs: None)
+    cfg = replace(IntentConfig(mode='hybrid'), model_name='fictional-sft:latest',
+                  prompt='prompts/intent_parser_sft.txt', schema_constrained=False)
+    llm_parser.parse_turn_intent('2032年11月只列星辉率', history_queries=(), previous_intent=None,
+                                 known_fields=('星辉率',), today=date(2033, 2, 14),
+                                 fallback_month='2032-11', run=RunContext(), cfg=cfg)
+    assert (seen['name'], seen['schema']) == ('fictional-sft:latest', False)
+    assert seen['system'].startswith('Extract the report intent')
 
 
 def test_generator_keeps_only_resolver_verified_rows_and_is_deterministic():
