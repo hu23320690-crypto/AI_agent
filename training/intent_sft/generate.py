@@ -20,8 +20,8 @@ import random
 from unittest.mock import patch
 
 from training.intent_sft.lexicon import (
-    FICTIONAL_PREFIXES, FICTIONAL_SUFFIXES, FIELD_PARAPHRASES, KNOWLEDGE_DECLINES,
-    KNOWLEDGE_LEADS, KNOWLEDGE_QUESTIONS, QUALIFIERS, UNKNOWN_METRICS,
+    FICTIONAL_PREFIXES, FICTIONAL_SUFFIXES, FIELD_PARAPHRASES, KNOWLEDGE_ABOUT_FIELD,
+    KNOWLEDGE_DECLINES, KNOWLEDGE_LEADS, KNOWLEDGE_QUESTIONS, QUALIFIERS, UNKNOWN_METRICS,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -175,17 +175,31 @@ def unknown_metric(rng, catalog, world):
     return rng.choice(absent if absent and rng.random() < .35 else pool)
 
 
-def base(category, rng, world, *, fictional=None, months=1):
-    """One current lookup with records; returns (draft, month)."""
+def base(category, rng, world, *, fictional=None, decorrelate=True):
+    """A report month with records; returns (draft, month).
+
+    With decorrelate, a fifth of samples also looked up another month, so the
+    last lookup (current_lookup_month) is not always the requested target.
+    """
     fictional = rng.random() < .25 if fictional is None else fictional
+    other = shift_choice(rng) if decorrelate and rng.random() < .2 else None
     if fictional:
         month = fictional_month(rng)
-        draft = Draft(category, fictional_catalog(rng), month, random_today(rng, month), fictional=True)
+        fallback = shift(month, other) if other else month
+        draft = Draft(category, fictional_catalog(rng), fallback, random_today(rng, month),
+                      fictional=True)
         return draft, month
     user, month = world.pick()
-    draft = Draft(category, world.catalog(user, [month]), month, random_today(rng, month))
+    lookups = [month]
+    if other:
+        lookups = [month, shift(month, other)] if rng.random() < .5 else [shift(month, other), month]
+    draft = Draft(category, world.catalog(user, lookups), lookups[-1], random_today(rng, month))
     draft.user = user
     return draft, month
+
+
+def shift_choice(rng):
+    return rng.choice([-3, -2, -1, 1, 2])
 
 
 def choose(rng, catalog, low=1, high=3):
@@ -200,8 +214,9 @@ def listed(draft, rng, fields):
 
 ONLY_TEMPLATES = [
     '{T}只列{F}。', '{T}仅要{F}。', '查{T}，只看{F}。', '{T}的记录里只需要{F}。',
-    '从{T}的表里拿出{F}。', '帮我看看{T}的{F}，只报这些。', '请列出{T}的{F}。',
-    '{T}：{F}，按这个顺序列出来。', '我要{T}的{F}，仅列这些。', '{T}只返回{F}。',
+    '麻烦调出{T}的{F}，其他先不看。', '帮我看看{T}的{F}，只报这些。', '请列出{T}的{F}。',
+    '{T}：{F}，按这个顺序列出来。', '{T}给我{F}就行。', '{T}只返回{F}。',
+    '{T}那份记录，摘出{F}。', '想了解{T}的{F}，仅显示这些。',
 ]
 
 
@@ -209,11 +224,14 @@ def b_field_rephrase(rng, world):
     draft, month = base('field_rephrase', rng, world)
     fields = choose(rng, draft.catalog, 1, 4)
     draft.target, draft.target_mention = month, absolute(month, rng)
-    if len(fields) == 1 and rng.random() < .3:
-        mention = surface(fields[0], rng, draft.fictional)
-        draft.items = [(mention, fields[0])]
-        draft.query = rng.choice(['{T}{F}是多少？只报这一项。', '{T}的{F}怎么样？只看这个。']).format(
-            T=draft.target_mention, F=mention)
+    if len(fields) <= 2 and rng.random() < .3:
+        draft.items = [(surface(field, rng, draft.fictional), field) for field in fields]
+        mentions = [mention for mention, _ in draft.items]
+        if len(mentions) == 1:
+            template = rng.choice(['{T}{A}是多少？就问这一个。', '{T}的{A}怎么样？只看这个。'])
+        else:
+            template = rng.choice(['{T}的{A}多少，{B}又是多少？', '{T}{A}怎么样？还有{B}呢？'])
+        draft.query = template.format(T=draft.target_mention, A=mentions[0], B=mentions[-1])
         return draft
     text = listed(draft, rng, fields)
     draft.query = rng.choice(ONLY_TEMPLATES).format(T=draft.target_mention, F=text)
@@ -301,18 +319,19 @@ def b_month(rng, world):
         draft.target = month
         if variant == 'previous':
             draft.target_mention, draft.anchor = relative(offset, rng), 'previous_target'
-            template = rng.choice(['换到{R}，仍只查{F}。', '{R}只看{F}。', '改查{R}的{F}即可。',
+            template = rng.choice(['往后挪到{R}，{F}照旧。', '{R}只看{F}。', '再看{R}的{F}。',
                                    '接着看{R}，只列{F}。'])
             draft.query = template.format(R=draft.target_mention, F=names)
         else:
             written = bare(month, rng)
             draft.target_mention = written
             prefix = rng.choice(['同年', '', '再看'])
-            draft.query = rng.choice(['{P}{M}，只看{F}。', '{P}{M}只列{F}。']).format(
+            draft.query = rng.choice(['{P}{M}只列{F}。', '那{P}{M}呢？只要{F}。']).format(
                 P=prefix, M=written, F=names)
         return draft
     if variant in ('lookup', 'today', 'event', 'ambiguous'):
-        draft, lookup = base('month_resolution', rng, world, fictional=fictional)
+        draft, lookup = base('month_resolution', rng, world, fictional=fictional,
+                             decorrelate=variant in ('event', 'ambiguous'))
         fields = choose(rng, draft.catalog, 1, 2)
         names = listed(draft, rng, fields)
         if variant == 'lookup':
@@ -348,15 +367,18 @@ def b_month(rng, world):
 
 def b_compare(rng, world):
     variant = rng.choice(['basis', 'basis', 'plain', 'roles', 'mom', 'ago', 'directional',
-                          'negated', 'previous', 'full'])
+                          'negated', 'previous', 'correction', 'full'])
     fictional = rng.random() < .25
     if variant in ('mom', 'ago', 'directional'):
         span = -1 if variant == 'mom' else -rng.choice([2, 3, 4])
     else:
         span = rng.choice([-6, -4, -3, -2, -1, 1, 2, 3])
+    # The agent looks both months up in either order; the last one is the
+    # current lookup, so it must not reveal which month is the target.
     if fictional:
         catalog, target = fictional_catalog(rng), fictional_month(rng)
         baseline = shift(target, span)
+        months = [target, baseline] if rng.random() < .5 else [baseline, target]
     else:
         picked = world.pick(span=span)
         if picked is None:
@@ -364,7 +386,8 @@ def b_compare(rng, world):
         user, target, baseline = picked
         months = [target, baseline] if rng.random() < .5 else [baseline, target]
         catalog = world.catalog(user, months)
-    draft = Draft('comparison_roles', catalog, target, random_today(rng, max(target, baseline)), fictional=fictional)
+    draft = Draft('comparison_roles', catalog, months[-1], random_today(rng, max(target, baseline)),
+                  fictional=fictional)
     fields = choose(rng, catalog, 1, 2)
     names = listed(draft, rng, fields)
     draft.target, draft.compare, draft.baseline = target, True, baseline
@@ -373,8 +396,8 @@ def b_compare(rng, world):
         draft.baseline_mention = absolute(baseline, rng)
         draft.target_mention = bare(target, rng) if same_year and rng.random() < .5 else absolute(target, rng)
         draft.query = rng.choice([
-            '以{B}作基准，告诉我{T}{F}比它变了多少，只比较{F}。',
-            '以{B}为基期，{T}的{F}变化多少？只看这个。',
+            '拿{B}当参照，{T}的{F}涨了还是跌了？只看{F}。',
+            '{B}为基期，{T}的{F}变化多少？只看这个。',
         ]).format(B=draft.baseline_mention, T=draft.target_mention, F=names)
     elif variant == 'plain':
         draft.target_mention, draft.baseline_mention = absolute(target, rng), absolute(baseline, rng)
@@ -383,12 +406,12 @@ def b_compare(rng, world):
             T=draft.target_mention, B=draft.baseline_mention, F=names)
     elif variant == 'roles':
         draft.target_mention, draft.baseline_mention = absolute(target, rng), absolute(baseline, rng)
-        draft.query = rng.choice(['仅比较{F}：本期为{T}，基期为{B}。',
+        draft.query = rng.choice(['{F}做个对比：{T}是本期，{B}是参照。',
                                   '只看{F}，基期{B}，本期{T}。']).format(
             T=draft.target_mention, B=draft.baseline_mention, F=names)
     elif variant == 'mom':
         draft.target_mention, draft.baseline_mention = absolute(target, rng), '环比'
-        draft.query = rng.choice(['{T}的{F}，帮我做个环比；只比较这一项。', '{T}只列{F}，看环比。']).format(
+        draft.query = rng.choice(['{T}的{F}环比怎么样？', '{T}只列{F}，看环比。']).format(
             T=draft.target_mention, F=names)
     elif variant == 'ago':
         word = rng.choice(COUNT_WORDS[-span])
@@ -398,21 +421,33 @@ def b_compare(rng, world):
     elif variant == 'directional':
         word = rng.choice(COUNT_WORDS[-span])
         draft.target_mention, draft.baseline_mention = absolute(target, rng), f'往前{word}个月'
-        draft.query = '只拿{T}的{F}，比{A}的那个数。'.format(
+        draft.query = '{T}的{F}，和{A}对比一下。'.format(
             T=draft.target_mention, A=draft.baseline_mention, F=names)
     elif variant == 'negated':
         draft.compare, draft.baseline = False, None
         draft.target_mention = absolute(target, rng)
-        draft.query = rng.choice(['这次只要{T}的{F}，不作任何比较。', '{T}只列{F}，不用和别的月份比。']).format(
+        draft.query = rng.choice(['{T}的{F}单独列出，无需对比。', '{T}只列{F}，不用和别的月份比。']).format(
             T=draft.target_mention, F=names)
     elif variant == 'previous':
         from utils.report_intent import ReportIntent
         draft.previous = ReportIntent(fields=tuple(fields), target_month=baseline, limited=True)
-        draft.baseline_mention = bare(baseline, rng) if same_year else absolute(baseline, rng)
         draft.target_mention = absolute(target, rng)
-        draft.query = rng.choice(['刚才{B}只当旧基期，现在给{T}的{F}和它的差，只列{F}。',
-                                  '{B}那份当基准，现在看{T}的{F}变化。']).format(
-            B=draft.baseline_mention, T=draft.target_mention, F=names)
+        if rng.random() < .5:
+            draft.baseline_mention = bare(baseline, rng) if same_year else absolute(baseline, rng)
+            template = '{B}那份当基准，现在看{T}的{F}变化。'
+        else:
+            draft.baseline_mention = '上次那个月'
+            template = '上次那个月作为对照，{T}的{F}差了多少？'
+        draft.query = template.format(B=draft.baseline_mention, T=draft.target_mention, F=names)
+    elif variant == 'correction':
+        wrong = shift(baseline, rng.choice([-2, -1, 1]))
+        if wrong == target:
+            return None
+        draft.target_mention = absolute(target, rng)
+        draft.baseline_mention = absolute(baseline, rng)
+        draft.query = rng.choice(['{T}的{F}做对比，基期不是{W}而是{B}。',
+                                  '对比{T}的{F}：参照月换掉{W}，改为{B}。']).format(
+            T=draft.target_mention, F=names, W=absolute(wrong, rng), B=draft.baseline_mention)
     else:
         draft.items, draft.scope = [], 'full_report'
         draft.target_mention, draft.baseline_mention = absolute(target, rng), absolute(baseline, rng)
@@ -428,13 +463,15 @@ def b_negation(rng, world):
     draft.target, draft.target_mention = month, absolute(month, rng)
     if variant.startswith('month'):
         other = shift(month, rng.choice([-3, -2, -1, 1, 2]))
+        lookups = [month, other] if rng.random() < .5 else [other, month]
+        draft.fallback = lookups[-1]
         if not draft.fictional:
-            draft.catalog = world.catalog(draft.user, [month, other] if rng.random() < .5 else [other, month])
+            draft.catalog = world.catalog(draft.user, lookups)
         written = absolute(other, rng)
         names = listed(draft, rng, choose(rng, draft.catalog, 1, 2))
         draft.query = {
             'month_switch': '不是{O}，而是{T}，只列{F}。',
-            'month_retract': '撤回{O}那份报告的请求；更正后的月份定为{T}，列出{F}。',
+            'month_retract': '{O}那份先不要了，改看{T}的{F}。',
             'month_change': '本来想看{O}，改为{T}，只列{F}。',
         }[variant].format(O=written, T=draft.target_mention, F=names)
         return draft
@@ -445,12 +482,12 @@ def b_negation(rng, world):
     draft.excluded = [dropped]
     if variant == 'drop_full':
         draft.scope = 'full_report'
-        draft.query = rng.choice(['{T}完整报告，去掉{X}。', '{T}的全部字段都要，但删除{X}这一栏。',
-                                  '{T}所有指标都列出，拿掉{X}。']).format(T=draft.target_mention, X=dropped)
+        draft.query = rng.choice(['{T}完整报告，去掉{X}。', '{T}的全部字段都要，但拿掉{X}。',
+                                  '{T}所有指标都列出，{X}除外。']).format(T=draft.target_mention, X=dropped)
         return draft
     if variant == 'drop_only':
         names = listed(draft, rng, rng.sample(rest, min(len(rest), rng.randint(1, 2))))
-        draft.query = rng.choice(['{T}这份报告，请删除{X}这一栏，只列{F}。',
+        draft.query = rng.choice(['{T}去掉{X}，只留{F}。',
                                   '{T}不要{X}了，只要{F}。']).format(T=draft.target_mention, X=dropped, F=names)
         return draft
     wrong, right = dropped, rng.choice(rest)
@@ -477,18 +514,19 @@ def b_scope(rng, world):
         prior = choose(rng, draft.catalog, 1, 2)
         draft.previous = ReportIntent(fields=tuple(prior), target_month=month, limited=True)
         draft.scope = 'full_report'
-        draft.query = '之前只列了{P}，现在{T}请展示完整记录报告。'.format(
+        draft.query = '上次只看了{P}，这回{T}要完整报告。'.format(
             P=join(prior, rng), T=draft.target_mention)
     else:
         from utils.report_intent import ReportIntent
         draft.previous = ReportIntent(target_month=shift(month, -1))
         names = listed(draft, rng, choose(rng, draft.catalog, 1, 2))
-        draft.query = '上一份虽是全量报告，{T}这次仅抄{F}。'.format(T=draft.target_mention, F=names)
+        draft.query = '上回给的是全量报告，{T}这次只要{F}。'.format(T=draft.target_mention, F=names)
     return draft
 
 
 def b_knowledge(rng, world):
-    variant = rng.choice(['ask', 'ask', 'ask_question', 'decline', 'full_ask'])
+    variant = rng.choice(['ask', 'ask', 'ask_question', 'about_field', 'about_field', 'decline',
+                          'full_ask'])
     draft, month = base('report_knowledge', rng, world)
     draft.target, draft.target_mention = month, absolute(month, rng)
     question = rng.choice(KNOWLEDGE_QUESTIONS)
@@ -501,6 +539,11 @@ def b_knowledge(rng, world):
     if variant == 'decline':
         draft.query = '{T}只要{F}的数值，{D}。'.format(T=draft.target_mention, F=names,
                                                      D=rng.choice(KNOWLEDGE_DECLINES))
+        return draft
+    if variant == 'about_field':
+        mention = draft.items[0][0]
+        draft.knowledge = rng.choice(KNOWLEDGE_ABOUT_FIELD).format(f=mention)
+        draft.query = f'{draft.target_mention}只列{names}，{draft.knowledge}'
         return draft
     draft.knowledge = question
     if variant == 'ask_question' and len(fields) == 1:
@@ -537,12 +580,12 @@ def b_multi_turn(rng, world):
             word = rng.choice(ORDINALS[position])
         draft.items = [(mentions[position - 1], prior[position - 1])]
         draft.query = rng.choice([
-            '刚才那{n}项中，只留下{W}；报告月份沿用我上一轮选定的月份。',
+            '刚才那{n}项里只保留{W}，月份还用上一轮的。',
             '上一轮那{n}个指标里只要{W}，月份不变。',
         ]).format(n=count_word(len(prior), rng), W=word)
     elif variant == 'repeat':
         draft.items = list(zip(mentions, prior))
-        draft.query = rng.choice(['刚才那{n}项再报一遍，月份别动，顺序也一样。',
+        draft.query = rng.choice(['把刚才那{n}项按原顺序再给我一次，月份不变。',
                                   '还是上一轮那{n}项，同一个月份，再列一次。']).format(
             n=count_word(len(prior), rng))
     elif variant == 'next':
