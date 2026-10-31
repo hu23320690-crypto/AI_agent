@@ -20,8 +20,9 @@ import random
 from unittest.mock import patch
 
 from training.intent_sft.lexicon import (
-    FICTIONAL_PREFIXES, FICTIONAL_SUFFIXES, FIELD_PARAPHRASES, KNOWLEDGE_ABOUT_FIELD,
-    KNOWLEDGE_DECLINES, KNOWLEDGE_LEADS, KNOWLEDGE_QUESTIONS, QUALIFIERS, UNKNOWN_METRICS,
+    FICTIONAL_PREFIXES, FICTIONAL_SUFFIXES, FIELD_PARAPHRASES, HELDOUT_PREFIXES, HELDOUT_SUFFIXES,
+    KNOWLEDGE_ABOUT_FIELD, KNOWLEDGE_DECLINES, KNOWLEDGE_LEADS, KNOWLEDGE_QUESTIONS, QUALIFIERS,
+    UNKNOWN_METRICS,
 )
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -83,10 +84,13 @@ class Draft:
 
 
 class World:
-    def __init__(self, rng):
+    def __init__(self, rng, *, fictional_rate=.25, heldout_catalog=False):
         from utils.records import load_records
         from utils.report_render import record_fields
-        self.rng = rng
+        self.rng, self.fictional_rate = rng, fictional_rate
+        # Probe-only names never seen in training data (supplementary E5).
+        self.pool = ((HELDOUT_PREFIXES, HELDOUT_SUFFIXES) if heldout_catalog
+                     else (FICTIONAL_PREFIXES, FICTIONAL_SUFFIXES))
         self.fields = {key: list(record_fields(value)) for key, value in load_records().items()}
         self.keys = sorted(key for key, value in self.fields.items() if len(value) >= 3)
         self.all_fields = sorted({name for names in self.fields.values() for name in names})
@@ -107,11 +111,16 @@ class World:
         return (user, month, other) if (user, other) in self.fields else None
 
 
-def fictional_catalog(rng):
-    names = set()
+def fictional_catalog(rng, pool):
+    prefixes, suffixes = pool
+    # A list, not a set: set order follows PYTHONHASHSEED, which made r1/r2
+    # differ between processes despite a fixed seed.
+    names = []
     while len(names) < rng.randint(3, 6):
-        names.add(rng.choice(FICTIONAL_PREFIXES) + rng.choice(FICTIONAL_SUFFIXES))
-    return list(names)
+        name = rng.choice(prefixes) + rng.choice(suffixes)
+        if name not in names:
+            names.append(name)
+    return names
 
 
 def fictional_month(rng):
@@ -181,12 +190,12 @@ def base(category, rng, world, *, fictional=None, decorrelate=True):
     With decorrelate, a fifth of samples also looked up another month, so the
     last lookup (current_lookup_month) is not always the requested target.
     """
-    fictional = rng.random() < .25 if fictional is None else fictional
+    fictional = rng.random() < world.fictional_rate if fictional is None else fictional
     other = shift_choice(rng) if decorrelate and rng.random() < .2 else None
     if fictional:
         month = fictional_month(rng)
         fallback = shift(month, other) if other else month
-        draft = Draft(category, fictional_catalog(rng), fallback, random_today(rng, month),
+        draft = Draft(category, fictional_catalog(rng, world.pool), fallback, random_today(rng, month),
                       fictional=True)
         return draft, month
     user, month = world.pick()
@@ -288,14 +297,14 @@ def previous_turn(rng, world, month, fields, fictional, catalog):
 def b_month(rng, world):
     variant = rng.choice(['absolute', 'previous', 'previous', 'bare', 'lookup', 'today',
                           'event', 'ambiguous'])
-    fictional = rng.random() < .25
+    fictional = rng.random() < world.fictional_rate
     if variant == 'absolute':
         draft = b_field_rephrase(rng, world)
         draft.category = 'month_resolution'
         return draft
     if variant in ('previous', 'bare'):
         if fictional:
-            catalog, before = fictional_catalog(rng), fictional_month(rng)
+            catalog, before = fictional_catalog(rng, world.pool), fictional_month(rng)
             offset = rng.choice([-2, -1, 1, 1, 2, 3, -3])
             month = shift(before, offset) if variant == 'previous' else (
                 f'{before[:4]}-{rng.randint(1, 12):02d}')
@@ -368,7 +377,7 @@ def b_month(rng, world):
 def b_compare(rng, world):
     variant = rng.choice(['basis', 'basis', 'plain', 'roles', 'mom', 'ago', 'directional',
                           'negated', 'previous', 'correction', 'full'])
-    fictional = rng.random() < .25
+    fictional = rng.random() < world.fictional_rate
     if variant in ('mom', 'ago', 'directional'):
         span = -1 if variant == 'mom' else -rng.choice([2, 3, 4])
     else:
@@ -376,7 +385,7 @@ def b_compare(rng, world):
     # The agent looks both months up in either order; the last one is the
     # current lookup, so it must not reveal which month is the target.
     if fictional:
-        catalog, target = fictional_catalog(rng), fictional_month(rng)
+        catalog, target = fictional_catalog(rng, world.pool), fictional_month(rng)
         baseline = shift(target, span)
         months = [target, baseline] if rng.random() < .5 else [baseline, target]
     else:
@@ -555,9 +564,9 @@ def b_knowledge(rng, world):
 
 def b_multi_turn(rng, world):
     variant = rng.choice(['ordinal', 'ordinal', 'repeat', 'next', 'absolute'])
-    fictional = rng.random() < .25
+    fictional = rng.random() < world.fictional_rate
     if fictional:
-        catalog, before = fictional_catalog(rng), fictional_month(rng)
+        catalog, before = fictional_catalog(rng, world.pool), fictional_month(rng)
         current = shift(before, 1)
     else:
         picked = world.pick(span=1)
@@ -665,9 +674,10 @@ def to_example(draft, captured):
             'gold': draft.gold()}
 
 
-def generate(count, seed):
+def generate(count, seed, *, fictional_rate=.25, heldout_catalog=False, with_inputs=False):
+    """Verified examples; with_inputs keeps (example, draft, captured) for re-labelling."""
     rng = random.Random(seed)
-    world = World(rng)
+    world = World(rng, fictional_rate=fictional_rate, heldout_catalog=heldout_catalog)
     names, weights = list(WEIGHTS), list(WEIGHTS.values())
     kept, seen, rejected = [], set(), Counter()
     attempts = 0
@@ -687,7 +697,8 @@ def generate(count, seed):
         if captured is None:
             rejected[f'{draft.category}:{reason}'] += 1
             continue
-        kept.append(to_example(draft, captured))
+        example = to_example(draft, captured)
+        kept.append((example, draft, captured) if with_inputs else example)
     return kept, rejected, attempts
 
 
@@ -697,10 +708,12 @@ def main(argv=None):
     parser.add_argument('--seed', type=int, default=20261030)
     parser.add_argument('--val-fraction', type=float, default=.05)
     parser.add_argument('--out', required=True)
+    parser.add_argument('--fictional-rate', type=float, default=.25)
     args = parser.parse_args(argv)
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    examples, rejected, attempts = generate(args.count, args.seed)
+    examples, rejected, attempts = generate(args.count, args.seed,
+                                            fictional_rate=args.fictional_rate)
     random.Random(args.seed + 1).shuffle(examples)
     cut = int(len(examples) * args.val_fraction)
     splits = {'val': examples[:cut], 'train': examples[cut:]}
@@ -718,6 +731,7 @@ def main(argv=None):
         for name in splits}, ensure_ascii=False, indent=2), encoding='utf-8')
     manifest = {
         'seed': args.seed, 'requested': args.count, 'kept': len(examples), 'attempts': attempts,
+        'fictional_rate': args.fictional_rate,
         'splits': {name: len(rows) for name, rows in splits.items()},
         'categories': Counter(row['category'] for row in examples),
         'fictional': sum(row['fictional'] for row in examples),

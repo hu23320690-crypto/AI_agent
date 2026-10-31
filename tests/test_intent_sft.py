@@ -135,6 +135,62 @@ def test_generator_keeps_only_resolver_verified_rows_and_is_deterministic():
             assert label['knowledge_question'] in request['query']
 
 
+def test_fictional_rate_zero_keeps_only_real_catalogs():
+    from training.intent_sft.generate import generate
+    rows, _, _ = generate(40, 11, fictional_rate=0)
+    assert rows and not any(row['fictional'] for row in rows)
+
+
+def test_heldout_catalog_names_never_overlap_the_training_pools():
+    from training.intent_sft import lexicon
+    from training.intent_sft.generate import generate
+    assert not set(lexicon.HELDOUT_PREFIXES) & set(lexicon.FICTIONAL_PREFIXES)
+    assert not set(lexicon.HELDOUT_SUFFIXES) & set(lexicon.FICTIONAL_SUFFIXES)
+    training = {p + s for p in lexicon.FICTIONAL_PREFIXES for s in lexicon.FICTIONAL_SUFFIXES}
+    samples, _, _ = generate(30, 11, fictional_rate=1.0, heldout_catalog=True, with_inputs=True)
+    for example, draft, _ in samples:
+        assert draft.fictional and example['fictional']
+        assert not set(draft.catalog) & training
+        assert all(any(name.startswith(p) for p in lexicon.HELDOUT_PREFIXES)
+                   for name in draft.catalog)
+
+
+def test_teacher_rebuilds_inputs_and_keeps_program_key_order():
+    from agent.intent.schema import IntentProposal
+    from training.intent_sft.generate import generate
+    from training.intent_sft.teacher import row_inputs, teacher_label
+    for example, draft, _ in generate(30, 11, with_inputs=True)[0]:
+        inputs = row_inputs(example)  # raises unless the request round-trips exactly
+        assert inputs['known_fields'] == tuple(draft.catalog)
+        label = json.loads(example['messages'][1]['content'])
+        proposal = IntentProposal.model_validate(label)
+        assert list(teacher_label(label, proposal).items()) == list(label.items())
+
+
+def test_generation_does_not_depend_on_the_string_hash_seed(tmp_path):
+    import subprocess
+    import sys
+    script = ('import hashlib, json\n'
+              'from training.intent_sft.generate import generate\n'
+              'rows, _, _ = generate(40, 7, fictional_rate=1.0)\n'
+              'print(hashlib.sha256(json.dumps(rows, ensure_ascii=False).encode()).hexdigest())\n')
+    digests = set()
+    for seed in ('1', '2'):
+        result = subprocess.run([sys.executable, '-B', '-c', script], cwd=llm_parser._ROOT,
+                                env=dict(__import__('os').environ, PYTHONHASHSEED=seed),
+                                capture_output=True, text=True, check=True)
+        digests.add(result.stdout.strip())
+    assert len(digests) == 1
+
+
+def test_significance_statistics():
+    from training.intent_sft.significance import exact_mcnemar, holm
+    assert exact_mcnemar(0, 0) == 1.0
+    assert exact_mcnemar(0, 10) == pytest.approx(2 / 2 ** 10)
+    assert exact_mcnemar(3, 3) == 1.0
+    assert holm([.01, .04, .03]) == pytest.approx([.03, .06, .06])
+
+
 def test_generator_verification_rejects_a_label_that_contradicts_the_text():
     import random
     from training.intent_sft import generate as g

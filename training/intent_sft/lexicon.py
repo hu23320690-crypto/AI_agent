@@ -76,3 +76,9 @@ KNOWLEDGE_DECLINES = ['不用解释原因', '不需要额外说明', '无需解�
 FICTIONAL_PREFIXES = ['星辉', '晶片', '熔晶', '澜光', '云纹', '霜核', '潮汐', '银羽', '赤铜', '雾港',
                       '琥珀', '曜石', '青岚', '流萤']
 FICTIONAL_SUFFIXES = ['率', '寿命', '指数', '功耗', '次数', '占比', '时长', '损耗', '稳定度']
+
+# Catalog-shift probe only (supplementary E5): disjoint from the pools above and
+# never used to build training data.
+HELDOUT_PREFIXES = ['玄冰', '碧落', '墨岩', '金穗', '苍穹', '翠微', '绯焰', '紫电', '白露', '朱雀',
+                    '锦鲤', '沧浪']
+HELDOUT_SUFFIXES = ['均值', '余量', '峰值', '偏差', '转速', '电压', '温升', '响应度']
