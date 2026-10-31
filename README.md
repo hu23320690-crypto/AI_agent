@@ -32,6 +32,7 @@
 - **工具提议**：test/plan 提议精确率 **17/17**、召回率 **17/20**；工具调对不等于任务完成。
 - **端到端任务**：test 上 react **10/30**、plan **12/30**（+6.67pp，未达预设 15pp），因此默认仍保留 `legacy + react`。
 - **换模型对照**：同代码、同索引、同机器只把聊天模型换成 gemma4:12b，两套已见题知识严格通过 qwen3:4b **40/56** → gemma4:12b **48/56**，资料不足 **11/12 → 12/12**，Agent 全轮均为 **11/12**；差距主要来自忠实度（无据补充 10 次对 2 次）。端到端售后任务（service test 已见重跑）全轮通过 react **10/30 → 14/30**、plan **9/30 → 14/30**，H1–H6 仍均为 0。默认模型仍为 qwen3:4b，见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
+- **意图解析 SFT（算法实验）**：用结构先行、经线上管线复核的合成数据，对 Qwen3 做 LoRA 微调，系统提示词从 1859 token 缩短到 55 token。在封存 test 上（100 题 × 3 次），hybrid 完全正确率：qwen3:4b 长提示词 **83%**，1.7B SFT **93%**；危险错误 **9 → 3**；解析 p95 **1.21 s → 0.81 s**。0.6B 为 **90%**、p95 **0.46 s**，是唯一达到全部预设门槛的配置。默认仍为 `rule`，见 [INTENT_SFT.md](docs/INTENT_SFT.md)。
 
 > 评测为小样本、每种模式只跑一次；盲评为助手辅助、隐藏标签，不是独立专家评审。完整数字、失败案例与限制见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 和 [LIMITATIONS.md](docs/LIMITATIONS.md)。
 
@@ -287,6 +288,7 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 | 评测方法与命令 | [evaluation/README.md](evaluation/README.md)、[EXPERIMENTS.md](evaluation/EXPERIMENTS.md) |
 | 新题测试与修复 | [GENERALIZATION_EVALUATION.md](docs/GENERALIZATION_EVALUATION.md)、[AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)、[EVALUATION_V2.md](docs/EVALUATION_V2.md) |
 | qwen3:4b 与 gemma4:12b 换模型对照 | [MODEL_COMPARISON_GEMMA4.md](docs/MODEL_COMPARISON_GEMMA4.md) |
+| 意图解析 SFT（合成数据 + LoRA，0.6B / 1.7B / 4B） | [INTENT_SFT.md](docs/INTENT_SFT.md)、[预注册计划](docs/plans/INTENT_SFT_PLAN.md)、[开发日志](docs/INTENT_SFT_DEV_LOG.md) |
 | 安装排查与环境复现 | [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) |
 | HTTP 接口 / Docker 部署 | [API.md](docs/API.md)、[DEPLOYMENT.md](docs/DEPLOYMENT.md) |
 | 演示流程 | [DEMO.md](docs/DEMO.md) |
