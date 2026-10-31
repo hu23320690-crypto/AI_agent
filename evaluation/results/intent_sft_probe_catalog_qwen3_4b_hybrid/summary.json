@@ -1,0 +1,42 @@
+{
+  "model": "qwen3:4b",
+  "mode": "hybrid",
+  "schema_constrained": true,
+  "count": 300,
+  "seed": 20261101,
+  "exact_accuracy": 0.82,
+  "slot_accuracy": {
+    "fields": 0.8933333333333333,
+    "unknown_fields": 0.9166666666666666,
+    "requested_field_order": 0.85,
+    "target_month": 0.9866666666666667,
+    "comparison_month": 0.9833333333333333,
+    "compare": 0.9966666666666667,
+    "scope": 0.9833333333333333,
+    "knowledge_requested": 0.9966666666666667,
+    "unresolved_month": 0.9833333333333333
+  },
+  "by_category": {
+    "comparison_roles": 0.7380952380952381,
+    "field_rephrase": 0.8723404255319149,
+    "month_resolution": 0.8409090909090909,
+    "multi_turn_reference": 1.0,
+    "negation_correction": 0.7631578947368421,
+    "qualifier_distractor": 0.4444444444444444,
+    "report_knowledge": 1.0,
+    "report_scope": 0.9354838709677419,
+    "unknown_field": 0.6666666666666666
+  },
+  "severity_counts": {
+    "None": 246,
+    "wrong_scope": 3,
+    "dangerous": 18,
+    "other_error": 16,
+    "safe_fail": 17
+  },
+  "fallback_count": 0,
+  "latency_seconds": {
+    "p50": 1.1063537999871187,
+    "p95": 1.427048100013053
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "aggregate": {
+    "budget_skip_count": 0,
+    "budget_skip_rate": 0.0,
+    "conflict_counts": {
+      "anchor_lookup_consistency": 12,
+      "field_not_in_catalog": 3,
+      "fields_rule_fallback": 3,
+      "mention_unanchored_kept": 18,
+      "month_unsupported": 4,
+      "negated_field_selected": 6,
+      "negated_month_selected": 3,
+      "non_metric_unknown_dropped": 8,
+      "qualifier_dropped": 15,
+      "relative_month_recomputed": 6
+    },
+    "exact_accuracy": 0.8366666666666667,
+    "exact_count": 251,
+    "execution_failure_count": 0,
+    "execution_status_counts": {
+      "ok": 300
+    },
+    "extra_model_calls": 300,
+    "fallback_count": 0,
+    "fallback_rate": 0.0,
+    "latency_seconds": {
+      "all": {
+        "count": 300,
+        "missing_count": 0,
+        "p50": 0.6318384000041988,
+        "p95": 0.7941109999956097
+      },
+      "successful": {
+        "count": 300,
+        "missing_count": 0,
+        "p50": 0.6318384000041988,
+        "p95": 0.7941109999956097
+      }
+    },
+    "planned_count": 300,
+    "severity_counts": {
+      "dangerous": 30,
+      "other_error": 6,
+      "safe_fail": 13,
+      "wrong_scope": 0
+    },
+    "slot_accuracy": {
+      "compare": 0.99,
+      "comparison_month": 0.97,
+      "fields": 0.91,
+      "knowledge_requested": 1.0,
+      "requested_field_order": 0.91,
+      "scope": 1.0,
+      "target_month": 0.9666666666666667,
+      "unknown_fields": 0.94,
+      "unresolved_month": 0.9566666666666667
+    }
+  },
+  "execution_note": "Failed/skipped/invalid model attempts remain in every planned denominator.",
+  "latency_method": "nearest-rank ceil(p*n), wall-clock seconds",
+  "mode": "hybrid",
+  "repeat": 3,
+  "repeat_metrics": {
+    "budget_skip_count": {
+      "mean": 0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "budget_skip_rate": {
+      "mean": 0.0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "dangerous": {
+      "mean": 10,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 10
+    },
+    "dangerous_count": {
+      "mean": 10,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 10
+    },
+    "exact_accuracy": {
+      "mean": 0.8366666666666667,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.83
+    },
+    "execution_failure_count": {
+      "mean": 0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "extra_model_calls": {
+      "mean": 100,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 100
+    },
+    "fallback_count": {
+      "mean": 0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "fallback_rate": {
+      "mean": 0.0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "latency_all_p50": {
+      "mean": 0.6356654666597024,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.6529970999981742
+    },
+    "latency_all_p95": {
+      "mean": 0.7869966333285751,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.8920041999954265
+    },
+    "latency_successful_p50": {
+      "mean": 0.6356654666597024,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.6529970999981742
+    },
+    "latency_successful_p95": {
+      "mean": 0.7869966333285751,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.8920041999954265
+    },
+    "other_error": {
+      "mean": 2,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 2
+    },
+    "safe_fail": {
+      "mean": 4.333333333333333,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 5
+    },
+    "slot_compare_accuracy": {
+      "mean": 0.99,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.99
+    },
+    "slot_comparison_month_accuracy": {
+      "mean": 0.97,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.97
+    },
+    "slot_fields_accuracy": {
+      "mean": 0.91,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.91
+    },
+    "slot_knowledge_requested_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_requested_field_order_accuracy": {
+      "mean": 0.91,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.91
+    },
+    "slot_scope_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "slot_target_month_accuracy": {
+      "mean": 0.9666666666666667,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.96
+    },
+    "slot_unknown_fields_accuracy": {
+      "mean": 0.94,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.94
+    },
+    "slot_unresolved_month_accuracy": {
+      "mean": 0.9566666666666667,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0.95
+    },
+    "wrong_scope": {
+      "mean": 0,
+      "measured_repeats": 3,
+      "missing_repeats": 0,
+      "worst": 0
+    }
+  },
+  "repeats": [
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "anchor_lookup_consistency": 4,
+        "field_not_in_catalog": 1,
+        "fields_rule_fallback": 1,
+        "mention_unanchored_kept": 6,
+        "month_unsupported": 2,
+        "negated_field_selected": 2,
+        "negated_month_selected": 1,
+        "non_metric_unknown_dropped": 2,
+        "qualifier_dropped": 5,
+        "relative_month_recomputed": 2
+      },
+      "exact_accuracy": 0.83,
+      "exact_count": 83,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 100
+      },
+      "extra_model_calls": 100,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6529970999981742,
+          "p95": 0.8920041999954265
+        },
+        "successful": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6529970999981742,
+          "p95": 0.8920041999954265
+        }
+      },
+      "planned_count": 100,
+      "repeat": 1,
+      "severity_counts": {
+        "dangerous": 10,
+        "other_error": 2,
+        "safe_fail": 5,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 0.99,
+        "comparison_month": 0.97,
+        "fields": 0.91,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.91,
+        "scope": 1.0,
+        "target_month": 0.96,
+        "unknown_fields": 0.94,
+        "unresolved_month": 0.95
+      }
+    },
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "anchor_lookup_consistency": 4,
+        "field_not_in_catalog": 1,
+        "fields_rule_fallback": 1,
+        "mention_unanchored_kept": 6,
+        "month_unsupported": 1,
+        "negated_field_selected": 2,
+        "negated_month_selected": 1,
+        "non_metric_unknown_dropped": 3,
+        "qualifier_dropped": 5,
+        "relative_month_recomputed": 2
+      },
+      "exact_accuracy": 0.84,
+      "exact_count": 84,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 100
+      },
+      "extra_model_calls": 100,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6288715999980923,
+          "p95": 0.7342889000137802
+        },
+        "successful": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6288715999980923,
+          "p95": 0.7342889000137802
+        }
+      },
+      "planned_count": 100,
+      "repeat": 2,
+      "severity_counts": {
+        "dangerous": 10,
+        "other_error": 2,
+        "safe_fail": 4,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 0.99,
+        "comparison_month": 0.97,
+        "fields": 0.91,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.91,
+        "scope": 1.0,
+        "target_month": 0.97,
+        "unknown_fields": 0.94,
+        "unresolved_month": 0.96
+      }
+    },
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "anchor_lookup_consistency": 4,
+        "field_not_in_catalog": 1,
+        "fields_rule_fallback": 1,
+        "mention_unanchored_kept": 6,
+        "month_unsupported": 1,
+        "negated_field_selected": 2,
+        "negated_month_selected": 1,
+        "non_metric_unknown_dropped": 3,
+        "qualifier_dropped": 5,
+        "relative_month_recomputed": 2
+      },
+      "exact_accuracy": 0.84,
+      "exact_count": 84,
+      "execution_failure_count": 0,
+      "execution_status_counts": {
+        "ok": 100
+      },
+      "extra_model_calls": 100,
+      "fallback_count": 0,
+      "fallback_rate": 0.0,
+      "latency_seconds": {
+        "all": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6251276999828406,
+          "p95": 0.7346967999765184
+        },
+        "successful": {
+          "count": 100,
+          "missing_count": 0,
+          "p50": 0.6251276999828406,
+          "p95": 0.7346967999765184
+        }
+      },
+      "planned_count": 100,
+      "repeat": 3,
+      "severity_counts": {
+        "dangerous": 10,
+        "other_error": 2,
+        "safe_fail": 4,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 0.99,
+        "comparison_month": 0.97,
+        "fields": 0.91,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 0.91,
+        "scope": 1.0,
+        "target_month": 0.97,
+        "unknown_fields": 0.94,
+        "unresolved_month": 0.96
+      }
+    }
+  ],
+  "split": "test"
+}
