@@ -1,0 +1,80 @@
+{"id": "V2K01", "label": "X", "answer_score": 2, "grounded": true, "reason": "每月、1-2滴专用润滑油、不可多滴防粘灰完整，见维护第15条。"}
+{"id": "V2K01", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整；“30天”随即写明每月，属周期复述；“避免影响转轴运转”是维护目的概括，未新增参数。"}
+{"id": "V2K02", "label": "X", "answer_score": 2, "grounded": true, "reason": "支架转轴每月1滴、模组轴承每3个月1-2滴，分开且正确。"}
+{"id": "V2K02", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两部位分开且正确。"}
+{"id": "V2K03", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序校验引用：6-12个月、开裂无需等待立即更换。"}
+{"id": "V2K03", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序校验引用。"}
+{"id": "V2K04", "label": "X", "answer_score": 2, "grounded": true, "reason": "不建议复用、单次设计、变硬掉毛、影响效果并可能堵塞模组，完整。"}
+{"id": "V2K04", "label": "Y", "answer_score": 2, "grounded": true, "reason": "必答点完整；“使用后直接丢弃”见安装条目；蒸汽消毒条目用于对比可复用拖布，未把它说成一次性拖布的要求。"}
+{"id": "V2K05", "label": "X", "answer_score": 2, "grounded": true, "reason": "不能混用、规格功能不同、拖地滤网过滤污水需专用、混用可能损坏，完整；“扫地滤网过滤灰尘”是滤网类别的常规表述。"}
+{"id": "V2K05", "label": "Y", "answer_score": 2, "grounded": true, "reason": "四点完整。"}
+{"id": "V2K06", "label": "X", "answer_score": 1, "grounded": true, "reason": "过薄无法识别、APP开启正确；遗漏“确认机型支持地毯增压”。驱动轮打滑引自故障35条并标明来源情形。"}
+{"id": "V2K06", "label": "Y", "answer_score": 2, "grounded": true, "reason": "过薄无法识别、机型支持、APP开启三点完整。"}
+{"id": "V2K07", "label": "X", "answer_score": 2, "grounded": true, "reason": "手机离线仍执行，前提机器人连WiFi且已设定时任务，完整。"}
+{"id": "V2K07", "label": "Y", "answer_score": 2, "grounded": true, "reason": "完整，并引用第88条原文。"}
+{"id": "V2K08", "label": "X", "answer_score": 2, "grounded": true, "reason": "正常升级保留设置；异常时APP恢复出厂后重新设置。"}
+{"id": "V2K08", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两点完整。"}
+{"id": "V2K09", "label": "X", "answer_score": 2, "grounded": true, "reason": "耗材管理页、使用时长和剩余寿命、到期推送提醒，完整。"}
+{"id": "V2K09", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整。"}
+{"id": "V2K10", "label": "X", "answer_score": 2, "grounded": true, "reason": "≤55dB、地毯模式噪音升高、优先降噪电机，完整。"}
+{"id": "V2K10", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整。"}
+{"id": "V2K11", "label": "X", "answer_score": 2, "grounded": true, "reason": "优先无刷、噪音小寿命长、≥5000小时，完整。"}
+{"id": "V2K11", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整。"}
+{"id": "V2K12", "label": "X", "answer_score": 1, "grounded": true, "reason": "先给出≥500次、衰减≤20%正确，但随后把“两个阈值”定成500次和800次，并称资料未给出衰减百分比对应的循环次数，与前文自相矛盾，混淆所问关系。"}
+{"id": "V2K12", "label": "Y", "answer_score": 2, "grounded": true, "reason": "≥500次循环后衰减≤20%正确；另列优质电池≥800次，见故障154条，未混淆。"}
+{"id": "V2K13", "label": "X", "answer_score": 2, "grounded": true, "reason": "给出一般≤2cm（扫地问答2第61条）及多数1.5-2cm、高端2.5cm，说明不能作所有机型保证，条件见故障128条。"}
+{"id": "V2K13", "label": "Y", "answer_score": 2, "grounded": true, "reason": "多数1.5-2cm、高端2.5cm来自扫地问答PDF，上限与一般≤2cm一致；说明不是全机型保证且需按机型确认适配。"}
+{"id": "V2K14", "label": "X", "answer_score": 2, "grounded": true, "reason": "SLAM、建图快精度高、复杂户型不易迷路，完整。"}
+{"id": "V2K14", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整；激光导航补充见选购第3条。"}
+{"id": "V2K15", "label": "X", "answer_score": 2, "grounded": true, "reason": "防污水回流、易拆洗省心避免异味，完整。"}
+{"id": "V2K15", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两点完整。"}
+{"id": "V2K16", "label": "X", "answer_score": 2, "grounded": true, "reason": "橡胶防滑优于塑料、纹路增强抓地、适配地毯和湿滑地面，完整。"}
+{"id": "V2K16", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整。"}
+{"id": "V2K17", "label": "X", "answer_score": 2, "grounded": true, "reason": "仅支持机型、APP绘制路径按路线清洁、重点区域精准扫拖，完整。"}
+{"id": "V2K17", "label": "Y", "answer_score": 2, "grounded": false, "reason": "三点正确；但把“先扫后拖”流程的【自定义清扫】设置当作自定义路线的“具体设置方法”，属于跨条目误用。"}
+{"id": "V2K18", "label": "X", "answer_score": 2, "grounded": false, "reason": "暂停拖地保留扫地、部分机型提示、手动加水正确；但把“水箱加水后漏水怎么处理”条目的检查水箱盖、密封圈、出水管写成补水的具体操作，属于跨条目误用。"}
+{"id": "V2K18", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整，保留机型条件。"}
+{"id": "V2K19", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序校验引用HEPA条目，五点完整。"}
+{"id": "V2K19", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序校验引用。"}
+{"id": "V2K20", "label": "X", "answer_score": 2, "grounded": true, "reason": "每周、1:50柠檬酸、浸泡10分钟、冲洗晾干完整；清洁液稀释提醒见维护第20条。"}
+{"id": "V2K20", "label": "Y", "answer_score": 2, "grounded": true, "reason": "四点完整。"}
+{"id": "V2K21", "label": "X", "answer_score": 2, "grounded": true, "reason": "断开充电座、每1-2个月补电、充至80%-90%，完整。"}
+{"id": "V2K21", "label": "Y", "answer_score": 2, "grounded": false, "reason": "三点正确；但括注“另有资料建议充至50%-70%”丢掉了该条“拆卸电池后存放”的前提，把不同条件的数值并到整机存放上。"}
+{"id": "V2K22", "label": "X", "answer_score": 2, "grounded": true, "reason": "三项检查与对应处理完整。"}
+{"id": "V2K22", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三项检查与对应处理完整。"}
+{"id": "V2K23", "label": "X", "answer_score": 2, "grounded": true, "reason": "立即关机冷却、三项风险、清理风道并联系售后检测，完整。"}
+{"id": "V2K23", "label": "Y", "answer_score": 2, "grounded": true, "reason": "完整。"}
+{"id": "V2K24", "label": "X", "answer_score": 1, "grounded": false, "reason": "清水刻度/污水满、清理水位传感器、加水倒污水重启正确；“通用安全要求”答成安装拖布前检查拖布（维护第9条），不是清理时全程断电，误用条目。本次输入也未含断电条目。"}
+{"id": "V2K24", "label": "Y", "answer_score": 1, "grounded": false, "reason": "前三点正确；安全要求同样误用为拖布干净无硬化，缺全程断电。"}
+{"id": "V2K25", "label": "X", "answer_score": 2, "grounded": true, "reason": "水箱感应传感器、干软布擦拭、重装扣紧卡扣，完整。"}
+{"id": "V2K25", "label": "Y", "answer_score": 2, "grounded": true, "reason": "完整，含灰尘/水渍遮挡。"}
+{"id": "V2K26", "label": "X", "answer_score": 1, "grounded": true, "reason": "升级中保持开机和网络、不可断电正确；遗漏题目所问升级前需连接WiFi。"}
+{"id": "V2K26", "label": "Y", "answer_score": 2, "grounded": false, "reason": "连接WiFi、保持开机联网、不可断电完整；新增“否则可能导致升级失败或设备损坏”在本次输入中没有依据。"}
+{"id": "V2K27", "label": "X", "answer_score": 2, "grounded": true, "reason": "不建议、刮伤机身地面、堵滤网卡机件、先手动清理再用，完整。"}
+{"id": "V2K27", "label": "Y", "answer_score": 2, "grounded": true, "reason": "完整；刮伤拖布见故障150条。"}
+{"id": "V2K28", "label": "X", "answer_score": 1, "grounded": true, "reason": "每层建图、专属参数、换层前清理传感器校准正确，附加内容均有据；但没有说明需手动搬到对应楼层后启动、不能自动跨层。"}
+{"id": "V2K28", "label": "Y", "answer_score": 2, "grounded": false, "reason": "必答点完整并明确不能自动跨层；但加入“拖地前清理阳台积水”（阳台洗衣机条目）作为搬楼层步骤，并把虚拟墙解释为防跨楼层误操作，属于跨条目误用。"}
+{"id": "V2N01", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确未提供扭矩和规格，无编造。"}
+{"id": "V2N01", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确未提供，无编造。"}
+{"id": "V2N02", "label": "X", "answer_score": 2, "grounded": false, "reason": "明确无法给出剩余天数和百分比，区分更换周期与实时寿命；但断言“您未使用APP查看”属于对用户的无据推断。"}
+{"id": "V2N02", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法给出，指向APP耗材管理，3-6个月周期未当作实时寿命。"}
+{"id": "V2N03", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序固定拒答，不编造比例。"}
+{"id": "V2N03", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序固定拒答。"}
+{"id": "V2N04", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确无法确认，无编造。"}
+{"id": "V2N04", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法确认，无编造。"}
+{"id": "V2N05", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确缺版本号和SHA256；出厂固件稳定、升级保留设置见本次输入。"}
+{"id": "V2N05", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法确定，无编造。"}
+{"id": "V2N06", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确无实测数据，无编造。"}
+{"id": "V2N06", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无实测数据；对资料内容的概述与本次输入一致。"}
+{"id": "V2A01", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "1006/2025-10三个字段正确且仅列所问。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "与工具结果一致。"}]}
+{"id": "V2A01", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X相同的正确输出。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "与工具结果一致。"}]}
+{"id": "V2A02", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "11月93%/38㎡；12月95%/40㎡，增加2个百分点和2㎡，两轮均实查。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "下一月、数值和单位正确。"}]}
+{"id": "V2A02", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X相同的正确输出。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "下一月、数值和单位正确。"}]}
+{"id": "V2A03", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮给出手机离线可执行及两个前提；次轮说明不能把结论扩到机器人断网并引用前提原文。回答末尾回显“当前追问”属格式瑕疵，不影响语义。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "前提完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "未扩大条件。"}]}
+{"id": "V2A03", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮“可以”及两个前提完整；次轮与X相同。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "前提完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "未扩大条件。"}]}
+{"id": "V2A04", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮不可混用及理由完整；次轮污水仓滤网每周冲洗、晾干、6个月更换、破损立即更换。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "对象与四项要求完整。"}]}
+{"id": "V2A04", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X输出相同。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "完整。"}]}
+{"id": "V2A05", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "64对合成历史后回忆污水仓滤网、晾干提醒、资料不足不猜，无工具；次轮保持对象并给出全部周期与破损要求。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "三项回忆完整，无工具。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "完整。"}]}
+{"id": "V2A05", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "回忆与次轮均完整。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "三项回忆完整，无工具。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "完整。"}]}
+{"id": "V2A06", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "回忆2025-09及两个字段；次轮查1004得8次/月、88%。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "月份与两字段正确，无工具。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "两项正确，未混入其他账号。"}]}
+{"id": "V2A06", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "回忆与次轮均正确。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "月份与两字段正确，无工具。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "两项正确。"}]}

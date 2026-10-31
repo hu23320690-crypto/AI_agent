@@ -1,0 +1,49 @@
+# Intent component evaluation: hybrid / test
+
+Planned records: 300; repeats: 3.
+
+| Repeat | Exact | Dangerous | Fallback | p50 all (s) | p95 all (s) | p95 successful (s) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 83.00% | 9 | 0.00% | 1.0588 | 1.2373 | 1.2373 |
+| 2 | 83.00% | 9 | 0.00% | 1.0359 | 1.2240 | 1.2240 |
+| 3 | 83.00% | 9 | 0.00% | 1.0593 | 1.2137 | 1.2137 |
+
+| Metric | Mean | Worst repeat |
+| --- | ---: | ---: |
+| exact_accuracy | 83.00% | 83.00% |
+| dangerous | 9.0000 | 9.0000 |
+| dangerous_count | 9.0000 | 9.0000 |
+| fallback_count | 0.0000 | 0.0000 |
+| fallback_rate | 0.00% | 0.00% |
+| budget_skip_count | 0.0000 | 0.0000 |
+| budget_skip_rate | 0.00% | 0.00% |
+| extra_model_calls | 100.0000 | 100.0000 |
+| latency_all_p50 | 1.0513 | 1.0593 |
+| latency_all_p95 | 1.2250 | 1.2373 |
+| latency_successful_p50 | 1.0513 | 1.0593 |
+| latency_successful_p95 | 1.2250 | 1.2373 |
+| slot_fields_accuracy | 93.00% | 93.00% |
+| slot_unknown_fields_accuracy | 91.00% | 91.00% |
+| slot_requested_field_order_accuracy | 90.00% | 90.00% |
+| slot_target_month_accuracy | 94.00% | 94.00% |
+| slot_comparison_month_accuracy | 98.00% | 98.00% |
+| slot_compare_accuracy | 100.00% | 100.00% |
+| slot_scope_accuracy | 99.00% | 99.00% |
+| slot_knowledge_requested_accuracy | 100.00% | 100.00% |
+| slot_unresolved_month_accuracy | 96.00% | 96.00% |
+| wrong_scope | 1.0000 | 1.0000 |
+| safe_fail | 4.0000 | 4.0000 |
+| other_error | 3.0000 | 3.0000 |
+| execution_failure_count | 0.0000 | 0.0000 |
+
+All planned records remain in denominators. Slot rates measure final semantic selectors; overall passes additionally require execution success.
+
+Severity: {"dangerous": 27, "wrong_scope": 3, "safe_fail": 12, "other_error": 9}
+
+Execution states: {"ok": 300}
+
+Conflict counts: {"anchor_lookup_consistency": 9, "field_not_in_catalog": 6, "fields_rule_fallback": 9, "mention_unanchored_kept": 12, "month_unsupported": 3, "negated_field_selected": 12, "negated_month_selected": 6, "non_metric_unknown_dropped": 9, "qualifier_dropped": 21, "relative_month_recomputed": 3, "scope_rule_override": 3}
+
+Budget skips: 0; extra model attempts: 300.
+
+Latency: nearest-rank ceil(p*n), all states and successful execution states separately. Missing latency observations: 0.

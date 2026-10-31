@@ -1,0 +1,80 @@
+{"id": "G1K01", "label": "X", "answer_score": 2, "grounded": true, "reason": "≥3000Pa、地毯≥4000Pa、可调吸力适配不同地面三点完整，均见选购指南第2条。"}
+{"id": "G1K01", "label": "Y", "answer_score": 2, "grounded": false, "reason": "两个下限和适配不同地面正确；但把吸力可调说成也为适配“污渍程度”，资料中污渍分档属于出水量第42条，不支持吸力可调的这一新增理由。"}
+{"id": "G1K02", "label": "X", "answer_score": 2, "grounded": true, "reason": "清水箱≥300ml、污水箱≥250ml分开，小户型约200ml以减重，完整且有据。"}
+{"id": "G1K02", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两个箱体下限分开且正确，小户型约200ml减少机身重量，完整有据。"}
+{"id": "G1K03", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序校验引用选购指南第9条原文：热风烘干防发霉异味、≥150转/分钟清洁更彻底，全部必答点在内。"}
+{"id": "G1K03", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序校验引用，必答点完整。"}
+{"id": "G1K04", "label": "X", "answer_score": 2, "grounded": true, "reason": "防误触、机身按键与APP均可设置，完整有据。"}
+{"id": "G1K04", "label": "Y", "answer_score": 2, "grounded": true, "reason": "防误触、机身按键和APP，完整有据。"}
+{"id": "G1K05", "label": "X", "answer_score": 2, "grounded": true, "reason": "≥500ml、宠物≥600ml、密封防异味，未混成集尘袋，完整有据。"}
+{"id": "G1K05", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整有据。"}
+{"id": "G1K06", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序校验引用集尘袋条目：1-2个月、半个月-1个月、80%及时更换，完整。"}
+{"id": "G1K06", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序校验引用，完整。"}
+{"id": "G1K07", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序校验引用边刷条目：2-3个月、多尘1个月、＜1cm/变形/断裂更换，完整。"}
+{"id": "G1K07", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序校验引用，完整。"}
+{"id": "G1K08", "label": "X", "answer_score": 2, "grounded": true, "reason": "每日清灰、每月清水冲洗、晾干后使用、6个月更换完整；“阴凉处晾干”见同次输入的滤网水洗条目，未套用HEPA周期。"}
+{"id": "G1K08", "label": "Y", "answer_score": 2, "grounded": true, "reason": "四项安排完整，按初效条目作答。"}
+{"id": "G1K09", "label": "X", "answer_score": 2, "grounded": true, "reason": "ABS耐磨、不锈钢防锈、食品级硅胶，完整有据。"}
+{"id": "G1K09", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三种材质及外壳、支架目的完整有据。"}
+{"id": "G1K10", "label": "X", "answer_score": 2, "grounded": true, "reason": "断点续拖（限支持机型）回缺水位置继续、地图分区分批两种办法完整。"}
+{"id": "G1K10", "label": "Y", "answer_score": 2, "grounded": true, "reason": "支持机型回缺水位置继续，地图分区分批作为另一办法，保留机型限定，完整。"}
+{"id": "G1K11", "label": "X", "answer_score": 1, "grounded": true, "reason": "10cm停止拖地、仅扫地正确，但没有说明把地毯边缘设为缓冲区，替代功能答成“禁拖区”而非同条资料的拖布抬升功能。禁拖区本身见本次输入，不算编造。"}
+{"id": "G1K11", "label": "Y", "answer_score": 1, "grounded": true, "reason": "地毯边缘设缓冲区、10cm停止拖地、仅扫地正确；替代功能答成“禁拖区”，未给出同条资料所列的拖布抬升功能。禁拖区内容有据。"}
+{"id": "G1K12", "label": "X", "answer_score": 2, "grounded": true, "reason": "仅部分机型支持、中档出水、专用瓷砖清洁液、多次拖扫完整；末句的保留说明不改变答案。"}
+{"id": "G1K12", "label": "Y", "answer_score": 2, "grounded": true, "reason": "保留部分机型限定，三项安排完整。"}
+{"id": "G1K13", "label": "X", "answer_score": 2, "grounded": true, "reason": "排空→多次冲洗→按比例重新混合→加注后重启，顺序完整正确。"}
+{"id": "G1K13", "label": "Y", "answer_score": 2, "grounded": true, "reason": "四步顺序完整；附加的按比例稀释注意事项见本次输入维护第20条。"}
+{"id": "G1K14", "label": "X", "answer_score": 2, "grounded": true, "reason": "三种声音对应原因、针对性清理或联系售后、不作确诊均有；嗡嗡声括注来自本次输入故障149条，有据。"}
+{"id": "G1K14", "label": "Y", "answer_score": 1, "grounded": true, "reason": "三种声音对应和“不能作为已确认诊断”正确，但没有给出资料的处理方向（针对性清理或联系售后），改述为需进一步验证。"}
+{"id": "G1K15", "label": "X", "answer_score": 2, "grounded": true, "reason": "干软布/无尘布轻擦、避免湿布和酒精、确保环境通风干燥覆盖必答点；附加的阳台、多层、镜面环境建议均见本次输入。"}
+{"id": "G1K15", "label": "Y", "answer_score": 1, "grounded": true, "reason": "擦拭方法和禁用湿布酒精正确；环境安排只给阳台通风、镜面环境等其他条目，没有受潮后放到干燥环境使用这一点。"}
+{"id": "G1K16", "label": "X", "answer_score": 1, "grounded": true, "reason": "擦拭检查传感器、平整地面、损坏联系售后正确；遗漏资料明确的“重启设备”校准步骤。"}
+{"id": "G1K16", "label": "Y", "answer_score": 1, "grounded": true, "reason": "清理传感器、平整地面校准测试、损坏联系售后正确；同样遗漏重启设备校准。"}
+{"id": "G1K17", "label": "X", "answer_score": 1, "grounded": true, "reason": "只列出两处检查，没有题目要求的处理：重新安装扣紧、擦拭感应传感器。"}
+{"id": "G1K17", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两处检查及重新安装扣紧、擦拭传感器的处理完整。"}
+{"id": "G1K18", "label": "X", "answer_score": 2, "grounded": true, "reason": "检查并调整边界、保存后重新识别地图、关闭禁区临时取消，完整。"}
+{"id": "G1K18", "label": "Y", "answer_score": 2, "grounded": true, "reason": "重新调整范围并保存、重新识别地图、关闭禁区临时取消，完整。"}
+{"id": "G1K19", "label": "X", "answer_score": 2, "grounded": true, "reason": "建图失败与删除失败的检查和处理两组完整对应故障193、102条。"}
+{"id": "G1K19", "label": "Y", "answer_score": 1, "grounded": true, "reason": "删除失败一组完整；建图失败只写清理缓存，遗漏删除旧地图。"}
+{"id": "G1K20", "label": "X", "answer_score": 2, "grounded": true, "reason": "确认建图完整、重新标定点位、清理障碍、重新定位完整；重新建图、检查擦拭传感器见本次输入故障107条。"}
+{"id": "G1K20", "label": "Y", "answer_score": 2, "grounded": false, "reason": "四个必答步骤正确；但把沿边清扫偏离墙边条目（擦沿边传感器、查边刷磨损、平整地面）当作定点清扫的注意事项，属于跨条目误用。"}
+{"id": "G1K21", "label": "X", "answer_score": 2, "grounded": true, "reason": "集尘仓关闭、清理通道、确认连接，完整。"}
+{"id": "G1K21", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整；附加的“集尘系统故障”报警处理见本次输入第50条，并明确是报警情形。"}
+{"id": "G1K22", "label": "X", "answer_score": 2, "grounded": true, "reason": "出风口清理毛发杂物、滤网堵塞清洗，完整。"}
+{"id": "G1K22", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两处检查及处理分列完整。"}
+{"id": "G1K23", "label": "X", "answer_score": 2, "grounded": true, "reason": "先暂停清扫、网络正常、充电座通电无遮挡，完整。"}
+{"id": "G1K23", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整。"}
+{"id": "G1K24", "label": "X", "answer_score": 2, "grounded": true, "reason": "堵塞疏通、线路检查、故障联系售后更换，完整。"}
+{"id": "G1K24", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三项完整。"}
+{"id": "G1K25", "label": "X", "answer_score": 2, "grounded": true, "reason": "牙签/细铁丝轻通、避免用力过猛、清水冲洗确保出水顺畅，完整。"}
+{"id": "G1K25", "label": "Y", "answer_score": 2, "grounded": true, "reason": "三点完整（末句重复不影响）。"}
+{"id": "G1K26", "label": "X", "answer_score": 2, "grounded": true, "reason": "卡扣松开、排水口清理，完整。"}
+{"id": "G1K26", "label": "Y", "answer_score": 2, "grounded": true, "reason": "两处检查和处理完整。"}
+{"id": "G1K27", "label": "X", "answer_score": 1, "grounded": true, "reason": "低温保护、结冰、室温静置30分钟、解冻后充电开机正确；本次输入只有故障173条，没有冬季充电温度条目，回答如实说明资料未提供，但必答点≥5℃缺失。"}
+{"id": "G1K27", "label": "Y", "answer_score": 1, "grounded": false, "reason": "前半完整；“冬季充电至少需高于5℃”在本次唯一输入块中没有依据（只能从＜5℃无法开机推断），且边界写成“高于”而非“不低于”。"}
+{"id": "G1K28", "label": "X", "answer_score": 2, "grounded": false, "reason": "检查特殊字符、是否支持中文、改英文/数字、重新连接完整；新增“多数机器人不支持”中文WiFi在本次输入中无依据。"}
+{"id": "G1K28", "label": "Y", "answer_score": 2, "grounded": true, "reason": "四点完整且只使用故障158条内容。"}
+{"id": "G1N01", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确无法确认当日水硬度，没有编造数值或地区均值。"}
+{"id": "G1N01", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法确认；附带的自来水/纯净水、部分机型水质过滤见本次输入第96条。"}
+{"id": "G1N02", "label": "X", "answer_score": 2, "grounded": true, "reason": "不能给出绝缘电阻或确认电路恢复；引用潮湿停机断电晾干、联系售后检测电路有据，未把晾干当合格。"}
+{"id": "G1N02", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确两项都无法确认，无编造。"}
+{"id": "G1N03", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确无法得出全年毛发克数，无编造。"}
+{"id": "G1N03", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法得出，未把百分比当克数，无编造。"}
+{"id": "G1N04", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确不能给出分项因果贡献，无编造。"}
+{"id": "G1N04", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确不能给出，无编造。"}
+{"id": "G1N05", "label": "X", "answer_score": 2, "grounded": true, "reason": "程序固定拒答：不能预测剩余小时，不把通用周期当实测寿命。"}
+{"id": "G1N05", "label": "Y", "answer_score": 2, "grounded": true, "reason": "与X逐字相同的程序固定拒答。"}
+{"id": "G1N06", "label": "X", "answer_score": 2, "grounded": true, "reason": "明确无法确认，不编造实体ID、服务名、端口。"}
+{"id": "G1N06", "label": "Y", "answer_score": 2, "grounded": true, "reason": "明确无法确认；区分了资料第88条手机离线时按预设任务工作与HA本地控制，未把APP支持当本地集成证据。"}
+{"id": "G1A01", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "查1005/2025-03，手动操作93%，耗电量明确未提供。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项按工具结果，缺项未替代。"}]}
+{"id": "G1A01", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X相同的正确输出。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项按工具结果，缺项未替代。"}]}
+{"id": "G1A02", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "两轮各实查1009；5月91%/45天；前一月2025-04为90%/50天，减少1个百分点、增加5天，方向和单位正确。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "只列两项，数值正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "前一月、差值方向与百分点单位正确，未推断寿命延长。"}]}
+{"id": "G1A02", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X相同的正确输出。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "只列两项，数值正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "前一月、差值方向与百分点单位正确。"}]}
+{"id": "G1A03", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "12月98%/55天正确；下一月跨年查2026-01并明确未找到，未拿12月充当。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "2026-01未找到，无回退。"}]}
+{"id": "G1A03", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X相同的正确输出。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "两项正确。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "2026-01未找到，无回退。"}]}
+{"id": "G1A04", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮RAG程序引用电池条目完整（2-3年、＜原续航50%、充不进电或鼓包立即更换）；次轮查1005/2025-11电池衰减30%、手动70%，并说明月记录不能证明已达续航门槛。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "原文引用完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "两项正确，未把衰减当剩余续航，未下更换结论。"}]}
+{"id": "G1A04", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "与X输出相同（首轮检索词不同但结果相同）。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "原文引用完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "两项正确，未下更换结论。"}]}
+{"id": "G1A05", "label": "X", "answer_score": 1, "grounded": true, "task_pass": false, "reason": "首轮回忆完整；次轮只给耗材专项（每周/每月/3-6个月/磨损变形立即更换），遗漏拖地功能专属条目的每日挑出毛发杂物，也没有按章节分别说明，违反用户刚回顾的要求。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "对象、排除项、三类动作、分章节和不猜要求全部保留。"}, {"turn": 2, "answer_score": 1, "grounded": true, "reason": "缺每日条目与分章节呈现。"}]}
+{"id": "G1A05", "label": "Y", "answer_score": 1, "grounded": true, "task_pass": false, "reason": "首轮回忆完整；次轮同样只有耗材专项一组频率，缺每日条目和分章节说明。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "四项要求全部保留。"}, {"turn": 2, "answer_score": 1, "grounded": true, "reason": "缺每日条目与分章节呈现。"}]}
+{"id": "G1A06", "label": "X", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮流程完整；次轮说明资料未允许因空转无异响跳过，列出充电30分钟校准电量、删除旧地图重新建图校准功能，未给建图时长，未宣称设备已检测。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "检查项、空转1-2分钟、观察测试完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "两项操作与时长完整，未把假设当检测结果。"}]}
+{"id": "G1A06", "label": "Y", "answer_score": 2, "grounded": true, "task_pass": true, "reason": "首轮完整；次轮明确不能跳过，充电30分钟和删图重建校准完整。", "turn_reviews": [{"turn": 1, "answer_score": 2, "grounded": true, "reason": "流程完整。"}, {"turn": 2, "answer_score": 2, "grounded": true, "reason": "明确不能跳过，两项操作完整。"}]}

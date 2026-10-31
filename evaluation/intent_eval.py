@@ -433,8 +433,9 @@ def _jsonl_bytes(rows):
 
 def model_identity():
     import yaml
+    from agent.intent.llm_parser import load_intent_config
     config = yaml.safe_load((ROOT / 'config/rag.yml').read_text(encoding='utf-8'))
-    name = config['chat_model_name']
+    name = load_intent_config().model_name or config['chat_model_name']
     host = os.environ.get('OLLAMA_HOST', 'http://127.0.0.1:11434').rstrip('/')
     if not host.startswith(('http://', 'https://')):
         host = 'http://' + host

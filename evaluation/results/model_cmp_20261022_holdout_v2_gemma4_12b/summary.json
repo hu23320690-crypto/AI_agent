@@ -1,0 +1,216 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 21,
+      "3": 27,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 18,
+      "3": 25,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 18,
+      "3": 25,
+      "5": 27
+    },
+    "mrr_at_5": 0.8523809523809524,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 25,
+    "partial": 3,
+    "incorrect": 0,
+    "grounded": 26,
+    "strict_pass": 24,
+    "strict_fail": 4,
+    "strict_pass_fraction_planned": 0.8571428571428571,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 26,
+      "all_required_hit": 25,
+      "policy_hit": 25
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 6,
+    "strict_pass": 6,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 1.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 6,
+    "task_fail": 0,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 128,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.11047894999956043,
+      "p95_seconds": 0.1466757999987749
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 2.331107800000609,
+      "p95_seconds": 3.358463099999426
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 13.151704699999755,
+      "p95_seconds": 22.031092699999135
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 5.366662249999536,
+      "p95_seconds": 30.811607300000105
+    }
+  },
+  "model_usage": {
+    "observed_requests": 56,
+    "requests_by_status": {
+      "ok": 56,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 56,
+    "input_tokens": 102153,
+    "output_tokens": 7367,
+    "request_input_message_counts": {
+      "count": 56,
+      "median_messages": 2.0,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "V2K21",
+      "status": "ok",
+      "review": {
+        "id": "V2K21",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "三点正确；但括注“另有资料建议充至50%-70%”丢掉了该条“拆卸电池后存放”的前提，把不同条件的数值并到整机存放上。",
+        "result_sha256": "2d982895c8f3cf81293a4252cb52875bc06903b7c1c9739b95dfd795068629e7",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K24",
+      "status": "ok",
+      "review": {
+        "id": "V2K24",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "清水刻度/污水满、清理水位传感器、加水倒污水重启正确；“通用安全要求”答成安装拖布前检查拖布（维护第9条），不是清理时全程断电，误用条目。本次输入也未含断电条目。",
+        "result_sha256": "72a97add5502f5cd22916212afef448cb8cc41fd1692f68ce617521e03f1e0ab",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K26",
+      "status": "ok",
+      "review": {
+        "id": "V2K26",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "升级中保持开机和网络、不可断电正确；遗漏题目所问升级前需连接WiFi。",
+        "result_sha256": "67992cfe94a785b9b914754bbda83eeb680f54e1f3a68c4744233dfc4a2a1176",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "V2K28",
+      "status": "ok",
+      "review": {
+        "id": "V2K28",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "每层建图、专属参数、换层前清理传感器校准正确，附加内容均有据；但没有说明需手动搬到对应楼层后启动、不能自动跨层。",
+        "result_sha256": "3f90d46fb7ca0840386215b4fe341b83c4e7628a9fd2867a3cf80e9c6502375a",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

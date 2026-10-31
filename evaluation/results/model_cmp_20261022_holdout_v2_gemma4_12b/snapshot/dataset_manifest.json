@@ -1,0 +1,38 @@
+{
+  "version": "holdout-2.0",
+  "created_date": "2026-10-06",
+  "case_count": 40,
+  "counts": {
+    "knowledge": 28,
+    "unanswerable": 6,
+    "agent": 6
+  },
+  "knowledge_subgroups": {
+    "fact_disambiguation": 18,
+    "procedure_conditions": 10
+  },
+  "question_count": 45,
+  "agent_question_count": 11,
+  "synthetic_history": {
+    "case_count": 2,
+    "pairs_per_case": 64,
+    "total_seed_pairs": 128,
+    "total_seed_messages": 256,
+    "counted_as_real_interactions": false
+  },
+  "scope": "同一项目6个知识资料及月度演示CSV上的新事实、新条件组合和任务验收；不属于跨领域泛化或厂商真实性验证。",
+  "construction": "由Codex助手依据原资料与旧60+12案例构造；问题、参考答案、逐轮要求与证据锚在新40案例推理前冻结。独立代理先审查，但同属助手团队，非独立真人/领域专家标注或盲评。新40不参与本轮业务参数选择。",
+  "frozen_before_inference": true,
+  "evidence_policy": "knowledge全部使用all：全部标注锚均需覆盖；禁止把任一命中作为跨段完整命中。",
+  "files": {
+    "data/扫地机器人100问.pdf": "f9ee0fea506436d8ea4a5ac6e1c272191023f41e95b677842e527f57745b4eb8",
+    "data/扫地机器人100问2.txt": "57ae8d6f93bbca9a4df5bfdd0a5fb301874404a611af33e5fcce3127d5cf0a0b",
+    "data/扫拖一体机器人100问.txt": "ad8af64df453a7bf3d614473cd66ce530ce707f4cacf549b90cb447889dccebc",
+    "data/故障排除.txt": "a954122a615861d62c74909d84a2f3a61f157d9bf5affa3c5f8ecd28998b84ad",
+    "data/维护保养.txt": "a5159f149789988fb6bb1dd619f0060a84f436746fc32fafb0a2e0e3a39fa23a",
+    "data/选购指南.txt": "e06bb351f6ade02ba52590d98867a6a39a9882524413150b2cc207ace270f726",
+    "data/external/records.csv": "5f96f769948d8c0c18bd6c9926ce200b24e958c36ffd795308b4a031c6f955cb"
+  },
+  "dataset_sha256": "7c67b4c778c1f3297d6ac1aef8f993940f291b78bb7331078c0c1a3d2278a0d9",
+  "scoring_sha256": "6b561f23072fc105c778d1f2ce574149cd0c95dc080dabc460acc6e283cc2882"
+}

@@ -31,6 +31,8 @@
 - **写操作安全**：H1–H6 硬门槛事件在四个正式运行中均为 **0**；离线对抗测试另覆盖参数篡改、重放、跨用户、过期和并发确认。
 - **工具提议**：test/plan 提议精确率 **17/17**、召回率 **17/20**；工具调对不等于任务完成。
 - **端到端任务**：test 上 react **10/30**、plan **12/30**（+6.67pp，未达预设 15pp），因此默认仍保留 `legacy + react`。
+- **换模型对照**：同代码、同索引、同机器只把聊天模型换成 gemma4:12b，两套已见题知识严格通过 qwen3:4b **40/56** → gemma4:12b **48/56**，资料不足 **11/12 → 12/12**，Agent 全轮均为 **11/12**；差距主要来自忠实度（无据补充 10 次对 2 次）。端到端售后任务（service test 已见重跑）全轮通过 react **10/30 → 14/30**、plan **9/30 → 14/30**，H1–H6 仍均为 0。默认模型仍为 qwen3:4b，见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md)。
+- **意图解析 SFT（算法实验）**：用结构先行、经线上管线复核的合成数据，对 Qwen3 做 LoRA 微调，系统提示词从 1859 token 缩短到 55 token。在封存 test 上（100 题 × 3 次），hybrid 完全正确率：qwen3:4b 长提示词 **83%**，1.7B SFT **93%**；危险错误 **9 → 3**；解析 p95 **1.21 s → 0.81 s**。0.6B 为 **90%**、p95 **0.46 s**，是唯一达到全部预设门槛的配置。100 题上 +10 点经 Holm 校正后不显著（p = 0.154）。补充实验：用 qwen3:4b 自己的标签训练，学生只能回到教师水平（hybrid 84%）；换成程序标签后多 7～12 点。同为 Q4_K_M 时，1.7B 的 p95 为基线的 49%。默认仍为 `rule`，见 [INTENT_SFT.md](docs/INTENT_SFT.md)。
 
 > 评测为小样本、每种模式只跑一次；盲评为助手辅助、隐藏标签，不是独立专家评审。完整数字、失败案例与限制见 [S5 报告](docs/SERVICE_AGENT_S5_REPORT.md) 和 [LIMITATIONS.md](docs/LIMITATIONS.md)。
 
@@ -50,6 +52,19 @@
 | 按门槛得出的默认组合 | **保留 legacy + react** | service、plan 均为可选开关 |
 
 plan 未达到预设提升门槛，service 在旧任务上退步，因此默认仍为 legacy + react。每种模式只跑一次、样本小，不作显著性结论；完整口径与限制见报告第 3–9 节。
+
+**换聊天模型对照**（2026-10-22，legacy + react，标签隐藏配对复核）
+
+| 题集 | 层 | qwen3:4b | gemma4:12b |
+| --- | --- | --- | --- |
+| generalization_v1（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 19/28 · 6/6 · 5/6 | **24/28** · 6/6 · 5/6 |
+| holdout_v2（已见回归） | 知识严格 / 资料不足 / Agent 全轮 | 21/28 · 5/6 · 6/6 | **24/28** · **6/6** · 6/6 |
+| service test 端到端（已见重跑） | 全轮任务 react / plan | 10/30 · 9/30 | **14/30** · **14/30** |
+| | 自动部分通过 react / plan | 15/30 · 15/30 | 19/30 · **22/30** |
+| | 提议精确率 / 召回率 react | 16/20 · 16/20 | 8/8 · 8/20 |
+| | 提议精确率 / 召回率 plan | 15/17 · 15/20 | 14/14 · 14/20 |
+
+两模型共用检索结果与 8192 上下文；为此给 gemma4 加了与 Ollama 计数逐条一致的离线 tokenizer。问答 Agent 层多为程序渲染，几乎不区分模型。端到端任务中 qwen3 多在确认前声称已改约/已取消，gemma4 react 常不生成卡片、plan 能补上；S5 后 plan_core/render 有改动，qwen3 在当前代码上重跑，S5 原成绩只作参照。单次运行、已见题、助手评审，不作显著性结论，详见 [对照报告](docs/MODEL_COMPARISON_GEMMA4.md#端到端售后任务s5-test-集)。
 
 </details>
 
@@ -238,6 +253,8 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 .\.venv\Scripts\python.exe -B scripts/manage.py doctor
 ```
 
+改用 gemma4:12b 时加 `--model gemma4:12b`；同机两模型对照用 `scripts/run_model_comparison.ps1`（加 `-Suite service` 跑售后端到端），见 [对照说明](artifacts/gemma4_comparison/README.md)。
+
 新增或修改知识资料（UTF-8 TXT 或可提取文字的 PDF）时，需要先审核再入库：
 
 ```powershell
@@ -270,6 +287,8 @@ Docker 部署见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)，接口细节和错误码�
 | 上下文预算与摘要 | [CONTEXT_MANAGEMENT.md](docs/CONTEXT_MANAGEMENT.md)、[验收记录](docs/CONTEXT_MANAGEMENT_VERIFICATION.md) |
 | 评测方法与命令 | [evaluation/README.md](evaluation/README.md)、[EXPERIMENTS.md](evaluation/EXPERIMENTS.md) |
 | 新题测试与修复 | [GENERALIZATION_EVALUATION.md](docs/GENERALIZATION_EVALUATION.md)、[AGENT_GENERALIZATION_REPAIR.md](docs/AGENT_GENERALIZATION_REPAIR.md)、[EVALUATION_V2.md](docs/EVALUATION_V2.md) |
+| qwen3:4b 与 gemma4:12b 换模型对照 | [MODEL_COMPARISON_GEMMA4.md](docs/MODEL_COMPARISON_GEMMA4.md) |
+| 意图解析 SFT（合成数据 + LoRA，0.6B / 1.7B / 4B） | [INTENT_SFT.md](docs/INTENT_SFT.md)、[预注册计划](docs/plans/INTENT_SFT_PLAN.md)、[开发日志](docs/INTENT_SFT_DEV_LOG.md) |
 | 安装排查与环境复现 | [REPRODUCIBILITY.md](docs/REPRODUCIBILITY.md) |
 | HTTP 接口 / Docker 部署 | [API.md](docs/API.md)、[DEPLOYMENT.md](docs/DEPLOYMENT.md) |
 | 演示流程 | [DEMO.md](docs/DEMO.md) |

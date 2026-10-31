@@ -1,0 +1,40 @@
+{
+  "model": "intent-sft-1.7b-r2",
+  "mode": "hybrid",
+  "schema_constrained": false,
+  "count": 300,
+  "seed": 20261101,
+  "exact_accuracy": 0.9933333333333333,
+  "slot_accuracy": {
+    "fields": 1.0,
+    "unknown_fields": 1.0,
+    "requested_field_order": 1.0,
+    "target_month": 1.0,
+    "comparison_month": 0.9966666666666667,
+    "compare": 0.9966666666666667,
+    "scope": 1.0,
+    "knowledge_requested": 1.0,
+    "unresolved_month": 1.0
+  },
+  "by_category": {
+    "comparison_roles": 0.9523809523809523,
+    "field_rephrase": 1.0,
+    "month_resolution": 1.0,
+    "multi_turn_reference": 1.0,
+    "negation_correction": 1.0,
+    "qualifier_distractor": 1.0,
+    "report_knowledge": 1.0,
+    "report_scope": 1.0,
+    "unknown_field": 1.0
+  },
+  "severity_counts": {
+    "None": 298,
+    "other_error": 1,
+    "safe_fail": 1
+  },
+  "fallback_count": 0,
+  "latency_seconds": {
+    "p50": 0.6741245999874081,
+    "p95": 0.8082012000086252
+  }
+}

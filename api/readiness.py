@@ -42,14 +42,15 @@ class ReadinessProbe:
             if not all(rag[key] in available for key in ('chat_model_name', 'embedding_model_name')):
                 return {'ready': False, 'reason': 'models_missing'}
             # The only sync probe is coalesced: timeout callers do not start more workers.
-            return await asyncio.to_thread(self._local_checks, host)
+            return await asyncio.to_thread(self._local_checks, host, rag['chat_model_name'])
         except Exception:
             return {'ready': False, 'reason': 'dependencies_unavailable'}
 
     @staticmethod
-    def _local_checks(host):
-        from model.token_count import verify_local_cache
-        if not verify_local_cache(host=host):
+    def _local_checks(host, model_name):
+        from model.token_count import MODEL_NAME, PINNED_MODELS, verify_local_cache
+        # Unpinned chat models keep the original Qwen identity check.
+        if not verify_local_cache(host=host, model_name=model_name if model_name in PINNED_MODELS else MODEL_NAME):
             return {'ready': False, 'reason': 'tokenizer_identity'}
         chroma = yaml.safe_load((ROOT/'config/chroma.yml').read_text(encoding='utf-8'))
         if not (ROOT/chroma['persist_directory']/'chroma.sqlite3').is_file():

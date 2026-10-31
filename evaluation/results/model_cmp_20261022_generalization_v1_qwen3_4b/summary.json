@@ -1,0 +1,327 @@
+{
+  "planned": 40,
+  "completed": 40,
+  "statuses": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "not_run": 0
+  },
+  "reviewed": 40,
+  "review_binding": "required",
+  "execution_outcomes": {
+    "ok": 40,
+    "error": 0,
+    "timeout": 0,
+    "truncated": 0,
+    "running": 0,
+    "unknown": 0,
+    "not_run": 0
+  },
+  "retrieval": {
+    "evaluated": 28,
+    "planned": 28,
+    "hit_counts": {
+      "1": 21,
+      "3": 28,
+      "5": 28
+    },
+    "all_required_hit_counts": {
+      "1": 18,
+      "3": 27,
+      "5": 27
+    },
+    "all_required_metrics_observed": 28,
+    "policy_hit_counts": {
+      "1": 18,
+      "3": 27,
+      "5": 27
+    },
+    "mrr_at_5": 0.8630952380952381,
+    "mrr_definition": "Legacy MRR measures the first rank with any annotated anchor; it does not require all cross-passage evidence."
+  },
+  "knowledge_answers": {
+    "planned": 28,
+    "completed": 28,
+    "reviewed": 28,
+    "errors": 0,
+    "execution_complete": 28,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 22,
+    "partial": 6,
+    "incorrect": 0,
+    "grounded": 24,
+    "strict_pass": 19,
+    "strict_fail": 9,
+    "strict_pass_fraction_planned": 0.6785714285714286,
+    "actual_input_evidence": {
+      "observed": 28,
+      "any_hit": 25,
+      "all_required_hit": 23,
+      "policy_hit": 23
+    }
+  },
+  "unanswerable_answers": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "errors": 0,
+    "execution_complete": 6,
+    "not_run": 0,
+    "unknown": 0,
+    "full_correct": 6,
+    "partial": 0,
+    "incorrect": 0,
+    "grounded": 6,
+    "strict_pass": 6,
+    "strict_fail": 0,
+    "strict_pass_fraction_planned": 1.0,
+    "actual_input_evidence": {
+      "observed": 0,
+      "any_hit": 0,
+      "all_required_hit": 0,
+      "policy_hit": 0
+    }
+  },
+  "agent": {
+    "planned": 6,
+    "completed": 6,
+    "reviewed": 6,
+    "task_pass": 5,
+    "task_fail": 1,
+    "unknown": 0,
+    "tool_selection_pass": 6,
+    "planned_real_turns": 11,
+    "synthetic_seeded_turns": 64,
+    "observed_model_requests": 25
+  },
+  "latency": {
+    "retrieval": {
+      "count": 34,
+      "median_seconds": 0.12035460000015519,
+      "p95_seconds": 0.1758720000007088
+    },
+    "rag_generation": {
+      "count": 34,
+      "median_seconds": 1.4751937999999427,
+      "p95_seconds": 3.5052276000005804
+    },
+    "agent_turn": {
+      "count": 11,
+      "median_seconds": 22.703017799999543,
+      "p95_seconds": 55.89933329999985
+    },
+    "case_wall_all_statuses": {
+      "count": 40,
+      "median_seconds": 4.35993899999994,
+      "p95_seconds": 65.3511712999998
+    }
+  },
+  "model_usage": {
+    "observed_requests": 55,
+    "requests_by_status": {
+      "ok": 55,
+      "error": 0,
+      "running": 0
+    },
+    "usage_records": 55,
+    "input_tokens": 86663,
+    "output_tokens": 18825,
+    "request_input_message_counts": {
+      "count": 55,
+      "median_messages": 2,
+      "p95_messages": 9
+    },
+    "note": "Includes actual summary/planner/RAG model calls. Synthetic seed history is input only, not model-generated interactions. Missing provider usage remains unmeasured."
+  },
+  "failures": [
+    {
+      "id": "G1K01",
+      "status": "ok",
+      "review": {
+        "id": "G1K01",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "两个下限和适配不同地面正确；但把吸力可调说成也为适配“污渍程度”，资料中污渍分档属于出水量第42条，不支持吸力可调的这一新增理由。",
+        "result_sha256": "fd3baa483bdc62c01895aa5ec43e071dbe7660f0a41353c1e09c6acbb483e7fb",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K11",
+      "status": "ok",
+      "review": {
+        "id": "G1K11",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "10cm停止拖地、仅扫地正确，但没有说明把地毯边缘设为缓冲区，替代功能答成“禁拖区”而非同条资料的拖布抬升功能。禁拖区本身见本次输入，不算编造。",
+        "result_sha256": "288106b72f467b4e63c965a6b222ee12283c9bb8b03ecf65a68893620131a83e",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K14",
+      "status": "ok",
+      "review": {
+        "id": "G1K14",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "三种声音对应和“不能作为已确认诊断”正确，但没有给出资料的处理方向（针对性清理或联系售后），改述为需进一步验证。",
+        "result_sha256": "bd1bded4e432223c8ab35d89fb36332c309a513b204c2017a1e178bd5cdcc0c1",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K16",
+      "status": "ok",
+      "review": {
+        "id": "G1K16",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "清理传感器、平整地面校准测试、损坏联系售后正确；同样遗漏重启设备校准。",
+        "result_sha256": "959e7414d492c17208402b800cbc65bf39b9dbaff6cb233456b3908e9229c4b4",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K17",
+      "status": "ok",
+      "review": {
+        "id": "G1K17",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "只列出两处检查，没有题目要求的处理：重新安装扣紧、擦拭感应传感器。",
+        "result_sha256": "835dda2f6ad820dd88f551899c4f74cc56acd4cab3f5679710ad9f7e0bb99820",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K19",
+      "status": "ok",
+      "review": {
+        "id": "G1K19",
+        "answer_score": 1,
+        "grounded": true,
+        "reason": "删除失败一组完整；建图失败只写清理缓存，遗漏删除旧地图。",
+        "result_sha256": "c07550dafa593e6321490cfde4e1e6f18846e6f8d10656e2d6802d48c5244277",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K20",
+      "status": "ok",
+      "review": {
+        "id": "G1K20",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "四个必答步骤正确；但把沿边清扫偏离墙边条目（擦沿边传感器、查边刷磨损、平整地面）当作定点清扫的注意事项，属于跨条目误用。",
+        "result_sha256": "e3f820dd1eaa2c966b36a1d5cfa939489de9cb8f80ca4d9b579810b003f9de40",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K27",
+      "status": "ok",
+      "review": {
+        "id": "G1K27",
+        "answer_score": 1,
+        "grounded": false,
+        "reason": "前半完整；“冬季充电至少需高于5℃”在本次唯一输入块中没有依据（只能从＜5℃无法开机推断），且边界写成“高于”而非“不低于”。",
+        "result_sha256": "dc9b2d9f47b7b5a5edcfec801ce23d2dde11c3f415002a9cdce48b8bf5e7b7c9",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1K28",
+      "status": "ok",
+      "review": {
+        "id": "G1K28",
+        "answer_score": 2,
+        "grounded": false,
+        "reason": "检查特殊字符、是否支持中文、改英文/数字、重新连接完整；新增“多数机器人不支持”中文WiFi在本次输入中无依据。",
+        "result_sha256": "76be5f7c60feab32f0ae4a58a66cd53a58444c957c609dc473bd1909dea078b1",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "X",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    },
+    {
+      "id": "G1A05",
+      "status": "ok",
+      "review": {
+        "id": "G1A05",
+        "answer_score": 1,
+        "grounded": true,
+        "task_pass": false,
+        "reason": "首轮回忆完整；次轮同样只有耗材专项一组频率，缺每日条目和分章节说明。",
+        "turn_reviews": [
+          {
+            "turn": 1,
+            "answer_score": 2,
+            "grounded": true,
+            "reason": "四项要求全部保留。"
+          },
+          {
+            "turn": 2,
+            "answer_score": 1,
+            "grounded": true,
+            "reason": "缺每日条目与分章节呈现。"
+          }
+        ],
+        "result_sha256": "20cd3a58093bd7ecf194eda388d38e560e789707bccf847a39da1542885f2e25",
+        "reviewer": "Claude 助手语义复核（标签隐藏、配对呈现；非真人领域专家；同一助手参与了本次环境与计数器搭建，并在冒烟测试中见过 3 题输出，风格差异可能暴露模型）",
+        "blind_label": "Y",
+        "review_method": "按冻结 SCORING、题面、必答点、实际模型输入与工具结果逐题复核；X/Y 配对隐藏模型标签，评分锁定后揭盲。"
+      },
+      "execution_outcome": "ok",
+      "outcome": "fail"
+    }
+  ],
+  "review_toolchain": {
+    "rule_sha256": "47e8dfb49bb075486805fbc77753e2cbde291b266df1bf804443f29df11f13af",
+    "analysis_sha256": {
+      "evaluation/report.py": "4f4a6532520d6629c7cfdf8a985ee7bd2416e34f19be32ad79e65811641ec6a4",
+      "evaluation/export.py": "e4c2db507c32c4e4a9ba532c3f47b8e72f07e4853350fd7c0c76f440dff0fc5f",
+      "evaluation/compare.py": "c395a30590ab42fbcacacca88997b719cc3d0c68d8c0b2e35936515efedb9103"
+    },
+    "result_binding": "SHA256 of sorted-key compact UTF-8 JSON of final result row",
+    "review_note": "Assistant-assisted review is independent from inference; user/domain-expert review is still recommended."
+  }
+}

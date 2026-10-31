@@ -1,0 +1,35 @@
+### Shared LoRA SFT settings. Paths are relative to the training work directory
+### (models/, intent_sft/); train.py fills model_name_or_path, dataset_dir and output_dir.
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 16
+lora_alpha: 32
+lora_dropout: 0.05
+lora_target: all
+trust_remote_code: true
+
+dataset: intent_sft_train
+eval_dataset: intent_sft_val
+template: qwen3_nothink
+cutoff_len: 1024
+overwrite_cache: true
+preprocessing_num_workers: 1
+dataloader_num_workers: 0
+
+logging_steps: 20
+save_strategy: "no"
+eval_strategy: epoch
+per_device_eval_batch_size: 8
+plot_loss: true
+overwrite_output_dir: true
+report_to: none
+
+per_device_train_batch_size: 8
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-4
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+bf16: true
+seed: 42

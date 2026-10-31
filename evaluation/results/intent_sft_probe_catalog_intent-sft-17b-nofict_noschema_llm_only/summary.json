@@ -1,0 +1,40 @@
+{
+  "model": "intent-sft-1.7b-nofict",
+  "mode": "llm_only",
+  "schema_constrained": false,
+  "count": 300,
+  "seed": 20261101,
+  "exact_accuracy": 0.9766666666666667,
+  "slot_accuracy": {
+    "fields": 1.0,
+    "unknown_fields": 1.0,
+    "requested_field_order": 1.0,
+    "target_month": 0.99,
+    "comparison_month": 0.9866666666666667,
+    "compare": 1.0,
+    "scope": 1.0,
+    "knowledge_requested": 1.0,
+    "unresolved_month": 1.0
+  },
+  "by_category": {
+    "comparison_roles": 0.8809523809523809,
+    "field_rephrase": 1.0,
+    "month_resolution": 0.9545454545454546,
+    "multi_turn_reference": 1.0,
+    "negation_correction": 1.0,
+    "qualifier_distractor": 1.0,
+    "report_knowledge": 1.0,
+    "report_scope": 1.0,
+    "unknown_field": 1.0
+  },
+  "severity_counts": {
+    "None": 293,
+    "dangerous": 6,
+    "other_error": 1
+  },
+  "fallback_count": 0,
+  "latency_seconds": {
+    "p50": 0.6838262999954168,
+    "p95": 0.8657654999988154
+  }
+}

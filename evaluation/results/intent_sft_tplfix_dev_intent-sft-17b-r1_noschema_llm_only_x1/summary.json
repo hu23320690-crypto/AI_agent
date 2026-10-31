@@ -1,0 +1,368 @@
+{
+  "aggregate": {
+    "budget_skip_count": 0,
+    "budget_skip_rate": 0.0,
+    "conflict_counts": {
+      "field_not_in_catalog": 1,
+      "structure_invalid": 16
+    },
+    "exact_accuracy": 0.5,
+    "exact_count": 20,
+    "execution_failure_count": 16,
+    "execution_status_counts": {
+      "error": 16,
+      "ok": 24
+    },
+    "extra_model_calls": 40,
+    "fallback_count": 16,
+    "fallback_rate": 0.4,
+    "latency_seconds": {
+      "all": {
+        "count": 40,
+        "missing_count": 0,
+        "p50": 0.734545999992406,
+        "p95": 0.988071800005855
+      },
+      "successful": {
+        "count": 24,
+        "missing_count": 0,
+        "p50": 0.7331083999888506,
+        "p95": 0.9565861999872141
+      }
+    },
+    "planned_count": 40,
+    "severity_counts": {
+      "dangerous": 3,
+      "other_error": 8,
+      "safe_fail": 8,
+      "wrong_scope": 1
+    },
+    "slot_accuracy": {
+      "compare": 0.975,
+      "comparison_month": 0.95,
+      "fields": 0.875,
+      "knowledge_requested": 0.975,
+      "requested_field_order": 0.85,
+      "scope": 0.975,
+      "target_month": 0.825,
+      "unknown_fields": 0.9,
+      "unresolved_month": 1.0
+    }
+  },
+  "amendment_id021": {
+    "affected": {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "structure_invalid": 1
+      },
+      "exact_accuracy": 0.0,
+      "exact_count": 0,
+      "execution_failure_count": 1,
+      "execution_status_counts": {
+        "error": 1
+      },
+      "extra_model_calls": 1,
+      "fallback_count": 1,
+      "fallback_rate": 1.0,
+      "latency_seconds": {
+        "all": {
+          "count": 1,
+          "missing_count": 0,
+          "p50": 0.686225600016769,
+          "p95": 0.686225600016769
+        },
+        "successful": {
+          "count": 0,
+          "missing_count": 0,
+          "p50": null,
+          "p95": null
+        }
+      },
+      "planned_count": 1,
+      "severity_counts": {
+        "dangerous": 0,
+        "other_error": 1,
+        "safe_fail": 0,
+        "wrong_scope": 0
+      },
+      "slot_accuracy": {
+        "compare": 1.0,
+        "comparison_month": 1.0,
+        "fields": 1.0,
+        "knowledge_requested": 1.0,
+        "requested_field_order": 1.0,
+        "scope": 1.0,
+        "target_month": 1.0,
+        "unknown_fields": 1.0,
+        "unresolved_month": 1.0
+      }
+    },
+    "all_dev_denominator_preserved": true,
+    "excluding_affected": {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "field_not_in_catalog": 1,
+        "structure_invalid": 15
+      },
+      "exact_accuracy": 0.5128205128205128,
+      "exact_count": 20,
+      "execution_failure_count": 15,
+      "execution_status_counts": {
+        "error": 15,
+        "ok": 24
+      },
+      "extra_model_calls": 39,
+      "fallback_count": 15,
+      "fallback_rate": 0.38461538461538464,
+      "latency_seconds": {
+        "all": {
+          "count": 39,
+          "missing_count": 0,
+          "p50": 0.7446894999884535,
+          "p95": 1.059986000007484
+        },
+        "successful": {
+          "count": 24,
+          "missing_count": 0,
+          "p50": 0.7331083999888506,
+          "p95": 0.9565861999872141
+        }
+      },
+      "planned_count": 39,
+      "severity_counts": {
+        "dangerous": 3,
+        "other_error": 7,
+        "safe_fail": 8,
+        "wrong_scope": 1
+      },
+      "slot_accuracy": {
+        "compare": 0.9743589743589743,
+        "comparison_month": 0.9487179487179487,
+        "fields": 0.8717948717948718,
+        "knowledge_requested": 0.9743589743589743,
+        "requested_field_order": 0.8461538461538461,
+        "scope": 0.9743589743589743,
+        "target_month": 0.8205128205128205,
+        "unknown_fields": 0.8974358974358975,
+        "unresolved_month": 1.0
+      }
+    },
+    "ids": [
+      "ID021"
+    ],
+    "reference": "docs/plans/SCORING_AMENDMENT_01.md",
+    "used_for_prompt_tuning": false
+  },
+  "execution_note": "Failed/skipped/invalid model attempts remain in every planned denominator.",
+  "latency_method": "nearest-rank ceil(p*n), wall-clock seconds",
+  "mode": "llm_only",
+  "repeat": 1,
+  "repeat_metrics": {
+    "budget_skip_count": {
+      "mean": 0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0
+    },
+    "budget_skip_rate": {
+      "mean": 0.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.0
+    },
+    "dangerous": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "dangerous_count": {
+      "mean": 3,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 3
+    },
+    "exact_accuracy": {
+      "mean": 0.5,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.5
+    },
+    "execution_failure_count": {
+      "mean": 16,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 16
+    },
+    "extra_model_calls": {
+      "mean": 40,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 40
+    },
+    "fallback_count": {
+      "mean": 16,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 16
+    },
+    "fallback_rate": {
+      "mean": 0.4,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.4
+    },
+    "latency_all_p50": {
+      "mean": 0.734545999992406,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.734545999992406
+    },
+    "latency_all_p95": {
+      "mean": 0.988071800005855,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.988071800005855
+    },
+    "latency_successful_p50": {
+      "mean": 0.7331083999888506,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.7331083999888506
+    },
+    "latency_successful_p95": {
+      "mean": 0.9565861999872141,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.9565861999872141
+    },
+    "other_error": {
+      "mean": 8,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 8
+    },
+    "safe_fail": {
+      "mean": 8,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 8
+    },
+    "slot_compare_accuracy": {
+      "mean": 0.975,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.975
+    },
+    "slot_comparison_month_accuracy": {
+      "mean": 0.95,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.95
+    },
+    "slot_fields_accuracy": {
+      "mean": 0.875,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.875
+    },
+    "slot_knowledge_requested_accuracy": {
+      "mean": 0.975,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.975
+    },
+    "slot_requested_field_order_accuracy": {
+      "mean": 0.85,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.85
+    },
+    "slot_scope_accuracy": {
+      "mean": 0.975,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.975
+    },
+    "slot_target_month_accuracy": {
+      "mean": 0.825,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.825
+    },
+    "slot_unknown_fields_accuracy": {
+      "mean": 0.9,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 0.9
+    },
+    "slot_unresolved_month_accuracy": {
+      "mean": 1.0,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1.0
+    },
+    "wrong_scope": {
+      "mean": 1,
+      "measured_repeats": 1,
+      "missing_repeats": 0,
+      "worst": 1
+    }
+  },
+  "repeats": [
+    {
+      "budget_skip_count": 0,
+      "budget_skip_rate": 0.0,
+      "conflict_counts": {
+        "field_not_in_catalog": 1,
+        "structure_invalid": 16
+      },
+      "exact_accuracy": 0.5,
+      "exact_count": 20,
+      "execution_failure_count": 16,
+      "execution_status_counts": {
+        "error": 16,
+        "ok": 24
+      },
+      "extra_model_calls": 40,
+      "fallback_count": 16,
+      "fallback_rate": 0.4,
+      "latency_seconds": {
+        "all": {
+          "count": 40,
+          "missing_count": 0,
+          "p50": 0.734545999992406,
+          "p95": 0.988071800005855
+        },
+        "successful": {
+          "count": 24,
+          "missing_count": 0,
+          "p50": 0.7331083999888506,
+          "p95": 0.9565861999872141
+        }
+      },
+      "planned_count": 40,
+      "repeat": 1,
+      "severity_counts": {
+        "dangerous": 3,
+        "other_error": 8,
+        "safe_fail": 8,
+        "wrong_scope": 1
+      },
+      "slot_accuracy": {
+        "compare": 0.975,
+        "comparison_month": 0.95,
+        "fields": 0.875,
+        "knowledge_requested": 0.975,
+        "requested_field_order": 0.85,
+        "scope": 0.975,
+        "target_month": 0.825,
+        "unknown_fields": 0.9,
+        "unresolved_month": 1.0
+      }
+    }
+  ],
+  "split": "dev"
+}

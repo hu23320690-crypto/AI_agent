@@ -1,0 +1,4 @@
+mode: rule          # rule | hybrid | llm_only; hybrid requires P3 acceptance
+timeout_seconds: 15
+history_queries: 3
+history_bytes: 1024

@@ -82,6 +82,25 @@ def test_reveal_requires_lock_then_binds_scores(run, tmp_path):
         lock_scores(output, scores_for(output, tmp_path))
 
 
+def test_automatic_pass_only_packs_passes_and_guards_selection(run, tmp_path):
+    from evaluation.service_score import score_run
+    score_run(run)
+    output = tmp_path / 'review'
+    create_packets([run], output, automatic_pass_only=True)
+    assert len(read_rows(output / 'blind_cases.jsonl')) == 1
+    lock_scores(output, scores_for(output, tmp_path))
+    assert reveal(output)['task_pass_count'] == 1
+    # A task skipped as an automatic failure must still be one when revealed.
+    rows = read_rows(run / 'scores.jsonl')
+    write_rows(run / 'scores.jsonl', [{**row, 'automatic_pass': False} for row in rows])
+    skipped = tmp_path / 'review-skipped'
+    create_packets([run], skipped, automatic_pass_only=True)
+    assert read_rows(skipped / 'blind_cases.jsonl') == []
+    lock_scores(skipped, scores_for(skipped, tmp_path))
+    with pytest.raises(ValueError, match='Automatic passes changed'):
+        reveal(skipped)
+
+
 def test_changed_locked_score_refuses_reveal(run, tmp_path):
     output = tmp_path / 'review'
     create_packets([run], output)
